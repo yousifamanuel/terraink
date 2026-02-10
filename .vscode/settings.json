@@ -1,0 +1,5 @@
+{
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    { "file": ".vscode/commit-instructions.md" }
+  ]
+}
