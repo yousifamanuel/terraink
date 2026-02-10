@@ -1,0 +1,10 @@
+services:
+  terraink:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: terraink:latest
+    container_name: terraink
+    ports:
+      - "${APP_PORT:-7200}:80"
+    restart: unless-stopped
