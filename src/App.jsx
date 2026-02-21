@@ -460,10 +460,6 @@ export default function App() {
         </form>
 
         <section className="preview-panel">
-          <div className="preview-head">
-            <h2>Poster Preview</h2>
-            <p>Live render with export-safe dimensions.</p>
-          </div>
           <div
             className="poster-viewport"
             style={{

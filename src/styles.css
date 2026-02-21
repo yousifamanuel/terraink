@@ -289,7 +289,7 @@ button[type="submit"] {
 
 .poster-viewport {
   position: relative;
-  min-height: 650px;
+  min-height: 850px;
   border-radius: 14px;
   border: 1px solid var(--strong-line);
   background:
@@ -414,10 +414,6 @@ button[type="submit"] {
 
   .info-panel {
     grid-template-columns: 1fr;
-  }
-
-  .poster-viewport {
-    min-height: 420px;
   }
 }
 
