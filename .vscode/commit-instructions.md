@@ -1,93 +1,97 @@
 # Commit Instructions (VS Code)
 
-Use this format for all commits:
+Use emoji-style Conventional Commits.
 
-```
+Required format:
+
+```text
 <emoji> <type>(<scope>): <subject>
 ```
 
-## Examples
+Valid examples:
 
-```
-✨ feat(ui): add theme toggle
-🐛 fix(auth): handle token expiry
-🐞 bugfix(parser): fix tokenization edge case
-📚 docs: update README and usage examples
-🎨 style(css): improve form spacing and alignment
-♻️ refactor(utils): extract shared helper functions
-🚨 test(parser): add unit tests for parser
-🔧 chore(build): update build configuration
-👷 ci: add CI workflow for tests
-🎉 chore(init): initial project commit
-😺 git: fix commit message formatting
-🧱 setup: scaffold project structure
-⚡ perf(api): improve response time for list endpoint
-🔒 sec: validate input to prevent injection
-🗝️ key: add key rotation utility
-🔧 config: update nginx configuration
-⚙️ infra: add terraform module for infra
-🌐 lang: add i18n resource files
-🧪 test: add integration tests
-🗑️ del: remove deprecated helper
-🔗 api: add user profile endpoint
-🎯 demo: add interactive playground
-📁 examples: add example usage app
-📦 pack: prepare npm package
-🏗 build: optimize webpack config
-🔖 release: prepare release notes for v1.0.0
-🚀 deploy: add deployment script
-🐋 docker: add Dockerfile and compose
-⬆️ upgrade: bump dependency versions
-⬇️ downgrade: pin dependency to working version
-⏪ revert: revert accidental commit
-🚚 move: relocate components to new folder
-♿ access: improve accessibility attributes
+```text
+✨ feat(auth): add passwordless login
+🐛 fix(api): handle null response safely
+♻️ refactor(core): simplify validation flow
+🎨 style(lint): format backend source files
+🖌️ ui(theme): adjust spacing and colors
+📚 docs(readme): clarify setup steps
+🧪 test(service): add retry logic tests
+🔧 chore(deps): update lint dependencies
+🏗️ build(ci): cache package manager files
+⚡ perf(db): reduce query overhead
+🚚 move(config): rename env template file
+🗑️ del(legacy): remove unused adapter
 ```
 
-## Emoji Guide
+Emoji + type map:
 
-- ✨ feat - New feature
-- 🐛 fix - Fix
-- 🐞 bugfix - Bugfix
-- 📚 docs - Documentation
-- 🎨 style - Styling/UI
-- ♻️ refactor - Formatting/Code restructure
-- 🚨 test - Tests
-- 🔧 chore - Tooling/build
-- 👷 ci - CI/CD
-- 🎉 chore - Initial commit
-- 😺 git - Git related changes
-- 🧱 setup - Project scaffolding / Repo structure
-- ⚡ perf - Performance
-- 🔒 sec - Secuirty
-- 🗝️ key - Token
-- 🔧 config - Configuration
-- ⚙️ infra - Infrastructure / ops
-- 🌐 lang - Language/Internationalization and localization
-- 🧪 test - Test
-- 🗑️ del - Delete
-- 🔗 api - API changes
-- 🎯 demo - Demo and playground
-- 📁 examples - Example projects or snippets
-- 📦 pack - Package
-- 🏗 build - Build
-- 🔖 release - Release
-- 🚀 deploy - Deployment
-- 🐋 docker - Docker
-- ⬆️ upgrade - Upgrade dependencies
-- ⬇️ downgrade - Downgrade dependencies
-- ⏪ revert - Revert changes
-- 🚚 move - Move or rename resources
-- ♿ access - Improve accessibility
+- `✨ feat` new feature
+- `🐛 fix` bug fix
+- `📚 docs` documentation only
+- `♻️ refactor` code restructure without behavior change
+- `🎨 style` formatting-only changes
+- `🖌️ ui` UI-only changes (no logic changes)
+- `🧪 test` add/update tests
+- `🔧 chore` maintenance/tooling/deps
+- `💚 ci` CI/CD changes
+- `😸 git` Git related changes
+- `⚡ perf` performance improvements
+- `🏗️ build` build/package changes
+- `⏪ revert` revert a prior commit
+- `🚚 move` move/rename resources
+- `🗑️ del` remove files/code
+- `🔒 sec` security changes
+- `🎯 demo` demo/playground updates
+- `🧩 examples` sample code/snippets
+- `🔑 key` key/token handling (never commit secrets)
+- `⚙️ infra` infrastructure/ops changes
+- `🎉 init` initial bootstrap commit
+- `🌱 spec` specs/plans/architecture docs
+- `🔨 config` project/editor/tool config
+- `🚀 deploy` deployment changes
+- `🔖 release` release/version notes
+- `📦 pack` packaging/distribution metadata
+- `🔗 api` API contract changes
+- `🌐 lang` i18n/l10n changes
+- `♿ access` accessibility improvements
+- `🐳 docker` containerization changes
+- `⬆️ upgrade` dependency upgrades
+- `⬇️ downgrade` dependency downgrades
 
-## Common Scopes
+Common scopes:
 
-controller, block, frame, loader, css, spec, build, test, ci, docs, deps, arch, ui, api, init, facade, perf, infra, demo, examples, styles, i18n, accessibility, security
+- `core`, `api`, `auth`, `ui`, `ux`, `cli`, `db`, `cache`, `queue`
+- `service`, `worker`, `web`, `mobile`, `desktop`, `docs`, `readme`
+- `tests`, `deps`, `build`, `release`, `ci`, `infra`, `docker`, `config`
+- `security`, `i18n`, `a11y`, `monitoring`, `logging`, `telemetry`
+- `schema`, `migration`, `validation`, `parser`, `router`, `middleware`
 
-## Rules
+Hard rules (MUST):
 
-- Imperative mood: "add" not "added"
-- No period at end
-- Lowercase after type
-- Single-line summary only (no body)
-- Max 50 chars for subject
+- Generate exactly one commit message.
+- Output exactly one line only.
+- Do not output a body, footer, bullets, or alternatives.
+- Do not include multiple clauses separated by `;`, `and`, `&`, or `/`.
+- Subject must be lowercase, imperative, and no trailing period.
+- Subject max length is 50 characters.
+- Entire commit line max length is 72 characters.
+- Use one logical change only.
+
+Fail examples (invalid):
+
+```text
+✨ feat(api): add login; fix logout
+🐛 fix(core): fix bug and update docs
+🔧 chore(deps): update deps
+
+- also cleaned tests
+```
+
+Pre-send self-check:
+
+- Is it one line?
+- Is there exactly one message?
+- Is subject <= 50 chars?
+- Is full line <= 72 chars?
