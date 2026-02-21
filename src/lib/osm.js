@@ -1,6 +1,7 @@
 import { readCache, writeCache } from "./cache";
 
 const GEOCODE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+const LOCATION_SEARCH_TTL_MS = 24 * 60 * 60 * 1000;
 const MAP_TTL_MS = 12 * 60 * 60 * 1000;
 const MAX_POINTS_PER_LINE = 120;
 const MAX_POINTS_PER_POLYGON = 180;
@@ -231,17 +232,104 @@ function parseOverpassPayload(payload) {
   };
 }
 
-export async function geocodeCity(city, country) {
-  const lookup = `${city}, ${country}`;
-  const cacheKey = `geocode:${lookup.trim().toLowerCase()}`;
-  const cached = readCache(cacheKey, GEOCODE_TTL_MS);
-  if (cached) {
+function pickFirstAddressValue(address, keys) {
+  if (!address || typeof address !== "object") {
+    return "";
+  }
+
+  for (const key of keys) {
+    const value = address[key];
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+  }
+
+  return "";
+}
+
+function normalizeLocationResult(entry, fallbackLabel = "") {
+  if (!entry || typeof entry !== "object") {
+    return null;
+  }
+
+  const lat = Number(entry.lat);
+  const lon = Number(entry.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+    return null;
+  }
+
+  const label = String(entry.display_name ?? entry.label ?? fallbackLabel).trim();
+  if (!label) {
+    return null;
+  }
+
+  const address = entry.address ?? {};
+  const city =
+    pickFirstAddressValue(address, [
+      "city",
+      "town",
+      "village",
+      "hamlet",
+      "municipality",
+      "county",
+      "state",
+    ]) ||
+    String(entry.city ?? "").trim();
+  const country =
+    pickFirstAddressValue(address, ["country"]) || String(entry.country ?? "").trim();
+
+  return {
+    id: String(entry.place_id ?? label),
+    label,
+    city,
+    country,
+    lat,
+    lon,
+  };
+}
+
+function parseLocationResponseItems(payload) {
+  const entries = Array.isArray(payload) ? payload : [];
+  const suggestions = [];
+  const seenLabels = new Set();
+
+  for (const entry of entries) {
+    const normalized = normalizeLocationResult(entry);
+    if (!normalized) {
+      continue;
+    }
+
+    const labelKey = normalized.label.toLowerCase();
+    if (seenLabels.has(labelKey)) {
+      continue;
+    }
+
+    seenLabels.add(labelKey);
+    suggestions.push(normalized);
+  }
+
+  return suggestions;
+}
+
+export async function searchLocations(query, limit = 6) {
+  const lookup = String(query ?? "").trim();
+  if (lookup.length < 2) {
+    return [];
+  }
+
+  const normalizedLimit = Math.max(1, Math.min(Math.round(limit), 10));
+  const cacheKey = `location-search:${lookup.toLowerCase()}:limit:${normalizedLimit}`;
+  const cached = readCache(cacheKey, LOCATION_SEARCH_TTL_MS);
+  if (Array.isArray(cached)) {
     return cached;
   }
 
-  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(
-    lookup
-  )}`;
+  const url =
+    "https://nominatim.openstreetmap.org/search?" +
+    `format=jsonv2&addressdetails=1&limit=${normalizedLimit}&q=${encodeURIComponent(
+      lookup
+    )}`;
+
   const response = await fetchWithTimeout(
     url,
     {
@@ -253,27 +341,48 @@ export async function geocodeCity(city, country) {
   );
 
   if (!response.ok) {
-    throw new Error(`Geocoding failed with HTTP ${response.status}`);
+    throw new Error(`Location search failed with HTTP ${response.status}`);
   }
 
-  const data = await response.json();
-  if (!Array.isArray(data) || data.length === 0) {
+  const payload = await response.json();
+  const results = parseLocationResponseItems(payload);
+  writeCache(cacheKey, results);
+  return results;
+}
+
+export async function geocodeLocation(query) {
+  const lookup = String(query ?? "").trim();
+  if (!lookup) {
+    throw new Error("Location is required.");
+  }
+
+  const cacheKey = `geocode:location:${lookup.toLowerCase()}`;
+  const cached = readCache(cacheKey, GEOCODE_TTL_MS);
+  if (cached && typeof cached === "object") {
+    const normalizedCached = normalizeLocationResult(cached, lookup);
+    if (normalizedCached) {
+      return normalizedCached;
+    }
+  }
+
+  const results = await searchLocations(lookup, 1);
+  if (results.length === 0) {
     throw new Error(`No coordinates found for "${lookup}"`);
   }
 
-  const first = data[0];
-  const result = {
-    lat: Number(first.lat),
-    lon: Number(first.lon),
-    displayName: String(first.display_name ?? lookup),
+  const first = results[0];
+  writeCache(cacheKey, first);
+  return first;
+}
+
+export async function geocodeCity(city, country) {
+  const lookup = `${city}, ${country}`.trim();
+  const location = await geocodeLocation(lookup);
+  return {
+    lat: location.lat,
+    lon: location.lon,
+    displayName: location.label,
   };
-
-  if (!Number.isFinite(result.lat) || !Number.isFinite(result.lon)) {
-    throw new Error("Geocoder returned invalid coordinates");
-  }
-
-  writeCache(cacheKey, result);
-  return result;
 }
 
 export async function fetchMapData(bounds, options = {}) {

@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { computePosterAndFetchBounds } from "./lib/geo";
-import { fetchMapData, geocodeCity } from "./lib/osm";
+import { fetchMapData, geocodeLocation, searchLocations } from "./lib/osm";
 import { renderPoster } from "./lib/posterRenderer";
 import { defaultThemeName, getTheme, themeOptions } from "./lib/themes";
 
 const DEFAULT_FORM = {
-  city: "Paris",
-  country: "France",
+  location: "Hanover, Germany",
   latitude: "",
   longitude: "",
   distance: "4000",
@@ -30,6 +29,26 @@ const FONT_OPTIONS = [
   { value: "Merriweather", label: "Merriweather" },
   { value: "bebas neue", label: "Bebas Neue" },
 ];
+
+function parseLocationParts(value) {
+  const parts = String(value ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  if (parts.length === 0) {
+    return { city: "", country: "" };
+  }
+
+  if (parts.length === 1) {
+    return { city: parts[0], country: "" };
+  }
+
+  return {
+    city: parts[0],
+    country: parts[parts.length - 1],
+  };
+}
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -95,6 +114,10 @@ export default function App() {
   const [error, setError] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState(null);
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [isLocationSearching, setIsLocationSearching] = useState(false);
+  const [isLocationFocused, setIsLocationFocused] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const canvasRef = useRef(null);
   const renderCacheRef = useRef(null);
 
@@ -115,9 +138,31 @@ export default function App() {
 
   function handleChange(event) {
     const { name, value } = event.target;
+    if (name === "location") {
+      setSelectedLocation(null);
+    }
+
     setForm((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  }
+
+  function handleLocationSelect(suggestion) {
+    const fallback = parseLocationParts(suggestion.label);
+    const city = suggestion.city || fallback.city;
+    const country = suggestion.country || fallback.country;
+
+    setSelectedLocation(suggestion);
+    setLocationSuggestions([]);
+    setIsLocationFocused(false);
+    setForm((prev) => ({
+      ...prev,
+      location: suggestion.label,
+      latitude: suggestion.lat.toFixed(6),
+      longitude: suggestion.lon.toFixed(6),
+      displayCity: city,
+      displayCountry: country,
     }));
   }
 
@@ -150,6 +195,39 @@ export default function App() {
       fontFamily: typography.fontFamily,
     });
   }
+
+  useEffect(() => {
+    const query = form.location.trim();
+    if (!isLocationFocused || query.length < 2) {
+      setLocationSuggestions([]);
+      setIsLocationSearching(false);
+      return;
+    }
+
+    let cancelled = false;
+    const debounceId = window.setTimeout(async () => {
+      setIsLocationSearching(true);
+      try {
+        const suggestions = await searchLocations(query, 6);
+        if (!cancelled) {
+          setLocationSuggestions(suggestions);
+        }
+      } catch {
+        if (!cancelled) {
+          setLocationSuggestions([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLocationSearching(false);
+        }
+      }
+    }, 220);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(debounceId);
+    };
+  }, [form.location, isLocationFocused]);
 
   useEffect(() => {
     const renderCache = renderCacheRef.current;
@@ -189,10 +267,9 @@ export default function App() {
     setIsGenerating(true);
 
     try {
-      const city = form.city.trim();
-      const country = form.country.trim();
-      if (!city || !country) {
-        throw new Error("City and country are required.");
+      const locationText = form.location.trim();
+      if (!locationText) {
+        throw new Error("Location is required.");
       }
 
       const widthInches = clamp(parseNumericInput("Width", form.width), 1, 20);
@@ -207,38 +284,68 @@ export default function App() {
         50_000,
       );
 
-      let center = null;
       const latText = form.latitude.trim();
       const lonText = form.longitude.trim();
-      const previousCity =
-        renderCacheRef.current?.baseCity?.trim().toLowerCase() ?? "";
-      const previousCountry =
-        renderCacheRef.current?.baseCountry?.trim().toLowerCase() ?? "";
-      const cityChanged =
-        city.toLowerCase() !== previousCity ||
-        country.toLowerCase() !== previousCountry;
-      const shouldGeocode = !latText || !lonText || cityChanged;
-      let displayCity = form.displayCity.trim() || city;
-      let displayCountry = form.displayCountry.trim() || country;
-      const fontFamily = form.fontFamily.trim();
+      const previousLocation =
+        renderCacheRef.current?.baseLocation?.trim().toLowerCase() ?? "";
+      const locationChanged = locationText.toLowerCase() !== previousLocation;
+      const selectedMatchesInput =
+        !!selectedLocation &&
+        selectedLocation.label.trim().toLowerCase() ===
+          locationText.toLowerCase();
+      const fallbackParts = parseLocationParts(locationText);
 
-      if (shouldGeocode) {
-        setStatus("Geocoding city...");
-        center = await geocodeCity(city, country);
-        displayCity = city;
-        displayCountry = country;
-        setForm((prev) => ({
-          ...prev,
-          latitude: center.lat.toFixed(6),
-          longitude: center.lon.toFixed(6),
-          displayCity,
-          displayCountry,
-        }));
+      let resolvedLocation = null;
+      let shouldAutofillFromLocation = false;
+
+      if (selectedMatchesInput) {
+        resolvedLocation = selectedLocation;
+        shouldAutofillFromLocation = true;
+      } else if (latText && lonText && !locationChanged) {
+        resolvedLocation = {
+          label: locationText,
+          city: fallbackParts.city,
+          country: fallbackParts.country,
+          lat: parseNumericInput("Latitude", latText),
+          lon: parseNumericInput("Longitude", lonText),
+        };
       } else {
-        const lat = parseNumericInput("Latitude", latText);
-        const lon = parseNumericInput("Longitude", lonText);
-        center = { lat, lon, displayName: "Manual coordinates" };
+        setStatus("Geocoding location...");
+        resolvedLocation = await geocodeLocation(locationText);
+        setSelectedLocation(resolvedLocation);
+        shouldAutofillFromLocation = true;
       }
+
+      const resolvedCity =
+        resolvedLocation.city || fallbackParts.city || locationText;
+      const resolvedCountry = resolvedLocation.country || fallbackParts.country;
+
+      let displayCity = form.displayCity.trim() || resolvedCity;
+      let displayCountry = form.displayCountry.trim() || resolvedCountry;
+      if (shouldAutofillFromLocation) {
+        displayCity = resolvedCity;
+        displayCountry = resolvedCountry;
+      }
+
+      const fontFamily = form.fontFamily.trim();
+      const center = {
+        lat: resolvedLocation.lat,
+        lon: resolvedLocation.lon,
+        displayName: resolvedLocation.label || locationText,
+      };
+
+      setForm((prev) => ({
+        ...prev,
+        location: resolvedLocation.label || locationText,
+        latitude: resolvedLocation.lat.toFixed(6),
+        longitude: resolvedLocation.lon.toFixed(6),
+        displayCity: shouldAutofillFromLocation
+          ? resolvedCity
+          : prev.displayCity,
+        displayCountry: shouldAutofillFromLocation
+          ? resolvedCountry
+          : prev.displayCountry,
+      }));
 
       setStatus("Loading OpenStreetMap features...");
       const aspectRatio = widthInches / heightInches;
@@ -270,8 +377,9 @@ export default function App() {
         center,
         widthInches,
         heightInches,
-        baseCity: city,
-        baseCountry: country,
+        baseCity: resolvedCity,
+        baseCountry: resolvedCountry,
+        baseLocation: resolvedLocation.label || locationText,
       };
 
       const size = renderWithCachedMap(selectedTheme, {
@@ -316,7 +424,7 @@ export default function App() {
       }
 
       const link = document.createElement("a");
-      const citySlug = slugifyCity(form.city);
+      const citySlug = slugifyCity(form.displayCity || form.location);
       const filename = `${citySlug}_${form.theme}_${createTimestamp()}.png`;
       const url = URL.createObjectURL(blob);
       link.href = url;
@@ -354,28 +462,47 @@ export default function App() {
         <form className="settings-panel" onSubmit={handleGenerate}>
           <section className="panel-block">
             <h2>Location</h2>
-            <div className="field-grid">
-              <label>
-                City
+            <label>
+              Location
+              <div className="location-autocomplete">
                 <input
-                  name="city"
-                  value={form.city}
+                  name="location"
+                  value={form.location}
                   onChange={handleChange}
-                  placeholder="Paris"
+                  onFocus={() => setIsLocationFocused(true)}
+                  onBlur={() => {
+                    window.setTimeout(() => setIsLocationFocused(false), 120);
+                  }}
+                  placeholder="Start typing a city or place"
+                  autoComplete="off"
                   required
                 />
-              </label>
-              <label>
-                Country
-                <input
-                  name="country"
-                  value={form.country}
-                  onChange={handleChange}
-                  placeholder="France"
-                  required
-                />
-              </label>
-            </div>
+                {isLocationFocused &&
+                (isLocationSearching || locationSuggestions.length > 0) ? (
+                  <ul className="location-suggestions" role="listbox">
+                    {locationSuggestions.map((suggestion) => (
+                      <li key={suggestion.id}>
+                        <button
+                          type="button"
+                          className="location-suggestion"
+                          onMouseDown={(event) => {
+                            event.preventDefault();
+                            handleLocationSelect(suggestion);
+                          }}
+                        >
+                          {suggestion.label}
+                        </button>
+                      </li>
+                    ))}
+                    {isLocationSearching ? (
+                      <li className="location-suggestion-status">
+                        Searching...
+                      </li>
+                    ) : null}
+                  </ul>
+                ) : null}
+              </div>
+            </label>
             <div className="field-grid">
               <label>
                 Latitude (optional)
