@@ -11,6 +11,9 @@ const MIN_POSTER_CM = 5;
 const MAX_POSTER_CM = 60;
 const REPO_URL = import.meta.env.VITE_REPO_URL;
 const REPO_API_URL = import.meta.env.VITE_REPO_API_URL;
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL;
+const IMPRINT_URL = import.meta.env.VITE_LEGAL_NOTICE_URL;
+const PRIVACY_URL = import.meta.env.VITE_PRIVACY_URL;
 
 const DEFAULT_FORM = {
   location: "Hanover, Germany",
@@ -146,6 +149,10 @@ export default function App() {
       ].filter(Boolean),
     [selectedTheme],
   );
+  const contactEmail = String(CONTACT_EMAIL ?? "").trim();
+  const imprintUrl = String(IMPRINT_URL ?? "").trim();
+  const privacyUrl = String(PRIVACY_URL ?? "").trim();
+  const hasFooterLinks = Boolean(contactEmail || imprintUrl || privacyUrl);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -160,10 +167,6 @@ export default function App() {
   }
 
   function handleLocationSelect(suggestion) {
-    const fallback = parseLocationParts(suggestion.label);
-    const city = suggestion.city || fallback.city;
-    const country = suggestion.country || fallback.country;
-
     setSelectedLocation(suggestion);
     setLocationSuggestions([]);
     setIsLocationFocused(false);
@@ -172,8 +175,6 @@ export default function App() {
       location: suggestion.label,
       latitude: suggestion.lat.toFixed(6),
       longitude: suggestion.lon.toFixed(6),
-      displayCity: city,
-      displayCountry: country,
     }));
   }
 
@@ -313,17 +314,29 @@ export default function App() {
     let cancelled = false;
 
     async function rerenderPreview() {
-      await ensureGoogleFont(typography.fontFamily);
-      if (cancelled) {
-        return;
-      }
-
+      // Repaint immediately for responsive controls.
       const size = renderWithCachedMap(selectedTheme, typography);
       if (!size) {
         return;
       }
 
       setResult((prev) => (prev ? { ...prev, size } : prev));
+
+      if (!typography.fontFamily) {
+        return;
+      }
+
+      await ensureGoogleFont(typography.fontFamily);
+      if (cancelled) {
+        return;
+      }
+
+      const refreshedSize = renderWithCachedMap(selectedTheme, typography);
+      if (!refreshedSize) {
+        return;
+      }
+
+      setResult((prev) => (prev ? { ...prev, size: refreshedSize } : prev));
     }
 
     rerenderPreview();
@@ -735,9 +748,6 @@ export default function App() {
 
           {status ? <p className="status">{status}</p> : null}
           {error ? <p className="error">{error}</p> : null}
-          <p className="source-note">
-            Sources: Nominatim, Overpass API, OpenStreetMap contributors.
-          </p>
         </form>
 
         <section className="preview-panel">
@@ -791,85 +801,164 @@ export default function App() {
             <p className="inspector-copy">{selectedTheme.description}</p>
           </section>
 
-          <section className="inspector-card">
-            <h3>Render Stats</h3>
-            {result ? (
-              <>
-                <p>
-                  Center: {result.center.lat.toFixed(5)},{" "}
-                  {result.center.lon.toFixed(5)}
-                </p>
-                <p>
-                  Layers: {result.roads} roads, {result.water} water,{" "}
-                  {result.parks} parks, {result.buildings} buildings
-                </p>
-                <p>
-                  Output: {result.size.width}x{result.size.height}px
-                  {result.size.downscaleFactor < 1 ? " (downscaled)" : ""}
-                </p>
-                <p>
-                  Print size: {result.widthCm.toFixed(1)}x
-                  {result.heightCm.toFixed(1)} cm
-                </p>
-              </>
-            ) : (
-              <p>No render yet. Use the controls to generate a poster.</p>
-            )}
-          </section>
+          <div className="info-panel-group">
+            <section className="info-panel-section">
+              <h3>Render Stats</h3>
+              {result ? (
+                <>
+                  <p>
+                    Center: {result.center.lat.toFixed(5)},{" "}
+                    {result.center.lon.toFixed(5)}
+                  </p>
+                  <p>
+                    Layers: {result.roads} roads, {result.water} water,{" "}
+                    {result.parks} parks, {result.buildings} buildings
+                  </p>
+                  <p>
+                    Output: {result.size.width}x{result.size.height}px
+                    {result.size.downscaleFactor < 1 ? " (downscaled)" : ""}
+                  </p>
+                  <p>
+                    Print size: {result.widthCm.toFixed(1)}x
+                    {result.heightCm.toFixed(1)} cm
+                  </p>
+                </>
+              ) : (
+                <p>No render yet. Use the controls to generate a poster.</p>
+              )}
+            </section>
 
-          <section className="inspector-card">
-            <h3>Repository</h3>
-            <div className="repo-actions">
-              <a
-                className="github-badge"
-                href={REPO_URL}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Open TerraInk repository on GitHub"
-              >
-                <svg
-                  className="badge-icon"
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  focusable="false"
+            <section className="info-panel-section">
+              <h3>Repository</h3>
+              <div className="repo-actions">
+                <a
+                  className="github-badge"
+                  href={REPO_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Open TerraInk repository on GitHub"
                 >
-                  <path
-                    fill="currentColor"
-                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.7 7.7 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
-                  />
-                </svg>
-                <span>GitHub Repo</span>
-              </a>
-              <a
-                className="github-badge stars-badge"
-                href={`${REPO_URL}/stargazers`}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="View TerraInk stargazers on GitHub"
-              >
-                <svg
-                  className="badge-icon"
-                  viewBox="0 0 16 16"
-                  aria-hidden="true"
-                  focusable="false"
+                  <svg
+                    className="badge-icon"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.7 7.7 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+                    />
+                  </svg>
+                  <span>GitHub Repo</span>
+                </a>
+                <a
+                  className="github-badge stars-badge"
+                  href={`${REPO_URL}/stargazers`}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="View TerraInk stargazers on GitHub"
                 >
-                  <path
-                    fill="currentColor"
-                    d="M8 .2 10.06 5l5.2.42-3.95 3.4 1.18 5.05L8 11.2 3.51 13.87l1.18-5.05L.74 5.42 5.94 5 8 .2z"
-                  />
-                </svg>
-                <span>
-                  {repoStarsLoading
-                    ? "Loading stars..."
-                    : repoStars === null
-                      ? "Stars unavailable"
-                      : `${repoStars.toLocaleString()} stars`}
-                </span>
-              </a>
-            </div>
-          </section>
+                  <svg
+                    className="badge-icon"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8 .2 10.06 5l5.2.42-3.95 3.4 1.18 5.05L8 11.2 3.51 13.87l1.18-5.05L.74 5.42 5.94 5 8 .2z"
+                    />
+                  </svg>
+                  <span>
+                    {repoStarsLoading
+                      ? "Loading stars..."
+                      : repoStars === null
+                        ? "Stars unavailable"
+                        : `${repoStars.toLocaleString()} stars`}
+                  </span>
+                </a>
+              </div>
+            </section>
+
+            <section className="info-panel-section">
+              <h3>Contact & Legal</h3>
+              <section
+                className="footer-links"
+                aria-label="Contact and legal links"
+              >
+                {contactEmail ? (
+                  <a className="footer-link" href={`mailto:${contactEmail}`}>
+                    Contact: {contactEmail}
+                  </a>
+                ) : null}
+                {imprintUrl ? (
+                  <a
+                    className="footer-link"
+                    href={imprintUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Imprint
+                  </a>
+                ) : null}
+                {privacyUrl ? (
+                  <a
+                    className="footer-link"
+                    href={privacyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Data Privacy
+                  </a>
+                ) : null}
+                {!hasFooterLinks ? (
+                  <p className="footer-links-note">
+                    Set VITE_CONTACT_EMAIL, VITE_LEGAL_NOTICE_URL, and
+                    VITE_PRIVACY_URL in your environment to show contact and
+                    legal links.
+                  </p>
+                ) : null}
+              </section>
+            </section>
+          </div>
         </aside>
       </main>
+
+      <footer className="app-footer">
+        <p className="source-note">
+          Map search and cartographic data are powered by{" "}
+          <a
+            className="source-link"
+            href="https://nominatim.openstreetmap.org/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Nominatim
+          </a>
+          ,{" "}
+          <a
+            className="source-link"
+            href="https://overpass-api.de/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Overpass API
+          </a>
+          , and{" "}
+          <a
+            className="source-link"
+            href="https://www.openstreetmap.org"
+            target="_blank"
+            rel="noreferrer"
+          >
+            OpenStreetMap contributors
+          </a>
+          .
+        </p>
+        <p className="made-note">
+          Made with <span className="heart">♥</span> in Hannover, Germany
+        </p>
+      </footer>
     </div>
   );
 }

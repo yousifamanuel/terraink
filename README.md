@@ -46,6 +46,16 @@ bun install
 bun run dev
 ```
 
+## Environment
+
+Configure these values in `.env` (see `.env.example`):
+
+- `VITE_REPO_URL`: Repository link shown in the sidebar
+- `VITE_REPO_API_URL`: GitHub API endpoint used to fetch star count
+- `VITE_CONTACT_EMAIL`: Contact email shown in the footer (`mailto:` link)
+- `VITE_LEGAL_NOTICE_URL`: Imprint/legal notice page URL
+- `VITE_PRIVACY_URL`: Data privacy page URL
+
 ## Build
 
 ```bash
