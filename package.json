@@ -13,6 +13,15 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@fontsource/bebas-neue": "^5.2.7",
+    "@fontsource/lato": "^5.2.7",
+    "@fontsource/merriweather": "^5.2.11",
+    "@fontsource/montserrat": "^5.2.8",
+    "@fontsource/noto-sans-jp": "^5.2.9",
+    "@fontsource/oswald": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@fontsource/raleway": "^5.2.8",
+    "@fontsource/source-sans-pro": "^5.2.5",
     "@vitejs/plugin-react": "^4.4.1",
     "vite": "^5.4.11"
   }
