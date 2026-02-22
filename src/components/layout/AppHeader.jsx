@@ -10,7 +10,11 @@ export default function AppHeader() {
             palettes, custom typography, and print-ready PNG output.
           </p>
         </div>
-        <img className="brand-logo" src="/assets/logo.svg" alt="TerraInk logo" />
+        <img
+          className="brand-logo"
+          src="/assets/logo.png"
+          alt="TerraInk logo"
+        />
       </div>
     </header>
   );
