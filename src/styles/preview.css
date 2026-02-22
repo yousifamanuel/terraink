@@ -5,7 +5,11 @@
   border: 1px solid var(--strong-line);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%),
-    radial-gradient(circle at 82% 16%, rgba(77, 161, 201, 0.28), transparent 32%),
+    radial-gradient(
+      circle at 82% 16%,
+      rgba(77, 161, 201, 0.28),
+      transparent 32%
+    ),
     linear-gradient(145deg, rgba(14, 33, 46, 0.96), rgba(11, 26, 38, 0.9));
   display: grid;
   place-items: center;
@@ -95,7 +99,11 @@
   font-family: "Spline Sans Mono", monospace;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 980px) {
+  .poster-viewport {
+    min-height: 400px;
+  }
+
   .poster-viewport canvas {
     max-height: 68vh;
   }

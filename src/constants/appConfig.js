@@ -4,8 +4,10 @@ import { defaultThemeName } from "../lib/themes";
 export const CM_PER_INCH = 2.54;
 export const DEFAULT_POSTER_WIDTH_CM = 20;
 export const DEFAULT_POSTER_HEIGHT_CM = 30;
-export const MIN_POSTER_CM = 5;
-export const MAX_POSTER_CM = 60;
+export const MIN_POSTER_CM = 4;
+export const MAX_POSTER_CM = 45;
+export const MIN_DISTANCE_METERS = 1000;
+export const MAX_DISTANCE_METERS = 25000;
 
 const defaultLayoutOption = getLayoutOption(defaultLayoutId);
 const defaultLayoutWidthCm = Number(defaultLayoutOption?.widthCm ?? DEFAULT_POSTER_WIDTH_CM);

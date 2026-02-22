@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
+import { MAX_DISTANCE_METERS, MIN_DISTANCE_METERS } from "../../constants/appConfig";
 import { createCustomLayoutOption } from "../../lib/layouts";
+import { getThemePalette } from "../../lib/themes";
 import LayoutCard from "./LayoutCard";
 import PickerModal from "./PickerModal";
 import ThemeCard from "./ThemeCard";
@@ -9,15 +11,7 @@ function createFallbackThemeOption(themeId, selectedTheme) {
     id: themeId,
     name: String(selectedTheme?.name ?? themeId ?? "Theme"),
     description: String(selectedTheme?.description ?? ""),
-    palette: [
-      selectedTheme?.bg,
-      selectedTheme?.water,
-      selectedTheme?.parks,
-      selectedTheme?.road_primary,
-      selectedTheme?.road_secondary,
-      selectedTheme?.road_residential,
-      selectedTheme?.text,
-    ].filter((value) => typeof value === "string" && value.trim().length > 0),
+    palette: getThemePalette(selectedTheme),
   };
 }
 
@@ -100,8 +94,8 @@ export default function MapSettingsSection({
           <input
             name="distance"
             type="number"
-            min="1000"
-            max="50000"
+            min={MIN_DISTANCE_METERS}
+            max={MAX_DISTANCE_METERS}
             value={form.distance}
             onChange={onChange}
           />

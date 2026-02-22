@@ -9,7 +9,9 @@ import {
   CONTACT_EMAIL,
   DEFAULT_FORM,
   LEGAL_NOTICE_URL,
+  MAX_DISTANCE_METERS,
   MAX_POSTER_CM,
+  MIN_DISTANCE_METERS,
   MIN_POSTER_CM,
   PRIVACY_URL,
   REPO_API_URL,
@@ -83,10 +85,32 @@ export default function App() {
     }
 
     if (name === "width" || name === "height") {
+      let nextValue = value;
+      const parsed = Number(value);
+      if (value !== "" && Number.isFinite(parsed)) {
+        nextValue = String(clamp(parsed, MIN_POSTER_CM, MAX_POSTER_CM));
+      }
+
       setForm((prev) => ({
         ...prev,
-        [name]: value,
+        [name]: nextValue,
         layout: CUSTOM_LAYOUT_ID,
+      }));
+      return;
+    }
+
+    if (name === "distance") {
+      let nextValue = value;
+      const parsed = Number(value);
+      if (value !== "" && Number.isFinite(parsed)) {
+        nextValue = String(
+          Math.round(clamp(parsed, MIN_DISTANCE_METERS, MAX_DISTANCE_METERS)),
+        );
+      }
+
+      setForm((prev) => ({
+        ...prev,
+        distance: nextValue,
       }));
       return;
     }
@@ -275,8 +299,8 @@ export default function App() {
       const heightInches = heightCm / CM_PER_INCH;
       const distanceMeters = clamp(
         parseNumericInput("Distance", form.distance),
-        1_000,
-        50_000,
+        MIN_DISTANCE_METERS,
+        MAX_DISTANCE_METERS,
       );
 
       const previousLocation =
