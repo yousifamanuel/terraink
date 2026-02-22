@@ -1,10 +1,43 @@
+![](./public/assets/banner.jpg)
+
 # TerraInk
+
+[![Bun Badge](https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff&style=for-the-badge)](https://bun.sh)
+[![Vite Badge](https://img.shields.io/badge/Vite-9135FF?logo=vite&logoColor=fff&style=for-the-badge)](https://vitejs.dev)
+[![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=for-the-badge)](https://react.dev/)
+[![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![TypeScript Badge](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=fff&style=for-the-badge)](https://www.typescriptlang.org)
+[![OpenStreetMap Badge](https://img.shields.io/badge/OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=fff&style=for-the-badge)](https://www.openstreetmap.org)
+[![License](https://img.shields.io/badge/License-Mit-000?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 TerraInk: The Cartographic Poster Engine
 
-This app is inspired by the original MapToPoster [originalankur/maptoposter](https://github.com/originalankur/maptoposter) and is built using Bun, React, and TypeScript. It allows users to create custom city map posters with various styling options, leveraging OpenStreetMap data for accurate and detailed maps.
+App link: [https://terraink.app](https://terraink.app)
 
-![](./public/assets/banner.jpg)
+> Note: TerraInk is still in development. I appreciate every feedback. This is a for-fun, open-source project, and community contributions are very welcome.
+
+## Aknowledgment
+
+This project is a JavaScript reimplementation inspired by the original MapToPoster [originalankur/maptoposter](https://github.com/originalankur/maptoposter) by [Ankur Gupta](https://github.com/originalankur) (MIT license). My app is built using Bun, React, and TypeScript. It allows users to create custom city map posters with various styling options, leveraging OpenStreetMap data for accurate and detailed maps.
+
+## User Interface
+
+![](./public/assets/screenshots/Web_UI.png)
+
+## Showcase
+
+All showcase images are stored in `public/assets/screenshots/`.
+
+### Featured Examples
+
+<p align="center">
+  <img src="./public/assets/screenshots/rio.png" alt="Rio de Janeiro poster generated with TerraInk" width="49%" />
+  <img src="./public/assets/screenshots/seattle.png" alt="Seatlle poster generated with TerraInk" width="49%" />
+    <img src="./public/assets/screenshots/tokyo.png" alt="Tokio poster generated with TerraInk" width="49%" />
+  <img src="./public/assets/screenshots/venice.png" alt="Venice poster generated with TerraInk" width="49%" />
+     <img src="./public/assets/screenshots/london.png" alt="London poster generated with TerraInk" width="49%" />
+  <img src="./public/assets/screenshots/budapest.png" alt="Budapest poster generated with TerraInk" width="49%" />
+</p>
 
 ## Run
 
