@@ -1,0 +1,38 @@
+.app-footer {
+  margin-top: 14px;
+  padding: 0 2px;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  text-align: center;
+}
+
+.source-note {
+  margin: 0;
+  font-size: 0.8rem;
+  font-family: "Spline Sans Mono", monospace;
+  opacity: 0.74;
+  color: #9bb3c5;
+}
+
+.source-link {
+  color: #cbe8ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.source-link:hover,
+.source-link:focus-visible {
+  color: #ecf8ff;
+}
+
+.made-note {
+  margin: 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #b8cedd;
+}
+
+.heart {
+  color: #ffb38f;
+}

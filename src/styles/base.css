@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap");
+
+:root {
+  --ink: #e6edf4;
+  --panel: rgba(10, 20, 31, 0.92);
+  --line: rgba(146, 176, 200, 0.24);
+  --strong-line: rgba(166, 199, 223, 0.45);
+  --positive: #6bd8a0;
+  --negative: #ff8372;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Instrument Sans", sans-serif;
+  background:
+    radial-gradient(circle at 84% 14%, rgba(255, 132, 79, 0.2), transparent 42%),
+    radial-gradient(circle at 12% 86%, rgba(64, 154, 192, 0.22), transparent 38%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(164, 195, 219, 0.05) 0,
+      rgba(164, 195, 219, 0.05) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    linear-gradient(160deg, #09121c, #0d1a27 45%, #0a1824 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
