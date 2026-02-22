@@ -6,6 +6,7 @@ export default function SettingsPanel({
   form,
   onSubmit,
   onChange,
+  onThemeChange,
   selectedTheme,
   themeOptions,
   minPosterCm,
@@ -42,6 +43,7 @@ export default function SettingsPanel({
       <MapSettingsSection
         form={form}
         onChange={onChange}
+        onThemeChange={onThemeChange}
         selectedTheme={selectedTheme}
         themeOptions={themeOptions}
         minPosterCm={minPosterCm}

@@ -1,25 +1,66 @@
+import { useMemo, useState } from "react";
+import ThemeCard from "./ThemeCard";
+import ThemeModal from "./ThemeModal";
+
+function createFallbackThemeOption(themeId, selectedTheme) {
+  return {
+    id: themeId,
+    name: String(selectedTheme?.name ?? themeId ?? "Theme"),
+    description: String(selectedTheme?.description ?? ""),
+    palette: [
+      selectedTheme?.bg,
+      selectedTheme?.water,
+      selectedTheme?.parks,
+      selectedTheme?.road_primary,
+      selectedTheme?.road_secondary,
+      selectedTheme?.road_residential,
+      selectedTheme?.text,
+    ].filter((value) => typeof value === "string" && value.trim().length > 0),
+  };
+}
+
 export default function MapSettingsSection({
   form,
   onChange,
+  onThemeChange,
   selectedTheme,
   themeOptions,
   minPosterCm,
   maxPosterCm,
 }) {
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  const selectedThemeOption = useMemo(() => {
+    const matchingOption = themeOptions.find((themeOption) => themeOption.id === form.theme);
+    if (matchingOption) {
+      return matchingOption;
+    }
+    return createFallbackThemeOption(form.theme, selectedTheme);
+  }, [form.theme, selectedTheme, themeOptions]);
+
+  function openThemeModal() {
+    setIsThemeModalOpen(true);
+  }
+
+  function closeThemeModal() {
+    setIsThemeModalOpen(false);
+  }
+
+  function handleThemeSelect(themeId) {
+    onThemeChange(themeId);
+    setIsThemeModalOpen(false);
+  }
+
   return (
     <section className="panel-block">
       <h2>Map Settings</h2>
-      <label>
-        Theme
-        <select name="theme" value={form.theme} onChange={onChange}>
-          {themeOptions.map((themeOption) => (
-            <option key={themeOption.id} value={themeOption.id}>
-              {themeOption.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <p className="theme-note">{selectedTheme.description}</p>
+      <p className="theme-active-label">Theme: {selectedThemeOption.name}</p>
+      <ThemeCard
+        themeOption={selectedThemeOption}
+        showName={false}
+        onClick={openThemeModal}
+      />
+
       <div className="field-grid triple">
         <label>
           Distance (m)
@@ -57,6 +98,14 @@ export default function MapSettingsSection({
           />
         </label>
       </div>
+
+      <ThemeModal
+        open={isThemeModalOpen}
+        themeOptions={themeOptions}
+        selectedThemeId={form.theme}
+        onSelectTheme={handleThemeSelect}
+        onClose={closeThemeModal}
+      />
     </section>
   );
 }

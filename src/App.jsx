@@ -41,19 +41,6 @@ export default function App() {
   const renderCacheRef = useRef(null);
 
   const selectedTheme = useMemo(() => getTheme(form.theme), [form.theme]);
-  const themePalette = useMemo(
-    () =>
-      [
-        selectedTheme.bg,
-        selectedTheme.water,
-        selectedTheme.parks,
-        selectedTheme.road_primary,
-        selectedTheme.road_secondary,
-        selectedTheme.road_residential,
-        selectedTheme.text,
-      ].filter(Boolean),
-    [selectedTheme],
-  );
 
   const {
     locationSuggestions,
@@ -101,6 +88,13 @@ export default function App() {
     setForm((prev) => ({
       ...prev,
       location: "",
+    }));
+  }
+
+  function handleThemeChange(themeId) {
+    setForm((prev) => ({
+      ...prev,
+      theme: themeId,
     }));
   }
 
@@ -433,6 +427,7 @@ export default function App() {
           form={form}
           onSubmit={handleGenerate}
           onChange={handleChange}
+          onThemeChange={handleThemeChange}
           selectedTheme={selectedTheme}
           themeOptions={themeOptions}
           minPosterCm={MIN_POSTER_CM}
@@ -465,8 +460,6 @@ export default function App() {
         />
 
         <InfoPanel
-          selectedTheme={selectedTheme}
-          themePalette={themePalette}
           result={result}
           repoUrl={REPO_URL}
           repoStars={repoStars}

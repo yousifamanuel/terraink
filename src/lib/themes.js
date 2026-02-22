@@ -16,6 +16,16 @@ const fallbackTheme = {
   road_default: "#D9A08A",
 };
 
+const themePaletteKeys = [
+  "bg",
+  "water",
+  "parks",
+  "road_primary",
+  "road_secondary",
+  "road_residential",
+  "text",
+];
+
 const rawThemes =
   themesManifest &&
   typeof themesManifest === "object" &&
@@ -37,9 +47,17 @@ export const themeNames = Object.entries(themesByName)
   )
   .map(([name]) => name);
 
+export function getThemePalette(theme) {
+  return themePaletteKeys
+    .map((key) => theme?.[key])
+    .filter((value) => typeof value === "string" && value.trim().length > 0);
+}
+
 export const themeOptions = themeNames.map((name) => ({
   id: name,
   name: String(themesByName[name]?.name ?? name),
+  description: String(themesByName[name]?.description ?? ""),
+  palette: getThemePalette(themesByName[name]),
 }));
 
 const preferredDefaultThemeName = "midnight_blue";

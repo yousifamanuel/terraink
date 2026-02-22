@@ -1,11 +1,8 @@
 import ContactLegalSection from "./ContactLegalSection";
 import RenderStatsSection from "./RenderStatsSection";
 import RepositorySection from "./RepositorySection";
-import ThemePaletteCard from "./ThemePaletteCard";
 
 export default function InfoPanel({
-  selectedTheme,
-  themePalette,
   result,
   repoUrl,
   repoStars,
@@ -17,8 +14,6 @@ export default function InfoPanel({
 }) {
   return (
     <aside className="info-panel">
-      <ThemePaletteCard themePalette={themePalette} selectedTheme={selectedTheme} />
-
       <div className="info-panel-group">
         <RenderStatsSection result={result} />
         <RepositorySection
