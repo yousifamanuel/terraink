@@ -69,6 +69,14 @@ select:focus {
   margin-top: 0;
 }
 
+.location-input-wrap {
+  position: relative;
+}
+
+.location-input-wrap input {
+  padding-right: 34px;
+}
+
 .location-suggestions {
   position: absolute;
   top: calc(100% + 6px);
@@ -151,6 +159,35 @@ button:disabled {
 button[type="submit"] {
   background: linear-gradient(135deg, #1a6f8c, #2f8eaf);
   color: #f4fbff;
+}
+
+button.location-clear-btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  border-radius: 999px;
+  background: rgba(30, 53, 71, 0.9);
+  color: #d2e3ef;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.location-clear-btn:not(:disabled):hover,
+button.location-clear-btn:focus-visible {
+  transform: translateY(-50%);
+  filter: none;
+  background: rgba(47, 79, 102, 0.95);
 }
 
 .ghost {

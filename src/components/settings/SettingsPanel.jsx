@@ -21,6 +21,7 @@ export default function SettingsPanel({
   locationSuggestions,
   isLocationSearching,
   onLocationSelect,
+  onClearLocation,
   onLocationFocus,
   onLocationBlur,
 }) {
@@ -35,6 +36,7 @@ export default function SettingsPanel({
         locationSuggestions={locationSuggestions}
         isLocationSearching={isLocationSearching}
         onLocationSelect={onLocationSelect}
+        onClearLocation={onClearLocation}
       />
 
       <MapSettingsSection

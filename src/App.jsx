@@ -72,11 +72,35 @@ export default function App() {
     const { name, value } = event.target;
     if (name === "location") {
       setSelectedLocation(null);
+      setForm((prev) => ({
+        ...prev,
+        location: value,
+      }));
+      return;
+    }
+
+    if (name === "latitude" || name === "longitude") {
+      setSelectedLocation(null);
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+        location: "",
+      }));
+      return;
     }
 
     setForm((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  }
+
+  function handleClearLocation() {
+    setSelectedLocation(null);
+    clearLocationSuggestions();
+    setForm((prev) => ({
+      ...prev,
+      location: "",
     }));
   }
 
@@ -198,8 +222,20 @@ export default function App() {
       setGenerationProgress(8);
 
       const locationText = form.location.trim();
-      if (!locationText) {
-        throw new Error("Location is required.");
+      const latText = form.latitude.trim();
+      const lonText = form.longitude.trim();
+      const hasManualCoordinates = Boolean(latText && lonText);
+
+      if (!locationText && (latText || lonText) && !hasManualCoordinates) {
+        throw new Error(
+          "When location is empty, both latitude and longitude are required.",
+        );
+      }
+
+      if (!locationText && !hasManualCoordinates) {
+        throw new Error(
+          "Location is required unless both latitude and longitude are provided.",
+        );
       }
 
       const widthCm = clamp(
@@ -220,8 +256,6 @@ export default function App() {
         50_000,
       );
 
-      const latText = form.latitude.trim();
-      const lonText = form.longitude.trim();
       const previousLocation =
         renderCacheRef.current?.baseLocation?.trim().toLowerCase() ?? "";
       const locationChanged = locationText.toLowerCase() !== previousLocation;
@@ -230,6 +264,8 @@ export default function App() {
         selectedLocation.label.trim().toLowerCase() ===
           locationText.toLowerCase();
       const fallbackParts = parseLocationParts(locationText);
+      const canUseManualCoordinates =
+        hasManualCoordinates && (!locationText || !locationChanged);
 
       let resolvedLocation = null;
       let shouldAutofillFromLocation = false;
@@ -237,7 +273,7 @@ export default function App() {
       if (selectedMatchesInput) {
         resolvedLocation = selectedLocation;
         shouldAutofillFromLocation = true;
-      } else if (latText && lonText && !locationChanged) {
+      } else if (canUseManualCoordinates) {
         resolvedLocation = {
           label: locationText,
           city: fallbackParts.city,
@@ -412,6 +448,7 @@ export default function App() {
           locationSuggestions={locationSuggestions}
           isLocationSearching={isLocationSearching}
           onLocationSelect={handleLocationSelect}
+          onClearLocation={handleClearLocation}
           onLocationFocus={() => setIsLocationFocused(true)}
           onLocationBlur={() => {
             window.setTimeout(() => setIsLocationFocused(false), 120);

@@ -7,23 +7,40 @@ export default function LocationSection({
   locationSuggestions,
   isLocationSearching,
   onLocationSelect,
+  onClearLocation,
 }) {
+  const hasLocationValue = form.location.trim().length > 0;
+
   return (
     <section className="panel-block">
       <h2>Location</h2>
       <label>
         Location
         <div className="location-autocomplete">
-          <input
-            name="location"
-            value={form.location}
-            onChange={onChange}
-            onFocus={onLocationFocus}
-            onBlur={onLocationBlur}
-            placeholder="Start typing a city or place"
-            autoComplete="off"
-            required
-          />
+          <div className="location-input-wrap">
+            <input
+              name="location"
+              value={form.location}
+              onChange={onChange}
+              onFocus={onLocationFocus}
+              onBlur={onLocationBlur}
+              placeholder="Start typing a city or place"
+              autoComplete="off"
+            />
+            {hasLocationValue ? (
+              <button
+                type="button"
+                className="location-clear-btn"
+                aria-label="Clear location"
+                onMouseDown={(event) => {
+                  event.preventDefault();
+                }}
+                onClick={onClearLocation}
+              >
+                x
+              </button>
+            ) : null}
+          </div>
           {showLocationSuggestions ? (
             <ul className="location-suggestions" role="listbox">
               {locationSuggestions.map((suggestion) => (
