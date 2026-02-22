@@ -116,7 +116,8 @@ body {
 
 .settings-panel,
 .preview-panel,
-.inspector-card {
+.inspector-card,
+.info-panel-group {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--panel);
@@ -294,8 +295,7 @@ button[type="submit"] {
 }
 
 .status,
-.error,
-.source-note {
+.error {
   margin: 10px 0 0;
   font-size: 0.8rem;
 }
@@ -309,9 +309,22 @@ button[type="submit"] {
 }
 
 .source-note {
+  margin: 0;
+  font-size: 0.8rem;
   font-family: "Spline Sans Mono", monospace;
   opacity: 0.74;
   color: #9bb3c5;
+}
+
+.source-link {
+  color: #cbe8ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.source-link:hover,
+.source-link:focus-visible {
+  color: #ecf8ff;
 }
 
 .preview-panel {
@@ -453,7 +466,19 @@ button[type="submit"] {
   padding: 12px;
 }
 
-.inspector-card h3 {
+.info-panel-group {
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.info-panel-section + .info-panel-section {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.inspector-card h3,
+.info-panel-section h3 {
   margin: 0 0 8px;
   font-family: "Spline Sans Mono", monospace;
   text-transform: uppercase;
@@ -476,7 +501,8 @@ button[type="submit"] {
 }
 
 .inspector-copy,
-.inspector-card p {
+.inspector-card p,
+.info-panel-section p {
   margin: 0;
   font-size: 0.83rem;
   line-height: 1.45;
@@ -484,8 +510,69 @@ button[type="submit"] {
   color: #c5d9e8;
 }
 
-.inspector-card p + p {
+.inspector-card p + p,
+.info-panel-section p + p {
   margin-top: 7px;
+}
+
+.app-footer {
+  margin-top: 14px;
+  padding: 0 2px;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  background: rgba(9, 18, 27, 0.9);
+  color: #d5e8f7;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    border-color 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  border-color: rgba(120, 179, 214, 0.75);
+  background: rgba(20, 39, 54, 0.95);
+  color: #ecf8ff;
+}
+
+.footer-links-note {
+  margin: 0;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.76rem;
+  color: #9bb3c5;
+  opacity: 0.8;
+}
+
+.made-note {
+  margin: 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #b8cedd;
+}
+
+.heart {
+  color: #ff8f9d;
 }
 
 .repo-actions {
@@ -583,6 +670,10 @@ button[type="submit"] {
 
   .action-row {
     flex-direction: column;
+  }
+
+  .poster-viewport {
+    min-height: 400px;
   }
 
   .poster-viewport canvas {
