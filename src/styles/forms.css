@@ -376,6 +376,82 @@ button.picker-modal-done:focus-visible {
   background: rgba(47, 79, 102, 0.95);
 }
 
+.palette-editor {
+  margin: 0 0 10px;
+}
+
+.palette-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.palette-editor-label {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #d9e7f2;
+}
+
+button.palette-reset-btn {
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid rgba(151, 183, 207, 0.42);
+  border-radius: 8px;
+  background: rgba(20, 38, 52, 0.94);
+  color: #c4d9e8;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+button.palette-reset-btn:not(:disabled):hover,
+button.palette-reset-btn:focus-visible {
+  transform: none;
+  filter: none;
+  background: rgba(47, 79, 102, 0.95);
+}
+
+.palette-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.palette-color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #a8bfd1;
+  text-align: center;
+}
+
+.palette-color-item input[type="color"] {
+  width: 100%;
+  height: 32px;
+  margin-top: 0;
+  padding: 2px 3px;
+  border: 1px solid rgba(151, 183, 207, 0.26);
+  border-radius: 6px;
+  background: rgba(9, 18, 27, 0.84);
+  cursor: pointer;
+}
+
+.palette-color-item input[type="color"]:focus {
+  border-color: rgba(102, 174, 209, 0.82);
+  box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.24);
+}
+
+.palette-color-name {
+  display: block;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
 .action-row {
   display: flex;
   gap: 8px;

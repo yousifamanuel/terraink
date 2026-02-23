@@ -28,6 +28,9 @@ export default function SettingsPanel({
   onClearLocation,
   onLocationFocus,
   onLocationBlur,
+  customColors,
+  onColorChange,
+  onResetColors,
 }) {
   return (
     <form className="settings-panel" onSubmit={onSubmit}>
@@ -54,6 +57,9 @@ export default function SettingsPanel({
         layoutGroups={layoutGroups}
         minPosterCm={minPosterCm}
         maxPosterCm={maxPosterCm}
+        customColors={customColors}
+        onColorChange={onColorChange}
+        onResetColors={onResetColors}
       />
 
       <TypographySection

@@ -18,7 +18,7 @@ const fallbackTheme = {
 
 const hexColorPattern = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 const colorReferencePattern = /^\$([a-zA-Z0-9_]+)$/;
-const displayPaletteKeys = [
+export const displayPaletteKeys = [
   "bg",
   "water",
   "parks",
@@ -28,6 +28,17 @@ const displayPaletteKeys = [
   "road_tertiary",
   "text",
 ];
+
+export const paletteColorLabels = {
+  bg: "Background",
+  water: "Water",
+  parks: "Parks",
+  road_motorway: "Motorway",
+  road_primary: "Primary Road",
+  road_secondary: "Secondary Road",
+  road_tertiary: "Tertiary Road",
+  text: "Text",
+};
 const preferredThemeOrder = [
   "midnight_blue",
   "terracotta",

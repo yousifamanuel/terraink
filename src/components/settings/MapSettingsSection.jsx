@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
 import { MAX_DISTANCE_METERS, MIN_DISTANCE_METERS } from "../../constants/appConfig";
 import { createCustomLayoutOption } from "../../lib/layouts";
-import { getThemePalette } from "../../lib/themes";
+import { displayPaletteKeys, getThemePalette, paletteColorLabels } from "../../lib/themes";
 import LayoutCard from "./LayoutCard";
 import PickerModal from "./PickerModal";
 import ThemeCard from "./ThemeCard";
+
+const FALLBACK_COLOR = "#000000";
 
 function createFallbackThemeOption(themeId, selectedTheme) {
   return {
@@ -26,6 +28,9 @@ export default function MapSettingsSection({
   layoutGroups,
   minPosterCm,
   maxPosterCm,
+  customColors,
+  onColorChange,
+  onResetColors,
 }) {
   const [activePicker, setActivePicker] = useState("");
 
@@ -82,6 +87,38 @@ export default function MapSettingsSection({
         showName={false}
         onClick={openThemePicker}
       />
+
+      <div className="palette-editor">
+        <div className="palette-editor-header">
+          <p className="palette-editor-label">Customize Colors</p>
+          {Object.keys(customColors).length > 0 && (
+            <button
+              type="button"
+              className="palette-reset-btn"
+              onClick={onResetColors}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+        <div className="palette-editor-grid">
+          {displayPaletteKeys.map((key) => {
+            const baseColor = selectedTheme?.[key] ?? FALLBACK_COLOR;
+            const currentColor = customColors[key] ?? baseColor;
+            return (
+              <label key={key} className="palette-color-item">
+                <input
+                  type="color"
+                  value={currentColor}
+                  onChange={(e) => onColorChange(key, e.target.value)}
+                  title={paletteColorLabels[key]}
+                />
+                <span className="palette-color-name">{paletteColorLabels[key]}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
 
       <p className="layout-active-label">Layout: {selectedLayoutOption.name}</p>
       <LayoutCard
