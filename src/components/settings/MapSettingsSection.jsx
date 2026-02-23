@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { MAX_DISTANCE_METERS, MIN_DISTANCE_METERS } from "../../constants/appConfig";
 import { createCustomLayoutOption } from "../../lib/layouts";
 import { displayPaletteKeys, getThemePalette, paletteColorLabels } from "../../lib/themes";
+import ColorPicker from "./ColorPicker";
 import LayoutCard from "./LayoutCard";
 import PickerModal from "./PickerModal";
 import ThemeCard from "./ThemeCard";
@@ -33,6 +34,8 @@ export default function MapSettingsSection({
   onResetColors,
 }) {
   const [activePicker, setActivePicker] = useState("");
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [activeColorKey, setActiveColorKey] = useState(null);
 
   const selectedThemeOption = useMemo(() => {
     const matchingOption = themeOptions.find((themeOption) => themeOption.id === form.theme);
@@ -78,6 +81,19 @@ export default function MapSettingsSection({
     closePicker();
   }
 
+  function handleSwatchClick(key) {
+    setActiveColorKey((prev) => (prev === key ? null : key));
+  }
+
+  function handleTogglePalette() {
+    setPaletteOpen((prev) => {
+      if (prev) {
+        setActiveColorKey(null);
+      }
+      return !prev;
+    });
+  }
+
   return (
     <section className="panel-block">
       <h2>Map Settings</h2>
@@ -89,35 +105,67 @@ export default function MapSettingsSection({
       />
 
       <div className="palette-editor">
-        <div className="palette-editor-header">
-          <p className="palette-editor-label">Customize Colors</p>
-          {Object.keys(customColors).length > 0 && (
-            <button
-              type="button"
-              className="palette-reset-btn"
-              onClick={onResetColors}
-            >
-              Reset
-            </button>
-          )}
-        </div>
-        <div className="palette-editor-grid">
-          {displayPaletteKeys.map((key) => {
-            const baseColor = selectedTheme?.[key] ?? FALLBACK_COLOR;
-            const currentColor = customColors[key] ?? baseColor;
-            return (
-              <label key={key} className="palette-color-item">
-                <input
-                  type="color"
-                  value={currentColor}
-                  onChange={(e) => onColorChange(key, e.target.value)}
-                  title={paletteColorLabels[key]}
-                />
-                <span className="palette-color-name">{paletteColorLabels[key]}</span>
-              </label>
-            );
-          })}
-        </div>
+        <button
+          type="button"
+          className="palette-editor-toggle"
+          onClick={handleTogglePalette}
+          aria-expanded={paletteOpen}
+        >
+          <span>Customize Colors</span>
+          <span className={`palette-toggle-arrow${paletteOpen ? " open" : ""}`}>▾</span>
+        </button>
+
+        {paletteOpen && (
+          <div className="palette-editor-body">
+            <div className="palette-editor-grid">
+              {displayPaletteKeys.map((key) => {
+                const baseColor = selectedTheme?.[key] ?? FALLBACK_COLOR;
+                const currentColor = customColors[key] ?? baseColor;
+                const isActive = activeColorKey === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className={`palette-color-item${isActive ? " is-active" : ""}`}
+                    onClick={() => handleSwatchClick(key)}
+                    aria-pressed={isActive}
+                    aria-label={`${paletteColorLabels[key]}: ${currentColor}`}
+                  >
+                    <span
+                      className="palette-color-swatch"
+                      style={{ backgroundColor: currentColor }}
+                    />
+                    <span className="palette-color-name">{paletteColorLabels[key]}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {activeColorKey && (
+              <ColorPicker
+                currentColor={
+                  customColors[activeColorKey] ??
+                  selectedTheme?.[activeColorKey] ??
+                  FALLBACK_COLOR
+                }
+                onChange={(color) => onColorChange(activeColorKey, color)}
+              />
+            )}
+
+            {Object.keys(customColors).length > 0 && (
+              <button
+                type="button"
+                className="palette-reset-btn"
+                onClick={() => {
+                  onResetColors();
+                  setActiveColorKey(null);
+                }}
+              >
+                Reset Colors
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       <p className="layout-active-label">Layout: {selectedLayoutOption.name}</p>
