@@ -915,9 +915,50 @@ label.color-field-label {
 }
 
 .action-row {
-  display: flex;
+  display: grid;
   gap: 8px;
   margin-top: 10px;
+}
+
+.action-row > button {
+  width: 100%;
+  padding: 8px 12px;
+}
+
+.download-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+button.download-format-btn {
+  margin: 0;
+  min-height: 42px;
+  padding: 10px 12px;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.download-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-btn-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.download-btn-icon path {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 button {
@@ -1081,7 +1122,7 @@ button.location-clear-btn:focus-visible {
   }
 
   .action-row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .picker-modal-backdrop {

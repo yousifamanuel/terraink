@@ -18,7 +18,8 @@ export default function SettingsPanel({
   fontOptions,
   isGenerating,
   generationProgress,
-  onDownload,
+  onDownloadPng,
+  onDownloadPdf,
   hasResult,
   status,
   error,
@@ -78,19 +79,39 @@ export default function SettingsPanel({
 
       {!isColorEditorActive ? (
         <div className="action-row">
-          <button type="submit" disabled={isGenerating}>
+          <button type="submit" className="generate-btn" disabled={isGenerating}>
             {isGenerating
               ? `Generating... ${generationProgress}%`
               : "Generate Poster"}
           </button>
-          <button
-            type="button"
-            className="ghost"
-            onClick={onDownload}
-            disabled={!hasResult}
-          >
-            Download PNG
-          </button>
+          <div className="download-row">
+            <button
+              type="button"
+              className="ghost download-format-btn"
+              onClick={onDownloadPng}
+              disabled={!hasResult}
+            >
+              <span className="download-btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M8 2v7m0 0L5.3 6.6M8 9l2.7-2.4M3 11.6h10" />
+                </svg>
+              </span>
+              <span>PNG</span>
+            </button>
+            <button
+              type="button"
+              className="ghost download-format-btn"
+              onClick={onDownloadPdf}
+              disabled={!hasResult}
+            >
+              <span className="download-btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" focusable="false">
+                  <path d="M8 2v7m0 0L5.3 6.6M8 9l2.7-2.4M3 11.6h10" />
+                </svg>
+              </span>
+              <span>PDF</span>
+            </button>
+          </div>
         </div>
       ) : null}
 
@@ -99,3 +120,4 @@ export default function SettingsPanel({
     </form>
   );
 }
+

@@ -30,7 +30,11 @@ import {
 import { fetchMapData, geocodeLocation } from "./lib/osm";
 import { renderPoster } from "./lib/posterRenderer";
 import { getTheme, themeOptions } from "./lib/themes";
-import { createPosterFilename } from "./utils/download";
+import {
+  createPdfBlobFromCanvas,
+  createPosterFilename,
+  triggerDownloadBlob,
+} from "./utils/download";
 import { ensureGoogleFont } from "./utils/font";
 import {
   normalizePosterSizeValue,
@@ -525,7 +529,7 @@ export default function App() {
     }
   }
 
-  function handleDownload() {
+  function handleDownloadPng() {
     const canvas = canvasRef.current;
     if (!canvas) {
       return;
@@ -535,18 +539,31 @@ export default function App() {
       if (!blob) {
         return;
       }
-
-      const link = document.createElement("a");
-      const filename = createPosterFilename(form.displayCity || form.location, form.theme);
-      const url = URL.createObjectURL(blob);
-
-      link.href = url;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(url);
+      const filename = createPosterFilename(
+        form.displayCity || form.location,
+        form.theme,
+        "png",
+      );
+      triggerDownloadBlob(blob, filename);
     }, "image/png");
+  }
+
+  function handleDownloadPdf() {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      return;
+    }
+
+    const pdfBlob = createPdfBlobFromCanvas(canvas, {
+      widthCm: Number(form.width),
+      heightCm: Number(form.height),
+    });
+    const filename = createPosterFilename(
+      form.displayCity || form.location,
+      form.theme,
+      "pdf",
+    );
+    triggerDownloadBlob(pdfBlob, filename);
   }
 
   const showLocationSuggestions =
@@ -572,7 +589,8 @@ export default function App() {
           fontOptions={FONT_OPTIONS}
           isGenerating={isGenerating}
           generationProgress={generationProgress}
-          onDownload={handleDownload}
+          onDownloadPng={handleDownloadPng}
+          onDownloadPdf={handleDownloadPdf}
           hasResult={Boolean(result)}
           status={status}
           error={error}
