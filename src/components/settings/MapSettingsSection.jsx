@@ -1,22 +1,18 @@
-import { useMemo, useState } from "react";
-import { MAX_DISTANCE_METERS, MIN_DISTANCE_METERS } from "../../constants/appConfig";
+import { useEffect, useMemo, useState } from "react";
 import { createCustomLayoutOption } from "../../lib/layouts";
-import { displayPaletteKeys, getThemePalette, paletteColorLabels } from "../../lib/themes";
-import ColorPicker from "./ColorPicker";
+import { displayPaletteKeys, paletteColorLabels } from "../../lib/themes";
+import { normalizeHexColor } from "../../utils/color";
+import {
+  buildDynamicColorChoices,
+  createFallbackThemeOption,
+} from "../../utils/themeColor";
 import LayoutCard from "./LayoutCard";
-import PickerModal from "./PickerModal";
-import ThemeCard from "./ThemeCard";
+import MapDimensionFields from "./MapDimensionFields";
+import MapSettingsPickers from "./MapSettingsPickers";
+import ThemeColorEditor from "./ThemeColorEditor";
+import ThemeSummarySection from "./ThemeSummarySection";
 
 const FALLBACK_COLOR = "#000000";
-
-function createFallbackThemeOption(themeId, selectedTheme) {
-  return {
-    id: themeId,
-    name: String(selectedTheme?.name ?? themeId ?? "Theme"),
-    description: String(selectedTheme?.description ?? ""),
-    palette: getThemePalette(selectedTheme),
-  };
-}
 
 export default function MapSettingsSection({
   form,
@@ -32,10 +28,12 @@ export default function MapSettingsSection({
   customColors,
   onColorChange,
   onResetColors,
+  onColorEditorActiveChange,
 }) {
   const [activePicker, setActivePicker] = useState("");
-  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [isThemeEditing, setIsThemeEditing] = useState(false);
   const [activeColorKey, setActiveColorKey] = useState(null);
+  const [activeColorSession, setActiveColorSession] = useState(null);
 
   const selectedThemeOption = useMemo(() => {
     const matchingOption = themeOptions.find((themeOption) => themeOption.id === form.theme);
@@ -44,6 +42,66 @@ export default function MapSettingsSection({
     }
     return createFallbackThemeOption(form.theme, selectedTheme);
   }, [form.theme, selectedTheme, themeOptions]);
+
+  const currentThemePalette = useMemo(
+    () =>
+      displayPaletteKeys.map((key) => {
+        const themeColor = selectedTheme?.[key] ?? FALLBACK_COLOR;
+        return customColors[key] ?? themeColor;
+      }),
+    [customColors, selectedTheme],
+  );
+
+  const summaryThemeOption = useMemo(
+    () => ({
+      ...selectedThemeOption,
+      palette: currentThemePalette,
+    }),
+    [currentThemePalette, selectedThemeOption],
+  );
+
+  const activeColorChoices = useMemo(() => {
+    if (!activeColorKey) {
+      return { suggestedColors: [], moreColors: [] };
+    }
+
+    const sessionColor =
+      activeColorSession?.key === activeColorKey ? activeColorSession.seedColor : "";
+    const sessionPalette =
+      activeColorSession?.key === activeColorKey
+        ? activeColorSession.seedPalette
+        : currentThemePalette;
+
+    return buildDynamicColorChoices(
+      sessionColor ||
+        customColors[activeColorKey] ||
+        selectedTheme?.[activeColorKey] ||
+        currentThemePalette[0] ||
+        "",
+      sessionPalette,
+    );
+  }, [
+    activeColorKey,
+    activeColorSession,
+    customColors,
+    currentThemePalette,
+    selectedTheme,
+  ]);
+
+  const colorTargets = useMemo(
+    () =>
+      displayPaletteKeys.map((key) => {
+        const baseColor = selectedTheme?.[key] ?? FALLBACK_COLOR;
+        const currentColor = customColors[key] ?? baseColor;
+        return {
+          key,
+          label: paletteColorLabels[key],
+          color: currentColor,
+          isActive: activeColorKey === key,
+        };
+      }),
+    [activeColorKey, customColors, selectedTheme],
+  );
 
   const layoutOptions = useMemo(
     () => layoutGroups.flatMap((group) => group.options),
@@ -71,9 +129,15 @@ export default function MapSettingsSection({
     setActivePicker("");
   }
 
+  function clearColorPickerState() {
+    setActiveColorKey(null);
+    setActiveColorSession(null);
+  }
+
   function handleThemeSelect(themeId) {
     onThemeChange(themeId);
     closePicker();
+    clearColorPickerState();
   }
 
   function handleLayoutSelect(layoutId) {
@@ -82,92 +146,114 @@ export default function MapSettingsSection({
   }
 
   function handleSwatchClick(key) {
-    setActiveColorKey((prev) => (prev === key ? null : key));
+    const seedColor =
+      customColors[key] ?? selectedTheme?.[key] ?? currentThemePalette[0] ?? "";
+    const seedPalette = [...currentThemePalette];
+    setActiveColorKey(key);
+    setActiveColorSession({
+      key,
+      seedColor,
+      seedPalette,
+    });
   }
 
-  function handleTogglePalette() {
-    setPaletteOpen((prev) => {
-      if (prev) {
-        setActiveColorKey(null);
-      }
-      return !prev;
+  function handleOpenThemeEditor() {
+    const defaultKey = displayPaletteKeys[0];
+    handleSwatchClick(defaultKey);
+    setIsThemeEditing(true);
+  }
+
+  function handleDoneThemeEditor() {
+    setIsThemeEditing(false);
+    clearColorPickerState();
+  }
+
+  function handleResetThemeColors() {
+    onResetColors();
+    if (!isThemeEditing) {
+      clearColorPickerState();
+      return;
+    }
+
+    const activeKey = activeColorKey || displayPaletteKeys[0];
+    const seedPalette = displayPaletteKeys.map(
+      (key) =>
+        normalizeHexColor(selectedTheme?.[key]) ||
+        normalizeHexColor(currentThemePalette[0]) ||
+        "",
+    );
+    setActiveColorSession({
+      key: activeKey,
+      seedColor: seedPalette[displayPaletteKeys.indexOf(activeKey)] || seedPalette[0] || "",
+      seedPalette,
     });
+  }
+
+  function handleResetSingleColor(key) {
+    const originalColor =
+      normalizeHexColor(selectedTheme?.[key]) ||
+      normalizeHexColor(currentThemePalette[0]) ||
+      "";
+    if (!originalColor) {
+      return;
+    }
+    onColorChange(key, originalColor);
+  }
+
+  const hasCustomColors = Object.keys(customColors).length > 0;
+  const activeColorLabel = activeColorKey ? paletteColorLabels[activeColorKey] : "Color";
+
+  useEffect(() => {
+    onColorEditorActiveChange?.(isThemeEditing);
+  }, [isThemeEditing, onColorEditorActiveChange]);
+
+  useEffect(() => {
+    return () => {
+      onColorEditorActiveChange?.(false);
+    };
+  }, [onColorEditorActiveChange]);
+
+  if (isThemeEditing) {
+    const editorKey = activeColorKey || displayPaletteKeys[0];
+    const editorChoices = activeColorKey
+      ? activeColorChoices
+      : buildDynamicColorChoices(
+          currentThemePalette[0] || "",
+          currentThemePalette,
+        );
+    const editorColor =
+      customColors[editorKey] ??
+      selectedTheme?.[editorKey] ??
+      currentThemePalette[0] ??
+      "";
+
+    return (
+      <ThemeColorEditor
+        activeColorLabel={activeColorLabel}
+        hasCustomColors={hasCustomColors}
+        onResetAllColors={handleResetThemeColors}
+        onDone={handleDoneThemeEditor}
+        colorTargets={colorTargets}
+        onTargetSelect={handleSwatchClick}
+        editorColor={editorColor}
+        suggestedColors={editorChoices.suggestedColors}
+        moreColors={editorChoices.moreColors}
+        onColorChange={(color) => onColorChange(editorKey, color)}
+        onResetColor={() => handleResetSingleColor(editorKey)}
+      />
+    );
   }
 
   return (
     <section className="panel-block">
       <h2>Map Settings</h2>
-      <p className="theme-active-label">Theme: {selectedThemeOption.name}</p>
-      <ThemeCard
-        themeOption={selectedThemeOption}
-        showName={false}
-        onClick={openThemePicker}
+
+      <ThemeSummarySection
+        themeName={selectedThemeOption.name}
+        themeOption={summaryThemeOption}
+        onCustomize={handleOpenThemeEditor}
+        onOpenThemePicker={openThemePicker}
       />
-
-      <div className="palette-editor">
-        <button
-          type="button"
-          className="palette-editor-toggle"
-          onClick={handleTogglePalette}
-          aria-expanded={paletteOpen}
-        >
-          <span>Customize Colors</span>
-          <span className={`palette-toggle-arrow${paletteOpen ? " open" : ""}`}>▾</span>
-        </button>
-
-        {paletteOpen && (
-          <div className="palette-editor-body">
-            <div className="palette-editor-grid">
-              {displayPaletteKeys.map((key) => {
-                const baseColor = selectedTheme?.[key] ?? FALLBACK_COLOR;
-                const currentColor = customColors[key] ?? baseColor;
-                const isActive = activeColorKey === key;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    className={`palette-color-item${isActive ? " is-active" : ""}`}
-                    onClick={() => handleSwatchClick(key)}
-                    aria-pressed={isActive}
-                    aria-label={`${paletteColorLabels[key]}: ${currentColor}`}
-                  >
-                    <span
-                      className="palette-color-swatch"
-                      style={{ backgroundColor: currentColor }}
-                    />
-                    <span className="palette-color-name">{paletteColorLabels[key]}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {activeColorKey && (
-              <ColorPicker
-                currentColor={
-                  customColors[activeColorKey] ??
-                  selectedTheme?.[activeColorKey] ??
-                  FALLBACK_COLOR
-                }
-                onChange={(color) => onColorChange(activeColorKey, color)}
-                onClose={() => setActiveColorKey(null)}
-              />
-            )}
-
-            {Object.keys(customColors).length > 0 && (
-              <button
-                type="button"
-                className="palette-reset-btn"
-                onClick={() => {
-                  onResetColors();
-                  setActiveColorKey(null);
-                }}
-              >
-                Reset Colors
-              </button>
-            )}
-          </div>
-        )}
-      </div>
 
       <p className="layout-active-label">Layout: {selectedLayoutOption.name}</p>
       <LayoutCard
@@ -175,93 +261,24 @@ export default function MapSettingsSection({
         onClick={openLayoutPicker}
       />
 
-      <div className="field-grid triple">
-        <label>
-          Distance (m)
-          <input
-            name="distance"
-            type="number"
-            min={MIN_DISTANCE_METERS}
-            max={MAX_DISTANCE_METERS}
-            value={form.distance}
-            onChange={onChange}
-            onBlur={onNumericFieldBlur}
-          />
-        </label>
-        <label>
-          Width (cm)
-          <input
-            name="width"
-            type="number"
-            min={minPosterCm}
-            max={maxPosterCm}
-            step="0.1"
-            value={form.width}
-            onChange={onChange}
-            onBlur={onNumericFieldBlur}
-          />
-        </label>
-        <label>
-          Height (cm)
-          <input
-            name="height"
-            type="number"
-            min={minPosterCm}
-            max={maxPosterCm}
-            step="0.1"
-            value={form.height}
-            onChange={onChange}
-            onBlur={onNumericFieldBlur}
-          />
-        </label>
-      </div>
+      <MapDimensionFields
+        form={form}
+        minPosterCm={minPosterCm}
+        maxPosterCm={maxPosterCm}
+        onChange={onChange}
+        onNumericFieldBlur={onNumericFieldBlur}
+      />
 
-      <PickerModal
-        open={activePicker === "theme"}
-        title="Choose Theme"
-        titleId="theme-picker-title"
-        onClose={closePicker}
-      >
-        <div className="picker-option-list">
-          {themeOptions.map((themeOption) => (
-            <ThemeCard
-              key={themeOption.id}
-              themeOption={themeOption}
-              isSelected={themeOption.id === form.theme}
-              onClick={() => handleThemeSelect(themeOption.id)}
-            />
-          ))}
-        </div>
-      </PickerModal>
-
-      <PickerModal
-        open={activePicker === "layout"}
-        title="Choose Layout"
-        titleId="layout-picker-title"
-        onClose={closePicker}
-      >
-        <div className="layout-picker-groups">
-          {layoutGroups.map((group) => (
-            <section
-              key={group.id}
-              className="layout-picker-group"
-              aria-label={group.name}
-            >
-              <h4>{group.name}</h4>
-              <div className="picker-option-list">
-                {group.options.map((layoutOption) => (
-                  <LayoutCard
-                    key={layoutOption.id}
-                    layoutOption={layoutOption}
-                    isSelected={layoutOption.id === form.layout}
-                    onClick={() => handleLayoutSelect(layoutOption.id)}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </PickerModal>
+      <MapSettingsPickers
+        activePicker={activePicker}
+        onClosePicker={closePicker}
+        themeOptions={themeOptions}
+        selectedThemeId={form.theme}
+        onThemeSelect={handleThemeSelect}
+        layoutGroups={layoutGroups}
+        selectedLayoutId={form.layout}
+        onLayoutSelect={handleLayoutSelect}
+      />
     </section>
   );
 }

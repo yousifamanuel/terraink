@@ -1,159 +1,406 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { clamp } from "../../utils/number";
+import {
+  hexToRgb,
+  hslToHexColor,
+  normalizeHexColor,
+  rgbToHexColor,
+  rgbToHsl,
+  toUniqueHexColors,
+} from "../../utils/color";
 
-const PRESET_COLORS = [
-  "#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff", 
-  "#ffff00", "#00ffff", "#ff00ff", "#ff8000", "#8000ff",
-  "#808080", "#c0c0c0", "#404040", "#800000", "#008000",
-  "#000080", "#808000", "#008080", "#800080", "#ff6666",
-  "#66ff66", "#6666ff", "#ffcc00", "#00ccff",
-];
+const HUE_TRACK_GRADIENT =
+  "linear-gradient(90deg, #ff0033 0%, #ff8c00 16%, #ffd500 32%, #4ac600 48%, #00b9ff 64%, #3a52ff 80%, #b600ff 90%, #ff0033 100%)";
+const SLIDER_COMMIT_DELAY_MS = 180;
 
-function hexToRgb(hex) {
-  const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : { r: 0, g: 0, b: 0 };
-}
-
-function rgbToHex(r, g, b) {
-  return (
-    "#" +
-    [r, g, b]
-      .map((v) =>
-        Math.max(0, Math.min(255, Math.round(Number(v) || 0)))
-          .toString(16)
-          .padStart(2, "0"),
-      )
-      .join("")
+export default function ColorPicker({
+  currentColor,
+  suggestedColors = [],
+  moreColors = [],
+  onChange,
+  onResetColor,
+}) {
+  const suggestionList = useMemo(
+    () => toUniqueHexColors(suggestedColors).slice(0, 10),
+    [suggestedColors],
   );
-}
 
-export default function ColorPicker({ currentColor, onChange, onClose }) {
-  const [hexInput, setHexInput] = useState(currentColor);
-  const [rgb, setRgb] = useState(() => hexToRgb(currentColor));
-  const nativePickerRef = useRef(null);
+  const additionalList = useMemo(() => {
+    const initialSet = new Set(suggestionList);
+    return toUniqueHexColors(moreColors)
+      .filter((color) => !initialSet.has(color))
+      .slice(0, 15);
+  }, [moreColors, suggestionList]);
 
-  useEffect(() => {
-    setHexInput(currentColor);
-    setRgb(hexToRgb(currentColor));
-  }, [currentColor]);
+  const normalizedCurrentColor =
+    normalizeHexColor(currentColor) ||
+    suggestionList[0] ||
+    additionalList[0] ||
+    "#000000";
+  const [hexInput, setHexInput] = useState(normalizedCurrentColor);
+  const [customHsl, setCustomHsl] = useState(() =>
+    rgbToHsl(hexToRgb(normalizedCurrentColor)),
+  );
+  const [rgbInput, setRgbInput] = useState(() =>
+    hexToRgb(normalizedCurrentColor),
+  );
+  const [showMoreColors, setShowMoreColors] = useState(false);
+  const [showCustomInputs, setShowCustomInputs] = useState(false);
+  const pendingSliderHexRef = useRef(normalizedCurrentColor);
+  const latestCommittedHexRef = useRef(normalizedCurrentColor);
+  const sliderCommitTimerRef = useRef(null);
+  const previewFieldRef = useRef(null);
+  const isPreviewDraggingRef = useRef(false);
 
-  function handlePresetClick(color) {
-    onChange(color);
-    onClose?.();
+  const visiblePalette = showMoreColors
+    ? [...suggestionList, ...additionalList]
+    : suggestionList;
+
+  const hueDegrees = Math.round(customHsl.h * 360);
+  const shadePercent = Math.round((1 - customHsl.l) * 100);
+  const saturationPercent = Math.round(customHsl.s * 100);
+
+  const hueTrackStyle = { background: HUE_TRACK_GRADIENT };
+  const shadeTrackStyle = {
+    background: `linear-gradient(90deg, hsl(${hueDegrees}deg, ${Math.max(12, saturationPercent - 18)}%, 88%), hsl(${hueDegrees}deg, ${Math.max(20, saturationPercent)}%, 52%), hsl(${hueDegrees}deg, ${Math.min(100, saturationPercent + 8)}%, 12%))`,
+  };
+  const previewGradientStyle = {
+    backgroundImage:
+      "linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
+    backgroundColor: `hsl(${hueDegrees}deg, 100%, 50%)`,
+  };
+  const previewIndicatorStyle = {
+    left: `${Math.round(customHsl.s * 100)}%`,
+    top: `${Math.round((1 - customHsl.l) * 100)}%`,
+    backgroundColor: hexInput,
+  };
+
+  function clearSliderCommitTimer() {
+    if (!sliderCommitTimerRef.current) {
+      return;
+    }
+    clearTimeout(sliderCommitTimerRef.current);
+    sliderCommitTimerRef.current = null;
   }
 
-  function handleHexInput(e) {
-    const val = e.target.value;
-    setHexInput(val);
-    const clean = val.startsWith("#") ? val : `#${val}`;
-    if (/^#[0-9a-fA-F]{6}$/.test(clean)) {
-      const normalized = clean.toLowerCase();
-      onChange(normalized);
-      setRgb(hexToRgb(normalized));
+  function scheduleSliderCommit(nextHex) {
+    const normalized = normalizeHexColor(nextHex);
+    if (!normalized) {
+      return;
     }
+
+    pendingSliderHexRef.current = normalized;
+    clearSliderCommitTimer();
+    sliderCommitTimerRef.current = setTimeout(() => {
+      sliderCommitTimerRef.current = null;
+      const candidateColor = normalizeHexColor(pendingSliderHexRef.current);
+      if (!candidateColor || candidateColor === latestCommittedHexRef.current) {
+        return;
+      }
+      onChange(candidateColor);
+    }, SLIDER_COMMIT_DELAY_MS);
+  }
+
+  function commitColorImmediately(nextHex) {
+    const normalized = normalizeHexColor(nextHex);
+    if (!normalized || normalized === latestCommittedHexRef.current) {
+      return;
+    }
+    clearSliderCommitTimer();
+    onChange(normalized);
+  }
+
+  useEffect(() => {
+    setHexInput(normalizedCurrentColor);
+    setCustomHsl(rgbToHsl(hexToRgb(normalizedCurrentColor)));
+    setRgbInput(hexToRgb(normalizedCurrentColor));
+    pendingSliderHexRef.current = normalizedCurrentColor;
+    latestCommittedHexRef.current = normalizedCurrentColor;
+    clearSliderCommitTimer();
+  }, [normalizedCurrentColor]);
+
+  useEffect(() => {
+    if (additionalList.length === 0) {
+      setShowMoreColors(false);
+    }
+  }, [additionalList]);
+
+  useEffect(
+    () => () => {
+      clearSliderCommitTimer();
+    },
+    [],
+  );
+
+  function handlePresetClick(color) {
+    clearSliderCommitTimer();
+    onChange(color);
+  }
+
+  function handleHexInput(event) {
+    const nextValue = event.target.value;
+    setHexInput(nextValue);
+    const normalized = normalizeHexColor(
+      nextValue.startsWith("#") ? nextValue : `#${nextValue}`,
+    );
+    if (!normalized) {
+      return;
+    }
+
+    commitColorImmediately(normalized);
+    setCustomHsl(rgbToHsl(hexToRgb(normalized)));
+    setRgbInput(hexToRgb(normalized));
+    pendingSliderHexRef.current = normalized;
   }
 
   function handleHexBlur() {
-    setHexInput(currentColor);
+    setHexInput(normalizedCurrentColor);
   }
 
-  function handleRgbChange(channel, rawVal) {
-    const next = { ...rgb, [channel]: rawVal };
-    setRgb(next);
-    const nums = [Number(next.r), Number(next.g), Number(next.b)];
-    if (nums.every((v) => Number.isFinite(v) && v >= 0 && v <= 255)) {
-      const hex = rgbToHex(...nums);
-      onChange(hex);
-      setHexInput(hex);
+  function updateCustomHsl(nextHsl, commitMode = "none") {
+    const nextHex = hslToHexColor(nextHsl);
+    setCustomHsl(nextHsl);
+    setHexInput(nextHex);
+    setRgbInput(hexToRgb(nextHex));
+    pendingSliderHexRef.current = nextHex;
+
+    if (commitMode === "deferred") {
+      scheduleSliderCommit(nextHex);
+      return;
     }
+
+    if (commitMode === "immediate") {
+      commitColorImmediately(nextHex);
+    }
+  }
+
+  function handleHueChange(event) {
+    const hue = clamp(Number(event.target.value) / 360, 0, 1);
+    const next = { ...customHsl, h: hue };
+    updateCustomHsl(next, "deferred");
+  }
+
+  function handleShadeChange(event) {
+    const lightness = clamp(1 - Number(event.target.value) / 100, 0, 1);
+    const next = { ...customHsl, l: lightness };
+    updateCustomHsl(next, "deferred");
+  }
+
+  function handleRgbInput(channel, rawValue) {
+    const nextRgb = { ...rgbInput, [channel]: rawValue };
+    setRgbInput(nextRgb);
+
+    const values = [Number(nextRgb.r), Number(nextRgb.g), Number(nextRgb.b)];
+    if (
+      !values.every(
+        (value) => Number.isFinite(value) && value >= 0 && value <= 255,
+      )
+    ) {
+      return;
+    }
+
+    const nextHex = rgbToHexColor({ r: values[0], g: values[1], b: values[2] });
+    setHexInput(nextHex);
+    setCustomHsl(rgbToHsl(hexToRgb(nextHex)));
+    pendingSliderHexRef.current = nextHex;
+    commitColorImmediately(nextHex);
+  }
+
+  function handleResetColorClick() {
+    clearSliderCommitTimer();
+    onResetColor();
+  }
+
+  function updateFromPreviewPointer(clientX, clientY, commitMode = "deferred") {
+    const previewArea = previewFieldRef.current;
+    if (!previewArea) {
+      return;
+    }
+
+    const bounds = previewArea.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) {
+      return;
+    }
+
+    const saturation = clamp((clientX - bounds.left) / bounds.width, 0, 1);
+    const lightness = clamp(1 - (clientY - bounds.top) / bounds.height, 0, 1);
+    const next = { ...customHsl, s: saturation, l: lightness };
+    updateCustomHsl(next, commitMode);
+  }
+
+  function handlePreviewPointerDown(event) {
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    isPreviewDraggingRef.current = true;
+    if (event.currentTarget.setPointerCapture) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+    updateFromPreviewPointer(event.clientX, event.clientY, "immediate");
+  }
+
+  function handlePreviewPointerMove(event) {
+    if (!isPreviewDraggingRef.current) {
+      return;
+    }
+    updateFromPreviewPointer(event.clientX, event.clientY, "deferred");
+  }
+
+  function handlePreviewPointerUp(event) {
+    if (!isPreviewDraggingRef.current) {
+      return;
+    }
+
+    isPreviewDraggingRef.current = false;
+    if (event.currentTarget.releasePointerCapture) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    updateFromPreviewPointer(event.clientX, event.clientY, "deferred");
+  }
+
+  function handlePreviewPointerCancel() {
+    isPreviewDraggingRef.current = false;
   }
 
   return (
     <div className="color-picker-popup">
       <div className="color-preset-grid">
-        {PRESET_COLORS.map((color) => (
+        {visiblePalette.map((color) => (
           <button
             key={color}
             type="button"
-            className={`color-preset-cell${currentColor.toLowerCase() === color ? " is-active" : ""}`}
+            className={`color-preset-cell${normalizedCurrentColor === color ? " is-active" : ""}`}
             style={{ backgroundColor: color }}
             onClick={() => handlePresetClick(color)}
             aria-label={color}
             title={color}
           />
         ))}
+      </div>
+
+      <div className="color-picker-actions">
         <button
           type="button"
-          className="color-preset-cell color-preset-custom"
-          title="Custom color"
-          aria-label="Open custom color picker"
-          onClick={() => nativePickerRef.current?.click()}
+          className={`color-grid-action${showMoreColors ? " is-active" : ""}`}
+          onClick={() => setShowMoreColors((prev) => !prev)}
+          disabled={additionalList.length === 0}
         >
-          ⊕
+          {showMoreColors ? "Less" : "More"}
+        </button>
+        <button
+          type="button"
+          className={`color-grid-action${showCustomInputs ? " is-active" : ""}`}
+          onClick={() => setShowCustomInputs((prev) => !prev)}
+        >
+          Custom
+        </button>
+        <button
+          type="button"
+          className="color-grid-action color-grid-reset"
+          onClick={handleResetColorClick}
+        >
+          Reset Color
         </button>
       </div>
-      <input
-        ref={nativePickerRef}
-        type="color"
-        value={currentColor}
-        onChange={(e) => onChange(e.target.value)}
-        className="color-native-input"
-        aria-hidden="true"
-        tabIndex={-1}
-      />
-      <div className="color-manual-row">
-        <label className="color-field-label">
-          Hex
-          <input
-            type="text"
-            className="color-hex-input"
-            value={hexInput}
-            onChange={handleHexInput}
-            onBlur={handleHexBlur}
-            maxLength={7}
-            spellCheck={false}
-            autoComplete="off"
-          />
-        </label>
-        <label className="color-field-label">
-          R
-          <input
-            type="number"
-            className="color-rgb-input"
-            min="0"
-            max="255"
-            value={rgb.r}
-            onChange={(e) => handleRgbChange("r", e.target.value)}
-          />
-        </label>
-        <label className="color-field-label">
-          G
-          <input
-            type="number"
-            className="color-rgb-input"
-            min="0"
-            max="255"
-            value={rgb.g}
-            onChange={(e) => handleRgbChange("g", e.target.value)}
-          />
-        </label>
-        <label className="color-field-label">
-          B
-          <input
-            type="number"
-            className="color-rgb-input"
-            min="0"
-            max="255"
-            value={rgb.b}
-            onChange={(e) => handleRgbChange("b", e.target.value)}
-          />
-        </label>
-      </div>
+
+      {showCustomInputs ? (
+        <div className="color-manual-panel color-custom-panel">
+          <div
+            ref={previewFieldRef}
+            className="color-gradient-preview"
+            style={previewGradientStyle}
+            onPointerDown={handlePreviewPointerDown}
+            onPointerMove={handlePreviewPointerMove}
+            onPointerUp={handlePreviewPointerUp}
+            onPointerCancel={handlePreviewPointerCancel}
+            role="presentation"
+          >
+            <span
+              className="color-gradient-preview-indicator"
+              style={previewIndicatorStyle}
+            />
+          </div>
+
+          <label className="color-slider-field">
+            Color Hue
+            <input
+              type="range"
+              min="0"
+              max="360"
+              step="1"
+              value={hueDegrees}
+              onChange={handleHueChange}
+              className="color-slider color-hue-slider"
+              style={hueTrackStyle}
+            />
+          </label>
+
+          <label className="color-slider-field">
+            Light / Dark
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={shadePercent}
+              onChange={handleShadeChange}
+              className="color-slider color-shade-slider"
+              style={shadeTrackStyle}
+            />
+          </label>
+
+          <label className="color-field-label color-hex-only-field">
+            Hex
+            <input
+              type="text"
+              className="color-hex-input"
+              value={hexInput}
+              onChange={handleHexInput}
+              onBlur={handleHexBlur}
+              maxLength={7}
+              spellCheck={false}
+              autoComplete="off"
+            />
+          </label>
+
+          <div className="color-rgb-grid">
+            <label className="color-field-label">
+              R
+              <input
+                type="number"
+                className="color-rgb-input"
+                min="0"
+                max="255"
+                value={rgbInput.r}
+                onChange={(event) => handleRgbInput("r", event.target.value)}
+              />
+            </label>
+            <label className="color-field-label">
+              G
+              <input
+                type="number"
+                className="color-rgb-input"
+                min="0"
+                max="255"
+                value={rgbInput.g}
+                onChange={(event) => handleRgbInput("g", event.target.value)}
+              />
+            </label>
+            <label className="color-field-label">
+              B
+              <input
+                type="number"
+                className="color-rgb-input"
+                min="0"
+                max="255"
+                value={rgbInput.b}
+                onChange={(event) => handleRgbInput("b", event.target.value)}
+              />
+            </label>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

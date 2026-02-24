@@ -1,3 +1,4 @@
+import { useState } from "react";
 import LocationSection from "./LocationSection";
 import MapSettingsSection from "./MapSettingsSection";
 import TypographySection from "./TypographySection";
@@ -32,19 +33,23 @@ export default function SettingsPanel({
   onColorChange,
   onResetColors,
 }) {
+  const [isColorEditorActive, setIsColorEditorActive] = useState(false);
+
   return (
     <form className="settings-panel" onSubmit={onSubmit}>
-      <LocationSection
-        form={form}
-        onChange={onChange}
-        onLocationFocus={onLocationFocus}
-        onLocationBlur={onLocationBlur}
-        showLocationSuggestions={showLocationSuggestions}
-        locationSuggestions={locationSuggestions}
-        isLocationSearching={isLocationSearching}
-        onLocationSelect={onLocationSelect}
-        onClearLocation={onClearLocation}
-      />
+      {!isColorEditorActive ? (
+        <LocationSection
+          form={form}
+          onChange={onChange}
+          onLocationFocus={onLocationFocus}
+          onLocationBlur={onLocationBlur}
+          showLocationSuggestions={showLocationSuggestions}
+          locationSuggestions={locationSuggestions}
+          isLocationSearching={isLocationSearching}
+          onLocationSelect={onLocationSelect}
+          onClearLocation={onClearLocation}
+        />
+      ) : null}
 
       <MapSettingsSection
         form={form}
@@ -60,32 +65,37 @@ export default function SettingsPanel({
         customColors={customColors}
         onColorChange={onColorChange}
         onResetColors={onResetColors}
+        onColorEditorActiveChange={setIsColorEditorActive}
       />
 
-      <TypographySection
-        form={form}
-        onChange={onChange}
-        fontOptions={fontOptions}
-      />
+      {!isColorEditorActive ? (
+        <TypographySection
+          form={form}
+          onChange={onChange}
+          fontOptions={fontOptions}
+        />
+      ) : null}
 
-      <div className="action-row">
-        <button type="submit" disabled={isGenerating}>
-          {isGenerating
-            ? `Generating... ${generationProgress}%`
-            : "Generate Poster"}
-        </button>
-        <button
-          type="button"
-          className="ghost"
-          onClick={onDownload}
-          disabled={!hasResult}
-        >
-          Download PNG
-        </button>
-      </div>
+      {!isColorEditorActive ? (
+        <div className="action-row">
+          <button type="submit" disabled={isGenerating}>
+            {isGenerating
+              ? `Generating... ${generationProgress}%`
+              : "Generate Poster"}
+          </button>
+          <button
+            type="button"
+            className="ghost"
+            onClick={onDownload}
+            disabled={!hasResult}
+          >
+            Download PNG
+          </button>
+        </div>
+      ) : null}
 
-      {status ? <p className="status">{status}</p> : null}
-      {error ? <p className="error">{error}</p> : null}
+      {!isColorEditorActive && status ? <p className="status">{status}</p> : null}
+      {!isColorEditorActive && error ? <p className="error">{error}</p> : null}
     </form>
   );
 }
