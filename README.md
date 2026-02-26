@@ -107,6 +107,10 @@ docker run -d --name terraink -p 7200:80 --restart unless-stopped terraink:lates
 - Typography controls for display labels and optional Google Font family
 - PNG export
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yousifamanuel/terraink&type=Date)](https://star-history.com/#yousifamanuel/terraink&Date)
+
 ## Contributing
 
 Contributions are welcome.
