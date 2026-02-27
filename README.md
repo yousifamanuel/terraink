@@ -24,9 +24,18 @@
 
 > Note: TerraInk is still in development. Every feedback is appreciated. This is a for-fun, open-source project, and community contributions are very welcome.
 
-## Aknowledgment
+## Acknowledgment
 
 This project is a JavaScript reimplementation inspired by the original MapToPoster [originalankur/maptoposter](https://github.com/originalankur/maptoposter) by [Ankur Gupta](https://github.com/originalankur) (MIT license). My app is built using Bun, React, and TypeScript. It allows users to create custom city map posters with various styling options, leveraging OpenStreetMap data for accurate and detailed maps.
+
+## Features
+
+- **Custom city map posters** for any location in the world, powered by real OpenStreetMap data
+- **Smart geocoding** — search for any city or region by name, or enter coordinates manually
+- **Rich theme system** — choose from dozens of curated themes or build your own custom color palette
+- **Detailed map layers** — roads, water bodies, parks, and building footprints with per-layer styling
+- **Typography controls** — set city/country display labels and load any Google Fonts family
+- **High-resolution PNG export** — download a print-ready poster at any defined dimension
 
 ## User Interface
 
@@ -34,7 +43,7 @@ This project is a JavaScript reimplementation inspired by the original MapToPost
 
 ## Showcase
 
-All showcase images are stored in `public/assets/screenshots/`.
+All showcase images are stored in `public/assets/showcase/`.
 
 ### Featured Examples
 
@@ -52,13 +61,7 @@ bun run dev
 
 ## Environment
 
-Configure these values in `.env` (see `.env.example`):
-
-- `VITE_REPO_URL`: Repository link shown in the sidebar
-- `VITE_REPO_API_URL`: GitHub API endpoint used to fetch star count
-- `VITE_CONTACT_EMAIL`: Contact email shown in the footer (`mailto:` link)
-- `VITE_LEGAL_NOTICE_URL`: Imprint/legal notice page URL
-- `VITE_PRIVACY_URL`: Data privacy page URL
+Copy `.env.example` to `.env` and fill in your values. See [CONTRIBUTING.md](./CONTRIBUTING.md) for a description of each variable.
 
 ## Build
 
@@ -106,37 +109,10 @@ docker build -t terraink:latest .
 docker run -d --name terraink -p 7200:80 --restart unless-stopped terraink:latest
 ```
 
-## Features
+## Contributing
 
-- City + country geocoding via Nominatim (or manual lat/lon override)
-- OpenStreetMap feature loading via Overpass API
-- Theme system with customizable colors and styles
-- Roads, water, parks, and building footprint rendering
-- Typography controls for display labels and optional Google Font family
-- PNG export
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions, environment variables, branch strategy, and contribution guidelines.
 
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=yousifamanuel/terraink&type=Date)](https://star-history.com/#yousifamanuel/terraink&Date)
-
-## Contributing
-
-Contributions are welcome.
-
-Please follow this flow:
-
-1. Pick an existing issue, or open a new issue first to discuss the bug/feature.
-2. Implement the fix/feature in a focused change.
-3. Open a pull request after the work is complete.
-4. Run tests/checks before opening the PR (`bun run build` at minimum) and verify everything works.
-5. If possible, add a small screenshot for UI updates.
-
-Code quality expectations:
-
-- Keep code clean, readable, and reusable.
-- If something is used in multiple places, extract it into a shared component.
-- Reuse existing components when they already cover the use case.
-- Prefer short, focused functions over long functions.
-- Compose small functions/components through clear abstractions and interfaces.
-- Follow naming conventions consistently.
-- Add concise comments where the intent is not obvious.
