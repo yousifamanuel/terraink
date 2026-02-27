@@ -82,6 +82,44 @@ dev  →  beta  →  main
 
 ---
 
+## Commit Messages
+
+Follow the emoji-style Conventional Commits format used in this repo (see [`.vscode/commit-instructions.md`](./.vscode/commit-instructions.md) for the full reference):
+
+```
+<emoji> <type>(<scope>): <subject>
+```
+
+Common types:
+
+| Emoji | Type | When to use |
+| ----- | ---- | ----------- |
+| `✨` | `feat` | New feature |
+| `🐛` | `fix` | Bug fix |
+| `♻️` | `refactor` | Code restructure without behavior change |
+| `🖌️` | `ui` | UI-only changes (no logic) |
+| `📚` | `docs` | Documentation only |
+| `🔧` | `chore` | Maintenance, tooling, deps |
+| `🎨` | `style` | Formatting-only changes |
+| `⚡` | `perf` | Performance improvements |
+| `🗑️` | `del` | Remove files or code |
+
+Rules:
+- Subject must be **lowercase**, **imperative mood**, no trailing period.
+- Subject max **50 characters**; entire line max **72 characters**.
+- One logical change per commit — no multi-clause subjects.
+
+Examples:
+
+```text
+✨ feat(theme): add dark mode preset
+🐛 fix(geocoding): handle null response from nominatim
+♻️ refactor(poster): extract layer drawing into helper
+📚 docs(readme): update setup instructions
+```
+
+---
+
 ## Code Quality
 
 - Keep code clean, readable, and reusable.
