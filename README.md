@@ -2,19 +2,27 @@
 
 # TerraInk
 
+[![Website Badge](https://img.shields.io/badge/Website-fff?logo=appveyor&logoColor=000&style=for-the-badge)](https://terraink.app)
+[![Email Badge](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=fff&style=for-the-badge)](mailto:info@terraink.app)
+[![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=fff&style=for-the-badge)](https://www.linkedin.com/company/terraink/)
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=fff&style=for-the-badge)](https://instagram.com/terraink.app)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=fff&style=for-the-badge)](https://www.youtube.com/@terrainkapp)
+[![Threads](https://img.shields.io/badge/Threads-000?logo=threads&logoColor=fff&style=for-the-badge)](https://www.threads.net/@terraink.app)
+[![Reddit](https://img.shields.io/badge/Reddit-FF4500?logo=reddit&logoColor=fff&style=for-the-badge)](https://www.reddit.com/r/terraink)
+[![TikTok](https://img.shields.io/badge/TikTok-000?logo=tiktok&logoColor=fff&style=for-the-badge)](https://www.tiktok.com/@terraink.app)
+[![Product Hunt](https://img.shields.io/badge/Product%20Hunt-DA552F?logo=producthunt&logoColor=fff&style=for-the-badge)](https://www.producthunt.com/products/terraink)
+
 [![Bun Badge](https://img.shields.io/badge/Bun-000?logo=bun&logoColor=fff&style=for-the-badge)](https://bun.sh)
 [![Vite Badge](https://img.shields.io/badge/Vite-9135FF?logo=vite&logoColor=fff&style=for-the-badge)](https://vitejs.dev)
 [![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=for-the-badge)](https://react.dev/)
 [![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![TypeScript Badge](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=fff&style=for-the-badge)](https://www.typescriptlang.org)
 [![OpenStreetMap Badge](https://img.shields.io/badge/OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=fff&style=for-the-badge)](https://www.openstreetmap.org)
-[![License](https://img.shields.io/badge/License-Mit-000?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![GitHub Badge](https://img.shields.io/badge/GitHub-fff?logo=github&logoColor=000&style=for-the-badge)](https://github.com/yousifamanuel/terraink)
+[![Cloudflare Badge](https://img.shields.io/badge/Cloudflare-F38020?logo=cloudflare&logoColor=fff&style=for-the-badge)](https://www.cloudflare.com)
+[![Docker Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge)](https://www.docker.com)
 
-TerraInk: The Cartographic Poster Engine
-
-App link: [https://terraink.app](https://terraink.app)
-
-> Note: TerraInk is still in development. I appreciate every feedback. This is a for-fun, open-source project, and community contributions are very welcome.
+> Note: TerraInk is still in development. Every feedback is appreciated. This is a for-fun, open-source project, and community contributions are very welcome.
 
 ## Aknowledgment
 
