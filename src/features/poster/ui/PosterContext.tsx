@@ -24,9 +24,11 @@ import {
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
 import { defaultThemeName } from "@/features/theme/infrastructure/themeRepository";
-
-const DEFAULT_POSTER_WIDTH_CM = 20;
-const DEFAULT_POSTER_HEIGHT_CM = 30;
+import {
+  DEFAULT_POSTER_WIDTH_CM,
+  DEFAULT_POSTER_HEIGHT_CM,
+  DEFAULT_DISTANCE_METERS,
+} from "@/core/config";
 
 const defaultLayoutOption = getLayoutOption(defaultLayoutId);
 const defaultLayoutWidthCm = Number(
@@ -37,10 +39,10 @@ const defaultLayoutHeightCm = Number(
 );
 
 export const DEFAULT_FORM: PosterForm = {
-  location: "Hanover, Germany",
+  location: "",
   latitude: "",
   longitude: "",
-  distance: "4000",
+  distance: String(DEFAULT_DISTANCE_METERS),
   width: String(defaultLayoutWidthCm),
   height: String(defaultLayoutHeightCm),
   theme: defaultThemeName,

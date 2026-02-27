@@ -1,5 +1,9 @@
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
+import {
+  PLACEHOLDER_EXAMPLE_CITY,
+  PLACEHOLDER_EXAMPLE_COUNTRY,
+} from "@/features/location/ui/constants";
 
 interface TypographySectionProps {
   form: PosterForm;
@@ -38,7 +42,7 @@ export default function TypographySection({
             name="displayCity"
             value={form.displayCity}
             onChange={onChange}
-            placeholder="Tokyo"
+            placeholder={PLACEHOLDER_EXAMPLE_CITY}
           />
         </label>
         <label>
@@ -48,7 +52,7 @@ export default function TypographySection({
             name="displayCountry"
             value={form.displayCountry}
             onChange={onChange}
-            placeholder="Japan"
+            placeholder={PLACEHOLDER_EXAMPLE_COUNTRY}
           />
         </label>
       </div>

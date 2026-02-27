@@ -1,14 +1,19 @@
 import { createBounds } from "./bounds";
 import type { Coordinate, PosterBoundsResult } from "./types";
+import {
+  FETCH_PADDING,
+  MIN_SAFE_DISTANCE_METERS,
+  MIN_SAFE_ASPECT_RATIO,
+} from "./constants";
 
 export function computePosterAndFetchBounds(
   center: Coordinate,
   distanceMeters: number,
   aspectRatio: number,
-  fetchPadding = 1.35,
+  fetchPadding = FETCH_PADDING,
 ): PosterBoundsResult {
-  const safeDistance = Math.max(1_000, distanceMeters);
-  const safeAspect = Math.max(0.2, aspectRatio);
+  const safeDistance = Math.max(MIN_SAFE_DISTANCE_METERS, distanceMeters);
+  const safeAspect = Math.max(MIN_SAFE_ASPECT_RATIO, aspectRatio);
 
   let halfMetersX = safeDistance;
   let halfMetersY = safeDistance;

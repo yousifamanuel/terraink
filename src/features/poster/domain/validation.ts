@@ -1,5 +1,6 @@
 import { clamp } from "@/shared/geo/math";
 import { parseNumericInput } from "@/shared/utils/number";
+import { CM_PER_INCH } from "@/core/config";
 
 export interface ValidationConfig {
   minPosterCm: number;
@@ -19,8 +20,6 @@ export interface ValidatedInput {
   distanceMeters: number;
   hasManualCoordinates: boolean;
 }
-
-const CM_PER_INCH = 2.54;
 
 export function validatePosterInput(
   form: {

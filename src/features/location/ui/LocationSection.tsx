@@ -1,5 +1,10 @@
 import type { SearchResult } from "../domain/types";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
+import {
+  PLACEHOLDER_LOCATION_SEARCH,
+  PLACEHOLDER_EXAMPLE_LATITUDE,
+  PLACEHOLDER_EXAMPLE_LONGITUDE,
+} from "./constants";
 
 interface LocationSectionProps {
   form: PosterForm;
@@ -40,7 +45,7 @@ export default function LocationSection({
               onChange={onChange}
               onFocus={onLocationFocus}
               onBlur={onLocationBlur}
-              placeholder="Start typing a city or place"
+              placeholder={PLACEHOLDER_LOCATION_SEARCH}
               autoComplete="off"
             />
             {hasLocationValue ? (
@@ -86,7 +91,7 @@ export default function LocationSection({
             name="latitude"
             value={form.latitude}
             onChange={onChange}
-            placeholder="48.8566"
+            placeholder={PLACEHOLDER_EXAMPLE_LATITUDE}
           />
         </label>
         <label>
@@ -96,7 +101,7 @@ export default function LocationSection({
             name="longitude"
             value={form.longitude}
             onChange={onChange}
-            placeholder="2.3522"
+            placeholder={PLACEHOLDER_EXAMPLE_LONGITUDE}
           />
         </label>
       </div>
