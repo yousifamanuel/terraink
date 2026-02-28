@@ -195,22 +195,34 @@ button.install-prompt-btn:hover {
 }
 
 button.install-prompt-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: auto;
   margin: 0;
-  padding: 4px 6px;
-  border: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 174, 212, 0.22);
   background: transparent;
-  color: #4e6c7e;
-  font-size: 0.78rem;
+  color: #6a9ab8;
+  font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
   line-height: 1;
-  transition: color 0.15s ease;
+  letter-spacing: 0.015em;
+  box-sizing: border-box;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 button.install-prompt-dismiss:hover {
   transform: none;
   filter: none;
-  color: #8eaec4;
+  color: #a8cfe5;
+  border-color: rgba(94, 174, 212, 0.45);
+  background: rgba(94, 174, 212, 0.025);
 }
 
 .install-prompt-share-icon {
