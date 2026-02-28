@@ -24,6 +24,7 @@ export function renderPoster(
     displayCountry,
     fontFamily,
     showPosterText = true,
+    includeCredits = true,
   } = options;
 
   const size = resolveCanvasSize(widthInches, heightInches);
@@ -68,6 +69,7 @@ export function renderPoster(
     displayCountry,
     fontFamily,
     showPosterText,
+    includeCredits,
   );
 
   return size;

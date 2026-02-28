@@ -115,6 +115,128 @@ label {
   box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.3);
 }
 
+.credits-toggle-field {
+  margin-top: 10px;
+}
+
+.credits-hint {
+  margin: 2px 0 0;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: #7da8c4;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+/* ── Credits removal confirmation modal ── */
+
+.credits-confirm-modal {
+  width: min(420px, 100%);
+  max-height: unset;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(2, 8, 16, 0.6);
+  border: 1px solid rgba(94, 174, 212, 0.08);
+}
+
+.credits-modal-body {
+  padding: 18px 18px 16px;
+  display: grid;
+  gap: 14px;
+  /* softened warm accent: make the orange a very faint glow; match app gradient direction */
+  background: linear-gradient(180deg, rgba(255, 131, 114, 0.07), #0a1824);
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.credits-modal-headline {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e4f2fc;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.credits-modal-text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #b8cedd;
+}
+
+.credits-modal-text strong {
+  color: #e4f2fc;
+  font-weight: 700;
+}
+
+.credits-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+button.credits-modal-keep {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 174, 212, 0.55);
+  background: linear-gradient(
+    135deg,
+    rgba(38, 112, 158, 0.95) 0%,
+    rgba(25, 78, 115, 0.95) 100%
+  );
+  color: #dff3ff;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    0 0 14px rgba(94, 174, 212, 0.28),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease;
+}
+
+button.credits-modal-keep:hover,
+button.credits-modal-keep:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(130, 200, 240, 0.85);
+  background: linear-gradient(
+    135deg,
+    rgba(50, 138, 190, 0.98) 0%,
+    rgba(35, 100, 148, 0.98) 100%
+  );
+  box-shadow:
+    0 0 22px rgba(94, 174, 212, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  color: #f0faff;
+}
+
+button.credits-modal-remove {
+  padding: 6px 4px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #4e6c7e;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+button.credits-modal-remove:hover,
+button.credits-modal-remove:focus-visible {
+  transform: none;
+  filter: none;
+  color: #7ea5bc;
+}
+
 input,
 select,
 button {

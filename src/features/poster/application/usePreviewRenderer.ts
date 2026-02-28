@@ -21,6 +21,7 @@ export function usePreviewRenderer() {
       displayCountry: form.displayCountry.trim() || renderCache.baseCountry,
       fontFamily: form.fontFamily.trim(),
       showPosterText: form.showPosterText !== false,
+      includeCredits: form.includeCredits !== false,
     };
 
     let cancelled = false;
@@ -40,6 +41,7 @@ export function usePreviewRenderer() {
         displayCountry: typography.displayCountry,
         fontFamily: typography.fontFamily,
         showPosterText: typography.showPosterText,
+        includeCredits: typography.includeCredits,
       });
 
       if (size) {
@@ -62,6 +64,7 @@ export function usePreviewRenderer() {
         displayCountry: typography.displayCountry,
         fontFamily: typography.fontFamily,
         showPosterText: typography.showPosterText,
+        includeCredits: typography.includeCredits,
       });
 
       if (refreshedSize) {
@@ -80,5 +83,6 @@ export function usePreviewRenderer() {
     form.displayCountry,
     form.fontFamily,
     form.showPosterText,
+    form.includeCredits,
   ]);
 }

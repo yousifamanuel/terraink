@@ -40,6 +40,7 @@ export function usePosterGeneration() {
       displayCountry: form.displayCountry.trim() || renderCache.baseCountry,
       fontFamily: form.fontFamily.trim(),
       showPosterText: form.showPosterText !== false,
+      includeCredits: form.includeCredits !== false,
     };
   }
 
@@ -64,6 +65,7 @@ export function usePosterGeneration() {
       displayCountry: typography.displayCountry,
       fontFamily: typography.fontFamily,
       showPosterText: typography.showPosterText,
+      includeCredits: typography.includeCredits,
     });
   }
 
@@ -190,6 +192,7 @@ export function usePosterGeneration() {
 
         const fontFamily = form.fontFamily.trim();
         const showPosterText = form.showPosterText !== false;
+        const includeCredits = form.includeCredits !== false;
         const center = {
           lat: resolvedLocation.lat,
           lon: resolvedLocation.lon,
@@ -260,6 +263,7 @@ export function usePosterGeneration() {
           displayCountry,
           fontFamily,
           showPosterText,
+          includeCredits,
         });
 
         if (!size) {

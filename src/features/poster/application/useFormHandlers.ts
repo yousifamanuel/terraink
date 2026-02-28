@@ -36,7 +36,13 @@ export function useFormHandlers() {
         return;
       }
 
-      dispatch({ type: "SET_FIELD", name, value });
+      let fieldValue: string | boolean = value as string;
+
+      if (name === "includeCredits" && type === "checkbox") {
+        fieldValue = checked;
+      }
+
+      dispatch({ type: "SET_FIELD", name, value: fieldValue });
     },
     [dispatch],
   );
@@ -166,6 +172,13 @@ export function useFormHandlers() {
     [dispatch],
   );
 
+  const handleCreditsChange = useCallback(
+    (value: boolean) => {
+      dispatch({ type: "SET_FIELD", name: "includeCredits", value });
+    },
+    [dispatch],
+  );
+
   return {
     handleChange,
     handleNumericFieldBlur,
@@ -176,5 +189,6 @@ export function useFormHandlers() {
     handleLocationSelect,
     handleClearLocation,
     setLocationFocused,
+    handleCreditsChange,
   };
 }

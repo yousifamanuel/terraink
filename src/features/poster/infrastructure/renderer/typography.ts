@@ -1,5 +1,6 @@
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import type { Coordinate } from "@/shared/geo/types";
+import { APP_CREDIT_URL } from "@/core/config";
 
 export function isLatinScript(text: string | undefined | null): boolean {
   if (!text) {
@@ -35,6 +36,7 @@ export function drawPosterText(
   country: string,
   fontFamily: string | undefined,
   showPosterText: boolean,
+  includeCredits: boolean = true,
 ): void {
   const textColor = theme.text || "#111111";
   const titleFontFamily = fontFamily
@@ -97,4 +99,14 @@ export function drawPosterText(
   ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
   ctx.fillText("(c) OpenStreetMap contributors", width * 0.98, height * 0.98);
   ctx.globalAlpha = 1;
+
+  if (includeCredits) {
+    ctx.fillStyle = textColor;
+    ctx.globalAlpha = 0.55;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "bottom";
+    ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
+    ctx.fillText(`created with ${APP_CREDIT_URL}`, width * 0.02, height * 0.98);
+    ctx.globalAlpha = 1;
+  }
 }

@@ -51,6 +51,7 @@ export const DEFAULT_FORM: PosterForm = {
   displayCountry: "",
   fontFamily: "",
   showPosterText: true,
+  includeCredits: true,
 };
 
 const INITIAL_STATE: PosterState = {

@@ -21,6 +21,7 @@ export interface RenderOptions {
   displayCountry: string;
   fontFamily: string;
   showPosterText: boolean;
+  includeCredits?: boolean;
 }
 
 export interface RenderCache {
@@ -59,4 +60,5 @@ export interface Typography {
   displayCountry: string;
   fontFamily: string;
   showPosterText: boolean;
+  includeCredits?: boolean;
 }

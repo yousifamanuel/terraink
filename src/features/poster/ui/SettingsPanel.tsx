@@ -26,6 +26,7 @@ export default function SettingsPanel() {
     handleLocationSelect,
     handleClearLocation,
     setLocationFocused,
+    handleCreditsChange,
   } = useFormHandlers();
   const { handleGenerate } = usePosterGeneration();
   const { handleDownloadPng, handleDownloadPdf } = useExport();
@@ -82,6 +83,7 @@ export default function SettingsPanel() {
           form={state.form}
           onChange={handleChange}
           fontOptions={FONT_OPTIONS}
+          onCreditsChange={handleCreditsChange}
         />
       )}
 
