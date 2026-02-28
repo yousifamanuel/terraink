@@ -97,8 +97,8 @@
 }
 
 .badge-icon {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   flex: 0 0 auto;
 }
 
@@ -140,4 +140,104 @@
   font-size: 0.76rem;
   color: #9bb3c5;
   opacity: 0.8;
+}
+
+/* ── Help Us Grow section ── */
+
+.hug-copy {
+  margin: 12px 20px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #b8cedd;
+}
+
+.hug-rows {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.hug-row {
+  display: grid;
+  gap: 5px;
+}
+
+.hug-row-label {
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #6a90a8;
+}
+
+.hug-row-content {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.hug-credits-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  color: #8ecf9e;
+  font-weight: 500;
+}
+
+.hug-check-icon {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  color: #6bc77e;
+}
+
+/* ── Social media badges ── */
+
+.social-links-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.social-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  background: rgba(9, 18, 27, 0.9);
+  color: #c8dff0;
+  text-decoration: none;
+  flex: 0 0 auto;
+  transition:
+    border-color 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease,
+    transform 0.12s ease;
+}
+
+a.social-badge:hover,
+a.social-badge:focus-visible {
+  border-color: rgba(120, 179, 214, 0.75);
+  background: rgba(20, 39, 54, 0.95);
+  color: #ecf8ff;
+  transform: translateY(-1px);
+}
+
+.social-badge--inactive {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.social-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
 }
