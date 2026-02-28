@@ -1,4 +1,4 @@
-import InstallPrompt from "@/shared/ui/InstallPrompt";
+import InstallPrompt from "@/features/install/ui/InstallPrompt";
 
 export default function AppHeader() {
   return (
