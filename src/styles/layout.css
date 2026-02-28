@@ -132,3 +132,98 @@
     width: 72px;
   }
 }
+
+/* ── Install / Add to Home Screen prompt ── */
+
+.install-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(94, 174, 212, 0.28);
+  background: rgba(10, 24, 36, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 0.84rem;
+  color: #b8d4e8;
+}
+
+.install-prompt-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.45;
+}
+
+.install-prompt-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+button.install-prompt-btn {
+  width: auto;
+  margin: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(94, 174, 212, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(38, 112, 158, 0.95) 0%,
+    rgba(25, 78, 115, 0.95) 100%
+  );
+  color: #dff3ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(94, 174, 212, 0.22);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+button.install-prompt-btn:hover {
+  transform: none;
+  filter: none;
+  border-color: rgba(130, 200, 240, 0.85);
+  box-shadow: 0 0 18px rgba(94, 174, 212, 0.4);
+}
+
+button.install-prompt-dismiss {
+  width: auto;
+  margin: 0;
+  padding: 4px 6px;
+  border: none;
+  background: transparent;
+  color: #4e6c7e;
+  font-size: 0.78rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+button.install-prompt-dismiss:hover {
+  transform: none;
+  filter: none;
+  color: #8eaec4;
+}
+
+.install-prompt-share-icon {
+  display: inline-block;
+  font-style: normal;
+  font-size: 1em;
+}
+
+.install-prompt-mobile-icon {
+  display: inline-block;
+  vertical-align: -0.15em;
+  margin-right: 8px;
+  width: 1.05em;
+  height: 1.05em;
+  color: currentColor;
+}
