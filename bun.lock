@@ -7,6 +7,7 @@
       "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-icons": "^5.5.0",
       },
       "devDependencies": {
         "@fontsource/bebas-neue": "^5.2.7",
@@ -160,6 +161,8 @@
     "react": ["react@18.3.1", "", { "dependencies": { "loose-envify": "^1.1.0" } }, ""],
 
     "react-dom": ["react-dom@18.3.1", "", { "dependencies": { "loose-envify": "^1.1.0", "scheduler": "^0.23.2" }, "peerDependencies": { "react": "^18.3.1" } }, ""],
+
+    "react-icons": ["react-icons@5.5.0", "", { "peerDependencies": { "react": "*" } }, "sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw=="],
 
     "react-refresh": ["react-refresh@0.17.0", "", {}, ""],
 

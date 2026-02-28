@@ -19,6 +19,14 @@ export const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "";
 export const LEGAL_NOTICE_URL = import.meta.env.VITE_LEGAL_NOTICE_URL ?? "";
 export const PRIVACY_URL = import.meta.env.VITE_PRIVACY_URL ?? "";
 
+export const SOCIAL_LINKEDIN = import.meta.env.VITE_SOCIAL_LINKEDIN ?? "";
+export const SOCIAL_INSTAGRAM = import.meta.env.VITE_SOCIAL_INSTAGRAM ?? "";
+export const SOCIAL_REDDIT = import.meta.env.VITE_SOCIAL_REDDIT ?? "";
+export const SOCIAL_THREADS = import.meta.env.VITE_SOCIAL_THREADS ?? "";
+export const SOCIAL_YOUTUBE = import.meta.env.VITE_SOCIAL_YOUTUBE ?? "";
+export const APP_CREDIT_URL =
+  import.meta.env.VITE_APP_CREDIT_URL ?? "terraink.app";
+
 export interface FontOption {
   value: string;
   label: string;

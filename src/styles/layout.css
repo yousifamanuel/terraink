@@ -62,9 +62,10 @@
   gap: 14px;
   align-items: start;
   grid-template-columns: minmax(340px, 410px) minmax(0, 1fr);
+  /* Place inspector under the preview panel on wide screens */
   grid-template-areas:
     "config preview"
-    "inspector preview";
+    "config inspector";
 }
 
 .settings-panel,
