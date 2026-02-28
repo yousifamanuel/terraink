@@ -183,9 +183,14 @@ export function usePosterGeneration() {
         const resolvedCountry =
           resolvedLocation.country || fallbackParts.country;
 
-        let displayCity = form.displayCity.trim() || resolvedCity;
-        let displayCountry = form.displayCountry.trim() || resolvedCountry;
-        if (shouldAutofillFromLocation) {
+        const userProvidedDisplayCity = form.displayCity.trim();
+        const userProvidedDisplayCountry = form.displayCountry.trim();
+
+        let displayCity = userProvidedDisplayCity || resolvedCity;
+        let displayCountry = userProvidedDisplayCountry || resolvedCountry;
+
+        // Only overwrite display names when the location actually changed.
+        if (shouldAutofillFromLocation && locationChanged) {
           displayCity = resolvedCity;
           displayCountry = resolvedCountry;
         }
@@ -205,7 +210,7 @@ export function usePosterGeneration() {
             location: resolvedLocation.label || locationText,
             latitude: resolvedLocation.lat.toFixed(6),
             longitude: resolvedLocation.lon.toFixed(6),
-            ...(shouldAutofillFromLocation
+            ...(shouldAutofillFromLocation && locationChanged
               ? { displayCity: resolvedCity, displayCountry: resolvedCountry }
               : {}),
           },

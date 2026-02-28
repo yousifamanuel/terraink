@@ -1,3 +1,5 @@
+import InstallPrompt from "@/shared/ui/InstallPrompt";
+
 export default function AppHeader() {
   return (
     <header className="app-header">
@@ -16,6 +18,7 @@ export default function AppHeader() {
           alt="TerraInk logo"
         />
       </div>
+      <InstallPrompt />
     </header>
   );
 }
