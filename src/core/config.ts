@@ -10,8 +10,34 @@ export const DEFAULT_POSTER_HEIGHT_CM = 30;
 export const LAYOUT_MATCH_TOLERANCE_CM = 0.01;
 
 export const MIN_DISTANCE_METERS = 1_000;
-export const MAX_DISTANCE_METERS = 25_000;
+export const MAX_DISTANCE_METERS = 20_000_000;
 export const DEFAULT_DISTANCE_METERS = 4_000;
+
+/* ── Map / MapLibre ── */
+
+/** Earth circumference at equator in meters. */
+export const EARTH_CIRCUMFERENCE_M = 40_075_016.686;
+
+/** Tile size in pixels used by MapLibre (web-mercator standard). */
+export const TILE_SIZE_PX = 256;
+
+/** Min zoom level allowed for the map. */
+export const MIN_MAP_ZOOM = 0.5;
+
+/** Max zoom level allowed for the map. */
+export const MAX_MAP_ZOOM = 20;
+
+/** Default container width (px) used before ResizeObserver measures the real one. */
+export const DEFAULT_CONTAINER_PX = 600;
+
+/** Duration (ms) for flyTo animation when selecting a location. */
+export const FLY_TO_DURATION_MS = 1800;
+
+/** Hanover, Germany — default fallback when geolocation is denied. */
+export const DEFAULT_LAT = 52.3759;
+export const DEFAULT_LON = 9.732;
+export const DEFAULT_CITY = "Hanover";
+export const DEFAULT_COUNTRY = "Germany";
 
 export const REPO_URL = import.meta.env.VITE_REPO_URL ?? "";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";

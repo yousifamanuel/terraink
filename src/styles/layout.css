@@ -91,7 +91,7 @@
 
 .preview-panel {
   grid-area: preview;
-  padding: 10px;
+  padding: 3px;
 }
 
 .info-panel {

@@ -1,6 +1,20 @@
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import type { Coordinate } from "@/shared/geo/types";
 import { APP_CREDIT_URL } from "@/core/config";
+import {
+  TEXT_DIMENSION_REFERENCE_PX,
+  TEXT_CITY_Y_RATIO,
+  TEXT_DIVIDER_Y_RATIO,
+  TEXT_COUNTRY_Y_RATIO,
+  TEXT_COORDS_Y_RATIO,
+  TEXT_EDGE_MARGIN_RATIO,
+  CITY_TEXT_SHRINK_THRESHOLD,
+  CITY_FONT_BASE_PX,
+  CITY_FONT_MIN_PX,
+  COUNTRY_FONT_BASE_PX,
+  COORDS_FONT_BASE_PX,
+  ATTRIBUTION_FONT_BASE_PX,
+} from "@/features/poster/domain/textLayout";
 
 export function isLatinScript(text: string | undefined | null): boolean {
   if (!text) {
@@ -46,25 +60,31 @@ export function drawPosterText(
     ? `"${fontFamily}", "IBM Plex Mono", monospace`
     : '"IBM Plex Mono", monospace';
 
-  const dimScale = Math.max(0.45, Math.min(width, height) / 3600);
-  const attributionFontSize = 30 * dimScale;
+  const dimScale = Math.max(
+    0.45,
+    Math.min(width, height) / TEXT_DIMENSION_REFERENCE_PX,
+  );
+  const attributionFontSize = ATTRIBUTION_FONT_BASE_PX * dimScale;
 
   if (showPosterText) {
     const cityLabel = isLatinScript(city)
       ? city.toUpperCase().split("").join("  ")
       : city;
     const cityLength = Math.max(city.length, 1);
-    let cityFontSize = 250 * dimScale;
-    if (cityLength > 10) {
-      cityFontSize = Math.max(110 * dimScale, cityFontSize * (10 / cityLength));
+    let cityFontSize = CITY_FONT_BASE_PX * dimScale;
+    if (cityLength > CITY_TEXT_SHRINK_THRESHOLD) {
+      cityFontSize = Math.max(
+        CITY_FONT_MIN_PX * dimScale,
+        cityFontSize * (CITY_TEXT_SHRINK_THRESHOLD / cityLength),
+      );
     }
 
-    const countryFontSize = 92 * dimScale;
-    const coordinateFontSize = 58 * dimScale;
-    const cityY = height * 0.845;
-    const lineY = height * 0.875;
-    const countryY = height * 0.9;
-    const coordinatesY = height * 0.93;
+    const countryFontSize = COUNTRY_FONT_BASE_PX * dimScale;
+    const coordinateFontSize = COORDS_FONT_BASE_PX * dimScale;
+    const cityY = height * TEXT_CITY_Y_RATIO;
+    const lineY = height * TEXT_DIVIDER_Y_RATIO;
+    const countryY = height * TEXT_COUNTRY_Y_RATIO;
+    const coordinatesY = height * TEXT_COORDS_Y_RATIO;
 
     ctx.fillStyle = textColor;
     ctx.textAlign = "center";
@@ -97,7 +117,11 @@ export function drawPosterText(
   ctx.textAlign = "right";
   ctx.textBaseline = "bottom";
   ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
-  ctx.fillText("(c) OpenStreetMap contributors", width * 0.98, height * 0.98);
+  ctx.fillText(
+    "(c) OpenStreetMap contributors",
+    width * (1 - TEXT_EDGE_MARGIN_RATIO),
+    height * (1 - TEXT_EDGE_MARGIN_RATIO),
+  );
   ctx.globalAlpha = 1;
 
   if (includeCredits) {
@@ -106,7 +130,11 @@ export function drawPosterText(
     ctx.textAlign = "left";
     ctx.textBaseline = "bottom";
     ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
-    ctx.fillText(`created with ${APP_CREDIT_URL}`, width * 0.02, height * 0.98);
+    ctx.fillText(
+      `created with ${APP_CREDIT_URL}`,
+      width * TEXT_EDGE_MARGIN_RATIO,
+      height * (1 - TEXT_EDGE_MARGIN_RATIO),
+    );
     ctx.globalAlpha = 1;
   }
 }

@@ -1,4 +1,3 @@
-import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
 import {
   REPO_URL,
@@ -22,39 +21,8 @@ import {
   ThreadsIcon,
   YouTubeIcon,
 } from "./Icons";
-import type { RenderResult } from "@/features/poster/domain/types";
 
 /* ── sub-components ── */
-
-function RenderStatsSection({ result }: { result: RenderResult | null }) {
-  return (
-    <section className="info-panel-section">
-      <h3>Render Stats</h3>
-      {result ? (
-        <>
-          <p>
-            Center: {result.center.lat.toFixed(5)},{" "}
-            {result.center.lon.toFixed(5)}
-          </p>
-          <p>
-            Layers: {result.roads} roads, {result.water} water, {result.parks}{" "}
-            parks, {result.buildings} buildings
-          </p>
-          <p>
-            Output: {result.size.width}x{result.size.height}px
-            {result.size.downscaleFactor < 1 ? " (downscaled)" : ""}
-          </p>
-          <p>
-            Print size: {result.widthCm.toFixed(1)}x{result.heightCm.toFixed(1)}{" "}
-            cm
-          </p>
-        </>
-      ) : (
-        <p>No render yet. Use the controls to generate a poster.</p>
-      )}
-    </section>
-  );
-}
 
 function HelpUsGrowSection({
   repoUrl,
@@ -246,14 +214,12 @@ function ContactLegalSection() {
 /* ── main panel ── */
 
 export default function InfoPanel() {
-  const { state } = usePosterContext();
   const repoUrl = String(REPO_URL ?? "").trim();
   const { repoStars, repoStarsLoading } = useRepoStars(REPO_API_URL);
 
   return (
     <aside className="info-panel">
       <div className="info-panel-group">
-        <RenderStatsSection result={state.result} />
         <HelpUsGrowSection
           repoUrl={repoUrl}
           repoStars={repoStars}

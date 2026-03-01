@@ -1,20 +1,13 @@
-import type { Bounds } from "@/shared/geo/types";
+import type { RefObject } from "react";
+import type { Map as MaplibreMap } from "maplibre-gl";
 
-export interface RoadWay {
-  highway: string;
-  points: Array<{ lat: number; lon: number }>;
+/** Centre + zoom state synchronised between the map and the form. */
+export interface MapViewState {
+  center: [lon: number, lat: number];
+  zoom: number;
 }
 
-export interface MapData {
-  roads: RoadWay[];
-  waterPolygons: Array<Array<{ lat: number; lon: number }>>;
-  parkPolygons: Array<Array<{ lat: number; lon: number }>>;
-  buildingPolygons: Array<Array<{ lat: number; lon: number }>>;
-}
-
-export interface IMapDataPort {
-  fetchMapData(
-    bounds: Bounds,
-    options?: { buildingBounds?: Bounds },
-  ): Promise<MapData>;
-}
+/** Writable map instance ref without relying on deprecated MutableRefObject. */
+export type MapInstanceRef = RefObject<MaplibreMap | null> & {
+  current: MaplibreMap | null;
+};

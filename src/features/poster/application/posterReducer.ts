@@ -1,5 +1,5 @@
 import type { SearchResult } from "@/features/location/domain/types";
-import type { RenderResult, RenderCache } from "@/features/poster/domain/types";
+import { parseLocationParts } from "@/shared/utils/location";
 
 /* ────── Form state ────── */
 
@@ -24,11 +24,8 @@ export interface PosterForm {
 export interface PosterState {
   form: PosterForm;
   customColors: Record<string, string>;
-  status: string;
   error: string;
-  isGenerating: boolean;
-  generationProgress: number;
-  result: RenderResult | null;
+  isExporting: boolean;
   isLocationFocused: boolean;
   selectedLocation: SearchResult | null;
 }
@@ -45,13 +42,10 @@ export type PosterAction =
   | { type: "SELECT_LOCATION"; location: SearchResult }
   | { type: "CLEAR_LOCATION" }
   | { type: "SET_LOCATION_FOCUSED"; focused: boolean }
-  | { type: "SET_STATUS"; status: string }
   | { type: "SET_ERROR"; error: string }
-  | { type: "SET_PROGRESS"; progress: number }
-  | { type: "START_GENERATION" }
-  | { type: "FINISH_GENERATION"; result: RenderResult }
-  | { type: "FAIL_GENERATION"; error: string }
-  | { type: "UPDATE_RESULT"; patch: Partial<RenderResult> };
+  | { type: "START_EXPORT" }
+  | { type: "FINISH_EXPORT" }
+  | { type: "FAIL_EXPORT"; error: string };
 
 /* ────── Reducer ────── */
 
@@ -60,15 +54,24 @@ export function posterReducer(
   action: PosterAction,
 ): PosterState {
   switch (action.type) {
-    case "SET_FIELD":
+    case "SET_FIELD": {
+      const nextForm = { ...state.form, [action.name]: action.value };
+
+      if (action.name === "location" && typeof action.value === "string") {
+        const parts = parseLocationParts(action.value);
+        nextForm.displayCity = parts.city;
+        nextForm.displayCountry = parts.country;
+      }
+
       return {
         ...state,
-        form: { ...state.form, [action.name]: action.value },
+        form: nextForm,
         // Clear selected location when location/lat/lon field changes
         ...(["location", "latitude", "longitude"].includes(action.name)
           ? { selectedLocation: null }
           : {}),
       };
+    }
 
     case "SET_FORM_FIELDS":
       return {
@@ -113,6 +116,8 @@ export function posterReducer(
           location: action.location.label,
           latitude: action.location.lat.toFixed(6),
           longitude: action.location.lon.toFixed(6),
+          displayCity: action.location.city,
+          displayCountry: action.location.country,
         },
       };
 
@@ -120,57 +125,28 @@ export function posterReducer(
       return {
         ...state,
         selectedLocation: null,
-        form: { ...state.form, location: "" },
+        form: {
+          ...state.form,
+          location: "",
+          displayCity: "",
+          displayCountry: "",
+        },
       };
 
     case "SET_LOCATION_FOCUSED":
       return { ...state, isLocationFocused: action.focused };
 
-    case "SET_STATUS":
-      return { ...state, status: action.status };
-
     case "SET_ERROR":
       return { ...state, error: action.error };
 
-    case "SET_PROGRESS":
-      return {
-        ...state,
-        generationProgress: Math.max(state.generationProgress, action.progress),
-      };
+    case "START_EXPORT":
+      return { ...state, error: "", isExporting: true };
 
-    case "START_GENERATION":
-      return {
-        ...state,
-        error: "",
-        status: "",
-        result: null,
-        generationProgress: 0,
-        isGenerating: true,
-      };
+    case "FINISH_EXPORT":
+      return { ...state, isExporting: false };
 
-    case "FINISH_GENERATION":
-      return {
-        ...state,
-        result: action.result,
-        generationProgress: 100,
-        status: "Poster ready.",
-        isGenerating: false,
-      };
-
-    case "FAIL_GENERATION":
-      return {
-        ...state,
-        error: action.error,
-        generationProgress: 0,
-        status: "",
-        isGenerating: false,
-      };
-
-    case "UPDATE_RESULT":
-      return {
-        ...state,
-        result: state.result ? { ...state.result, ...action.patch } : null,
-      };
+    case "FAIL_EXPORT":
+      return { ...state, error: action.error, isExporting: false };
 
     default:
       return state;

@@ -41,6 +41,127 @@ label {
   gap: 10px;
 }
 
+.distance-slider-field {
+  margin-bottom: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.distance-slider-field > span {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 10px;
+}
+
+.distance-slider-value {
+  font-family: "Spline Sans Mono", monospace;
+  letter-spacing: 0.02em;
+  color: #dff0fb;
+}
+
+.distance-slider-input {
+  width: 100%;
+  margin-top: 0;
+  min-height: 48px;
+  padding: 12px 12px;
+  border-radius: 10px;
+  text-align: right;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.82rem;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.distance-slider-input::-webkit-outer-spin-button,
+.distance-slider-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.distance-slider {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 20px;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.distance-slider::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  background: linear-gradient(
+    180deg,
+    rgba(28, 51, 69, 0.95),
+    rgba(17, 34, 47, 0.95)
+  );
+  box-sizing: border-box;
+}
+
+.distance-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -5px;
+  border-radius: 999px;
+  border: 2px solid #e8f3fb;
+  background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
+  box-shadow:
+    0 0 0 2px rgba(5, 13, 20, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+  cursor: grab;
+}
+
+.distance-slider::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  background: linear-gradient(
+    180deg,
+    rgba(28, 51, 69, 0.95),
+    rgba(17, 34, 47, 0.95)
+  );
+  box-sizing: border-box;
+}
+
+.distance-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 2px solid #e8f3fb;
+  background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
+  box-shadow:
+    0 0 0 2px rgba(5, 13, 20, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+.distance-slider-meta {
+  position: relative;
+  height: 16px;
+  margin-top: 5px;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.66rem;
+  color: #8fb0c6;
+}
+
+.distance-slider-meta-mark {
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
 .field-grid.keep-two-mobile {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }

@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
-import { usePosterGeneration } from "@/features/poster/application/usePosterGeneration";
 import { useExport } from "@/features/export/application/useExport";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
+import { useMapSync } from "@/features/map/application/useMapSync";
 
 import LocationSection from "@/features/location/ui/LocationSection";
 import MapSettingsSection from "@/features/map/ui/MapSettingsSection";
@@ -28,21 +28,27 @@ export default function SettingsPanel() {
     setLocationFocused,
     handleCreditsChange,
   } = useFormHandlers();
-  const { handleGenerate } = usePosterGeneration();
   const { handleDownloadPng, handleDownloadPdf } = useExport();
   const { locationSuggestions, isLocationSearching } = useLocationAutocomplete(
     state.form.location,
     state.isLocationFocused,
   );
+  const { flyToLocation } = useMapSync();
 
   const [isColorEditorActive, setIsColorEditorActive] = useState(false);
 
   const showLocationSuggestions =
     state.isLocationFocused && locationSuggestions.length > 0;
 
+  /** When user selects a location, fly the map there. */
+  const onLocationSelect = (location: any) => {
+    handleLocationSelect(location);
+    flyToLocation(location.lat, location.lon);
+  };
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    handleGenerate();
+    // No generation step needed — the poster is always live
   };
 
   return (
@@ -56,7 +62,7 @@ export default function SettingsPanel() {
           showLocationSuggestions={showLocationSuggestions}
           locationSuggestions={locationSuggestions}
           isLocationSearching={isLocationSearching}
-          onLocationSelect={handleLocationSelect}
+          onLocationSelect={onLocationSelect}
           onClearLocation={handleClearLocation}
         />
       )}
@@ -89,41 +95,29 @@ export default function SettingsPanel() {
 
       {!isColorEditorActive && (
         <div className="action-row">
-          <button
-            type="submit"
-            className="generate-btn"
-            disabled={state.isGenerating}
-          >
-            {state.isGenerating
-              ? `Generating... ${state.generationProgress}%`
-              : "Generate Poster"}
-          </button>
           <div className="download-row">
             <button
               type="button"
-              className="ghost download-format-btn"
+              className="generate-btn download-format-btn"
               onClick={handleDownloadPng}
-              disabled={!state.result}
+              disabled={state.isExporting}
             >
               <DownloadIcon className="download-btn-icon" />
-              <span>PNG</span>
+              <span>{state.isExporting ? "Exporting..." : "Export PNG"}</span>
             </button>
             <button
               type="button"
               className="ghost download-format-btn"
               onClick={handleDownloadPdf}
-              disabled={!state.result}
+              disabled={state.isExporting}
             >
               <DownloadIcon className="download-btn-icon" />
-              <span>PDF</span>
+              <span>Export PDF</span>
             </button>
           </div>
         </div>
       )}
 
-      {!isColorEditorActive && state.status && (
-        <p className="status">{state.status}</p>
-      )}
       {!isColorEditorActive && state.error && (
         <p className="error">{state.error}</p>
       )}
