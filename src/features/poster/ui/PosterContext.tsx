@@ -56,6 +56,7 @@ export const DEFAULT_FORM: PosterForm = {
   fontFamily: "",
   showPosterText: true,
   includeCredits: true,
+  includeBuildings: false,
 };
 
 const INITIAL_STATE: PosterState = {
@@ -102,8 +103,11 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   }, [selectedTheme, state.customColors]);
 
   const mapStyle = useMemo(
-    () => generateMapStyle(effectiveTheme),
-    [effectiveTheme],
+    () =>
+      generateMapStyle(effectiveTheme, {
+        includeBuildings: state.form.includeBuildings,
+      }),
+    [effectiveTheme, state.form.includeBuildings],
   );
 
   const value = useMemo<PosterContextValue>(

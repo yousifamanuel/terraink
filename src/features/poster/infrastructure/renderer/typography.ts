@@ -14,31 +14,9 @@ import {
   COUNTRY_FONT_BASE_PX,
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
+  isLatinScript,
+  formatCityLabel,
 } from "@/features/poster/domain/textLayout";
-
-export function isLatinScript(text: string | undefined | null): boolean {
-  if (!text) {
-    return true;
-  }
-
-  let latinCount = 0;
-  let alphaCount = 0;
-
-  for (const char of text) {
-    if (/[A-Za-z\u00C0-\u024F]/.test(char)) {
-      latinCount += 1;
-      alphaCount += 1;
-    } else if (/\p{L}/u.test(char)) {
-      alphaCount += 1;
-    }
-  }
-
-  if (alphaCount === 0) {
-    return true;
-  }
-
-  return latinCount / alphaCount > 0.8;
-}
 
 export function drawPosterText(
   ctx: CanvasRenderingContext2D,
@@ -67,9 +45,7 @@ export function drawPosterText(
   const attributionFontSize = ATTRIBUTION_FONT_BASE_PX * dimScale;
 
   if (showPosterText) {
-    const cityLabel = isLatinScript(city)
-      ? city.toUpperCase().split("").join("  ")
-      : city;
+    const cityLabel = formatCityLabel(city);
     const cityLength = Math.max(city.length, 1);
     let cityFontSize = CITY_FONT_BASE_PX * dimScale;
     if (cityLength > CITY_TEXT_SHRINK_THRESHOLD) {
@@ -118,7 +94,7 @@ export function drawPosterText(
   ctx.textBaseline = "bottom";
   ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
   ctx.fillText(
-    "(c) OpenStreetMap contributors",
+    "\u00a9 OpenStreetMap contributors",
     width * (1 - TEXT_EDGE_MARGIN_RATIO),
     height * (1 - TEXT_EDGE_MARGIN_RATIO),
   );

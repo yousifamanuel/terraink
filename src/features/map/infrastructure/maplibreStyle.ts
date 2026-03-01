@@ -49,7 +49,10 @@ function widthExpr(
  * Layers (bottom → top): background, water, park, building,
  * road-path, road-minor, road-major.
  */
-export function generateMapStyle(theme: ResolvedTheme): StyleSpecification {
+export function generateMapStyle(
+  theme: ResolvedTheme,
+  options?: { includeBuildings?: boolean },
+): StyleSpecification {
   const buildingFill =
     theme.building ||
     blendHex(
@@ -57,6 +60,7 @@ export function generateMapStyle(theme: ResolvedTheme): StyleSpecification {
       theme.text || "#111111",
       BUILDING_BLEND_FACTOR,
     );
+  const includeBuildings = options?.includeBuildings ?? true;
 
   return {
     version: 8,
@@ -92,18 +96,22 @@ export function generateMapStyle(theme: ResolvedTheme): StyleSpecification {
         paint: { "fill-color": theme.parks },
       },
 
-      /* ── buildings ── */
-      {
-        id: "building",
-        source: SOURCE_ID,
-        "source-layer": "building",
-        type: "fill",
-        paint: {
-          "fill-color": buildingFill,
-          "fill-opacity": BUILDING_FILL_OPACITY,
-        },
-        minzoom: BUILDING_MIN_ZOOM,
-      },
+      ...(includeBuildings
+        ? [
+            /* ── buildings ── */
+            {
+              id: "building",
+              source: SOURCE_ID,
+              "source-layer": "building",
+              type: "fill" as const,
+              paint: {
+                "fill-color": buildingFill,
+                "fill-opacity": BUILDING_FILL_OPACITY,
+              },
+              minzoom: BUILDING_MIN_ZOOM,
+            },
+          ]
+        : []),
 
       /* ── roads: paths (tertiary, residential, pedestrian, service) ── */
       {

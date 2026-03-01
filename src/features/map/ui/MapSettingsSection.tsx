@@ -291,6 +291,22 @@ export default function MapSettingsSection({
         onNumericFieldBlur={onNumericFieldBlur}
       />
 
+      <div className="map-details-section">
+        <h3 className="map-details-subtitle">Map Details</h3>
+        <label className="toggle-field">
+          <span>Show buildings</span>
+          <span className="theme-switch">
+            <input
+              type="checkbox"
+              name="includeBuildings"
+              checked={Boolean(form.includeBuildings)}
+              onChange={onChange}
+            />
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
+        </label>
+      </div>
+
       <MapSettingsPickers
         activePicker={activePicker}
         onClosePicker={closePicker}

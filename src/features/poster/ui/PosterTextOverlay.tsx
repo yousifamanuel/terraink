@@ -13,6 +13,7 @@ import {
   COUNTRY_FONT_BASE_PX,
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
+  formatCityLabel,
 } from "@/features/poster/domain/textLayout";
 
 interface PosterTextOverlayProps {
@@ -50,10 +51,7 @@ export default function PosterTextOverlay({
     ? `"${fontFamily}", "IBM Plex Mono", monospace`
     : '"IBM Plex Mono", monospace';
 
-  const isLatin = /^[\x00-\u024F\s]*$/.test(city);
-  const cityLabel = isLatin
-    ? city.toUpperCase().split("").join("  ")
-    : city;
+  const cityLabel = formatCityLabel(city);
 
   const cityLen = Math.max(city.length, 1);
   const cityBaseSize = toCqMin(CITY_FONT_BASE_PX);

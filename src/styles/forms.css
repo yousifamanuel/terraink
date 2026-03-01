@@ -170,6 +170,19 @@ label {
   margin-bottom: 0;
 }
 
+.map-details-section {
+  margin-top: 6px;
+}
+
+.map-details-subtitle {
+  margin: 0 0 8px;
+  font-family: "Spline Sans Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: #88b7d5;
+}
+
 .form-control-tall,
 .map-dimension-input {
   min-height: 48px;

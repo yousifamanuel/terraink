@@ -70,4 +70,4 @@ export function compositeExport(
 
 export { resolveCanvasSize } from "./canvas";
 export { applyFades } from "./layers";
-export { drawPosterText, isLatinScript } from "./typography";
+export { drawPosterText } from "./typography";

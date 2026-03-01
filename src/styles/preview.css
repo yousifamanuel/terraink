@@ -102,8 +102,9 @@
   position: absolute;
   left: 40%;
   right: 40%;
-  border: none;
-  height: 2px;
+  border: 0;
+  border-top: 2px solid currentcolor;
+  height: 0;
   margin: 0;
   transform: translateY(-50%);
 }

@@ -27,6 +27,7 @@ import {
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
 } from "@/core/config";
+import { ensureGoogleFont } from "@/core/services";
 
 const LOCKED_HINT = "Map is locked to prevent unintended movement.";
 const EDIT_HINT_ACTIVE =
@@ -62,6 +63,15 @@ export default function PreviewPanel() {
     observer.observe(element);
     return () => observer.disconnect();
   }, [setContainerWidth]);
+
+  useEffect(() => {
+    const family = form.fontFamily.trim();
+    if (!family) return;
+
+    void ensureGoogleFont(family).catch(() => {
+      // Ignore font loading failures; fallback stack remains in place.
+    });
+  }, [form.fontFamily]);
 
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;

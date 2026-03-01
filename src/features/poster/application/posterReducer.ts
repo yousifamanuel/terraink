@@ -17,6 +17,7 @@ export interface PosterForm {
   fontFamily: string;
   showPosterText: boolean;
   includeCredits: boolean;
+  includeBuildings: boolean;
 }
 
 /* ────── App-level state ────── */
