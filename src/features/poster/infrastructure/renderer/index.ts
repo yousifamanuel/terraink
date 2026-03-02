@@ -1,25 +1,25 @@
-import { resolveCanvasSize } from "./canvas";
-import {
-  applyFades,
-  drawBuildingLayer,
-  drawPolygonLayer,
-  drawRoadLayer,
-} from "./layers";
-import { createProjector } from "./projection";
+import { applyFades } from "./layers";
 import { drawPosterText } from "./typography";
-import type { RenderOptions, CanvasSize } from "../../domain/types";
+import type { ExportOptions, CanvasSize } from "../../domain/types";
 
-export function renderPoster(
-  canvas: HTMLCanvasElement,
-  options: RenderOptions,
-): CanvasSize {
+/**
+ * Composites a final poster from a MapLibre snapshot canvas.
+ *
+ * 1. Draws the captured map image.
+ * 2. Applies gradient fades (top + bottom).
+ * 3. Draws poster text (city, country, coords, attribution).
+ *
+ * Returns the composited canvas + its size metadata.
+ */
+export function compositeExport(
+  mapCanvas: HTMLCanvasElement,
+  options: ExportOptions,
+): { canvas: HTMLCanvasElement; size: CanvasSize } {
   const {
     theme,
-    mapData,
-    bounds,
     center,
-    widthInches,
-    heightInches,
+    widthInches: _wi,
+    heightInches: _hi,
     displayCity,
     displayCountry,
     fontFamily,
@@ -27,42 +27,27 @@ export function renderPoster(
     includeCredits = true,
   } = options;
 
-  const size = resolveCanvasSize(widthInches, heightInches);
-  canvas.width = size.width;
-  canvas.height = size.height;
+  const width = mapCanvas.width;
+  const height = mapCanvas.height;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
 
   const ctx = canvas.getContext("2d");
-  if (!ctx) {
-    throw new Error("Canvas rendering is not available.");
-  }
+  if (!ctx) throw new Error("Canvas rendering is not available.");
 
-  ctx.fillStyle = theme.bg;
-  ctx.fillRect(0, 0, size.width, size.height);
+  // 1. Draw map snapshot
+  ctx.drawImage(mapCanvas, 0, 0);
 
-  const projector = createProjector(bounds, size.width, size.height);
+  // 2. Gradient fades
+  applyFades(ctx, width, height, theme.gradient_color || theme.bg);
 
-  drawPolygonLayer(ctx, mapData.waterPolygons, projector, theme.water, bounds);
-  drawPolygonLayer(ctx, mapData.parkPolygons, projector, theme.parks, bounds);
-  drawBuildingLayer(
-    ctx,
-    mapData.buildingPolygons,
-    projector,
-    theme,
-    bounds,
-    Math.max(0.7, Math.min(size.width, size.height) / 3600),
-  );
-
-  const roadWidthScale = Math.max(
-    0.7,
-    Math.min(size.width, size.height) / 3600,
-  );
-  drawRoadLayer(ctx, mapData.roads, projector, theme, roadWidthScale, bounds);
-
-  applyFades(ctx, size.width, size.height, theme.gradient_color);
+  // 3. Poster text
   drawPosterText(
     ctx,
-    size.width,
-    size.height,
+    width,
+    height,
     theme,
     center,
     displayCity,
@@ -72,20 +57,17 @@ export function renderPoster(
     includeCredits,
   );
 
-  return size;
+  const size: CanvasSize = {
+    width,
+    height,
+    requestedWidth: width,
+    requestedHeight: height,
+    downscaleFactor: 1,
+  };
+
+  return { canvas, size };
 }
 
 export { resolveCanvasSize } from "./canvas";
-export {
-  applyFades,
-  drawBuildingLayer,
-  drawPolygonLayer,
-  drawRoadLayer,
-} from "./layers";
-export {
-  createProjector,
-  polygonArea,
-  pointsIntersectBounds,
-} from "./projection";
-export { roadStyle, normalizeRoadType } from "./road";
-export { drawPosterText, isLatinScript } from "./typography";
+export { applyFades } from "./layers";
+export { drawPosterText } from "./typography";

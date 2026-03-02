@@ -9,7 +9,7 @@ export default function AppHeader() {
           <h1>TerraInk</h1>
           <p className="app-copy">
             Build high-detail map posters from OpenStreetMap data with curated
-            palettes, custom typography, and print-ready PNG output.
+            palettes, custom typography, and print-ready PNG & PDF output.
           </p>
         </div>
         <img

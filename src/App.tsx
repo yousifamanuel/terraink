@@ -1,5 +1,4 @@
 import { AppProviders } from "@/core/AppProviders";
-import { usePreviewRenderer } from "@/features/poster/application/usePreviewRenderer";
 import AppHeader from "@/shared/ui/AppHeader";
 import FooterNote from "@/shared/ui/FooterNote";
 import SettingsPanel from "@/features/poster/ui/SettingsPanel";
@@ -11,9 +10,6 @@ import InfoPanel from "@/shared/ui/InfoPanel";
  * so hooks have access to context.
  */
 function AppShell() {
-  // Re-render preview when theme / typography changes
-  usePreviewRenderer();
-
   return (
     <div className="app-shell">
       <AppHeader />

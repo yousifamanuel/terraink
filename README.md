@@ -18,6 +18,7 @@
 [![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![TypeScript Badge](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=fff&style=for-the-badge)](https://www.typescriptlang.org)
 [![OpenStreetMap Badge](https://img.shields.io/badge/OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=fff&style=for-the-badge)](https://www.openstreetmap.org)
+[![MapLibre Badge](https://img.shields.io/badge/MapLibre-000?logo=maplibre&logoColor=fff&style=for-the-badge)](https://maplibre.org/)
 [![GitHub Badge](https://img.shields.io/badge/GitHub-fff?logo=github&logoColor=000&style=for-the-badge)](https://github.com/yousifamanuel/terraink)
 [![Cloudflare Badge](https://img.shields.io/badge/Cloudflare-F38020?logo=cloudflare&logoColor=fff&style=for-the-badge)](https://www.cloudflare.com)
 [![Docker Badge](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff&style=for-the-badge)](https://www.docker.com)
@@ -26,7 +27,7 @@
 
 ## Acknowledgment
 
-This project is a JavaScript reimplementation inspired by the original MapToPoster [originalankur/maptoposter](https://github.com/originalankur/maptoposter) by [Ankur Gupta](https://github.com/originalankur) (MIT license). My app is built using Bun, React, and TypeScript. It allows users to create custom city map posters with various styling options, leveraging OpenStreetMap data for accurate and detailed maps.
+This project is a JavaScript reimplementation inspired by the original MapToPoster [originalankur/maptoposter](https://github.com/originalankur/maptoposter) by [Ankur Gupta](https://github.com/originalankur) (MIT license). My app is built using Bun, React, and TypeScript. It allows users to create custom city map posters with various styling options, leveraging OpenStreetMap data rendered via MapLibre and OpenFreeMap vector tiles.
 
 ## Features
 
@@ -36,6 +37,14 @@ This project is a JavaScript reimplementation inspired by the original MapToPost
 - **Detailed map layers** — roads, water bodies, parks, and building footprints with per-layer styling
 - **Typography controls** — set city/country display labels and load any Google Fonts family
 - **High-resolution PNG export** — download a print-ready poster at any defined dimension
+
+## Data Providers and Mapping Stack
+
+- **Map data**: [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
+- **Tiles**: [OpenMapTiles](https://openmaptiles.org/)
+- **Tile hosting**: [OpenFreeMap](https://openfreemap.org/)
+- **Geocoding**: [Nominatim](https://nominatim.openstreetmap.org/)
+- **Map renderer**: [MapLibre](https://maplibre.org/)
 
 ## User Interface
 

@@ -10,7 +10,6 @@ import { localStorageCache } from "@/core/cache/localStorageCache";
 import { fetchAdapter } from "@/core/http/fetchAdapter";
 import { googleFontsAdapter } from "@/core/fonts/googleFontsAdapter";
 import { createNominatimAdapter } from "@/features/location/infrastructure/nominatimAdapter";
-import { createOverpassAdapter } from "@/features/map/infrastructure/overpassAdapter";
 
 /* ── Location / Geocoding ── */
 
@@ -19,22 +18,18 @@ const nominatim = createNominatimAdapter(fetchAdapter, localStorageCache);
 export const searchLocations = nominatim.searchLocations;
 export const geocodeLocation = nominatim.geocodeLocation;
 
-/* ── Map data ── */
-
-const overpass = createOverpassAdapter(fetchAdapter, localStorageCache);
-
-export const fetchMapData = overpass.fetchMapData;
-
 /* ── Fonts ── */
 
 export const ensureGoogleFont =
   googleFontsAdapter.ensureFont.bind(googleFontsAdapter);
 
-/* ── Poster rendering ── */
+/* ── Poster compositing ── */
 
-export { renderPoster } from "@/features/poster/infrastructure/renderer";
+export { compositeExport } from "@/features/poster/infrastructure/renderer";
 
 /* ── Export helpers ── */
+
+export { captureMapAsCanvas } from "@/features/export/infrastructure/mapExporter";
 
 export { createPngBlob } from "@/features/export/infrastructure/pngExporter";
 

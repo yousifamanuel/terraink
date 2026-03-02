@@ -56,6 +56,7 @@ export default function MapSettingsSection({
 }: MapSettingsSectionProps) {
   const [activePicker, setActivePicker] = useState("");
   const [isThemeEditing, setIsThemeEditing] = useState(false);
+  const [isDetailLayersOpen, setIsDetailLayersOpen] = useState(false);
   const [activeColorKey, setActiveColorKey] = useState<string | null>(null);
   const [activeColorSession, setActiveColorSession] = useState<{
     key: string;
@@ -145,6 +146,10 @@ export default function MapSettingsSection({
   }
   function closePicker() {
     setActivePicker("");
+  }
+
+  function toggleDetailLayers() {
+    setIsDetailLayersOpen((prev) => !prev);
   }
 
   function clearColorPickerState() {
@@ -289,7 +294,74 @@ export default function MapSettingsSection({
         maxPosterCm={maxPosterCm}
         onChange={onChange}
         onNumericFieldBlur={onNumericFieldBlur}
+        showDistanceField={false}
       />
+
+      <div className="map-details-section">
+        <h3 className="map-details-subtitle">Map Details</h3>
+        <div className="map-details-card">
+          <MapDimensionFields
+            form={form}
+            minPosterCm={minPosterCm}
+            maxPosterCm={maxPosterCm}
+            onChange={onChange}
+            onNumericFieldBlur={onNumericFieldBlur}
+            showSizeFields={false}
+          />
+
+          <button
+            type="button"
+            className={`map-details-collapsible${isDetailLayersOpen ? " is-open" : ""}`}
+            onClick={toggleDetailLayers}
+            aria-expanded={isDetailLayersOpen}
+            aria-controls="layer-visibility-options"
+          >
+            <span>Layer Visibility</span>
+            <span className="map-details-collapsible-arrow" aria-hidden="true" />
+          </button>
+
+          {isDetailLayersOpen ? (
+            <div id="layer-visibility-options" className="map-details-collapsible-content">
+              <label className="toggle-field">
+                <span>Show buildings</span>
+                <span className="theme-switch">
+                  <input
+                    type="checkbox"
+                    name="includeBuildings"
+                    checked={Boolean(form.includeBuildings)}
+                    onChange={onChange}
+                  />
+                  <span className="theme-switch-track" aria-hidden="true" />
+                </span>
+              </label>
+              <label className="toggle-field">
+                <span>Show water</span>
+                <span className="theme-switch">
+                  <input
+                    type="checkbox"
+                    name="includeWater"
+                    checked={Boolean(form.includeWater)}
+                    onChange={onChange}
+                  />
+                  <span className="theme-switch-track" aria-hidden="true" />
+                </span>
+              </label>
+              <label className="toggle-field">
+                <span>Show parks</span>
+                <span className="theme-switch">
+                  <input
+                    type="checkbox"
+                    name="includeParks"
+                    checked={Boolean(form.includeParks)}
+                    onChange={onChange}
+                  />
+                  <span className="theme-switch-track" aria-hidden="true" />
+                </span>
+              </label>
+            </div>
+          ) : null}
+        </div>
+      </div>
 
       <MapSettingsPickers
         activePicker={activePicker}

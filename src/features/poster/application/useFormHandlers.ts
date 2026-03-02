@@ -31,16 +31,12 @@ export function useFormHandlers() {
       const { name, value, type } = target;
       const checked = "checked" in target ? target.checked : false;
 
-      if (name === "showPosterText" && type === "checkbox") {
+      if (type === "checkbox") {
         dispatch({ type: "SET_FIELD", name, value: checked });
         return;
       }
 
       let fieldValue: string | boolean = value as string;
-
-      if (name === "includeCredits" && type === "checkbox") {
-        fieldValue = checked;
-      }
 
       dispatch({ type: "SET_FIELD", name, value: fieldValue });
     },
