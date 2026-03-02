@@ -128,7 +128,7 @@ export function useMapSync() {
         fields: {
           latitude: lat.toFixed(6),
           longitude: lon.toFixed(6),
-          distance: String(distance),
+          distance: String(Math.round(distance)),
         },
       });
     },

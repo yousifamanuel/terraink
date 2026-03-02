@@ -18,8 +18,8 @@ export const DEFAULT_DISTANCE_METERS = 4_000;
 /** Earth circumference at equator in meters. */
 export const EARTH_CIRCUMFERENCE_M = 40_075_016.686;
 
-/** Tile size in pixels used by MapLibre (web-mercator standard). */
-export const TILE_SIZE_PX = 256;
+/** Vector tile size for OpenMapTiles/OpenFreeMap tile scheme. */
+export const TILE_SIZE_PX = 512;
 
 /** Min zoom level allowed for the map. */
 export const MIN_MAP_ZOOM = 0.5;

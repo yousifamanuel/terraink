@@ -57,6 +57,8 @@ export const DEFAULT_FORM: PosterForm = {
   showPosterText: true,
   includeCredits: true,
   includeBuildings: false,
+  includeWater: true,
+  includeParks: true,
 };
 
 const INITIAL_STATE: PosterState = {
@@ -106,8 +108,17 @@ export function PosterProvider({ children }: { children: ReactNode }) {
     () =>
       generateMapStyle(effectiveTheme, {
         includeBuildings: state.form.includeBuildings,
+        includeWater: state.form.includeWater,
+        includeParks: state.form.includeParks,
+        distanceMeters: Number(state.form.distance),
       }),
-    [effectiveTheme, state.form.includeBuildings],
+    [
+      effectiveTheme,
+      state.form.includeBuildings,
+      state.form.includeWater,
+      state.form.includeParks,
+      state.form.distance,
+    ],
   );
 
   const value = useMemo<PosterContextValue>(

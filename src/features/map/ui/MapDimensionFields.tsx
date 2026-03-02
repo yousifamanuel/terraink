@@ -7,6 +7,8 @@ interface MapDimensionFieldsProps {
   maxPosterCm: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onNumericFieldBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  showSizeFields?: boolean;
+  showDistanceField?: boolean;
 }
 
 export default function MapDimensionFields({
@@ -15,6 +17,8 @@ export default function MapDimensionFields({
   maxPosterCm,
   onChange,
   onNumericFieldBlur,
+  showSizeFields = true,
+  showDistanceField = true,
 }: MapDimensionFieldsProps) {
   const SLIDER_MIN = 0;
   const SLIDER_MAX = 1000;
@@ -103,92 +107,96 @@ export default function MapDimensionFields({
 
   return (
     <div className="map-dimension-fields">
-      <div className="map-size-fields-row">
-        <label>
-          Width (cm)
-          <input
-            className="form-control-tall"
-            name="width"
-            type="number"
-            min={minPosterCm}
-            max={maxPosterCm}
-            step="any"
-            value={form.width}
-            onChange={onChange}
-            onBlur={onNumericFieldBlur}
-          />
-        </label>
-        <label>
-          Height (cm)
-          <input
-            className="form-control-tall"
-            name="height"
-            type="number"
-            min={minPosterCm}
-            max={maxPosterCm}
-            step="any"
-            value={form.height}
-            onChange={onChange}
-            onBlur={onNumericFieldBlur}
-          />
-        </label>
-      </div>
+      {showSizeFields ? (
+        <div className="map-size-fields-row">
+          <label>
+            Width (cm)
+            <input
+              className="form-control-tall"
+              name="width"
+              type="number"
+              min={minPosterCm}
+              max={maxPosterCm}
+              step="any"
+              value={form.width}
+              onChange={onChange}
+              onBlur={onNumericFieldBlur}
+            />
+          </label>
+          <label>
+            Height (cm)
+            <input
+              className="form-control-tall"
+              name="height"
+              type="number"
+              min={minPosterCm}
+              max={maxPosterCm}
+              step="any"
+              value={form.height}
+              onChange={onChange}
+              onBlur={onNumericFieldBlur}
+            />
+          </label>
+        </div>
+      ) : null}
 
-      <label className="distance-slider-field">
-        <span>
-          <span>Distance (m)</span>
+      {showDistanceField ? (
+        <label className="distance-slider-field">
+          <span>
+            <span>Distance (m)</span>
+            <input
+              className="distance-slider-input"
+              name="distance"
+              type="number"
+              min={MIN_DISTANCE_METERS}
+              max={MAX_DISTANCE_METERS}
+              step="any"
+              value={form.distance}
+              onChange={onChange}
+              onBlur={onNumericFieldBlur}
+              aria-label="Distance in meters"
+            />
+          </span>
           <input
-            className="distance-slider-input"
-            name="distance"
-            type="number"
-            min={MIN_DISTANCE_METERS}
-            max={MAX_DISTANCE_METERS}
-            step="any"
-            value={form.distance}
-            onChange={onChange}
-            onBlur={onNumericFieldBlur}
+            className="distance-slider"
+            name="distance-slider-log"
+            type="range"
+            min={SLIDER_MIN}
+            max={SLIDER_MAX}
+            step={1}
+            value={sliderValue}
+            onChange={(event) =>
+              emitDistanceChange(
+                sliderValueToDistance(Number(event.target.value)),
+              )
+            }
             aria-label="Distance in meters"
           />
-        </span>
-        <input
-          className="distance-slider"
-          name="distance-slider-log"
-          type="range"
-          min={SLIDER_MIN}
-          max={SLIDER_MAX}
-          step={1}
-          value={sliderValue}
-          onChange={(event) =>
-            emitDistanceChange(
-              sliderValueToDistance(Number(event.target.value)),
-            )
-          }
-          aria-label="Distance in meters"
-        />
-        <span className="distance-slider-meta">
-          {sliderMetaMarks.map((mark, index) => {
-            const isFirst = index === 0;
-            const isLast = index === sliderMetaMarks.length - 1;
-            const left = sliderPositionPercent(mark);
-            return (
-              <span
-                key={mark}
-                className="distance-slider-meta-mark"
-                style={{
-                  left: `${left}%`,
-                  transform: isFirst
-                    ? "translateX(0)"
-                    : isLast
-                      ? "translateX(-100%)"
-                      : "translateX(-50%)",
-                }}
-              >
-                {formatDistance(mark)}
-              </span>
-            );
-          })}
-        </span>
-      </label>
+          <span className="distance-slider-meta">
+            {sliderMetaMarks.map((mark, index) => {
+              const isFirst = index === 0;
+              const isLast = index === sliderMetaMarks.length - 1;
+              const left = sliderPositionPercent(mark);
+              return (
+                <span
+                  key={mark}
+                  className="distance-slider-meta-mark"
+                  style={{
+                    left: `${left}%`,
+                    transform: isFirst
+                      ? "translateX(0)"
+                      : isLast
+                        ? "translateX(-100%)"
+                        : "translateX(-50%)",
+                  }}
+                >
+                  {formatDistance(mark)}
+                </span>
+              );
+            })}
+          </span>
+        </label>
+      ) : null}
     </div>
   );
 }

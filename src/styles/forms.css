@@ -183,6 +183,64 @@ label {
   color: #88b7d5;
 }
 
+.map-details-card {
+  border: none;
+  border-radius: 12px;
+  background: rgba(9, 18, 27, 0.8);
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.map-details-card .map-dimension-fields {
+  gap: 0;
+}
+
+.map-details-collapsible {
+  width: 100%;
+  margin: 0;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(14, 28, 40, 0.82);
+  color: #dff0fb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+}
+
+.map-details-collapsible-arrow {
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid #9dc6dd;
+  transition: transform 0.16s ease;
+}
+
+.map-details-collapsible.is-open .map-details-collapsible-arrow {
+  transform: rotate(90deg);
+}
+
+.map-details-collapsible-content {
+  border: none;
+  border-radius: 10px;
+  background: rgba(10, 20, 31, 0.7);
+  padding: 8px 10px 2px;
+}
+
+.map-details-collapsible:hover,
+.map-details-collapsible:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(112, 184, 222, 0.74);
+  background: rgba(22, 44, 61, 0.9);
+}
+
 .form-control-tall,
 .map-dimension-input {
   min-height: 48px;

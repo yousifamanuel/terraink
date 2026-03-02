@@ -12,27 +12,84 @@ const SOURCE_ID = "openfreemap";
 /** Blend factor for deriving building fill when `theme.building` is unset. */
 const BUILDING_BLEND_FACTOR = 0.14;
 const BUILDING_FILL_OPACITY = 0.85;
-const BUILDING_MIN_ZOOM = 13;
+const MAP_BUILDING_MIN_ZOOM_DEFAULT = 13;
+const MAP_BUILDING_MIN_ZOOM_PRESERVE = 8.2;
+const DETAIL_PRESERVE_DISTANCE_METERS = 30_000;
 
-/* ── road width interpolation stops: [zoom, width] pairs ── */
+const MAP_ROAD_PATH_ZOOM_MIN = 0;
+const MAP_ROAD_PATH_ZOOM_LOW = 6;
+const MAP_ROAD_PATH_ZOOM_MID = 14;
+const MAP_ROAD_PATH_ZOOM_HIGH = 18;
 
-const ROAD_PATH_WIDTHS: [number, number][] = [
-  [8, 0.2],
-  [14, 1],
-  [18, 4],
+const MAP_ROAD_MINOR_ZOOM_MIN = 0;
+const MAP_ROAD_MINOR_ZOOM_LOW = 4;
+const MAP_ROAD_MINOR_ZOOM_MID = 12;
+const MAP_ROAD_MINOR_ZOOM_HIGH = 18;
+
+const MAP_ROAD_MAJOR_ZOOM_MIN = 0;
+const MAP_ROAD_MAJOR_ZOOM_LOW = 2;
+const MAP_ROAD_MAJOR_ZOOM_MID = 10;
+const MAP_ROAD_MAJOR_ZOOM_HIGH = 18;
+
+const MAP_ROAD_PATH_CLASSES = [
+  "tertiary",
+  "tertiary_link",
+  "minor",
+  "residential",
+  "living_street",
+  "unclassified",
+  "road",
+  "street",
+  "street_limited",
+  "service",
+  "track",
+  "path",
 ];
 
-const ROAD_MINOR_WIDTHS: [number, number][] = [
-  [6, 0.3],
-  [12, 1.5],
-  [18, 8],
+const MAP_ROAD_MINOR_CLASSES = [
+  "primary",
+  "primary_link",
+  "secondary",
+  "secondary_link",
 ];
 
-const ROAD_MAJOR_WIDTHS: [number, number][] = [
-  [4, 0.5],
-  [10, 2],
-  [18, 12],
+const MAP_ROAD_MAJOR_CLASSES = [
+  "motorway",
+  "motorway_link",
+  "trunk",
+  "trunk_link",
 ];
+
+const MAP_ROAD_PATH_WIDTH_STOPS: [number, number][] = [
+  [MAP_ROAD_PATH_ZOOM_MIN, 0.16],
+  [MAP_ROAD_PATH_ZOOM_LOW, 0.18],
+  [MAP_ROAD_PATH_ZOOM_MID, 0.38],
+  [MAP_ROAD_PATH_ZOOM_HIGH, 0.9],
+];
+
+const MAP_ROAD_MINOR_WIDTH_STOPS: [number, number][] = [
+  [MAP_ROAD_MINOR_ZOOM_MIN, 0.22],
+  [MAP_ROAD_MINOR_ZOOM_LOW, 0.24],
+  [MAP_ROAD_MINOR_ZOOM_MID, 0.58],
+  [MAP_ROAD_MINOR_ZOOM_HIGH, 1.9],
+];
+
+const MAP_ROAD_MAJOR_WIDTH_STOPS: [number, number][] = [
+  [MAP_ROAD_MAJOR_ZOOM_MIN, 0.34],
+  [MAP_ROAD_MAJOR_ZOOM_LOW, 0.34],
+  [MAP_ROAD_MAJOR_ZOOM_MID, 0.74],
+  [MAP_ROAD_MAJOR_ZOOM_HIGH, 2.6],
+];
+
+function resolveBuildingMinZoom(distanceMeters?: number): number {
+  if (
+    Number.isFinite(distanceMeters) &&
+    Number(distanceMeters) <= DETAIL_PRESERVE_DISTANCE_METERS
+  ) {
+    return MAP_BUILDING_MIN_ZOOM_PRESERVE;
+  }
+  return MAP_BUILDING_MIN_ZOOM_DEFAULT;
+}
 
 /** Build a MapLibre interpolation expression from zoom↔width pairs. */
 function widthExpr(
@@ -51,7 +108,12 @@ function widthExpr(
  */
 export function generateMapStyle(
   theme: ResolvedTheme,
-  options?: { includeBuildings?: boolean },
+  options?: {
+    includeBuildings?: boolean;
+    includeWater?: boolean;
+    includeParks?: boolean;
+    distanceMeters?: number;
+  },
 ): StyleSpecification {
   const buildingFill =
     theme.building ||
@@ -61,6 +123,9 @@ export function generateMapStyle(
       BUILDING_BLEND_FACTOR,
     );
   const includeBuildings = options?.includeBuildings ?? true;
+  const includeWater = options?.includeWater ?? true;
+  const includeParks = options?.includeParks ?? true;
+  const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
 
   return {
     version: 8,
@@ -79,22 +144,30 @@ export function generateMapStyle(
       },
 
       /* ── water ── */
-      {
-        id: "water",
-        source: SOURCE_ID,
-        "source-layer": "water",
-        type: "fill",
-        paint: { "fill-color": theme.water },
-      },
+      ...(includeWater
+        ? [
+            {
+              id: "water",
+              source: SOURCE_ID,
+              "source-layer": "water",
+              type: "fill" as const,
+              paint: { "fill-color": theme.water },
+            },
+          ]
+        : []),
 
       /* ── parks ── */
-      {
-        id: "park",
-        source: SOURCE_ID,
-        "source-layer": "park",
-        type: "fill",
-        paint: { "fill-color": theme.parks },
-      },
+      ...(includeParks
+        ? [
+            {
+              id: "park",
+              source: SOURCE_ID,
+              "source-layer": "park",
+              type: "fill" as const,
+              paint: { "fill-color": theme.parks },
+            },
+          ]
+        : []),
 
       ...(includeBuildings
         ? [
@@ -108,7 +181,7 @@ export function generateMapStyle(
                 "fill-color": buildingFill,
                 "fill-opacity": BUILDING_FILL_OPACITY,
               },
-              minzoom: BUILDING_MIN_ZOOM,
+              minzoom: buildingMinZoom,
             },
           ]
         : []),
@@ -122,13 +195,13 @@ export function generateMapStyle(
         filter: [
           "match",
           ["get", "class"],
-          ["tertiary", "minor", "service", "track", "path"],
+          MAP_ROAD_PATH_CLASSES,
           true,
           false,
         ],
         paint: {
           "line-color": theme.road_default || theme.road_tertiary || theme.text,
-          "line-width": widthExpr(ROAD_PATH_WIDTHS),
+          "line-width": widthExpr(MAP_ROAD_PATH_WIDTH_STOPS),
         },
       },
 
@@ -141,14 +214,14 @@ export function generateMapStyle(
         filter: [
           "match",
           ["get", "class"],
-          ["primary", "secondary"],
+          MAP_ROAD_MINOR_CLASSES,
           true,
           false,
         ],
         paint: {
           "line-color":
             theme.road_secondary || theme.road_primary || theme.text,
-          "line-width": widthExpr(ROAD_MINOR_WIDTHS),
+          "line-width": widthExpr(MAP_ROAD_MINOR_WIDTH_STOPS),
         },
       },
 
@@ -158,10 +231,16 @@ export function generateMapStyle(
         source: SOURCE_ID,
         "source-layer": "transportation",
         type: "line",
-        filter: ["match", ["get", "class"], ["motorway", "trunk"], true, false],
+        filter: [
+          "match",
+          ["get", "class"],
+          MAP_ROAD_MAJOR_CLASSES,
+          true,
+          false,
+        ],
         paint: {
           "line-color": theme.road_motorway || theme.text,
-          "line-width": widthExpr(ROAD_MAJOR_WIDTHS),
+          "line-width": widthExpr(MAP_ROAD_MAJOR_WIDTH_STOPS),
         },
       },
     ],

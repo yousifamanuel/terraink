@@ -18,6 +18,8 @@ export interface PosterForm {
   showPosterText: boolean;
   includeCredits: boolean;
   includeBuildings: boolean;
+  includeWater: boolean;
+  includeParks: boolean;
 }
 
 /* ────── App-level state ────── */
