@@ -21,6 +21,7 @@ export function useGeolocation(dispatch: React.Dispatch<PosterAction>) {
 
     const applyFallback = () => {
       if (cancelled) return;
+      dispatch({ type: "SET_USER_LOCATION", location: null });
       dispatch({
         type: "SET_FORM_FIELDS",
         fields: {
@@ -52,6 +53,18 @@ export function useGeolocation(dispatch: React.Dispatch<PosterAction>) {
             longitude: lon.toFixed(6),
           },
         });
+        dispatch({
+          type: "SET_USER_LOCATION",
+          location: {
+            id: `user:${lat.toFixed(6)},${lon.toFixed(6)}`,
+            label: "Current Location",
+            city: "",
+            country: "",
+            continent: "",
+            lat,
+            lon,
+          },
+        });
 
         void reverseGeocodeCoordinates(lat, lon)
           .then((nearest) => {
@@ -74,6 +87,7 @@ export function useGeolocation(dispatch: React.Dispatch<PosterAction>) {
                 displayContinent: continent,
               },
             });
+            dispatch({ type: "SET_USER_LOCATION", location: nearest });
           })
           .catch(() => {
             // Keep coordinate update even when reverse lookup fails.

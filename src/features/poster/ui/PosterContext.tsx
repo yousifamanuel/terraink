@@ -72,6 +72,7 @@ const INITIAL_STATE: PosterState = {
   isExporting: false,
   isLocationFocused: false,
   selectedLocation: null,
+  userLocation: null,
 };
 
 /* ────── Context shape ────── */

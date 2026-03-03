@@ -27,8 +27,14 @@ import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
 import {
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
+  DEFAULT_DISTANCE_METERS,
+  DEFAULT_LAT,
+  DEFAULT_LON,
+  DEFAULT_CITY,
+  DEFAULT_COUNTRY,
 } from "@/core/config";
-import { ensureGoogleFont } from "@/core/services";
+import { ensureGoogleFont, reverseGeocodeCoordinates } from "@/core/services";
+import { parseLocationParts } from "@/shared/utils/location";
 
 const LOCKED_HINT = "Map is locked to prevent unintended movement.";
 const EDIT_HINT_ACTIVE =
@@ -38,10 +44,12 @@ const EDIT_HINT_MOVE_OFF =
 const RECENTER_HINT = "Recenter map to the current location";
 const COUNTRY_VIEW_ZOOM_LEVEL = 10;
 const CONTINENT_VIEW_ZOOM_LEVEL = 6;
+const DEFAULT_LOCATION_LABEL =
+  "Hanover, Region Hannover, Lower Saxony, Germany";
 
 export default function PreviewPanel() {
-  const { state, effectiveTheme, mapStyle, mapRef } = usePosterContext();
-  const { form, selectedLocation } = state;
+  const { state, dispatch, effectiveTheme, mapStyle, mapRef } = usePosterContext();
+  const { form, selectedLocation, userLocation } = state;
   const {
     mapCenter,
     mapZoom,
@@ -134,15 +142,74 @@ export default function PreviewPanel() {
   const handleRecenter = useCallback(() => {
     const map = mapRef.current;
     if (!map) return;
+    const target =
+      selectedLocation ||
+      userLocation || {
+        id: "fallback:hanover",
+        label: DEFAULT_LOCATION_LABEL,
+        city: DEFAULT_CITY,
+        country: DEFAULT_COUNTRY,
+        continent: "Europe",
+        lat: DEFAULT_LAT,
+        lon: DEFAULT_LON,
+      };
+    const applyTarget = (
+      city: string,
+      country: string,
+      continent: string,
+      label: string,
+    ) => {
+      dispatch({
+        type: "SET_FORM_FIELDS",
+        fields: {
+          location: label,
+          latitude: target.lat.toFixed(6),
+          longitude: target.lon.toFixed(6),
+          distance: String(DEFAULT_DISTANCE_METERS),
+          displayCity: city,
+          displayCountry: country,
+          displayContinent: continent,
+        },
+      });
+    };
 
-    map.easeTo({
-      center: selectedLocation
-        ? [selectedLocation.lon, selectedLocation.lat]
-        : mapCenter,
-      zoom: mapZoom,
-      duration: MAP_BUTTON_ZOOM_DURATION_MS,
-    });
-  }, [mapRef, mapCenter, mapZoom, selectedLocation]);
+    const city = String(target.city ?? "").trim();
+    const country = String(target.country ?? "").trim();
+    const continent = String(target.continent ?? "").trim();
+    const label = String(target.label ?? "").trim() || DEFAULT_LOCATION_LABEL;
+    const parsedFromLabel = parseLocationParts(label);
+    const immediateCity = city || parsedFromLabel.city || DEFAULT_CITY;
+    const immediateCountry = country || parsedFromLabel.country || DEFAULT_COUNTRY;
+    const immediateContinent = continent || "Europe";
+
+    // Update labels immediately so UI reflects recenter action without delay.
+    applyTarget(immediateCity, immediateCountry, immediateContinent, label);
+
+    if (city && country) {
+      return;
+    }
+
+    void reverseGeocodeCoordinates(target.lat, target.lon)
+      .then((resolved) => {
+        dispatch({ type: "SET_USER_LOCATION", location: resolved });
+        applyTarget(
+          String(resolved.city ?? "").trim() || DEFAULT_CITY,
+          String(resolved.country ?? "").trim() || DEFAULT_COUNTRY,
+          String(resolved.continent ?? "").trim() || "Europe",
+          String(resolved.label ?? "").trim() || DEFAULT_LOCATION_LABEL,
+        );
+      })
+      .catch(() => {
+        // Keep the immediate labels already applied above.
+      });
+  }, [
+    mapRef,
+    selectedLocation,
+    userLocation,
+    dispatch,
+    mapMinZoom,
+    mapMaxZoom,
+  ]);
 
   return (
     <section className="preview-panel">
