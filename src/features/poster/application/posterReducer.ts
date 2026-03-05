@@ -1,6 +1,18 @@
 import type { SearchResult } from "@/features/location/domain/types";
 import { parseLocationParts } from "@/shared/utils/location";
 
+/* ────── Marker styles ────── */
+
+export type MarkerStyle = "pin" | "circle" | "target" | "diamond" | "star";
+
+export const MARKER_STYLES: { id: MarkerStyle; label: string; icon: string }[] = [
+  { id: "pin", label: "Pin", icon: "📍" },
+  { id: "circle", label: "Circle", icon: "⭕" },
+  { id: "target", label: "Target", icon: "🎯" },
+  { id: "diamond", label: "Diamond", icon: "💎" },
+  { id: "star", label: "Star", icon: "⭐" },
+];
+
 /* ────── Form state ────── */
 
 export interface PosterForm {
@@ -21,6 +33,10 @@ export interface PosterForm {
   includeBuildings: boolean;
   includeWater: boolean;
   includeParks: boolean;
+  showMarker: boolean;
+  markerStyle: MarkerStyle;
+  markerSize: number;
+  markerColor: string;
 }
 
 /* ────── App-level state ────── */

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
 import { useExport } from "@/features/export/application/useExport";
@@ -13,9 +13,10 @@ import { DownloadIcon } from "@/shared/ui/Icons";
 import { themeOptions } from "@/features/theme/infrastructure/themeRepository";
 import { layoutGroups } from "@/features/layout/infrastructure/layoutRepository";
 import { MIN_POSTER_CM, MAX_POSTER_CM, FONT_OPTIONS } from "@/core/config";
+import type { MarkerStyle } from "@/features/poster/application/posterReducer";
 
 export default function SettingsPanel() {
-  const { state, selectedTheme } = usePosterContext();
+  const { state, dispatch, selectedTheme } = usePosterContext();
   const {
     handleChange,
     handleNumericFieldBlur,
@@ -46,6 +47,27 @@ export default function SettingsPanel() {
     flyToLocation(location.lat, location.lon);
   };
 
+  const onMarkerStyleChange = useCallback(
+    (style: MarkerStyle) => {
+      dispatch({ type: "SET_FIELD", name: "markerStyle", value: style });
+    },
+    [dispatch],
+  );
+
+  const onMarkerSizeChange = useCallback(
+    (size: number) => {
+      dispatch({ type: "SET_FIELD", name: "markerSize", value: size });
+    },
+    [dispatch],
+  );
+
+  const onMarkerColorChange = useCallback(
+    (color: string) => {
+      dispatch({ type: "SET_FIELD", name: "markerColor", value: color });
+    },
+    [dispatch],
+  );
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     // No generation step needed — the poster is always live
@@ -64,6 +86,9 @@ export default function SettingsPanel() {
           isLocationSearching={isLocationSearching}
           onLocationSelect={onLocationSelect}
           onClearLocation={handleClearLocation}
+          onMarkerStyleChange={onMarkerStyleChange}
+          onMarkerSizeChange={onMarkerSizeChange}
+          onMarkerColorChange={onMarkerColorChange}
         />
       )}
 

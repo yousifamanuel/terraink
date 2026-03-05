@@ -1,4 +1,4 @@
-.panel-block + .panel-block {
+.panel-block+.panel-block {
   margin-top: 12px;
 }
 
@@ -47,7 +47,7 @@ label {
   gap: 8px;
 }
 
-.distance-slider-field > span {
+.distance-slider-field>span {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
@@ -97,11 +97,9 @@ label {
   height: 10px;
   border-radius: 999px;
   border: 1px solid rgba(151, 183, 207, 0.34);
-  background: linear-gradient(
-    180deg,
-    rgba(28, 51, 69, 0.95),
-    rgba(17, 34, 47, 0.95)
-  );
+  background: linear-gradient(180deg,
+      rgba(28, 51, 69, 0.95),
+      rgba(17, 34, 47, 0.95));
   box-sizing: border-box;
 }
 
@@ -125,11 +123,9 @@ label {
   height: 10px;
   border-radius: 999px;
   border: 1px solid rgba(151, 183, 207, 0.34);
-  background: linear-gradient(
-    180deg,
-    rgba(28, 51, 69, 0.95),
-    rgba(17, 34, 47, 0.95)
-  );
+  background: linear-gradient(180deg,
+      rgba(28, 51, 69, 0.95),
+      rgba(17, 34, 47, 0.95));
   box-sizing: border-box;
 }
 
@@ -295,15 +291,15 @@ label {
   transition: transform 0.16s ease;
 }
 
-.theme-switch input:checked + .theme-switch-track {
+.theme-switch input:checked+.theme-switch-track {
   background: #5eaed4;
 }
 
-.theme-switch input:checked + .theme-switch-track::after {
+.theme-switch input:checked+.theme-switch-track::after {
   transform: translateX(24px);
 }
 
-.theme-switch input:focus-visible + .theme-switch-track {
+.theme-switch input:focus-visible+.theme-switch-track {
   box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.3);
 }
 
@@ -375,11 +371,9 @@ button.credits-modal-keep {
   padding: 10px 20px;
   border-radius: 999px;
   border: 1px solid rgba(94, 174, 212, 0.55);
-  background: linear-gradient(
-    135deg,
-    rgba(38, 112, 158, 0.95) 0%,
-    rgba(25, 78, 115, 0.95) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(38, 112, 158, 0.95) 0%,
+      rgba(25, 78, 115, 0.95) 100%);
   color: #dff3ff;
   font-size: 0.84rem;
   font-weight: 700;
@@ -399,11 +393,9 @@ button.credits-modal-keep:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(130, 200, 240, 0.85);
-  background: linear-gradient(
-    135deg,
-    rgba(50, 138, 190, 0.98) 0%,
-    rgba(35, 100, 148, 0.98) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(50, 138, 190, 0.98) 0%,
+      rgba(35, 100, 148, 0.98) 100%);
   box-shadow:
     0 0 22px rgba(94, 174, 212, 0.45),
     0 2px 8px rgba(0, 0, 0, 0.4);
@@ -1234,7 +1226,7 @@ label.color-field-label {
   margin-top: 10px;
 }
 
-.action-row > button {
+.action-row>button {
   width: 100%;
   padding: 8px 12px;
 }
@@ -1351,6 +1343,7 @@ button.location-clear-btn:focus-visible {
 }
 
 @media (max-width: 760px) {
+
   .field-grid,
   .field-grid.triple {
     grid-template-columns: 1fr;
@@ -1447,4 +1440,238 @@ button.location-clear-btn:focus-visible {
     max-height: 92vh;
     padding: 10px;
   }
+}
+
+/* ── Marker style picker ── */
+
+.marker-style-picker {
+  display: grid;
+  gap: 8px;
+}
+
+.marker-style-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d9e7f2;
+}
+
+.marker-style-options {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.marker-style-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border: 1px solid rgba(151, 183, 207, 0.28);
+  border-radius: 10px;
+  background: rgba(11, 21, 30, 0.86);
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.marker-style-btn:hover,
+.marker-style-btn:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(112, 184, 222, 0.7);
+  background: rgba(20, 38, 52, 0.94);
+}
+
+.marker-style-btn.is-active {
+  border-color: rgba(112, 184, 222, 0.85);
+  background: rgba(30, 60, 82, 0.92);
+  box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.28);
+}
+
+.marker-style-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.marker-style-name {
+  font-size: 0.62rem;
+  color: #a8bfd1;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.marker-style-btn.is-active .marker-style-name {
+  color: #e4f2fc;
+}
+
+/* ── Marker settings container ── */
+
+.marker-settings {
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+  padding: 10px;
+  border: 1px solid rgba(151, 183, 207, 0.2);
+  border-radius: 12px;
+  background: rgba(9, 18, 27, 0.5);
+}
+
+/* ── Marker size slider ── */
+
+.marker-size-field {
+  display: grid;
+  gap: 6px;
+}
+
+.marker-size-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.marker-size-value {
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.78rem;
+  color: #dff0fb;
+  letter-spacing: 0.02em;
+}
+
+.marker-size-slider {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 20px;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.marker-size-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  background: linear-gradient(180deg,
+      rgba(28, 51, 69, 0.95),
+      rgba(17, 34, 47, 0.95));
+}
+
+.marker-size-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -5px;
+  border-radius: 999px;
+  border: 2px solid #e8f3fb;
+  background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
+  box-shadow:
+    0 0 0 2px rgba(5, 13, 20, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+  cursor: grab;
+}
+
+.marker-size-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  background: linear-gradient(180deg,
+      rgba(28, 51, 69, 0.95),
+      rgba(17, 34, 47, 0.95));
+}
+
+.marker-size-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid #e8f3fb;
+  background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
+  box-shadow:
+    0 0 0 2px rgba(5, 13, 20, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Marker color picker ── */
+
+.marker-color-field {
+  display: grid;
+  gap: 6px;
+}
+
+.marker-color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marker-color-auto-btn {
+  padding: 6px 14px;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  border-radius: 8px;
+  background: rgba(14, 28, 40, 0.82);
+  color: #a8bfd1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease,
+    color 0.16s ease;
+}
+
+.marker-color-auto-btn:hover,
+.marker-color-auto-btn:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(112, 184, 222, 0.7);
+  color: #e4f2fc;
+}
+
+.marker-color-auto-btn.is-active {
+  border-color: rgba(112, 184, 222, 0.85);
+  background: rgba(30, 60, 82, 0.92);
+  color: #e4f2fc;
+  box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.28);
+}
+
+.marker-color-picker-wrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  cursor: pointer;
+}
+
+.marker-color-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.marker-color-swatch {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ccc 25%, transparent 25%),
+    linear-gradient(225deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(315deg, #ccc 25%, transparent 25%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+  background-color: #fff;
+  pointer-events: none;
 }

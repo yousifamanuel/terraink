@@ -63,6 +63,10 @@ export const DEFAULT_FORM: PosterForm = {
   includeBuildings: false,
   includeWater: true,
   includeParks: true,
+  showMarker: false,
+  markerStyle: "pin",
+  markerSize: 40,
+  markerColor: "",
 };
 
 const INITIAL_STATE: PosterState = {

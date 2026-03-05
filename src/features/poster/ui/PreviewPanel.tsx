@@ -217,11 +217,11 @@ export default function PreviewPanel() {
         fields: {
           ...(includeCoordinates
             ? {
-                location: label,
-                latitude: target.lat.toFixed(6),
-                longitude: target.lon.toFixed(6),
-                distance: String(DEFAULT_DISTANCE_METERS),
-              }
+              location: label,
+              latitude: target.lat.toFixed(6),
+              longitude: target.lon.toFixed(6),
+              distance: String(DEFAULT_DISTANCE_METERS),
+            }
             : { location: label }),
           displayCity: city,
           displayCountry: country,
@@ -298,6 +298,11 @@ export default function PreviewPanel() {
             overzoomScale={MAP_OVERZOOM_SCALE}
             onMove={handleMove}
             onMoveEnd={handleMoveEnd}
+            showMarker={form.showMarker}
+            markerCenter={[formLon, formLat]}
+            markerColor={form.markerColor || effectiveTheme.ui.text}
+            markerStyle={form.markerStyle}
+            markerSize={form.markerSize}
           />
           <GradientFades color={effectiveTheme.ui.bg} />
           <PosterTextOverlay
