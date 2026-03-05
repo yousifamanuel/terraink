@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { captureMapAsCanvas } from "@/features/export/infrastructure/mapExporter";
+import type { ExportMarkerOptions } from "@/features/export/infrastructure/mapExporter";
 import { compositeExport } from "@/features/poster/infrastructure/renderer";
 import { resolveCanvasSize } from "@/features/poster/infrastructure/renderer/canvas";
 import { ensureGoogleFont } from "@/core/services";
@@ -53,15 +54,27 @@ export function useExport() {
         const size = resolveCanvasSize(widthInches, heightInches);
 
         // 1. Capture map at full export resolution
+        const lat = Number(form.latitude) || 0;
+        const lon = Number(form.longitude) || 0;
+
+        const markerOptions: ExportMarkerOptions | undefined = form.showMarker
+          ? {
+            show: true,
+            style: form.markerStyle,
+            color: form.markerColor || effectiveTheme.ui.text,
+            size: form.markerSize,
+            lngLat: [lon, lat],
+          }
+          : undefined;
+
         const mapCanvas = await captureMapAsCanvas(
           map,
           size.width,
           size.height,
+          markerOptions,
         );
 
         // 2. Composite fades + text
-        const lat = Number(form.latitude) || 0;
-        const lon = Number(form.longitude) || 0;
 
         const { canvas } = compositeExport(mapCanvas, {
           theme: effectiveTheme,
