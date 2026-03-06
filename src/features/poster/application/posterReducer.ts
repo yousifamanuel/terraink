@@ -1,17 +1,11 @@
 import type { SearchResult } from "@/features/location/domain/types";
 import { parseLocationParts } from "@/shared/utils/location";
 
-/* ────── Marker styles ────── */
+/* ────── Re-export marker types from dedicated module ────── */
 
-export type MarkerStyle = "pin" | "circle" | "target" | "diamond" | "star";
-
-export const MARKER_STYLES: { id: MarkerStyle; label: string; icon: string }[] = [
-  { id: "pin", label: "Pin", icon: "📍" },
-  { id: "circle", label: "Circle", icon: "⭕" },
-  { id: "target", label: "Target", icon: "🎯" },
-  { id: "diamond", label: "Diamond", icon: "💎" },
-  { id: "star", label: "Star", icon: "⭐" },
-];
+import type { MarkerStyle } from "@/features/marker/domain/types";
+export type { MarkerStyle } from "@/features/marker/domain/types";
+export { MARKER_STYLES } from "@/features/marker/domain/types";
 
 /* ────── Form state ────── */
 

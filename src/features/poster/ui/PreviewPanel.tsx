@@ -7,6 +7,7 @@ import {
 } from "react";
 import { usePosterContext } from "./PosterContext";
 import { useMapSync } from "@/features/map/application/useMapSync";
+import { useMapMarker } from "@/features/marker/application/useMapMarker";
 import MapPreview from "@/features/map/ui/MapPreview";
 import GradientFades from "./GradientFades";
 import PosterTextOverlay from "./PosterTextOverlay";
@@ -105,6 +106,17 @@ export default function PreviewPanel() {
 
   const formLat = Number(form.latitude) || 0;
   const formLon = Number(form.longitude) || 0;
+
+  /* ── Marker (managed by dedicated hook) ── */
+  useMapMarker({
+    mapRef,
+    show: form.showMarker,
+    center: [formLon, formLat],
+    style: form.markerStyle,
+    color: form.markerColor || effectiveTheme.ui.text,
+    size: form.markerSize,
+  });
+
   const isCityCountryView = mapZoom >= COUNTRY_VIEW_ZOOM_LEVEL;
   const isCountryContinentView =
     mapZoom >= CONTINENT_VIEW_ZOOM_LEVEL && mapZoom < COUNTRY_VIEW_ZOOM_LEVEL;
@@ -298,11 +310,6 @@ export default function PreviewPanel() {
             overzoomScale={MAP_OVERZOOM_SCALE}
             onMove={handleMove}
             onMoveEnd={handleMoveEnd}
-            showMarker={form.showMarker}
-            markerCenter={[formLon, formLat]}
-            markerColor={form.markerColor || effectiveTheme.ui.text}
-            markerStyle={form.markerStyle}
-            markerSize={form.markerSize}
           />
           <GradientFades color={effectiveTheme.ui.bg} />
           <PosterTextOverlay

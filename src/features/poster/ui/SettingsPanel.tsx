@@ -7,13 +7,14 @@ import { useMapSync } from "@/features/map/application/useMapSync";
 
 import LocationSection from "@/features/location/ui/LocationSection";
 import MapSettingsSection from "@/features/map/ui/MapSettingsSection";
+import MarkerSettingsPanel from "@/features/marker/ui/MarkerSettingsPanel";
 import TypographySection from "@/features/poster/ui/TypographySection";
 import { DownloadIcon } from "@/shared/ui/Icons";
 
 import { themeOptions } from "@/features/theme/infrastructure/themeRepository";
 import { layoutGroups } from "@/features/layout/infrastructure/layoutRepository";
 import { MIN_POSTER_CM, MAX_POSTER_CM, FONT_OPTIONS } from "@/core/config";
-import type { MarkerStyle } from "@/features/poster/application/posterReducer";
+import type { MarkerStyle } from "@/features/marker/domain/types";
 
 export default function SettingsPanel() {
   const { state, dispatch, selectedTheme } = usePosterContext();
@@ -86,9 +87,19 @@ export default function SettingsPanel() {
           isLocationSearching={isLocationSearching}
           onLocationSelect={onLocationSelect}
           onClearLocation={handleClearLocation}
-          onMarkerStyleChange={onMarkerStyleChange}
-          onMarkerSizeChange={onMarkerSizeChange}
-          onMarkerColorChange={onMarkerColorChange}
+        />
+      )}
+
+      {!isColorEditorActive && (
+        <MarkerSettingsPanel
+          showMarker={Boolean(state.form.showMarker)}
+          markerStyle={state.form.markerStyle}
+          markerSize={state.form.markerSize}
+          markerColor={state.form.markerColor}
+          onToggle={handleChange}
+          onStyleChange={onMarkerStyleChange}
+          onSizeChange={onMarkerSizeChange}
+          onColorChange={onMarkerColorChange}
         />
       )}
 

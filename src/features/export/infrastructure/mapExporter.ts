@@ -3,7 +3,8 @@ import maplibregl, {
   type StyleSpecification,
 } from "maplibre-gl";
 import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
-import type { MarkerStyle } from "@/features/poster/application/posterReducer";
+import type { MarkerStyle } from "@/features/marker/domain/types";
+import { buildMarkerSvgString } from "@/features/marker/domain/markerShapes";
 
 const EXPORT_MAP_TIMEOUT_MS = 15_000;
 
@@ -42,52 +43,7 @@ export interface ExportMarkerOptions {
   lngLat: [number, number];
 }
 
-function buildMarkerSvg(style: MarkerStyle, color: string, size: number): string {
-  switch (style) {
-    case "pin": {
-      const w = Math.round(size * 0.75);
-      const h = Math.round(size * 1.05);
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 42" width="${w}" height="${h}">
-        <path d="M15 0C6.716 0 0 6.716 0 15c0 10.5 15 27 15 27s15-16.5 15-27C30 6.716 23.284 0 15 0z" fill="${color}" stroke="rgba(0,0,0,0.3)" stroke-width="1.5"/>
-        <circle cx="15" cy="14" r="6" fill="rgba(0,0,0,0.25)"/>
-      </svg>`;
-    }
-    case "circle":
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="${size}" height="${size}">
-        <circle cx="20" cy="20" r="16" fill="${color}" stroke="rgba(255,255,255,0.8)" stroke-width="3"/>
-        <circle cx="20" cy="20" r="6" fill="rgba(255,255,255,0.9)"/>
-      </svg>`;
-    case "target":
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="${size}" height="${size}">
-        <circle cx="20" cy="20" r="16" fill="none" stroke="${color}" stroke-width="3"/>
-        <circle cx="20" cy="20" r="8" fill="none" stroke="${color}" stroke-width="2"/>
-        <circle cx="20" cy="20" r="3" fill="${color}"/>
-        <line x1="20" y1="0" x2="20" y2="7" stroke="${color}" stroke-width="2"/>
-        <line x1="20" y1="33" x2="20" y2="40" stroke="${color}" stroke-width="2"/>
-        <line x1="0" y1="20" x2="7" y2="20" stroke="${color}" stroke-width="2"/>
-        <line x1="33" y1="20" x2="40" y2="20" stroke="${color}" stroke-width="2"/>
-      </svg>`;
-    case "diamond":
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="${size}" height="${size}">
-        <polygon points="20,2 38,20 20,38 2,20" fill="${color}" stroke="rgba(255,255,255,0.8)" stroke-width="2"/>
-        <polygon points="20,10 30,20 20,30 10,20" fill="rgba(255,255,255,0.3)"/>
-      </svg>`;
-    case "star": {
-      const cx = 20, cy = 20, outerR = 18, innerR = 8;
-      let points = "";
-      for (let i = 0; i < 10; i++) {
-        const r = i % 2 === 0 ? outerR : innerR;
-        const angle = (Math.PI / 2) + (i * Math.PI) / 5;
-        const x = cx + r * Math.cos(angle);
-        const y = cy - r * Math.sin(angle);
-        points += `${x.toFixed(1)},${y.toFixed(1)} `;
-      }
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="${size}" height="${size}">
-        <polygon points="${points.trim()}" fill="${color}" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
-      </svg>`;
-    }
-  }
-}
+
 
 function drawMarkerOnCanvas(
   ctx: CanvasRenderingContext2D,
@@ -111,7 +67,7 @@ function drawMarkerOnCanvas(
     const sizeScale = Math.max(exportWidth / previewContainer.clientWidth, 1);
     const exportSize = Math.round(marker.size * sizeScale);
 
-    const svgStr = buildMarkerSvg(marker.style, marker.color, exportSize);
+    const svgStr = buildMarkerSvgString(marker.style, marker.color, exportSize);
     const blob = new Blob([svgStr], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const img = new Image();

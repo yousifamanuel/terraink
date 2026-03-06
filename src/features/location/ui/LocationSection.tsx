@@ -1,7 +1,5 @@
 import type { SearchResult } from "../domain/types";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
-import { MARKER_STYLES } from "@/features/poster/application/posterReducer";
-import type { MarkerStyle } from "@/features/poster/application/posterReducer";
 import {
   PLACEHOLDER_LOCATION_SEARCH,
   PLACEHOLDER_EXAMPLE_LATITUDE,
@@ -18,9 +16,6 @@ interface LocationSectionProps {
   isLocationSearching: boolean;
   onLocationSelect: (suggestion: SearchResult) => void;
   onClearLocation: () => void;
-  onMarkerStyleChange?: (style: MarkerStyle) => void;
-  onMarkerSizeChange?: (size: number) => void;
-  onMarkerColorChange?: (color: string) => void;
 }
 
 export default function LocationSection({
@@ -33,9 +28,6 @@ export default function LocationSection({
   isLocationSearching,
   onLocationSelect,
   onClearLocation,
-  onMarkerStyleChange,
-  onMarkerSizeChange,
-  onMarkerColorChange,
 }: LocationSectionProps) {
   const hasLocationValue = form.location.trim().length > 0;
 
@@ -113,78 +105,6 @@ export default function LocationSection({
           />
         </label>
       </div>
-      <label className="toggle-field">
-        <span>Show Marker</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="showMarker"
-            checked={Boolean(form.showMarker)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
-      {form.showMarker && (
-        <div className="marker-settings">
-          <div className="marker-style-picker">
-            <span className="marker-style-label">Marker Style</span>
-            <div className="marker-style-options">
-              {MARKER_STYLES.map((ms) => (
-                <button
-                  key={ms.id}
-                  type="button"
-                  className={`marker-style-btn${form.markerStyle === ms.id ? " is-active" : ""}`}
-                  title={ms.label}
-                  onClick={() => onMarkerStyleChange?.(ms.id)}
-                >
-                  <span className="marker-style-icon">{ms.icon}</span>
-                  <span className="marker-style-name">{ms.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="marker-size-field">
-            <div className="marker-size-header">
-              <span className="marker-style-label">Size</span>
-              <span className="marker-size-value">{form.markerSize}px</span>
-            </div>
-            <input
-              type="range"
-              className="marker-size-slider"
-              min={20}
-              max={80}
-              step={2}
-              value={form.markerSize}
-              onChange={(e) => onMarkerSizeChange?.(Number(e.target.value))}
-            />
-          </div>
-
-          <div className="marker-color-field">
-            <span className="marker-style-label">Color</span>
-            <div className="marker-color-row">
-              <button
-                type="button"
-                className={`marker-color-auto-btn${!form.markerColor ? " is-active" : ""}`}
-                onClick={() => onMarkerColorChange?.("")}
-              >
-                Auto
-              </button>
-              <div className="marker-color-picker-wrap">
-                <input
-                  type="color"
-                  className="marker-color-input"
-                  value={form.markerColor || "#ffffff"}
-                  onChange={(e) => onMarkerColorChange?.(e.target.value)}
-                />
-                <span className="marker-color-swatch" style={{ backgroundColor: form.markerColor || undefined }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
-
