@@ -21,3 +21,4 @@ export { MdOutlineFilterCenterFocus as RecenterIcon } from "react-icons/md";
 export { FiRotateCw as RotateIcon } from "react-icons/fi";
 export { FiRotateCcw as RotateLeftIcon } from "react-icons/fi";
 export { FiRotateCw as RotateRightIcon } from "react-icons/fi";
+export { MdMyLocation as MyLocationIcon } from "react-icons/md";

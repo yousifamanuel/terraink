@@ -474,8 +474,52 @@ select:focus {
   position: relative;
 }
 
+.location-search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
 .location-input-wrap input {
   padding-right: 34px;
+}
+
+button.location-current-btn {
+  width: 48px;
+  min-height: 48px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(151, 183, 207, 0.34);
+  border-radius: 10px;
+  background: rgba(20, 38, 52, 0.94);
+  color: #d9e7f2;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.location-current-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+button.location-current-btn:not(:disabled):hover,
+button.location-current-btn:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(112, 184, 222, 0.8);
+  background: rgba(47, 79, 102, 0.95);
+}
+
+.location-permission-message {
+  margin: 8px 0 0;
+  font-size: 0.73rem;
+  line-height: 1.45;
+  color: #ffbda8;
 }
 
 .location-suggestions {

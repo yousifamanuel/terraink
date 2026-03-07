@@ -5,6 +5,7 @@ import {
   PLACEHOLDER_EXAMPLE_LATITUDE,
   PLACEHOLDER_EXAMPLE_LONGITUDE,
 } from "./constants";
+import { MyLocationIcon } from "@/shared/ui/Icons";
 
 interface LocationSectionProps {
   form: PosterForm;
@@ -16,6 +17,9 @@ interface LocationSectionProps {
   isLocationSearching: boolean;
   onLocationSelect: (suggestion: SearchResult) => void;
   onClearLocation: () => void;
+  onUseCurrentLocation: () => void;
+  isLocatingUser: boolean;
+  locationPermissionMessage: string;
 }
 
 export default function LocationSection({
@@ -28,6 +32,9 @@ export default function LocationSection({
   isLocationSearching,
   onLocationSelect,
   onClearLocation,
+  onUseCurrentLocation,
+  isLocatingUser,
+  locationPermissionMessage,
 }: LocationSectionProps) {
   const hasLocationValue = form.location.trim().length > 0;
 
@@ -37,28 +44,41 @@ export default function LocationSection({
       <label>
         Location
         <div className="location-autocomplete">
-          <div className="location-input-wrap">
-            <input
-              className="form-control-tall"
-              name="location"
-              value={form.location}
-              onChange={onChange}
-              onFocus={onLocationFocus}
-              onBlur={onLocationBlur}
-              placeholder={PLACEHOLDER_LOCATION_SEARCH}
-              autoComplete="off"
-            />
-            {hasLocationValue ? (
-              <button
-                type="button"
-                className="location-clear-btn"
-                aria-label="Clear location"
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={onClearLocation}
-              >
-                x
-              </button>
-            ) : null}
+          <div className="location-search-row">
+            <div className="location-input-wrap">
+              <input
+                className="form-control-tall"
+                name="location"
+                value={form.location}
+                onChange={onChange}
+                onFocus={onLocationFocus}
+                onBlur={onLocationBlur}
+                placeholder={PLACEHOLDER_LOCATION_SEARCH}
+                autoComplete="off"
+              />
+              {hasLocationValue ? (
+                <button
+                  type="button"
+                  className="location-clear-btn"
+                  aria-label="Clear location"
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={onClearLocation}
+                >
+                  x
+                </button>
+              ) : null}
+            </div>
+            <button
+              type="button"
+              className="location-current-btn"
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={onUseCurrentLocation}
+              disabled={isLocatingUser}
+              aria-label="Use current location"
+              title="Use current location"
+            >
+              <MyLocationIcon />
+            </button>
           </div>
           {showLocationSuggestions ? (
             <ul className="location-suggestions" role="listbox">
@@ -80,6 +100,11 @@ export default function LocationSection({
                 <li className="location-suggestion-status">Searching...</li>
               ) : null}
             </ul>
+          ) : null}
+          {locationPermissionMessage ? (
+            <p className="location-permission-message">
+              {locationPermissionMessage}
+            </p>
           ) : null}
         </div>
       </label>

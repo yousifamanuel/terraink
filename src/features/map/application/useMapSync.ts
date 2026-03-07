@@ -246,16 +246,18 @@ export function useMapSync() {
   ]);
 
   const flyToLocation = useCallback(
-    (lat: number, lon: number) => {
+    (lat: number, lon: number, keepCurrentZoom = false) => {
       const map = mapRef.current;
       if (!map) return;
 
       const bounds = resolveZoomBounds(lat, effectiveContainerPx);
-      const zoom = clamp(
-        distanceToZoom(formDistance, lat, effectiveContainerPx),
-        bounds.minZoom,
-        bounds.maxZoom,
-      );
+      const zoom = keepCurrentZoom
+        ? clamp(map.getZoom(), bounds.minZoom, bounds.maxZoom)
+        : clamp(
+            distanceToZoom(formDistance, lat, effectiveContainerPx),
+            bounds.minZoom,
+            bounds.maxZoom,
+          );
 
       map.flyTo({
         center: [lon, lat],
