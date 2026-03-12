@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type CSSProperties,
@@ -9,6 +10,7 @@ import { usePosterContext } from "./PosterContext";
 import { useMapSync } from "@/features/map/application/useMapSync";
 import MapPreview from "@/features/map/ui/MapPreview";
 import MarkerOverlay from "@/features/markers/ui/MarkerOverlay";
+import MarkerVisual from "@/features/markers/ui/MarkerVisual";
 import GradientFades from "./GradientFades";
 import PosterTextOverlay from "./PosterTextOverlay";
 import {
@@ -21,6 +23,7 @@ import {
   RotateRightIcon,
   LockIcon,
   RecenterIcon,
+  ChevronDownIcon,
 } from "@/shared/ui/Icons";
 import {
   MAP_BUTTON_ZOOM_DURATION_MS,
@@ -37,6 +40,7 @@ import {
   DEFAULT_COUNTRY,
 } from "@/core/config";
 import { ensureGoogleFont, reverseGeocodeCoordinates } from "@/core/services";
+import { findMarkerIcon } from "@/features/markers/infrastructure/iconRegistry";
 
 const LOCKED_HINT = "Map is locked to prevent unintended movement.";
 const EDIT_HINT_ACTIVE =
@@ -46,6 +50,15 @@ const COUNTRY_VIEW_ZOOM_LEVEL = 10;
 const CONTINENT_VIEW_ZOOM_LEVEL = 6;
 const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
+
+interface RecenterMarkerTarget {
+  id: string;
+  name: string;
+  lat: number;
+  lon: number;
+  color: string;
+  iconId: string;
+}
 
 export default function PreviewPanel() {
   const { state, dispatch, effectiveTheme, mapStyle, mapRef } = usePosterContext();
@@ -63,9 +76,24 @@ export default function PreviewPanel() {
   } = useMapSync();
 
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const recenterControlRef = useRef<HTMLDivElement | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [mapBearing, setMapBearing] = useState(0);
   const [isRotationEnabled, setIsRotationEnabled] = useState(false);
+  const [isRecenterMenuOpen, setIsRecenterMenuOpen] = useState(false);
+
+  const markerTargets = useMemo<RecenterMarkerTarget[]>(
+    () =>
+      state.markers.map((marker, index) => ({
+        id: marker.id,
+        name: `Marker ${index + 1}`,
+        lat: marker.lat,
+        lon: marker.lon,
+        color: marker.color,
+        iconId: marker.iconId,
+      })),
+    [state.markers],
+  );
 
   useEffect(() => {
     const element = frameRef.current;
@@ -110,6 +138,43 @@ export default function PreviewPanel() {
     setIsRotationEnabled(false);
   }, [isMarkerEditorActive]);
 
+  useEffect(() => {
+    if (markerTargets.length > 0) {
+      return;
+    }
+    setIsRecenterMenuOpen(false);
+  }, [markerTargets.length]);
+
+  useEffect(() => {
+    setIsRecenterMenuOpen(false);
+  }, [isEditing, isMarkerEditorActive]);
+
+  useEffect(() => {
+    if (!isRecenterMenuOpen) return;
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      const targetNode = event.target;
+      if (!(targetNode instanceof Node)) return;
+      if (recenterControlRef.current?.contains(targetNode)) return;
+      setIsRecenterMenuOpen(false);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setIsRecenterMenuOpen(false);
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isRecenterMenuOpen]);
+
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
   const aspect = widthCm / heightCm;
@@ -129,6 +194,7 @@ export default function PreviewPanel() {
     : isCountryContinentView
       ? form.displayContinent || "Europe"
       : "Earth";
+
 
   const handleStartEditing = useCallback(() => {
     setIsEditing(true);
@@ -286,6 +352,82 @@ export default function PreviewPanel() {
     dispatch,
   ]);
 
+  const toggleRecenterMenu = useCallback(() => {
+    if (markerTargets.length === 0) return;
+    setIsRecenterMenuOpen((current) => !current);
+  }, [markerTargets.length]);
+
+  const handleRecenterToMarker = useCallback(
+    (marker: RecenterMarkerTarget) => {
+      const map = mapRef.current;
+      if (!map) return;
+      map.easeTo({
+        center: [marker.lon, marker.lat],
+        duration: MAP_BUTTON_ZOOM_DURATION_MS,
+      });
+      setIsRecenterMenuOpen(false);
+    },
+    [mapRef],
+  );
+
+  const renderRecenterSplitButton = () => (
+    <div
+      className="map-control-split"
+      ref={recenterControlRef}
+    >
+      <button
+        type="button"
+        className="map-control-btn map-control-btn--split-main"
+        onClick={handleRecenter}
+        title={RECENTER_HINT}
+      >
+        <RecenterIcon />
+        <span>Recenter</span>
+      </button>
+      <button
+        type="button"
+        className="map-control-btn map-control-btn--split-toggle"
+        onClick={toggleRecenterMenu}
+        aria-haspopup="menu"
+        aria-expanded={isRecenterMenuOpen}
+        aria-label="Show marker recenter options"
+        disabled={markerTargets.length === 0}
+      >
+        <ChevronDownIcon />
+      </button>
+      {isRecenterMenuOpen ? (
+        <div className="map-control-dropdown" role="menu" aria-label="Marker recenter options">
+          {markerTargets.map((marker) => {
+            const markerIcon = findMarkerIcon(marker.iconId, state.customMarkerIcons);
+            return (
+              <button
+                key={marker.id}
+                type="button"
+                className="map-control-dropdown-item"
+                role="menuitem"
+                onClick={() => handleRecenterToMarker(marker)}
+              >
+                {markerIcon ? (
+                  <MarkerVisual
+                    icon={markerIcon}
+                    size={16}
+                    color={marker.color}
+                    className="map-control-dropdown-item-icon"
+                  />
+                ) : (
+                  <span className="map-control-dropdown-item-icon map-control-dropdown-item-icon--fallback" aria-hidden="true">
+                    <RecenterIcon />
+                  </span>
+                )}
+                <span>{marker.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+
   const handleMarkerPositionChange = useCallback(
     (markerId: string, lat: number, lon: number) => {
       dispatch({
@@ -353,15 +495,7 @@ export default function PreviewPanel() {
           {!isEditing ? (
             <>
               <div className="map-control-group">
-                <button
-                  type="button"
-                  className="map-control-btn"
-                  onClick={handleRecenter}
-                  title={RECENTER_HINT}
-                >
-                  <RecenterIcon />
-                  <span>Recenter</span>
-                </button>
+                {renderRecenterSplitButton()}
                 <button
                   type="button"
                   className="map-control-btn map-control-btn--primary"
@@ -387,15 +521,7 @@ export default function PreviewPanel() {
           ) : (
             <>
               <div className="map-control-group">
-                <button
-                  type="button"
-                  className="map-control-btn"
-                  onClick={handleRecenter}
-                  title={RECENTER_HINT}
-                >
-                  <RecenterIcon />
-                  <span>Recenter</span>
-                </button>
+                {renderRecenterSplitButton()}
                 <button
                   type="button"
                   className="map-control-btn map-control-btn--primary"
