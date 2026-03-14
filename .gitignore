@@ -38,3 +38,6 @@ Thumbs.db
 
 # Local updates announcement file for development
 updates.json
+
+# ignore agent setting files
+.claude/

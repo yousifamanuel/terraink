@@ -266,86 +266,93 @@ export default function SettingsPanel() {
 
   return (
     <form className="settings-panel" onSubmit={onSubmit}>
-      {!isAuxEditorActive && (
-        <LocationSection
-          form={state.form}
-          onChange={handleChange}
-          onLocationFocus={() => setLocationFocused(true)}
-          onLocationBlur={() => setLocationFocused(false)}
-          showLocationSuggestions={showLocationSuggestions}
-          locationSuggestions={locationSuggestions}
-          isLocationSearching={isLocationSearching}
-          onLocationSelect={onLocationSelect}
-          onClearLocation={handleClearLocation}
-          onUseCurrentLocation={handleUseCurrentLocation}
-          isLocatingUser={isLocatingUser}
-          locationPermissionMessage={locationPermissionMessage}
-        />
-      )}
+      <div className="mobile-section mobile-section--location">
+        {!isAuxEditorActive && (
+          <LocationSection
+            form={state.form}
+            onChange={handleChange}
+            onLocationFocus={() => setLocationFocused(true)}
+            onLocationBlur={() => setLocationFocused(false)}
+            showLocationSuggestions={showLocationSuggestions}
+            locationSuggestions={locationSuggestions}
+            isLocationSearching={isLocationSearching}
+            onLocationSelect={onLocationSelect}
+            onClearLocation={handleClearLocation}
+            onUseCurrentLocation={handleUseCurrentLocation}
+            isLocatingUser={isLocatingUser}
+            locationPermissionMessage={locationPermissionMessage}
+          />
+        )}
+        {!isColorEditorActive && (
+          <MarkersSection onEditorActiveChange={setIsMarkerEditorActive} />
+        )}
+      </div>
 
-      {!isColorEditorActive && (
-        <MarkersSection onEditorActiveChange={setIsMarkerEditorActive} />
-      )}
+      <div className="mobile-section mobile-section--map-settings">
+        {!isMarkerEditorActive && (
+          <MapSettingsSection
+            form={state.form}
+            onChange={handleChange}
+            onNumericFieldBlur={handleNumericFieldBlur}
+            onThemeChange={handleThemeChange}
+            onLayoutChange={handleLayoutChange}
+            selectedTheme={selectedTheme}
+            themeOptions={themeOptions}
+            layoutGroups={layoutGroups}
+            minPosterCm={MIN_POSTER_CM}
+            maxPosterCm={MAX_POSTER_CM}
+            customColors={state.customColors}
+            onColorChange={handleColorChange}
+            onResetColors={handleResetColors}
+            onColorEditorActiveChange={setIsColorEditorActive}
+          />
+        )}
+      </div>
 
-      {!isMarkerEditorActive && (
-        <MapSettingsSection
-          form={state.form}
-          onChange={handleChange}
-          onNumericFieldBlur={handleNumericFieldBlur}
-          onThemeChange={handleThemeChange}
-          onLayoutChange={handleLayoutChange}
-          selectedTheme={selectedTheme}
-          themeOptions={themeOptions}
-          layoutGroups={layoutGroups}
-          minPosterCm={MIN_POSTER_CM}
-          maxPosterCm={MAX_POSTER_CM}
-          customColors={state.customColors}
-          onColorChange={handleColorChange}
-          onResetColors={handleResetColors}
-          onColorEditorActiveChange={setIsColorEditorActive}
-        />
-      )}
+      <div className="mobile-section mobile-section--style">
+        {!isAuxEditorActive && (
+          <TypographySection
+            form={state.form}
+            onChange={handleChange}
+            fontOptions={FONT_OPTIONS}
+            onCreditsChange={handleCreditsChange}
+          />
+        )}
+      </div>
 
-      {!isAuxEditorActive && (
-        <TypographySection
-          form={state.form}
-          onChange={handleChange}
-          fontOptions={FONT_OPTIONS}
-          onCreditsChange={handleCreditsChange}
-        />
-      )}
-
-      {!isAuxEditorActive && (
-        <div className="action-row">
-          <p className="export-map-label">Export Map</p>
-          <div className="download-row">
-            {exportButtons.map((button) => (
-              <button
-                key={button.id}
-                type="button"
-                className={button.className}
-                onClick={button.onClick}
-                disabled={state.isExporting}
-              >
-                {state.isExporting && activeExportFormat === button.id ? (
-                  <LoaderIcon className="download-btn-icon is-spinning" />
-                ) : (
-                  <DownloadIcon className="download-btn-icon" />
-                )}
-                <span>
-                  {state.isExporting && activeExportFormat === button.id
-                    ? "Exporting..."
-                    : button.label}
-                </span>
-              </button>
-            ))}
+      <div className="mobile-section mobile-section--export">
+        {!isAuxEditorActive && (
+          <div className="action-row">
+            <p className="export-map-label">Export Map</p>
+            <div className="download-row">
+              {exportButtons.map((button) => (
+                <button
+                  key={button.id}
+                  type="button"
+                  className={button.className}
+                  onClick={button.onClick}
+                  disabled={state.isExporting}
+                >
+                  {state.isExporting && activeExportFormat === button.id ? (
+                    <LoaderIcon className="download-btn-icon is-spinning" />
+                  ) : (
+                    <DownloadIcon className="download-btn-icon" />
+                  )}
+                  <span>
+                    {state.isExporting && activeExportFormat === button.id
+                      ? "Exporting..."
+                      : button.label}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {!isAuxEditorActive && state.error && (
-        <p className="error">{state.error}</p>
-      )}
+        {!isAuxEditorActive && state.error && (
+          <p className="error">{state.error}</p>
+        )}
+      </div>
 
       {supportPrompt ? (
         <ExportSupportModal
