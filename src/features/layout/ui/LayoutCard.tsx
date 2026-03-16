@@ -4,7 +4,18 @@ import { formatLayoutDimensions } from "../infrastructure/layoutRepository";
 function getLayoutSymbolDataUri(layoutOption: Layout): string {
   const symbol = String(layoutOption?.symbol ?? "").trim();
   if (!symbol) return "";
-  return `data:image/svg+xml;utf8,${encodeURIComponent(symbol)}`;
+  const normalizedSymbol = symbol.replace(
+    /stroke-width=(['"])([\d.]+)\1/g,
+    (_match, quote: string, value: string) => {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) {
+        return `stroke-width=${quote}${value}${quote}`;
+      }
+      const thinner = Math.max(0.8, parsed * 0.5);
+      return `stroke-width=${quote}${thinner}${quote}`;
+    },
+  );
+  return `data:image/svg+xml;utf8,${encodeURIComponent(normalizedSymbol)}`;
 }
 
 interface LayoutCardProps {
@@ -26,7 +37,7 @@ export default function LayoutCard({
     .join(" ");
   const symbolDataUri = getLayoutSymbolDataUri(layoutOption);
   const sizeText = formatLayoutDimensions(layoutOption);
-  const infoText = `${layoutOption.categoryName} - ${sizeText}`;
+  const infoText = sizeText;
 
   return (
     <button
@@ -35,19 +46,17 @@ export default function LayoutCard({
       onClick={onClick}
       aria-pressed={isSelected}
     >
-      <div className="layout-card-row">
-        <div className="layout-card-copy">
-          <p className="layout-card-name">{layoutOption.name}</p>
-          <p className="layout-card-meta">{infoText}</p>
-        </div>
-        {symbolDataUri ? (
-          <img
-            className="layout-card-symbol"
-            src={symbolDataUri}
-            alt={`${layoutOption.name} ratio symbol`}
-          />
-        ) : null}
+      <div className="layout-card-copy">
+        <p className="layout-card-name">{layoutOption.name}</p>
+        <p className="layout-card-meta">{infoText}</p>
       </div>
+      {symbolDataUri ? (
+        <img
+          className="layout-card-symbol"
+          src={symbolDataUri}
+          alt={`${layoutOption.name} ratio symbol`}
+        />
+      ) : null}
     </button>
   );
 }

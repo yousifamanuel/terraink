@@ -373,7 +373,7 @@ export default function MapSettingsSection({
             {layoutGroups.map((group) => (
               <section key={group.id} className="layout-inline-group">
                 <h3>{group.name}</h3>
-                <div className="layout-inline-list">
+                <div className="layout-inline-list card-scroll-list">
                   {group.options.map((layoutOption) => (
                     <LayoutCard
                       key={layoutOption.id}

@@ -41,7 +41,7 @@ export default function ThemeSummarySection({
         </button>
       </div>
 
-      <div className="theme-card-list" role="list" aria-label="Theme options">
+      <div className="theme-card-list card-scroll-list" role="list" aria-label="Theme options">
         {themeOptions.map((themeOption) => (
           <ThemeCard
             key={themeOption.id}

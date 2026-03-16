@@ -73,7 +73,7 @@
         },
         {
           "id": "social_instagram_story_tiktok",
-          "name": "Instagram Story / TikTok",
+          "name": "Story (9:16)",
           "description": "9:16 vertical short-form format.",
           "width": 1080,
           "height": 1920,
@@ -122,44 +122,14 @@
           "posterHeightCm": 16.88
         },
         {
-          "id": "social_reddit_post_square",
-          "name": "Reddit Post (Square)",
-          "description": "Square format for Reddit posts.",
-          "width": 1080,
-          "height": 1080,
-          "unit": "px",
-          "posterWidthCm": 30,
-          "posterHeightCm": 30
-        },
-        {
           "id": "social_reddit_banner",
-          "name": "Reddit Banner (Subreddit Header)",
+          "name": "Reddit Banner",
           "description": "Ultra-wide subreddit header format.",
           "width": 1920,
           "height": 256,
           "unit": "px",
           "posterWidthCm": 30,
           "posterHeightCm": 4
-        },
-        {
-          "id": "social_reddit_thumbnail",
-          "name": "Reddit Thumbnail",
-          "description": "Compact square thumbnail format.",
-          "width": 140,
-          "height": 140,
-          "unit": "px",
-          "posterWidthCm": 30,
-          "posterHeightCm": 30
-        },
-        {
-          "id": "social_twitter_post",
-          "name": "Twitter Post",
-          "description": "Standard post image format for Twitter/X.",
-          "width": 1200,
-          "height": 675,
-          "unit": "px",
-          "posterWidthCm": 30,
-          "posterHeightCm": 16.88
         },
         {
           "id": "social_twitter_header",
@@ -239,7 +209,7 @@
         },
         {
           "id": "wallpaper_samsung_galaxy_s24_ultra",
-          "name": "Samsung Galaxy S24 Ultra",
+          "name": "Galaxy S24 Ultra",
           "description": "Vertical wallpaper format for Samsung Galaxy S24 Ultra.",
           "width": 1440,
           "height": 3120,

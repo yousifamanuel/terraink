@@ -33,7 +33,7 @@ export default function MapSettingsPickers({
               aria-label={group.name}
             >
               <h4>{group.name}</h4>
-              <div className="picker-option-list">
+              <div className="picker-option-list card-scroll-list">
                 {group.options.map((layoutOption) => (
                   <LayoutCard
                     key={layoutOption.id}
