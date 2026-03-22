@@ -12,6 +12,7 @@ interface LocationSectionProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onLocationFocus: () => void;
   onLocationBlur: () => void;
+  searchNow: (query: string) => Promise<void>;
   showLocationSuggestions: boolean;
   locationSuggestions: SearchResult[];
   isLocationSearching: boolean;
@@ -27,6 +28,7 @@ export default function LocationSection({
   onChange,
   onLocationFocus,
   onLocationBlur,
+  searchNow,
   showLocationSuggestions,
   locationSuggestions,
   isLocationSearching,
@@ -53,6 +55,7 @@ export default function LocationSection({
                 onChange={onChange}
                 onFocus={onLocationFocus}
                 onBlur={onLocationBlur}
+                onKeyDown={(e) => { if (e.key === "Enter") void searchNow(e.currentTarget.value); }}
                 placeholder={PLACEHOLDER_LOCATION_SEARCH}
                 autoComplete="off"
               />

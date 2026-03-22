@@ -32,7 +32,7 @@ export default function DesktopLocationBar() {
     handleClearLocation,
     setLocationFocused,
   } = useFormHandlers();
-  const { locationSuggestions, isLocationSearching } = useLocationAutocomplete(
+  const { locationSuggestions, isLocationSearching, searchNow } = useLocationAutocomplete(
     state.form.location,
     state.isLocationFocused,
   );
@@ -135,6 +135,7 @@ export default function DesktopLocationBar() {
                   onChange={handleChange}
                   onFocus={() => setLocationFocused(true)}
                   onBlur={() => setLocationFocused(false)}
+                  onKeyDown={(e) => { if (e.key === "Enter") void searchNow(e.currentTarget.value); }}
                   placeholder={PLACEHOLDER_LOCATION_SEARCH}
                   autoComplete="off"
                 />

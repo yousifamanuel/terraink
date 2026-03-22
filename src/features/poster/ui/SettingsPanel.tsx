@@ -75,7 +75,7 @@ export default function SettingsPanel({
     setLocationFocused,
     handleCreditsChange,
   } = useFormHandlers();
-  const { locationSuggestions, isLocationSearching } = useLocationAutocomplete(
+  const { locationSuggestions, isLocationSearching, searchNow } = useLocationAutocomplete(
     state.form.location,
     state.isLocationFocused,
   );
@@ -205,6 +205,7 @@ export default function SettingsPanel({
                 onChange={handleChange}
                 onLocationFocus={() => setLocationFocused(true)}
                 onLocationBlur={() => setLocationFocused(false)}
+                searchNow={searchNow}
                 showLocationSuggestions={showLocationSuggestions}
                 locationSuggestions={locationSuggestions}
                 isLocationSearching={isLocationSearching}
