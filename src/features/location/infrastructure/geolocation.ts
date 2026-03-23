@@ -1,3 +1,6 @@
+import type { Locale } from "@/core/i18n/types";
+import { translateMessage, translateStoredMessage } from "@/core/i18n/translate";
+
 export type GeolocationFailureReason =
   | "denied"
   | "unavailable"
@@ -141,22 +144,26 @@ export async function requestCurrentPositionWithRetry({
 
 export function getGeolocationFailureMessage(
   reason: GeolocationFailureReason,
-  options?: { includeManualFallback?: boolean },
+  options?: { includeManualFallback?: boolean; locale?: Locale },
 ): string {
   const includeManualFallback = options?.includeManualFallback ?? false;
+  const translate = (key: string) =>
+    options?.locale
+      ? translateMessage(options.locale, key)
+      : translateStoredMessage(key);
 
   const baseMessage =
     reason === "denied"
-      ? "Location access is blocked. Enable location permission in your browser settings, then try again."
+      ? translate("geo.denied")
       : reason === "unsupported"
-        ? "Location is not supported in this browser."
+        ? translate("geo.unsupported")
         : reason === "insecure"
-          ? "Location requires a secure connection (HTTPS)."
-          : "Could not get your location right now. Check location services and try again.";
+          ? translate("geo.insecure")
+          : translate("geo.generic");
 
   if (!includeManualFallback) {
     return baseMessage;
   }
 
-  return `${baseMessage} You can type a location manually.`;
+  return `${baseMessage} ${translate("geo.manualSuffix")}`;
 }

@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
-import type { FontOption } from "@/core/config";
 import {
   PLACEHOLDER_EXAMPLE_CITY,
   PLACEHOLDER_EXAMPLE_COUNTRY,
 } from "@/features/location/ui/constants";
+import { useLocale } from "@/core/i18n/LocaleContext";
+import type {
+  FontFamilyDefinition,
+  FontVariantDefinition,
+} from "@/core/fonts/types";
 
 interface TypographySectionProps {
   form: PosterForm;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
-  fontOptions: FontOption[];
+  fontFamilies: FontFamilyDefinition[];
+  fontVariants: FontVariantDefinition[];
   onCreditsChange: (value: boolean) => void;
 }
 
@@ -23,6 +28,7 @@ function CreditsRemovalModal({
   onKeep: () => void;
   onRemove: () => void;
 }) {
+  const { t } = useLocale();
   return createPortal(
     <div className="picker-modal-backdrop" role="presentation" onClick={onKeep}>
       <div
@@ -34,11 +40,10 @@ function CreditsRemovalModal({
       >
         <div className="credits-modal-body">
           <p className="credits-modal-headline" id="credits-modal-title">
-            ✨ Wait! Did you know Terraink is open-source?
+            {t("typography.creditsModal.headline")}
           </p>
           <p className="credits-modal-text">
-            Keeping the credit visible helps more people find this tool and
-            allows me to keep it <strong>100% free</strong> and client-side.
+            {t("typography.creditsModal.body")}
           </p>
           <div className="credits-modal-actions">
             <button
@@ -46,14 +51,14 @@ function CreditsRemovalModal({
               className="credits-modal-keep"
               onClick={onKeep}
             >
-              <span className="heart">❤︎</span> Keep Credits
+              <span className="heart">❤︎</span> {t("typography.creditsKeep")}
             </button>
             <button
               type="button"
               className="credits-modal-remove"
               onClick={onRemove}
             >
-              Remove Anyway
+              {t("typography.creditsRemove")}
             </button>
           </div>
         </div>
@@ -66,9 +71,11 @@ function CreditsRemovalModal({
 export default function TypographySection({
   form,
   onChange,
-  fontOptions,
+  fontFamilies,
+  fontVariants,
   onCreditsChange,
 }: TypographySectionProps) {
+  const { t } = useLocale();
   const [includeCreditsModal, setIncludeCreditsModal] = useState(false);
 
   function handleCreditsToggle(e: React.ChangeEvent<HTMLInputElement>) {
@@ -97,9 +104,9 @@ export default function TypographySection({
         />
       )}
       <section className="panel-block">
-        <p className="section-summary-label">STYLE</p>
+        <p className="section-summary-label">{t("typography.section")}</p>
         <label className="toggle-field">
-          <span>Poster text</span>
+          <span>{t("typography.posterText")}</span>
           <span className="theme-switch">
             <input
               type="checkbox"
@@ -111,7 +118,7 @@ export default function TypographySection({
           </span>
         </label>
         <label className="toggle-field">
-          <span>Overlay layer</span>
+          <span>{t("typography.overlay")}</span>
           <span className="theme-switch">
             <input
               type="checkbox"
@@ -125,47 +132,66 @@ export default function TypographySection({
 
         <div className="field-grid keep-two-mobile">
           <label>
-            Display city
+            {t("typography.city")}
             <input
               className="form-control-tall"
               name="displayCity"
               value={form.displayCity}
               onChange={onChange}
-              placeholder={PLACEHOLDER_EXAMPLE_CITY}
+              placeholder={t("location.placeholder.city") || PLACEHOLDER_EXAMPLE_CITY}
             />
           </label>
           <label>
-            Display country
+            {t("typography.country")}
             <input
               className="form-control-tall"
               name="displayCountry"
               value={form.displayCountry}
               onChange={onChange}
-              placeholder={PLACEHOLDER_EXAMPLE_COUNTRY}
+              placeholder={
+                t("location.placeholder.country") || PLACEHOLDER_EXAMPLE_COUNTRY
+              }
             />
           </label>
         </div>
         <label>
-          Font
+          {t("typography.fontFamily")}
           <select
             className="form-control-tall"
             name="fontFamily"
             value={form.fontFamily}
             onChange={onChange}
+            aria-label={t("typography.fontFamily")}
           >
-            {fontOptions.map((fontOption) => (
+            {fontFamilies.map((fontFamily) => (
               <option
-                key={fontOption.value || "default"}
-                value={fontOption.value}
+                key={fontFamily.id || "default"}
+                value={fontFamily.id}
               >
-                {fontOption.label}
+                {fontFamily.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t("typography.fontStyle")}
+          <select
+            className="form-control-tall"
+            name="fontVariant"
+            value={form.fontVariant}
+            onChange={onChange}
+            aria-label={t("typography.fontStyle")}
+          >
+            {fontVariants.map((fontVariant) => (
+              <option key={fontVariant.id} value={fontVariant.id}>
+                {fontVariant.label}
               </option>
             ))}
           </select>
         </label>
 
         <label className="toggle-field credits-toggle-field">
-          <span>Include Credits</span>
+          <span>{t("typography.includeCredits")}</span>
           <span className="theme-switch">
             <input
               type="checkbox"
@@ -177,8 +203,7 @@ export default function TypographySection({
           </span>
         </label>
         <p className="credits-hint">
-          Keep this enabled to help others discover this open-source project and
-          support future updates!
+          {t("typography.creditsHint")}
         </p>
       </section>
     </>

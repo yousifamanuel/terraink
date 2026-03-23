@@ -1,4 +1,5 @@
 import { KOFI_URL, REPO_API_URL, REPO_URL, SOCIAL_INSTAGRAM } from "@/core/config";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
 import { GitHubIcon, InstagramIcon, KofiIcon, StarIcon } from "@/shared/ui/Icons";
 
@@ -7,26 +8,27 @@ interface SocialLinkGroupProps {
 }
 
 export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
+  const { t } = useLocale();
   const repoUrl = String(REPO_URL ?? "").trim();
   const repoApiUrl = String(REPO_API_URL ?? "").trim();
   const instagramUrl = String(SOCIAL_INSTAGRAM ?? "").trim();
   const kofiUrl = String(KOFI_URL ?? "").trim();
   const { repoStars, repoStarsLoading } = useRepoStars(repoApiUrl);
-  const starsText = repoStarsLoading ? "..." : repoStars?.toLocaleString() ?? "Star";
+  const starsText = repoStarsLoading ? "..." : repoStars?.toLocaleString() ?? t("social.starsFallback");
 
   const rootClassName =
     variant === "header" ? "desktop-header-social" : "mobile-export-social-links";
 
   return (
-    <div className={rootClassName} aria-label="Project links">
+    <div className={rootClassName} aria-label={t("social.linksLabel")}>
       {repoUrl ? (
         <a
           className="general-header-social-btn general-header-social-btn--github"
           href={repoUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Open TerraInk repository on GitHub"
-          title="GitHub repository"
+          aria-label={t("social.github.openRepo")}
+          title={t("social.github.repository")}
         >
           <GitHubIcon />
           <span className="general-header-github-stars">
@@ -41,8 +43,8 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
           href={instagramUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Follow TerraInk on Instagram"
-          title="Instagram"
+          aria-label={t("social.instagram.follow")}
+          title={t("social.instagram.title")}
         >
           <InstagramIcon />
         </a>
@@ -53,8 +55,8 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
           href={kofiUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Support TerraInk on Ko-fi"
-          title="Ko-fi"
+          aria-label={t("social.kofi.support")}
+          title={t("social.kofi.title")}
         >
           <KofiIcon />
         </a>

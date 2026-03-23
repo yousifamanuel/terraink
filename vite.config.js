@@ -39,6 +39,12 @@ export default defineConfig({
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    exclude: ["**/._*"],
+    setupFiles: ["./src/test/setup.ts"],
+  },
   build: {
     // maplibre-gl is distributed as a large prebundled module and remains a
     // single chunk even with manual chunking.

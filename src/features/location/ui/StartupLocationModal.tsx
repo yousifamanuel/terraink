@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import {
   DEFAULT_CITY,
   DEFAULT_COUNTRY,
@@ -36,6 +37,7 @@ interface StartupLocationModalProps {
 export default function StartupLocationModal({
   onComplete,
 }: StartupLocationModalProps) {
+  const { locale, t } = useLocale();
   const { dispatch } = usePosterContext();
   const [isOpen, setIsOpen] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
@@ -116,44 +118,47 @@ export default function StartupLocationModal({
         maxAttempts: 2,
       });
 
-      if (!positionResult.ok) {
+      if (positionResult.ok) {
+        const { lat, lon } = positionResult;
+        try {
+          const resolved = await reverseGeocodeCoordinates(lat, lon);
+          const pending: PendingLocation = {
+            label:
+              String(resolved.label ?? "").trim() ||
+              `${lat.toFixed(6)}, ${lon.toFixed(6)}`,
+            lat,
+            lon,
+            city: String(resolved.city ?? "").trim(),
+            country: String(resolved.country ?? "").trim(),
+            continent: String(resolved.continent ?? "").trim(),
+          };
+          setPendingLocation(pending);
+          setLocationInput(pending.label);
+        } catch {
+          const label = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+          const pending: PendingLocation = {
+            label,
+            lat,
+            lon,
+            city: "",
+            country: "",
+            continent: "",
+          };
+          setPendingLocation(pending);
+          setLocationInput(label);
+        } finally {
+          setIsResolving(false);
+        }
+        return;
+      } else {
+        const failureReason =
+          "reason" in positionResult ? positionResult.reason : "error";
         setErrorMessage(
-          getGeolocationFailureMessage(positionResult.reason, {
+          getGeolocationFailureMessage(failureReason, {
             includeManualFallback: true,
+            locale,
           }),
         );
-        setIsResolving(false);
-        return;
-      }
-
-      const { lat, lon } = positionResult;
-      try {
-        const resolved = await reverseGeocodeCoordinates(lat, lon);
-        const pending: PendingLocation = {
-          label:
-            String(resolved.label ?? "").trim() ||
-            `${lat.toFixed(6)}, ${lon.toFixed(6)}`,
-          lat,
-          lon,
-          city: String(resolved.city ?? "").trim(),
-          country: String(resolved.country ?? "").trim(),
-          continent: String(resolved.continent ?? "").trim(),
-        };
-        setPendingLocation(pending);
-        setLocationInput(pending.label);
-      } catch {
-        const label = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
-        const pending: PendingLocation = {
-          label,
-          lat,
-          lon,
-          city: "",
-          country: "",
-          continent: "",
-        };
-        setPendingLocation(pending);
-        setLocationInput(label);
-      } finally {
         setIsResolving(false);
       }
     })();
@@ -208,7 +213,7 @@ export default function StartupLocationModal({
       });
       closeModal();
     } catch {
-      setErrorMessage("Could not resolve that location. Try another name.");
+      setErrorMessage(t("startup.resolveError"));
     } finally {
       setIsResolving(false);
     }
@@ -232,7 +237,7 @@ export default function StartupLocationModal({
 
       <div className="startup-location-card is-visible">
         <p className="startup-location-title" id="startup-location-title">
-          Choose Location
+          {t("startup.title")}
         </p>
         <input
           type="text"
@@ -244,7 +249,7 @@ export default function StartupLocationModal({
           }}
           onFocus={() => setIsInputFocused(true)}
           onBlur={() => setTimeout(() => setIsInputFocused(false), 120)}
-          placeholder="Type a city or place"
+          placeholder={t("location.placeholder.search")}
           autoComplete="off"
         />
         {showSuggestions ? (
@@ -264,7 +269,7 @@ export default function StartupLocationModal({
               </li>
             ))}
             {isLocationSearching ? (
-              <li className="startup-location-suggestion-status">Searching...</li>
+              <li className="startup-location-suggestion-status">{t("location.searching")}</li>
             ) : null}
           </ul>
         ) : null}
@@ -275,7 +280,7 @@ export default function StartupLocationModal({
           disabled={isResolving}
         >
           <MyLocationIcon />
-          <span>{isResolving ? "Locating..." : "Get my location"}</span>
+          <span>{isResolving ? t("startup.locating") : t("startup.getMyLocation")}</span>
         </button>
         <button
           type="button"
@@ -283,7 +288,7 @@ export default function StartupLocationModal({
           onClick={() => void handleConfirm()}
           disabled={isResolving}
         >
-          OK
+          {t("startup.confirm")}
         </button>
         {errorMessage ? (
           <p className="startup-location-error" role="status">

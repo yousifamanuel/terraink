@@ -1,3 +1,5 @@
+import type { FontSelection } from "./types";
+
 export interface IFontLoader {
-  ensureFont(family: string): Promise<void>;
+  ensureFont(selection: FontSelection): Promise<void>;
 }

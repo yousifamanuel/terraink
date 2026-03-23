@@ -1,10 +1,12 @@
 import { useCallback, useState } from "react";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { captureMapAsCanvas } from "@/features/export/infrastructure/mapExporter";
 import { compositeExport } from "@/features/poster/infrastructure/renderer";
 import { resolveCanvasSize } from "@/features/poster/infrastructure/renderer/canvas";
+import { OUTPUT_DPI } from "@/features/poster/infrastructure/renderer/constants";
 import { getAllMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
-import { ensureGoogleFont } from "@/core/services";
+import { ensureFontVariant } from "@/core/services";
 import {
   createPngBlob,
   createPdfBlobFromCanvas,
@@ -64,6 +66,7 @@ function writePosterExportCount(nextCount: number): void {
  * 5. Download.
  */
 export function useExport() {
+  const { t } = useLocale();
   const { state, dispatch, effectiveTheme, mapRef } = usePosterContext();
   const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(
     null,
@@ -88,7 +91,7 @@ export function useExport() {
     async (format: "png" | "pdf" | "svg") => {
       const map = mapRef.current;
       if (!map) {
-        dispatch({ type: "SET_ERROR", error: "Map is not ready." });
+        dispatch({ type: "SET_ERROR", error: t("export.error.mapNotReady") });
         return;
       }
 
@@ -96,17 +99,20 @@ export function useExport() {
 
       try {
         // Ensure font is loaded before compositing text
-        if (form.showPosterText && form.fontFamily.trim()) {
-          await ensureGoogleFont(form.fontFamily.trim());
+        if (form.showPosterText) {
+          await ensureFontVariant({
+            fontFamily: form.fontFamily,
+            fontVariant: form.fontVariant,
+          });
         }
 
         const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
         const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
-        const dpi = Number(form.dpi) || 300;
+        const dpi = OUTPUT_DPI;
         const widthInches = widthCm / CM_PER_INCH;
         const heightInches = heightCm / CM_PER_INCH;
 
-        const size = resolveCanvasSize(widthInches, heightInches, dpi);
+        const size = resolveCanvasSize(widthInches, heightInches);
 
         const lat = Number(form.latitude) || 0;
         const lon = Number(form.longitude) || 0;
@@ -121,6 +127,7 @@ export function useExport() {
             displayCity: form.displayCity || form.location || "",
             displayCountry: form.displayCountry || "",
             fontFamily: form.fontFamily.trim(),
+            fontVariant: form.fontVariant,
             showPosterText: form.showPosterText,
             showOverlay: form.showMarkers,
             includeCredits: form.includeCredits,
@@ -158,6 +165,7 @@ export function useExport() {
           displayCity: form.displayCity || form.location || "",
           displayCountry: form.displayCountry || "",
           fontFamily: form.fontFamily.trim(),
+          fontVariant: form.fontVariant,
           showPosterText: form.showPosterText,
           showOverlay: form.showMarkers,
           includeCredits: form.includeCredits,
@@ -192,7 +200,8 @@ export function useExport() {
         registerSuccessfulExport();
         dispatch({ type: "FINISH_EXPORT" });
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Export failed.";
+        const message =
+          err instanceof Error ? err.message : t("export.error.failed");
         dispatch({ type: "FAIL_EXPORT", error: message });
       }
     },
@@ -205,6 +214,7 @@ export function useExport() {
       registerSuccessfulExport,
       state.markers,
       state.customMarkerIcons,
+      t,
     ],
   );
 

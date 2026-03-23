@@ -1,9 +1,11 @@
+import { useLocale } from "@/core/i18n/LocaleContext";
+
 interface SettingsInfoProps {
   location: string;
   theme: string;
   layout: string;
   posterSize: string;
-  markers: string;
+  markerCount: number;
   coordinates: string;
 }
 
@@ -12,21 +14,33 @@ export default function SettingsInfo({
   theme,
   layout,
   posterSize,
-  markers,
+  markerCount,
   coordinates,
 }: SettingsInfoProps) {
+  const { t } = useLocale();
+  const markerWord =
+    markerCount === 1 ? t("markers.markerWord.one") : t("markers.markerWord.other");
   const rows = [
-    { label: "Location", value: location },
-    { label: "Theme", value: theme },
-    { label: "Layout", value: layout },
-    { label: "Poster Size", value: posterSize },
-    { label: "Markers", value: markers },
-    { label: "Coordinates", value: coordinates },
+    { label: t("settingsInfo.location"), value: location },
+    { label: t("settingsInfo.theme"), value: theme },
+    { label: t("settingsInfo.layout"), value: layout },
+    { label: t("settingsInfo.posterSize"), value: posterSize },
+    {
+      label: t("settingsInfo.markers"),
+      value: t("settingsInfo.markersCount", {
+        count: markerCount,
+        markerWord,
+      }),
+    },
+    { label: t("settingsInfo.coordinates"), value: coordinates },
   ];
 
   return (
-    <section className="settings-info-card" aria-label="Current settings">
-      <h3 className="settings-info-title">Current Settings</h3>
+    <section
+      className="settings-info-card"
+      aria-label={t("settingsInfo.currentAria")}
+    >
+      <h3 className="settings-info-title">{t("settingsInfo.currentTitle")}</h3>
       <dl className="settings-info-list">
         {rows.map((row) => (
           <div key={row.label} className="settings-info-row">

@@ -55,6 +55,18 @@
   display: none;
 }
 
+.locale-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.locale-switch__button.is-active {
+  background: rgba(94, 174, 212, 0.14);
+  border-color: rgba(94, 174, 212, 0.52);
+  color: #d6efff;
+}
+
 .install-help-modal-backdrop {
   position: fixed;
   inset: 0;

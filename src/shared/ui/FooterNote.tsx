@@ -1,7 +1,9 @@
 ﻿import { CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { InfoIcon } from "@/shared/ui/Icons";
 
 export default function FooterNote() {
+  const { t } = useLocale();
   const appVersion = String(import.meta.env.VITE_APP_VERSION ?? "0.0.0").trim();
   const contactEmail = String(CONTACT_EMAIL ?? "").trim();
   const legalNoticeUrl = String(LEGAL_NOTICE_URL ?? "").trim();
@@ -26,7 +28,7 @@ export default function FooterNote() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Imprint
+                {t("footer.imprint")}
               </a>
             )}
             {legalNoticeUrl && privacyUrl && " | "}
@@ -37,7 +39,7 @@ export default function FooterNote() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Data Privacy
+                {t("footer.privacy")}
               </a>
             )}
           </p>
@@ -46,33 +48,33 @@ export default function FooterNote() {
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          Terraink™ v{appVersion} | © 2026 | Made with{" "}
-          <span className="heart">❤︎</span> in Hannover, Germany
+          Terraink™ v{appVersion} | © 2026 | {t("footer.madeWith")}{" "}
+          <span className="heart">❤︎</span> {t("footer.location")}
         </p>
       </div>
 
       <div className="desktop-footer-right">
         <p className="source-note">
-          Map data &copy;{" "}
+          {t("footer.mapData")} &copy;{" "}
           <a
             className="source-link"
             href="https://www.openstreetmap.org/copyright"
             target="_blank"
             rel="noreferrer"
           >
-            OpenStreetMap contributors
+            {t("footer.openStreetMapContributors")}
           </a>
         </p>
         <button
           type="button"
           className="desktop-footer-info-btn"
-          aria-label="More map attribution"
+          aria-label={t("footer.moreAttribution")}
           aria-expanded="false"
         >
           <InfoIcon />
         </button>
         <div className="desktop-footer-attribution">
-          Tiles &copy;{" "}
+          {t("footer.tiles")} &copy;{" "}
           <a
             className="source-link"
             href="https://openmaptiles.org/"
@@ -81,7 +83,7 @@ export default function FooterNote() {
           >
             OpenMapTiles
           </a>
-          {" | "}Powered by{" "}
+          {" | "}{t("footer.poweredBy")}{" "}
           <a
             className="source-link"
             href="https://openfreemap.org/"

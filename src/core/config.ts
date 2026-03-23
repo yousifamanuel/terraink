@@ -1,3 +1,5 @@
+import { fontCatalog } from "@/core/fonts/catalog";
+
 /* ────── App config constants ────── */
 /* Migrated from src/constants/appConfig.js — env-independent values */
 
@@ -63,15 +65,7 @@ export interface FontOption {
   label: string;
 }
 
-export const FONT_OPTIONS: FontOption[] = [
-  { value: "", label: "Default (Space Grotesk)" },
-  { value: "Montserrat", label: "Montserrat" },
-  { value: "Playfair Display", label: "Playfair Display" },
-  { value: "Oswald", label: "Oswald" },
-  { value: "Noto Sans JP", label: "Noto Sans JP" },
-  { value: "Source Sans Pro", label: "Source Sans Pro" },
-  { value: "Raleway", label: "Raleway" },
-  { value: "Lato", label: "Lato" },
-  { value: "Merriweather", label: "Merriweather" },
-  { value: "Bebas neue", label: "Bebas Neue" },
-];
+export const FONT_OPTIONS: FontOption[] = fontCatalog.map((family) => ({
+  value: family.id,
+  label: family.label,
+}));

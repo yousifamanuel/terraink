@@ -1,5 +1,6 @@
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import { APP_CREDIT_URL } from "@/core/config";
+import { buildFontStack, resolveFontSelection } from "@/core/fonts/catalog";
 import {
   TEXT_DIMENSION_REFERENCE_PX,
   TEXT_CITY_Y_RATIO,
@@ -23,6 +24,7 @@ interface PosterTextOverlayProps {
   lat: number;
   lon: number;
   fontFamily: string;
+  fontVariant: string;
   textColor: string;
   landColor: string;
   showPosterText: boolean;
@@ -41,6 +43,7 @@ export default function PosterTextOverlay({
   lat,
   lon,
   fontFamily,
+  fontVariant,
   textColor,
   landColor,
   showPosterText,
@@ -49,12 +52,15 @@ export default function PosterTextOverlay({
 }: PosterTextOverlayProps) {
   const toCqMin = (px: number) => (px / TEXT_DIMENSION_REFERENCE_PX) * 100;
 
-  const titleFont = fontFamily
-    ? `"${fontFamily}", "Space Grotesk", sans-serif`
-    : '"Space Grotesk", sans-serif';
-  const bodyFont = fontFamily
-    ? `"${fontFamily}", "IBM Plex Mono", monospace`
-    : '"IBM Plex Mono", monospace';
+  const resolvedFont = resolveFontSelection({ fontFamily, fontVariant });
+  const titleFont = buildFontStack(
+    resolvedFont.family.titleFamily,
+    resolvedFont.family.titleFallback,
+  );
+  const bodyFont = buildFontStack(
+    resolvedFont.family.bodyFamily,
+    resolvedFont.family.bodyFallback,
+  );
 
   const cityLabel = formatCityLabel(city);
 
@@ -88,6 +94,7 @@ export default function PosterTextOverlay({
             className="poster-city"
             style={{
               fontFamily: titleFont,
+              fontWeight: resolvedFont.variant.weight,
               top: `${TEXT_CITY_Y_RATIO * 100}%`,
               fontSize: cityFontSize,
             }}
@@ -105,6 +112,7 @@ export default function PosterTextOverlay({
             className="poster-country"
             style={{
               fontFamily: titleFont,
+              fontWeight: resolvedFont.variant.weight,
               top: `${TEXT_COUNTRY_Y_RATIO * 100}%`,
               fontSize: countryFontSize,
             }}
@@ -115,6 +123,7 @@ export default function PosterTextOverlay({
             className="poster-coords"
             style={{
               fontFamily: bodyFont,
+              fontWeight: resolvedFont.variant.weight,
               top: `${TEXT_COORDS_Y_RATIO * 100}%`,
               fontSize: coordsFontSize,
             }}
@@ -128,6 +137,7 @@ export default function PosterTextOverlay({
         className="poster-attribution"
         style={{
           fontFamily: bodyFont,
+          fontWeight: resolvedFont.variant.weight,
           color: attributionColor,
           opacity: attributionOpacity,
           fontSize: attributionFontSize,
@@ -143,6 +153,7 @@ export default function PosterTextOverlay({
           className="poster-credits"
           style={{
             fontFamily: bodyFont,
+            fontWeight: resolvedFont.variant.weight,
             color: attributionColor,
             opacity: attributionOpacity,
             fontSize: attributionFontSize,

@@ -1,4 +1,5 @@
 ﻿import { createPortal } from "react-dom";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { KOFI_URL } from "@/core/config";
 
 interface SupportModalProps {
@@ -12,6 +13,7 @@ export default function SupportModal({
   onClose,
   titleId = "export-support-modal-title",
 }: SupportModalProps) {
+  const { t } = useLocale();
   const kofiUrl = String(KOFI_URL ?? "").trim();
 
   return createPortal(
@@ -26,26 +28,26 @@ export default function SupportModal({
         aria-modal="true"
         aria-labelledby={titleId}
         onClick={(event) => event.stopPropagation()}
-      >
-        <div className="credits-modal-body">
-          <p className="credits-modal-headline" id={titleId}>
-            ✨ Your poster is ready!
-          </p>
-          <p className="credits-modal-text">
-            If Terraink helped you create this poster, consider supporting the project on Ko-fi.
-          </p>
-          <p className="credits-modal-text">
-            This was your poster <strong>#{posterNumber}</strong> 🎉
-          </p>
-          <div className="credits-modal-actions">
-            {kofiUrl ? (
+        >
+          <div className="credits-modal-body">
+            <p className="credits-modal-headline" id={titleId}>
+              ✨ {t("export.support.headline")}
+            </p>
+            <p className="credits-modal-text">
+              {t("export.support.body")}
+            </p>
+            <p className="credits-modal-text">
+              {t("export.support.posterNumber", { posterNumber })} 🎉
+            </p>
+            <div className="credits-modal-actions">
+              {kofiUrl ? (
               <a
                 className="credits-modal-keep"
                 href={kofiUrl}
                 target="_blank"
                 rel="noreferrer"
               >
-                <span className="heart">❤︎</span> Support on Ko-fi
+                <span className="heart">❤︎</span> {t("export.support.kofi")}
               </a>
             ) : null}
             <button
@@ -53,7 +55,7 @@ export default function SupportModal({
               className="credits-modal-remove"
               onClick={onClose}
             >
-              {kofiUrl ? "Maybe later" : "Close"}
+              {kofiUrl ? t("export.support.maybeLater") : t("export.support.close")}
             </button>
           </div>
         </div>

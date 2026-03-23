@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { useExport } from "@/features/export/application/useExport";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { CloseIcon, DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
@@ -8,6 +9,7 @@ import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 type ExportFormat = "png" | "pdf" | "svg";
 
 export default function MobileExportFab() {
+  const { t } = useLocale();
   const {
     handleDownloadPng,
     handleDownloadPdf,
@@ -68,8 +70,8 @@ export default function MobileExportFab() {
       <button
         type="button"
         className={`mobile-export-fab-trigger${isTriggerVisible ? "" : " is-hidden"}`}
-        aria-label="Export poster"
-        title="Export poster"
+        aria-label={t("export.mobile.trigger")}
+        title={t("export.mobile.trigger")}
         onClick={() => setIsOpen(true)}
         tabIndex={isTriggerVisible ? 0 : -1}
         aria-hidden={!isTriggerVisible}
@@ -91,12 +93,12 @@ export default function MobileExportFab() {
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mobile-export-modal-header">
-              <h3 id="mobile-export-modal-title">Download Poster</h3>
+              <h3 id="mobile-export-modal-title">{t("export.mobile.title")}</h3>
               <button
                 type="button"
                 className="mobile-export-modal-close"
                 onClick={() => setIsOpen(false)}
-                aria-label="Close export options"
+                aria-label={t("export.mobile.close")}
               >
                 <CloseIcon />
               </button>
@@ -143,7 +145,7 @@ export default function MobileExportFab() {
               </button>
             </div>
             <p className="mobile-export-support-label">
-              Support the project <span className="heart">❤︎</span>
+              {t("export.mobile.supportLabel")} <span className="heart">❤︎</span>
             </p>
             <SocialLinkGroup variant="mobile-export" />
           </div>

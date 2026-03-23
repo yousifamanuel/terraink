@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import InfoPanel from "./InfoPanel";
 import { CloseIcon } from "./Icons";
 
@@ -7,6 +8,7 @@ interface AboutModalProps {
 }
 
 export default function AboutModal({ onClose }: AboutModalProps) {
+  const { t } = useLocale();
   return createPortal(
     <div
       className="about-modal-backdrop"
@@ -17,14 +19,14 @@ export default function AboutModal({ onClose }: AboutModalProps) {
         className="about-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="About TerraInk"
+        aria-label={t("about.ariaLabel")}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           className="about-modal-close"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={t("about.close")}
         >
           <CloseIcon />
         </button>

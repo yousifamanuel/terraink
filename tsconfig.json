@@ -15,6 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
+    "types": ["vitest/globals", "vite/client"],
     "baseUrl": "src",
     "paths": {
       "@/*": ["./*"]

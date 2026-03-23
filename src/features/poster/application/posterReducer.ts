@@ -10,6 +10,7 @@ import {
 } from "@/features/markers/infrastructure/constants";
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
 import { featuredMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
+import { resolveFontSelection } from "@/core/fonts/catalog";
 import { clamp } from "@/shared/geo/math";
 
 /* ────── Form state ────── */
@@ -27,6 +28,7 @@ export interface PosterForm {
   displayCountry: string;
   displayContinent: string;
   fontFamily: string;
+  fontVariant: string;
   showPosterText: boolean;
   includeCredits: boolean;
   includeBuildings: boolean;
@@ -111,6 +113,24 @@ export function posterReducer(
       const nextForm = { ...state.form, [action.name]: action.value };
       const nextDisplayNameOverrides = { ...state.displayNameOverrides };
 
+      if (action.name === "fontFamily") {
+        const resolved = resolveFontSelection({
+          fontFamily: String(action.value),
+          fontVariant: state.form.fontVariant,
+        });
+        nextForm.fontFamily = resolved.family.id;
+        nextForm.fontVariant = resolved.variant.id;
+      }
+
+      if (action.name === "fontVariant") {
+        const resolved = resolveFontSelection({
+          fontFamily: state.form.fontFamily,
+          fontVariant: String(action.value),
+        });
+        nextForm.fontFamily = resolved.family.id;
+        nextForm.fontVariant = resolved.variant.id;
+      }
+
       if (action.name === "location" && typeof action.value === "string") {
         nextDisplayNameOverrides.city = false;
         nextDisplayNameOverrides.country = false;
@@ -140,14 +160,25 @@ export function posterReducer(
       };
     }
 
-    case "SET_FORM_FIELDS":
+    case "SET_FORM_FIELDS": {
+      const mergedForm = { ...state.form, ...action.fields };
+      if ("fontFamily" in action.fields || "fontVariant" in action.fields) {
+        const resolved = resolveFontSelection({
+          fontFamily: mergedForm.fontFamily,
+          fontVariant: mergedForm.fontVariant,
+        });
+        mergedForm.fontFamily = resolved.family.id;
+        mergedForm.fontVariant = resolved.variant.id;
+      }
+
       return {
         ...state,
-        form: { ...state.form, ...action.fields },
+        form: mergedForm,
         displayNameOverrides: action.resetDisplayNameOverrides
           ? { city: false, country: false }
           : state.displayNameOverrides,
       };
+    }
 
     case "SET_THEME":
       return {

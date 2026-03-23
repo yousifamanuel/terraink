@@ -927,6 +927,20 @@
     height: 16px;
   }
 
+  .locale-switch {
+    gap: 6px;
+  }
+
+  .locale-switch__button {
+    width: auto;
+    min-width: 50px;
+    padding: 0 10px;
+  }
+
+  .locale-switch__button .general-header-btn-label {
+    display: inline;
+  }
+
   .install-help-modal {
     width: min(360px, calc(100vw - 24px));
   }

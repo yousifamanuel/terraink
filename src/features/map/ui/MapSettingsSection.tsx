@@ -21,6 +21,20 @@ import { CheckIcon, EditIcon } from "@/shared/ui/Icons";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
 import type { LayoutGroup } from "@/features/layout/domain/types";
+import { useLocale } from "@/core/i18n/LocaleContext";
+import {
+  localizeLayoutGroup,
+  localizeLayoutOption,
+  localizeThemeColorLabel,
+  localizeThemeOption,
+} from "@/features/theme/domain/localization";
+
+function formatMessage(template: string, values: Record<string, string>) {
+  return Object.entries(values).reduce(
+    (message, [key, value]) => message.replace(`{${key}}`, value),
+    template,
+  );
+}
 
 const FALLBACK_COLOR = "#000000";
 
@@ -59,6 +73,7 @@ export default function MapSettingsSection({
   onResetColors,
   onColorEditorActiveChange,
 }: MapSettingsSectionProps) {
+  const { locale, t } = useLocale();
   const [isThemeEditing, setIsThemeEditing] = useState(false);
   const [isLayoutEditing, setIsLayoutEditing] = useState(false);
   const defaultColorKey: ThemeColorKey = DISPLAY_PALETTE_KEYS[0] ?? "ui.bg";
@@ -73,11 +88,19 @@ export default function MapSettingsSection({
   const themeListRef = useRef<HTMLDivElement | null>(null);
   const layoutGroupsRef = useRef<HTMLDivElement | null>(null);
 
+  const localizedThemeOptions = useMemo(
+    () => themeOptions.map((option) => localizeThemeOption(locale, option)),
+    [locale, themeOptions],
+  );
+
   const selectedThemeOption = useMemo(() => {
     const matchingOption = themeOptions.find((t) => t.id === form.theme);
-    if (matchingOption) return matchingOption;
-    return createFallbackThemeOption(form.theme, selectedTheme);
-  }, [form.theme, selectedTheme, themeOptions]);
+    if (matchingOption) return localizeThemeOption(locale, matchingOption);
+    return localizeThemeOption(
+      locale,
+      createFallbackThemeOption(form.theme, selectedTheme),
+    );
+  }, [form.theme, locale, selectedTheme, themeOptions]);
 
   const currentThemePalette = useMemo(
     () =>
@@ -130,28 +153,40 @@ export default function MapSettingsSection({
         const currentColor = customColors[key] ?? baseColor;
         return {
           key,
-          label: PALETTE_COLOR_LABELS[key] ?? key,
+          label: localizeThemeColorLabel(
+            locale,
+            key,
+            PALETTE_COLOR_LABELS[key] ?? key,
+          ),
           color: currentColor,
           isActive: activeColorKey === key,
         };
       }),
-    [activeColorKey, customColors, selectedTheme],
+    [activeColorKey, customColors, locale, selectedTheme],
+  );
+
+  const localizedLayoutGroups = useMemo(
+    () => layoutGroups.map((group) => localizeLayoutGroup(locale, group)),
+    [layoutGroups, locale],
   );
 
   const layoutOptions = useMemo(
-    () => layoutGroups.flatMap((g) => g.options),
-    [layoutGroups],
+    () => localizedLayoutGroups.flatMap((g) => g.options),
+    [localizedLayoutGroups],
   );
 
   const selectedLayoutOption = useMemo(() => {
     const match = layoutOptions.find((lo) => lo.id === form.layout);
     if (match) return match;
-    return createCustomLayoutOption(Number(form.width), Number(form.height));
-  }, [form.height, form.layout, form.width, layoutOptions]);
+    return localizeLayoutOption(
+      locale,
+      createCustomLayoutOption(Number(form.width), Number(form.height)),
+    );
+  }, [form.height, form.layout, form.width, layoutOptions, locale]);
   const selectedLayoutDescription =
     selectedLayoutOption.id === "custom"
-      ? "Your custom layout."
-      : selectedLayoutOption.description?.trim() || "No description available.";
+      ? t("map.customLayoutDescription")
+      : selectedLayoutOption.description?.trim() || t("map.noDescription");
 
   function clearColorPickerState() {
     setActiveColorKey(null);
@@ -242,8 +277,12 @@ export default function MapSettingsSection({
     [customColors, selectedTheme],
   );
   const activeColorLabel = activeColorKey
-    ? (PALETTE_COLOR_LABELS[activeColorKey] ?? "Color")
-    : "Color";
+    ? localizeThemeColorLabel(
+        locale,
+        activeColorKey,
+        PALETTE_COLOR_LABELS[activeColorKey] ?? t("map.color"),
+      )
+    : t("map.color");
 
   useEffect(() => {
     onColorEditorActiveChange?.(false);
@@ -308,21 +347,25 @@ export default function MapSettingsSection({
   return (
     <section className="panel-block">
       <div className="map-settings-theme-part">
-        <h2>Theme</h2>
+        <h2>{t("map.theme")}</h2>
 
         {isThemeEditing ? (
           activeColorKey ? (
             <section className="panel-block color-editor-screen">
-              <h2>Color Editor</h2>
+              <h2>{t("map.colorEditor")}</h2>
               <div className="color-editor-header">
-                <p className="theme-active-label">Editing: {activeColorLabel}</p>
+                <p className="theme-active-label">
+                  {formatMessage(t("map.colorEditing"), {
+                    label: activeColorLabel,
+                  })}
+                </p>
                 <div className="theme-edit-actions">
                   <button
                     type="button"
                     className="theme-edit-done-btn"
                     onClick={clearColorPickerState}
                   >
-                    Done
+                    {t("map.done")}
                   </button>
                 </div>
               </div>
@@ -349,7 +392,7 @@ export default function MapSettingsSection({
         ) : (
           <ThemeSummarySection
             listRef={themeListRef}
-            themeOptions={themeOptions}
+            themeOptions={localizedThemeOptions}
             selectedThemeId={form.theme}
             selectedThemeOption={summaryThemeOption}
             onThemeSelect={handleThemeSelect}
@@ -359,11 +402,11 @@ export default function MapSettingsSection({
       </div>
 
       <div className="map-settings-layout-part">
-        <h2>Layout</h2>
+        <h2>{t("map.layout")}</h2>
         <div className="layout-summary-head">
           <div className="layout-summary-copy">
             <p className="layout-summary-label">
-              LAYOUT:{" "}
+              {t("map.layoutLabel")}{" "}
               <span className="layout-summary-label-name">
                 {selectedLayoutOption.name}
               </span>
@@ -377,7 +420,7 @@ export default function MapSettingsSection({
               type="button"
               className="theme-customize-btn"
               onClick={handleDoneLayoutEditor}
-              aria-label="Done editing layout"
+              aria-label={t("map.doneEditingLayout")}
             >
               <span className="theme-customize-icon" aria-hidden="true">
                 <CheckIcon />
@@ -388,7 +431,7 @@ export default function MapSettingsSection({
               type="button"
               className="theme-customize-btn"
               onClick={handleOpenLayoutEditor}
-              aria-label="Customize layout size"
+              aria-label={t("map.customizeLayout")}
             >
               <span className="theme-customize-icon" aria-hidden="true">
                 <EditIcon />
@@ -410,7 +453,7 @@ export default function MapSettingsSection({
           </div>
         ) : (
           <div className="layout-inline-groups" ref={layoutGroupsRef}>
-            {layoutGroups.map((group) => (
+            {localizedLayoutGroups.map((group) => (
               <section key={group.id} className="layout-inline-group">
                 <h3>{group.name}</h3>
                 <div className="layout-inline-list card-scroll-list">

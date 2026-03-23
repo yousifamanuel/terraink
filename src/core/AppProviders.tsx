@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { LocaleProvider } from "@/core/i18n/LocaleContext";
 import { PosterProvider } from "@/features/poster/ui/PosterContext";
 
 interface AppProvidersProps {
@@ -10,5 +11,9 @@ interface AppProvidersProps {
  * Add new providers here as needed.
  */
 export function AppProviders({ children }: AppProvidersProps) {
-  return <PosterProvider>{children}</PosterProvider>;
+  return (
+    <LocaleProvider>
+      <PosterProvider>{children}</PosterProvider>
+    </LocaleProvider>
+  );
 }

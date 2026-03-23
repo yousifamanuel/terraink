@@ -25,9 +25,9 @@ import { layoutGroups } from "@/features/layout/infrastructure/layoutRepository"
 import {
   MIN_POSTER_CM,
   MAX_POSTER_CM,
-  FONT_OPTIONS,
   DEFAULT_DISTANCE_METERS,
 } from "@/core/config";
+import { fontCatalog, getFontVariantOptions } from "@/core/fonts/catalog";
 import { reverseGeocodeCoordinates } from "@/core/services";
 import { GEOLOCATION_TIMEOUT_MS } from "@/features/map/infrastructure";
 import type { SearchResult } from "@/features/location/domain/types";
@@ -35,6 +35,7 @@ import {
   getGeolocationFailureMessage,
   requestCurrentPositionWithRetry,
 } from "@/features/location/infrastructure";
+import { useLocale } from "@/core/i18n/LocaleContext";
 
 type SectionId =
   | "location"
@@ -62,6 +63,7 @@ export default function SettingsPanel({
 }: {
   mobileTab?: MobileTab;
 }) {
+  const { locale, t } = useLocale();
   const { state, selectedTheme, dispatch } = usePosterContext();
   const {
     handleChange,
@@ -166,16 +168,18 @@ export default function SettingsPanel({
         maxAttempts: 2,
       });
 
-      if (!positionResult.ok) {
-        setLocationPermissionMessage(
-          getGeolocationFailureMessage(positionResult.reason),
-        );
+      if (positionResult.ok) {
+        await applyLocation(positionResult.lat, positionResult.lon);
         setIsLocatingUser(false);
         return;
+      } else {
+        const failureReason =
+          "reason" in positionResult ? positionResult.reason : "error";
+        setLocationPermissionMessage(
+          getGeolocationFailureMessage(failureReason, { locale }),
+        );
+        setIsLocatingUser(false);
       }
-
-      await applyLocation(positionResult.lat, positionResult.lon);
-      setIsLocatingUser(false);
     })();
   };
 
@@ -190,7 +194,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="location"
-          label={accordionSections[0].label}
+          label={t("settings.location")}
           Icon={accordionSections[0].Icon}
           isOpen={openSections.has("location")}
           onToggle={toggleSection}
@@ -224,7 +228,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="theme"
-          label={accordionSections[1].label}
+          label={t("settings.theme")}
           Icon={accordionSections[1].Icon}
           isOpen={openSections.has("theme")}
           onToggle={toggleSection}
@@ -261,7 +265,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="layout"
-          label={accordionSections[2].label}
+          label={t("settings.layout")}
           Icon={accordionSections[2].Icon}
           isOpen={openSections.has("layout")}
           onToggle={toggleSection}
@@ -298,7 +302,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="layers"
-          label={accordionSections[3].label}
+          label={t("settings.layers")}
           Icon={accordionSections[3].Icon}
           isOpen={openSections.has("layers")}
           onToggle={toggleSection}
@@ -325,7 +329,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="markers"
-          label={accordionSections[4].label}
+          label={t("settings.markers")}
           Icon={accordionSections[4].Icon}
           isOpen={openSections.has("markers")}
           onToggle={toggleSection}
@@ -344,7 +348,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="style"
-          label={accordionSections[5].label}
+          label={t("settings.style")}
           Icon={accordionSections[5].Icon}
           isOpen={openSections.has("style")}
           onToggle={toggleSection}
@@ -357,7 +361,8 @@ export default function SettingsPanel({
               <TypographySection
                 form={state.form}
                 onChange={handleChange}
-                fontOptions={FONT_OPTIONS}
+                fontFamilies={fontCatalog}
+                fontVariants={getFontVariantOptions(state.form.fontFamily)}
                 onCreditsChange={handleCreditsChange}
               />
             ) : null}

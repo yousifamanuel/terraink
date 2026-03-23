@@ -93,5 +93,7 @@ export async function createPngBlob(
 
   const bytes = new Uint8Array(await baseBlob.arrayBuffer());
   const withDpi = injectDpiChunk(bytes, dpi);
-  return new Blob([withDpi], { type: "image/png" });
+  const blobBytes = new Uint8Array(withDpi.byteLength);
+  blobBytes.set(withDpi);
+  return new Blob([blobBytes.buffer], { type: "image/png" });
 }

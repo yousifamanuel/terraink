@@ -11,6 +11,7 @@ import FooterNote from "@/shared/ui/FooterNote";
 import PreviewPanel from "@/features/poster/ui/PreviewPanel";
 import MobileNavBar, { type MobileTab } from "@/shared/ui/MobileNavBar";
 import InstallPrompt from "@/features/install/ui/InstallPrompt";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
 import { CheckIcon } from "@/shared/ui/Icons";
@@ -31,13 +32,18 @@ function SettingsDrawer({
   mobileTab: MobileTab;
   onClose: () => void;
 }) {
+  const { t } = useLocale();
   const [isExpanded, setIsExpanded] = useState(false);
   const { sheetRef, handleRef, handleProps } = useSwipeDown(onClose, 80, {
     onExpand: () => setIsExpanded(true),
   });
 
   return (
-    <div className="mobile-drawer" role="dialog" aria-label="Settings">
+    <div
+      className="mobile-drawer"
+      role="dialog"
+      aria-label={t("app.drawer.settings")}
+    >
       <div
         className="mobile-drawer-backdrop"
         onClick={onClose}
@@ -63,6 +69,7 @@ function SettingsDrawer({
 }
 
 function AppShell() {
+  const { t } = useLocale();
   const { state, dispatch } = usePosterContext();
   const { isMarkerEditorActive } = state;
   const activeMarker =
@@ -92,7 +99,7 @@ function AppShell() {
       void import("@/features/updates/ui/AnnouncementModal");
     };
 
-    if ("requestIdleCallback" in window) {
+    if (typeof window.requestIdleCallback === "function") {
       const idleId = window.requestIdleCallback(preload, { timeout: 2000 });
       return () => window.cancelIdleCallback(idleId);
     }
@@ -197,6 +204,7 @@ function AppShell() {
         onLocationToggle={() =>
           setDesktopLocationRowVisible((isVisible) => !isVisible)
         }
+        onSettingsToggle={() => setDesktopPanelOpen((isOpen) => !isOpen)}
       />
 
       <div
@@ -218,9 +226,11 @@ function AppShell() {
         <div
           className="mobile-marker-size-bar"
           role="group"
-          aria-label="Selected marker size"
+          aria-label={t("app.markerSize.groupLabel")}
         >
-          <p className="mobile-marker-size-bar__label">Marker Size</p>
+          <p className="mobile-marker-size-bar__label">
+            {t("app.markerSize.label")}
+          </p>
           <div className="mobile-marker-size-bar__controls">
             <input
               type="range"
@@ -270,7 +280,7 @@ function AppShell() {
           }}
         >
           <CheckIcon />
-          <span>Done Editing</span>
+          <span>{t("app.markerEditing.done")}</span>
         </button>
       ) : null}
 
@@ -279,6 +289,7 @@ function AppShell() {
         drawerOpen={mobileDrawerOpen}
         isLocationVisible={mobileLocationRowVisible}
         onTabChange={handleMobileTabChange}
+        onSettingsToggle={() => setMobileDrawerOpen((isOpen) => !isOpen)}
       />
       <Suspense fallback={null}>
         <MobileExportFab />

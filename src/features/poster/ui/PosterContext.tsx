@@ -25,6 +25,11 @@ import {
   loadCustomMarkerIcons,
   saveCustomMarkerIcons,
 } from "@/features/markers/infrastructure/customIconStorage";
+import { resolveFontSelection } from "@/core/fonts/catalog";
+import {
+  readPosterTypographyPreferences,
+  writePosterTypographyPreferences,
+} from "@/features/poster/infrastructure/posterPreferencesStorage";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -50,6 +55,10 @@ const defaultLayoutHeightCm = Number(
 );
 const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
+const defaultTypography = resolveFontSelection({
+  fontFamily: "",
+  fontVariant: "",
+});
 
 export const DEFAULT_FORM: PosterForm = {
   location: DEFAULT_LOCATION_LABEL,
@@ -63,7 +72,8 @@ export const DEFAULT_FORM: PosterForm = {
   displayCity: "Hanover",
   displayCountry: "Germany",
   displayContinent: "Europe",
-  fontFamily: "",
+  fontFamily: defaultTypography.family.id,
+  fontVariant: defaultTypography.variant.id,
   showPosterText: true,
   includeCredits: true,
   includeBuildings: false,
@@ -100,6 +110,22 @@ const INITIAL_STATE: PosterState = {
   },
 };
 
+function createInitialState(): PosterState {
+  const persistedTypography = readPosterTypographyPreferences();
+  const resolvedTypography = persistedTypography
+    ? resolveFontSelection(persistedTypography)
+    : defaultTypography;
+
+  return {
+    ...INITIAL_STATE,
+    form: {
+      ...DEFAULT_FORM,
+      fontFamily: resolvedTypography.family.id,
+      fontVariant: resolvedTypography.variant.id,
+    },
+  };
+}
+
 /* ────── Context shape ────── */
 
 interface PosterContextValue {
@@ -116,7 +142,7 @@ const PosterContext = createContext<PosterContextValue | null>(null);
 /* ────── Provider ────── */
 
 export function PosterProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(posterReducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(posterReducer, undefined, createInitialState);
   const mapRef = useRef(null) as MapInstanceRef;
   const lastSyncedMarkerThemeColorRef = useRef<string | null>(null);
   const hasLoadedCustomIconsRef = useRef(false);
@@ -181,6 +207,13 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       // Ignore storage write failures.
     });
   }, [state.customMarkerIcons]);
+
+  useEffect(() => {
+    writePosterTypographyPreferences({
+      fontFamily: state.form.fontFamily,
+      fontVariant: state.form.fontVariant,
+    });
+  }, [state.form.fontFamily, state.form.fontVariant]);
 
   const mapStyle = useMemo(
     () =>

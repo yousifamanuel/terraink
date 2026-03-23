@@ -3,8 +3,10 @@ import { FaMobileAlt as MobileIcon } from "react-icons/fa";
 import { FiShare as ShareIcon } from "react-icons/fi";
 import React, { useState } from "react";
 import { INSTALL_DIAGNOSTICS_ENABLED } from "@/core/config";
+import { useLocale } from "@/core/i18n/LocaleContext";
 
 export default function InstallPrompt() {
+  const { t } = useLocale();
   const {
     deferredPrompt,
     showIosHint,
@@ -28,7 +30,7 @@ export default function InstallPrompt() {
               className="install-prompt-mobile-icon"
               aria-hidden="true"
             />
-            Install TerraInk for faster access and a better experience.
+            {t("install.prompt.deferredBody")}
           </span>
           <div className="install-prompt-actions">
             <button
@@ -36,14 +38,14 @@ export default function InstallPrompt() {
               className="install-prompt-btn"
               onClick={handleInstall}
             >
-              Add to Home Screen
+              {t("install.prompt.addToHomeScreen")}
             </button>
             <button
               type="button"
               className="install-prompt-dismiss"
               onClick={dismiss}
             >
-              Maybe later
+              {t("install.prompt.maybeLater")}
             </button>
             {INSTALL_DIAGNOSTICS_ENABLED ? (
               <button
@@ -51,7 +53,7 @@ export default function InstallPrompt() {
                 className="install-prompt-dismiss"
                 onClick={() => setIsDiagnosticsOpen(true)}
               >
-                Diagnostics
+                {t("install.prompt.diagnostics")}
               </button>
             ) : null}
           </div>
@@ -75,12 +77,13 @@ export default function InstallPrompt() {
               className="install-prompt-mobile-icon"
               aria-hidden="true"
             />
-            Tap{" "}
+            {t("install.prompt.iosTap")}{" "}
             <span className="install-prompt-share-icon" aria-hidden="true">
               <ShareIcon />
             </span>{" "}
-            then <strong>Add to Home Screen</strong> for faster access and a
-            better experience.
+            {t("install.prompt.iosAfterShare")}{" "}
+            <strong>{t("install.prompt.addToHomeScreen")}</strong>{" "}
+            {t("install.prompt.iosBodySuffix")}
           </span>
           <div className="install-prompt-actions">
             <button
@@ -88,7 +91,7 @@ export default function InstallPrompt() {
               className="install-prompt-dismiss"
               onClick={dismiss}
             >
-              Maybe later
+              {t("install.prompt.maybeLater")}
             </button>
             {INSTALL_DIAGNOSTICS_ENABLED ? (
               <button
@@ -96,7 +99,7 @@ export default function InstallPrompt() {
                 className="install-prompt-dismiss"
                 onClick={() => setIsDiagnosticsOpen(true)}
               >
-                Diagnostics
+                {t("install.prompt.diagnostics")}
               </button>
             ) : null}
           </div>
@@ -120,11 +123,10 @@ export default function InstallPrompt() {
               className="install-prompt-mobile-icon"
               aria-hidden="true"
             />
-            For faster access and a better experience, install TerraInk from
-            your browser menu:
-            <strong> Install app </strong>
-            or
-            <strong> Add to Home screen</strong>
+            {t("install.prompt.androidBody")}{" "}
+            <strong>{t("install.prompt.androidInstallApp")}</strong>{" "}
+            {t("install.prompt.androidOr")}{" "}
+            <strong>{t("install.prompt.addToHomeScreen")}</strong>
           </span>
           <div className="install-prompt-actions">
             <button
@@ -132,7 +134,7 @@ export default function InstallPrompt() {
               className="install-prompt-dismiss"
               onClick={dismiss}
             >
-              Maybe later
+              {t("install.prompt.maybeLater")}
             </button>
             {INSTALL_DIAGNOSTICS_ENABLED ? (
               <button
@@ -140,7 +142,7 @@ export default function InstallPrompt() {
                 className="install-prompt-dismiss"
                 onClick={() => setIsDiagnosticsOpen(true)}
               >
-                Diagnostics
+                {t("install.prompt.diagnostics")}
               </button>
             ) : null}
           </div>
@@ -165,20 +167,22 @@ function DiagnosticsModal({
   diagnosticsText: string;
   onClose: () => void;
 }) {
+  const { t } = useLocale();
+
   return (
     <div className="install-help-modal-backdrop" role="presentation" onClick={onClose}>
       <div
         className="install-help-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Install diagnostics"
+        aria-label={t("install.diagnostics.ariaLabel")}
         onClick={(event) => event.stopPropagation()}
       >
-        <h3 className="install-help-modal-title">Install Diagnostics</h3>
+        <h3 className="install-help-modal-title">{t("install.diagnostics.title")}</h3>
         <pre className="install-help-modal-text">{diagnosticsText}</pre>
         <div className="install-prompt-actions">
           <button type="button" className="install-prompt-dismiss" onClick={onClose}>
-            Close
+            {t("install.diagnostics.close")}
           </button>
         </div>
       </div>

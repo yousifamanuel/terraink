@@ -1,5 +1,6 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { useLocale } from "@/core/i18n/LocaleContext";
 
 type UpdateCategory =
   | "new"
@@ -54,20 +55,20 @@ const LAST_SEEN_VERSION = "last_seen_version";
 const CURRENT_VERSION = String(import.meta.env.VITE_APP_VERSION ?? "").trim();
 const UPDATES_URL = String(import.meta.env.VITE_UPDATES_URL ?? "/updates.json").trim();
 
-const categoryConfig: Record<UpdateCategory, CategoryMeta> = {
-  new: { icon: "✨", label: "New" },
-  fixed: { icon: "🛠️", label: "Fixed" },
-  improved: { icon: "🚀", label: "Improved" },
-  info: { icon: "ℹ️", label: "Info" },
-  community: { icon: "👥", label: "Community" },
-  docs: { icon: "📚", label: "Docs" },
-  roadmap: { icon: "🎯", label: "Roadmap" },
-  removed: { icon: "🗑️", label: "Removed" },
-  security: { icon: "🔒", label: "Security" },
-  breaking: { icon: "⚠️", label: "Breaking" },
-  major: { icon: "👑", label: "Major" },
-  perf: { icon: "⚡", label: "Performance" },
-  core: { icon: "🧭", label: "Core" },
+const categoryConfig: Record<UpdateCategory, { icon: string; labelKey: string }> = {
+  new: { icon: "✨", labelKey: "updates.category.new" },
+  fixed: { icon: "🛠️", labelKey: "updates.category.fixed" },
+  improved: { icon: "🚀", labelKey: "updates.category.improved" },
+  info: { icon: "ℹ️", labelKey: "updates.category.info" },
+  community: { icon: "👥", labelKey: "updates.category.community" },
+  docs: { icon: "📚", labelKey: "updates.category.docs" },
+  roadmap: { icon: "🎯", labelKey: "updates.category.roadmap" },
+  removed: { icon: "🗑️", labelKey: "updates.category.removed" },
+  security: { icon: "🔒", labelKey: "updates.category.security" },
+  breaking: { icon: "⚠️", labelKey: "updates.category.breaking" },
+  major: { icon: "👑", labelKey: "updates.category.major" },
+  perf: { icon: "⚡", labelKey: "updates.category.perf" },
+  core: { icon: "🧭", labelKey: "updates.category.core" },
 };
 
 function compareVersions(a: string, b: string): number {
@@ -85,13 +86,13 @@ function compareVersions(a: string, b: string): number {
   return 0;
 }
 
-function toDisplayDate(isoDate: string): string {
+function toDisplayDate(isoDate: string, locale: string): string {
   const date = new Date(`${isoDate}T00:00:00`);
   if (Number.isNaN(date.getTime())) {
     return isoDate;
   }
 
-  return new Intl.DateTimeFormat(undefined, {
+  return new Intl.DateTimeFormat(locale, {
     year: "numeric",
     month: "long",
     day: "2-digit",
@@ -132,6 +133,7 @@ function renderPointText(text: string) {
 }
 
 export default function AnnouncementModal() {
+  const { locale, t } = useLocale();
   const [viewMode, setViewMode] = useState<"summary" | "details">("summary");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -214,10 +216,10 @@ export default function AnnouncementModal() {
       .flatMap((step) => step.points)
       .slice(0, 4);
   }, [release]);
-  const summaryTitle = release?.summary?.title?.trim() || "Quick Highlights";
-  const summaryHeaderTitle = release?.labels?.summaryTitle?.trim() || "What is new";
+  const summaryTitle = release?.summary?.title?.trim() || t("updates.summaryTitle");
+  const summaryHeaderTitle = release?.labels?.summaryTitle?.trim() || t("updates.summaryHeader");
   const detailsHeaderTitle =
-    release?.labels?.detailsTitle?.trim() || "Update Details";
+    release?.labels?.detailsTitle?.trim() || t("updates.detailsHeader");
 
   function closeModal() {
     if (CURRENT_VERSION) {
@@ -297,18 +299,21 @@ export default function AnnouncementModal() {
           type="button"
           className="updates-modal-close"
           onClick={closeModal}
-          aria-label="Close announcements"
+          aria-label={t("updates.close")}
         >
           <IoClose className="updates-modal-close-icon" />
         </button>
 
         <header className="updates-modal-header">
-          <span className="updates-version-badge">Version {release.version}</span>
+          <span className="updates-version-badge">
+            {t("updates.version")} {release.version}
+          </span>
           <h2 id="updates-modal-title">
             {isDetailsMode ? detailsHeaderTitle : summaryHeaderTitle}
           </h2>
           <p className="updates-released-on">
-            Released on {toDisplayDate(release.date)}
+            {t("updates.releasedOn")}{" "}
+            {toDisplayDate(release.date, locale === "zh-CN" ? "zh-CN" : "en")}
           </p>
         </header>
 
@@ -328,7 +333,7 @@ export default function AnnouncementModal() {
                     {category.icon}
                   </span>
                   <div className="updates-point-text">
-                    <span className="updates-point-label">{category.label}</span>
+                    <span className="updates-point-label">{t(category.labelKey)}</span>
                     {renderPointText(point.text)}
                   </div>
                 </li>
@@ -340,7 +345,7 @@ export default function AnnouncementModal() {
             <img
               className="updates-step-image"
               src={resolvedImagePath}
-              alt={`${activeStep.title} preview`}
+              alt={t("updates.previewAlt", { title: activeStep.title })}
             />
           ) : null}
         </div>
@@ -351,14 +356,14 @@ export default function AnnouncementModal() {
               {isDetailsMode ? (
                 <>
                   <button type="button" onClick={handleBack} disabled={currentStep === 0}>
-                    Back
+                    {t("updates.back")}
                   </button>
                   <button
                     type="button"
                     className="updates-next-button"
                     onClick={handleNext}
                   >
-                    {isLastStep ? "Finish" : "Next"}
+                    {isLastStep ? t("updates.finish") : t("updates.next")}
                   </button>
                 </>
               ) : (
@@ -368,10 +373,10 @@ export default function AnnouncementModal() {
                     className="updates-next-button"
                     onClick={() => setViewMode("details")}
                   >
-                    Show all details
+                    {t("updates.showAllDetails")}
                   </button>
                   <button type="button" className="updates-okay-button" onClick={closeModal}>
-                    Okay, got it
+                    {t("updates.okay")}
                   </button>
                 </>
               )}
@@ -382,4 +387,3 @@ export default function AnnouncementModal() {
     </div>
   );
 }
-

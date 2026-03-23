@@ -1,6 +1,7 @@
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import type { Coordinate } from "@/shared/geo/types";
 import { APP_CREDIT_URL } from "@/core/config";
+import { buildFontStack, resolveFontSelection } from "@/core/fonts/catalog";
 import {
   TEXT_DIMENSION_REFERENCE_PX,
   TEXT_CITY_Y_RATIO,
@@ -17,17 +18,19 @@ import {
   isLatinScript,
   formatCityLabel,
 } from "@/features/poster/domain/textLayout";
+import type { ThemeColors } from "@/features/theme/domain/types";
 import { parseHex } from "@/shared/utils/color";
 
 export function drawPosterText(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
-  theme: { ui?: { text?: string } },
+  theme: Partial<ThemeColors>,
   center: Coordinate,
   city: string,
   country: string,
   fontFamily: string | undefined,
+  fontVariant: string | undefined,
   showPosterText: boolean,
   showOverlay: boolean,
   includeCredits: boolean = true,
@@ -44,12 +47,15 @@ export function drawPosterText(
       ? "#f5faff"
       : "#0e1822";
   const attributionAlpha = showOverlay ? 0.55 : 0.9;
-  const titleFontFamily = fontFamily
-    ? `"${fontFamily}", "Space Grotesk", sans-serif`
-    : '"Space Grotesk", sans-serif';
-  const bodyFontFamily = fontFamily
-    ? `"${fontFamily}", "IBM Plex Mono", monospace`
-    : '"IBM Plex Mono", monospace';
+  const resolvedFont = resolveFontSelection({ fontFamily, fontVariant });
+  const titleFontFamily = buildFontStack(
+    resolvedFont.family.titleFamily,
+    resolvedFont.family.titleFallback,
+  );
+  const bodyFontFamily = buildFontStack(
+    resolvedFont.family.bodyFamily,
+    resolvedFont.family.bodyFallback,
+  );
 
   const dimScale = Math.max(
     0.45,
@@ -78,7 +84,7 @@ export function drawPosterText(
     ctx.fillStyle = textColor;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `700 ${cityFontSize}px ${titleFontFamily}`;
+    ctx.font = `${resolvedFont.variant.weight} ${cityFontSize}px ${titleFontFamily}`;
     ctx.fillText(cityLabel, width * 0.5, cityY);
 
     ctx.strokeStyle = textColor;
@@ -88,11 +94,11 @@ export function drawPosterText(
     ctx.lineTo(width * 0.6, lineY);
     ctx.stroke();
 
-    ctx.font = `300 ${countryFontSize}px ${titleFontFamily}`;
+    ctx.font = `${resolvedFont.variant.weight} ${countryFontSize}px ${titleFontFamily}`;
     ctx.fillText(country.toUpperCase(), width * 0.5, countryY);
 
     ctx.globalAlpha = 0.75;
-    ctx.font = `400 ${coordinateFontSize}px ${bodyFontFamily}`;
+    ctx.font = `${resolvedFont.variant.weight} ${coordinateFontSize}px ${bodyFontFamily}`;
     ctx.fillText(
       formatCoordinates(center.lat, center.lon),
       width * 0.5,
@@ -105,7 +111,7 @@ export function drawPosterText(
   ctx.globalAlpha = attributionAlpha;
   ctx.textAlign = "right";
   ctx.textBaseline = "bottom";
-  ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
+  ctx.font = `${resolvedFont.variant.weight} ${attributionFontSize}px ${bodyFontFamily}`;
   ctx.fillText(
     "\u00a9 OpenStreetMap contributors",
     width * (1 - TEXT_EDGE_MARGIN_RATIO),
@@ -118,7 +124,7 @@ export function drawPosterText(
     ctx.globalAlpha = attributionAlpha;
     ctx.textAlign = "left";
     ctx.textBaseline = "bottom";
-    ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
+    ctx.font = `${resolvedFont.variant.weight} ${attributionFontSize}px ${bodyFontFamily}`;
     ctx.fillText(
       `created with ${APP_CREDIT_URL}`,
       width * TEXT_EDGE_MARGIN_RATIO,

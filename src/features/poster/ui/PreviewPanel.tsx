@@ -34,12 +34,17 @@ import {
   DEFAULT_CITY,
   DEFAULT_COUNTRY,
 } from "@/core/config";
-import { ensureGoogleFont, reverseGeocodeCoordinates } from "@/core/services";
+import { ensureFontVariant, reverseGeocodeCoordinates } from "@/core/services";
 import {
   createCustomLayoutOption,
   formatLayoutDimensions,
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
+import { useLocale } from "@/core/i18n/LocaleContext";
+import {
+  localizeLayoutName,
+  localizeThemeName,
+} from "@/features/theme/domain/localization";
 
 const LOCKED_HINT = "Map is locked to prevent unintended movement.";
 const UNLOCK_HINT = `${LOCKED_HINT}\nClick to unlock map editing.`;
@@ -50,6 +55,7 @@ const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
 
 export default function PreviewPanel() {
+  const { locale } = useLocale();
   const { state, dispatch, effectiveTheme, mapStyle, mapRef } =
     usePosterContext();
   const {
@@ -106,13 +112,13 @@ export default function PreviewPanel() {
   }, [setContainerWidth]);
 
   useEffect(() => {
-    const family = form.fontFamily.trim();
-    if (!family) return;
-
-    void ensureGoogleFont(family).catch(() => {
+    void ensureFontVariant({
+      fontFamily: form.fontFamily,
+      fontVariant: form.fontVariant,
+    }).catch(() => {
       // Ignore font loading failures; fallback stack remains in place.
     });
-  }, [form.fontFamily]);
+  }, [form.fontFamily, form.fontVariant]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -173,14 +179,23 @@ export default function PreviewPanel() {
   const layoutOption =
     getLayoutOption(form.layout) ?? createCustomLayoutOption(widthCm, heightCm);
   const posterSizeLabel = formatLayoutDimensions(layoutOption);
-  const layoutLabel = `${layoutOption.name} (${formatLayoutDimensions(layoutOption)})`;
+  const localizedLayoutName = localizeLayoutName(
+    locale,
+    layoutOption.id,
+    layoutOption.name,
+  );
+  const localizedThemeName = localizeThemeName(
+    locale,
+    form.theme,
+    effectiveTheme.name,
+  );
+  const layoutLabel = `${localizedLayoutName} (${formatLayoutDimensions(layoutOption)})`;
   const infoLocationLabel =
     [form.displayCity, form.displayCountry].filter(Boolean).join(", ") ||
     form.location ||
     DEFAULT_LOCATION_LABEL;
-  const infoLayoutLabel = layoutOption.name;
+  const infoLayoutLabel = localizedLayoutName;
   const markerCount = state.markers.length;
-  const markersLabel = `${markerCount} marker${markerCount === 1 ? "" : "s"}`;
   const coordinatesLabel = `${formLat.toFixed(4)}, ${formLon.toFixed(4)}`;
   const isCityCountryView = mapZoom >= COUNTRY_VIEW_ZOOM_LEVEL;
   const isCountryContinentView =
@@ -441,6 +456,7 @@ export default function PreviewPanel() {
             lat={formLat}
             lon={formLon}
             fontFamily={form.fontFamily}
+            fontVariant={form.fontVariant}
             textColor={effectiveTheme.ui.text}
             landColor={effectiveTheme.map.land}
             showPosterText={form.showPosterText}
@@ -576,10 +592,10 @@ export default function PreviewPanel() {
 
       <SettingsInfo
         location={infoLocationLabel}
-        theme={effectiveTheme.name}
+        theme={localizedThemeName}
         layout={infoLayoutLabel}
         posterSize={posterSizeLabel}
-        markers={markersLabel}
+        markerCount={markerCount}
         coordinates={coordinatesLabel}
       />
     </section>

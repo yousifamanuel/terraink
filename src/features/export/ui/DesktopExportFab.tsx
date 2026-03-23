@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useLocale } from "@/core/i18n/LocaleContext";
 import { useExport } from "@/features/export/application/useExport";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
 
 export default function DesktopExportFab() {
+  const { t } = useLocale();
   const {
     handleDownloadPng,
     handleDownloadPdf,
@@ -61,7 +63,9 @@ export default function DesktopExportFab() {
           {isLoading("png")
             ? <LoaderIcon className="desktop-export-btn-icon is-spinning" />
             : <DownloadIcon className="desktop-export-btn-icon" />}
-          <span className="desktop-export-label-default">Download</span>
+          <span className="desktop-export-label-default">
+            {t("export.desktop.download")}
+          </span>
           <span className="desktop-export-label-hover">PNG</span>
         </button>
       </div>
@@ -76,5 +80,4 @@ export default function DesktopExportFab() {
     </>
   );
 }
-
 

@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { useLocale } from "@/core/i18n/LocaleContext";
 
 interface PickerModalProps {
   open: boolean;
@@ -15,9 +16,10 @@ export default function PickerModal({
   title,
   titleId,
   onClose,
-  doneLabel = "Done",
+  doneLabel,
   children,
 }: PickerModalProps) {
+  const { t } = useLocale();
   useEffect(() => {
     if (!open) {
       return undefined;
@@ -60,7 +62,7 @@ export default function PickerModal({
             type="button"
             className="picker-modal-close"
             onClick={onClose}
-            aria-label={`Close ${title}`}
+            aria-label={t("picker.close", { title })}
           >
             x
           </button>
@@ -70,7 +72,7 @@ export default function PickerModal({
 
         <div className="picker-modal-footer">
           <button type="button" className="picker-modal-done" onClick={onClose}>
-            {doneLabel}
+            {doneLabel ?? t("picker.done")}
           </button>
         </div>
       </div>

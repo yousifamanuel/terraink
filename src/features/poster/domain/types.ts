@@ -23,6 +23,7 @@ export interface ExportOptions {
   displayCountry: string;
   displayContinent?: string;
   fontFamily: string;
+  fontVariant: string;
   showPosterText: boolean;
   showOverlay?: boolean;
   includeCredits?: boolean;
@@ -39,6 +40,7 @@ export interface Typography {
   displayCountry: string;
   displayContinent?: string;
   fontFamily: string;
+  fontVariant: string;
   showPosterText: boolean;
   includeCredits?: boolean;
 }

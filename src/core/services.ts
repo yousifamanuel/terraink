@@ -21,7 +21,7 @@ export const reverseGeocodeCoordinates = nominatim.reverseGeocode;
 
 /* ── Fonts ── */
 
-export const ensureGoogleFont =
+export const ensureFontVariant =
   googleFontsAdapter.ensureFont.bind(googleFontsAdapter);
 
 /* ── Poster compositing ── */
