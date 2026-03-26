@@ -16,6 +16,9 @@ import {
   getReverseGeocodeCacheKey,
 } from "@/features/map/infrastructure/cacheKeys";
 
+// Deduplicate concurrent reverse geocode requests for the same coordinates
+const inFlightReverseRequests = new Map<string, Promise<SearchResult>>();
+
 export function createNominatimAdapter(
   http: IHttp,
   cache: ICache,
@@ -109,25 +112,31 @@ export function createNominatimAdapter(
       }
     }
 
+    if (inFlightReverseRequests.has(cacheKey)) {
+      return inFlightReverseRequests.get(cacheKey)!;
+    }
+
     const url =
       "https://nominatim.openstreetmap.org/reverse?" +
       `format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(String(lat))}&lon=${encodeURIComponent(String(lon))}`;
 
-    const response = await http.get(
-      url,
-      {
-        headers: { Accept: "application/json" },
-      },
-      16_000,
-    );
+    const promise = http
+      .get(url, { headers: { Accept: "application/json" } }, 16_000)
+      .then(async (response) => {
+        const data = await response.json();
+        const normalized = normalizeLocationResult(data);
+        if (!normalized) {
+          throw new Error("No nearby city found for the selected coordinates.");
+        }
+        cache.write(cacheKey, normalized);
+        return normalized;
+      })
+      .finally(() => {
+        inFlightReverseRequests.delete(cacheKey);
+      });
 
-    const data = await response.json();
-    const normalized = normalizeLocationResult(data);
-    if (!normalized) {
-      throw new Error("No nearby city found for the selected coordinates.");
-    }
-    cache.write(cacheKey, normalized);
-    return normalized;
+    inFlightReverseRequests.set(cacheKey, promise);
+    return promise;
   }
 
   return { searchLocations, geocodeLocation, reverseGeocode, geocodeCity };

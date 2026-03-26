@@ -85,6 +85,12 @@ export function useMapSync() {
   const latestLocationLookupSeqRef = useRef(0);
   const skippedCoordinateLookupRef = useRef<string>("");
   const lastManualCoordinateLookupRef = useRef<string>("");
+  // Read selectedLocation without adding it to the coordinate effect's deps.
+  // The effect should only re-run when lat/lon change (user typed coordinates),
+  // not when selectedLocation changes (e.g. CLEAR_LOCATION) — otherwise clearing
+  // a location immediately reverse-geocodes the same coords and refills the field.
+  const selectedLocationRef = useRef(state.selectedLocation);
+  selectedLocationRef.current = state.selectedLocation;
 
   const [containerPx, setContainerPx] = useState(DEFAULT_CONTAINER_PX);
   const effectiveContainerPx = containerPx * MAP_OVERZOOM_SCALE;
@@ -132,7 +138,7 @@ export function useMapSync() {
         !previous ||
         Math.abs(previous[0] - lat) >= 0.002 ||
         Math.abs(previous[1] - lon) >= 0.002;
-      const canLookup = now - lastLocationLookupAtRef.current >= 900;
+      const canLookup = now - lastLocationLookupAtRef.current >= 2000;
       if (!movedEnough || !canLookup) {
         return;
       }
@@ -179,11 +185,10 @@ export function useMapSync() {
   );
 
   const handleMove = useCallback(
-    (center: [number, number]) => {
-      const [lon, lat] = center;
-      updateLocationFromCoordinates(lat, lon);
+    (_center: [number, number]) => {
+      // Reverse geocode is deferred to handleMoveEnd to avoid firing on every frame.
     },
-    [updateLocationFromCoordinates],
+    [],
   );
 
   const handleMoveEnd = useCallback(
@@ -211,7 +216,7 @@ export function useMapSync() {
   useEffect(() => {
     const latText = String(form.latitude ?? "").trim();
     const lonText = String(form.longitude ?? "").trim();
-    if (!latText || !lonText || state.selectedLocation) {
+    if (!latText || !lonText || selectedLocationRef.current) {
       return;
     }
 
@@ -238,12 +243,7 @@ export function useMapSync() {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [
-    form.latitude,
-    form.longitude,
-    state.selectedLocation,
-    updateLocationFromCoordinates,
-  ]);
+  }, [form.latitude, form.longitude, updateLocationFromCoordinates]);
 
   const flyToLocation = useCallback(
     (lat: number, lon: number, keepCurrentZoom = false) => {

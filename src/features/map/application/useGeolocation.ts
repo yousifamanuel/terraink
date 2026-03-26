@@ -7,7 +7,6 @@ import {
 } from "@/core/config";
 import { GEOLOCATION_TIMEOUT_MS } from "@/features/map/infrastructure";
 import type { PosterAction } from "@/features/poster/application/posterReducer";
-import { reverseGeocodeCoordinates } from "@/core/services";
 
 /**
  * Initializes map start position from browser geolocation.
@@ -67,34 +66,7 @@ export function useGeolocation(dispatch: React.Dispatch<PosterAction>) {
             lon,
           },
         });
-
-        void reverseGeocodeCoordinates(lat, lon)
-          .then((nearest) => {
-            if (cancelled) return;
-
-            const city = String(nearest.city ?? "").trim();
-            const country = String(nearest.country ?? "").trim();
-            const label =
-              [city, country].filter(Boolean).join(", ") ||
-              String(nearest.label ?? "").trim();
-            const continent = String(nearest.continent ?? "").trim();
-            if (!label) return;
-
-            dispatch({
-              type: "SET_FORM_FIELDS",
-              resetDisplayNameOverrides: true,
-              fields: {
-                location: label,
-                displayCity: city,
-                displayCountry: country,
-                displayContinent: continent,
-              },
-            });
-            dispatch({ type: "SET_USER_LOCATION", location: nearest });
-          })
-          .catch(() => {
-            // Keep coordinate update even when reverse lookup fails.
-          });
+        // Reverse geocode is handled by useMapSync once coordinates are set.
       },
       () => {
         applyFallback();
