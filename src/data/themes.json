@@ -449,6 +449,31 @@
           "minor_low": "#CCCCDA"
         }
       }
+    },
+    "cyberpunk": {
+      "name": "Cyberpunk",
+      "description": "Neon-drenched high-contrast cyberpunk palette with magenta and cyan accents.",
+      "ui": {
+        "bg": "#0B0F1A",
+        "text": "#00F5FF"
+      },
+      "map": {
+        "land": "#0B0F1A",
+        "water": "#001433",
+        "waterway": "#002044",
+        "parks": "#1A0B2A",
+        "buildings": "#FF2D95",
+        "aeroway": "#1A0B2A",
+        "rail": "#00F5FF",
+        "roads": {
+          "major": "#FF2D95",
+          "path": "#21203A",
+          "outline": "#0B0F1A",
+          "minor_high": "#FF6EB4",
+          "minor_mid": "#8A33FF",
+          "minor_low": "#4A0099"
+        }
+      }
     }
   }
 }
