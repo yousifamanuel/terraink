@@ -37,7 +37,6 @@ export default function LayoutCard({
     .join(" ");
   const symbolDataUri = getLayoutSymbolDataUri(layoutOption);
   const sizeText = formatLayoutDimensions(layoutOption);
-  const infoText = sizeText;
 
   return (
     <button
@@ -48,7 +47,7 @@ export default function LayoutCard({
     >
       <div className="layout-card-copy">
         <p className="layout-card-name">{layoutOption.name}</p>
-        <p className="layout-card-meta">{infoText}</p>
+        <p className="layout-card-meta">{sizeText}</p>
       </div>
       {symbolDataUri ? (
         <img

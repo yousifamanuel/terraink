@@ -59,7 +59,12 @@ function readCachedStars(apiUrl: string): number | null {
   return null;
 }
 
+const MEMORY_CACHE_MAX = 50;
+
 function writeCachedStars(apiUrl: string, stars: number): void {
+  if (memoryStarsCache.size >= MEMORY_CACHE_MAX) {
+    memoryStarsCache.clear();
+  }
   memoryStarsCache.set(apiUrl, stars);
 
   if (typeof window === "undefined" || !window.localStorage) {
@@ -98,6 +103,7 @@ export function useRepoStars(repoApiUrl: string): UseRepoStarsReturn {
       if (!request) {
         request = (async () => {
           const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 20_000);
           try {
             const response = await fetch(finalUrl, {
               headers: {
@@ -122,8 +128,8 @@ export function useRepoStars(repoApiUrl: string): UseRepoStarsReturn {
           } catch {
             return null;
           } finally {
+            clearTimeout(timer);
             inFlightRequests.delete(finalUrl);
-            controller.abort();
           }
         })();
         inFlightRequests.set(finalUrl, request);

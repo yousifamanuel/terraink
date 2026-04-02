@@ -83,18 +83,6 @@ export function parseHex(hex: string): RGB | null {
   };
 }
 
-/** Alias kept for backward compatibility in UI code */
-export function parseHexColor(color: string): RGB | null {
-  return parseHex(normalizeHexColor(color) || color);
-}
-
-export function hexToRgb(
-  color: string,
-  fallback: RGB = { r: 0, g: 0, b: 0 },
-): RGB {
-  return parseHex(color) ?? fallback;
-}
-
 // ─── RGB / HSL Conversion ────────────────────────────────────────────────────
 
 export function rgbToHexColor({ r, g, b }: RGB): string {
@@ -182,7 +170,7 @@ export function shiftHexColor(
 ): string {
   const rgb = parseHex(color);
   if (!rgb) {
-    return "";
+    return color;
   }
 
   const hsl = rgbToHsl(rgb);
