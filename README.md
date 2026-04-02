@@ -113,8 +113,17 @@ docker compose down
 
 ### 3) Optional: build and run without Compose
 
+> **Note:** TerraInk images are not published to Docker Hub. You must build the image locally before running it.
+
+First, build the image:
+
 ```bash
 docker build -t terraink:latest .
+```
+
+Then run the container:
+
+```bash
 docker run -d --name terraink -p 7200:80 --restart unless-stopped terraink:latest
 ```
 
