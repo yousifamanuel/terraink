@@ -10,7 +10,7 @@ import MarkerVisual from "./MarkerVisual";
 import {
   MAX_MARKER_SIZE,
   MIN_MARKER_SIZE,
-} from "@/features/markers/infrastructure/constants";
+} from "@/features/markers/domain/constants";
 import { clamp } from "@/shared/geo/math";
 
 const KEYBOARD_MOVE_STEP = 1;

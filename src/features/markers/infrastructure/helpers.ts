@@ -3,7 +3,8 @@ import type {
   MarkerIconDefinition,
   MarkerItem,
 } from "@/features/markers/domain/types";
-import { DEFAULT_MARKER_COLOR, DEFAULT_MARKER_SIZE } from "./constants";
+import { DEFAULT_MARKER_SIZE } from "@/features/markers/domain/constants";
+import { DEFAULT_MARKER_COLOR } from "./constants";
 import { featuredMarkerIcons, predefinedMarkerIcons } from "./iconRegistry";
 
 const CUSTOM_ICON_PREFIX = "custom-marker-icon";

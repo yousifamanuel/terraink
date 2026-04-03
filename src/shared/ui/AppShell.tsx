@@ -3,7 +3,7 @@ import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import {
   MAX_MARKER_SIZE,
   MIN_MARKER_SIZE,
-} from "@/features/markers/infrastructure/constants";
+} from "@/features/markers/domain/constants";
 import GeneralHeader from "@/shared/ui/GeneralHeader";
 import DesktopNavBar from "@/shared/ui/DesktopNavBar";
 import FooterNote from "@/shared/ui/FooterNote";

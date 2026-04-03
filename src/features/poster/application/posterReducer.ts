@@ -7,7 +7,7 @@ import type {
 import {
   MAX_MARKER_SIZE,
   MIN_MARKER_SIZE,
-} from "@/features/markers/infrastructure/constants";
+} from "@/features/markers/domain/constants";
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
 import { featuredMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
 import { clamp } from "@/shared/geo/math";

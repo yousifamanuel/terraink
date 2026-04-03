@@ -16,7 +16,7 @@ import {
   DEFAULT_MARKER_SIZE,
   MAX_MARKER_SIZE,
   MIN_MARKER_SIZE,
-} from "@/features/markers/infrastructure/constants";
+} from "@/features/markers/domain/constants";
 import MarkerVisual from "./MarkerVisual";
 import {
   CheckIcon,
