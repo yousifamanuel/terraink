@@ -467,6 +467,131 @@
           "minor_low": "#CCCCDA"
         }
       }
+    },
+    "autumn": {
+      "name": "Autumn",
+      "description": "Warm fall palette with earthy browns and amber tones.",
+      "ui": {
+        "bg": "#F5E6D0",
+        "text": "#3D2B1F"
+      },
+      "map": {
+        "land": "#F5E6D0",
+        "water": "#C4A882",
+        "waterway": "#B89060",
+        "parks": "#8B7355",
+        "buildings": "#C4906A",
+        "aeroway": "#D4A882",
+        "rail": "#5C4033",
+        "roads": {
+          "major": "#8B2500",
+          "path": "#C4A882",
+          "outline": "#D4B892",
+          "minor_high": "#5C4033",
+          "minor_mid": "#7A5C45",
+          "minor_low": "#9E8070"
+        }
+      }
+    },
+    "warm_beige": {
+      "name": "Warm Beige",
+      "description": "Soft neutral tones with warm ivory base and gentle accents.",
+      "ui": {
+        "bg": "#F5F0E8",
+        "text": "#4A3728"
+      },
+      "map": {
+        "land": "#F5F0E8",
+        "water": "#C8B89A",
+        "waterway": "#B8A080",
+        "parks": "#B5C4A0",
+        "buildings": "#D4B890",
+        "aeroway": "#C8C0A8",
+        "rail": "#8B6914",
+        "roads": {
+          "major": "#8B6914",
+          "path": "#D8C0A0",
+          "outline": "#E0CCAA",
+          "minor_high": "#A0784A",
+          "minor_mid": "#B89060",
+          "minor_low": "#C8A878"
+        }
+      }
+    },
+    "monochrome_blue": {
+      "name": "Monochrome Blue",
+      "description": "Cool single-hue blue palette from deep navy to pale ice.",
+      "ui": {
+        "bg": "#EEF2F8",
+        "text": "#1A2B4A"
+      },
+      "map": {
+        "land": "#EEF2F8",
+        "water": "#9EB4D4",
+        "waterway": "#7A9ABE",
+        "parks": "#B8C8E0",
+        "buildings": "#C0CCE0",
+        "aeroway": "#C8D4E8",
+        "rail": "#2A4A7A",
+        "roads": {
+          "major": "#1A2B4A",
+          "path": "#A0B8D4",
+          "outline": "#B8CCDE",
+          "minor_high": "#2A4A7A",
+          "minor_mid": "#4A6A9A",
+          "minor_low": "#7090B8"
+        }
+      }
+    },
+    "neon_cyberpunk": {
+      "name": "Neon Cyberpunk",
+      "description": "Dark base with electric magenta and cyan roads. Bold night city vibes.",
+      "ui": {
+        "bg": "#0D0D1A",
+        "text": "#00FFFF"
+      },
+      "map": {
+        "land": "#0D0D1A",
+        "water": "#0A0A15",
+        "waterway": "#0A1A30",
+        "parks": "#0D1A1A",
+        "buildings": "#1A1A30",
+        "aeroway": "#151520",
+        "rail": "#00FFFF",
+        "roads": {
+          "major": "#FF00FF",
+          "path": "#006870",
+          "outline": "#003040",
+          "minor_high": "#00FFFF",
+          "minor_mid": "#00C8C8",
+          "minor_low": "#0098A0"
+        }
+      }
+    },
+    "sunset": {
+      "name": "Sunset",
+      "description": "Warm sunset hues with golden sky, amber roads, and deep violet water.",
+      "ui": {
+        "bg": "#FF8C42",
+        "text": "#2D0A00"
+      },
+      "map": {
+        "land": "#FF8C42",
+        "water": "#4A1060",
+        "waterway": "#6A1880",
+        "parks": "#C46A28",
+        "buildings": "#E07830",
+        "aeroway": "#D47030",
+        "rail": "#2D0A00",
+        "roads": {
+          "major": "#FF4500",
+          "path": "#6A2000",
+          "outline": "#7A3010",
+          "minor_high": "#CC3800",
+          "minor_mid": "#B03000",
+          "minor_low": "#8B2800"
+        }
+      }
     }
   }
 }
