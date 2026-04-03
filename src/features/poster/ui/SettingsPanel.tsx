@@ -56,13 +56,14 @@ export default function SettingsPanel({
 }: {
   mobileTab?: MobileTab;
 }) {
-  const { state, dispatch, mapRef, selectedTheme } = usePosterContext();
+  const { state, dispatch, mapRef, selectedTheme, effectiveTheme } = usePosterContext();
   const {
     handleChange,
     handleNumericFieldBlur,
     handleThemeChange,
     handleLayoutChange,
     handleColorChange,
+    handleResetColor,
     handleResetColors,
     handleLocationSelect,
     handleClearLocation,
@@ -231,7 +232,11 @@ export default function SettingsPanel({
             {!isAuxEditorActive ? (
               <LayersSection
                 form={state.form}
+                effectiveTheme={effectiveTheme}
+                customColors={state.customColors}
                 onChange={handleChange}
+                onColorChange={handleColorChange}
+                onResetColor={handleResetColor}
                 minPosterCm={MIN_POSTER_CM}
                 maxPosterCm={MAX_POSTER_CM}
                 onNumericFieldBlur={handleNumericFieldBlur}

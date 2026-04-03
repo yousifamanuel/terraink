@@ -1,24 +1,33 @@
+import { useState, useEffect, useRef } from "react";
+import type { PosterForm } from "@/features/poster/application/posterReducer";
+import type { ResolvedTheme } from "@/features/theme/domain/types";
+import type { ThemeColorKey } from "@/features/theme/domain/types";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
+import ColorPicker from "@/features/theme/ui/ColorPicker";
 import MapDimensionFields from "./MapDimensionFields";
 
-interface LayerForm {
-  width: string;
-  height: string;
-  distance: string;
-  includeLandcover: boolean;
-  includeBuildings: boolean;
-  includeWater: boolean;
-  includeParks: boolean;
-  includeAeroway: boolean;
-  includeRail: boolean;
-  includeRoads: boolean;
-  includeRoadPath: boolean;
-  includeRoadMinorLow: boolean;
-  includeRoadOutline: boolean;
+interface LayerRow {
+  toggleName: keyof PosterForm;
+  label: string;
+  colorKey: ThemeColorKey;
 }
 
+const LAYER_ROWS: LayerRow[] = [
+  { toggleName: "includeBuildings", label: "Show buildings", colorKey: "map.buildings" },
+  { toggleName: "includeWater",     label: "Show water",     colorKey: "map.water"     },
+  { toggleName: "includeParks",     label: "Show parks",     colorKey: "map.parks"     },
+  { toggleName: "includeRoads",     label: "Show roads",     colorKey: "map.roads.major" },
+  { toggleName: "includeRail",      label: "Show rail",      colorKey: "map.rail"      },
+  { toggleName: "includeAeroway",   label: "Show aeroway",   colorKey: "map.aeroway"   },
+];
+
 interface LayersSectionProps {
-  form: LayerForm;
+  form: PosterForm;
+  effectiveTheme: ResolvedTheme;
+  customColors: Record<string, string>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onColorChange: (key: ThemeColorKey, value: string) => void;
+  onResetColor: (key: ThemeColorKey) => void;
   minPosterCm: number;
   maxPosterCm: number;
   onNumericFieldBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -26,13 +35,36 @@ interface LayersSectionProps {
 
 export default function LayersSection({
   form,
+  effectiveTheme,
+  customColors,
   onChange,
+  onColorChange,
+  onResetColor,
   minPosterCm,
   maxPosterCm,
   onNumericFieldBlur,
 }: LayersSectionProps) {
+  const [openKey, setOpenKey] = useState<ThemeColorKey | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
+        setOpenKey(null);
+      }
+    }
+    if (openKey) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [openKey]);
+
+  const themeColors = LAYER_ROWS.map((row) =>
+    String(getThemeColorByPath(effectiveTheme, row.colorKey) ?? ""),
+  );
+
   return (
-    <section className="panel-block">
+    <section className="panel-block" ref={sectionRef}>
       <p className="section-summary-label">LAYERS</p>
       <label className="toggle-field">
         <span>Show landcover</span>
@@ -46,78 +78,51 @@ export default function LayersSection({
           <span className="theme-switch-track" aria-hidden="true" />
         </span>
       </label>
-      <label className="toggle-field">
-        <span>Show buildings</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeBuildings"
-            checked={Boolean(form.includeBuildings)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
-      <label className="toggle-field">
-        <span>Show water</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeWater"
-            checked={Boolean(form.includeWater)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
-      <label className="toggle-field">
-        <span>Show parks</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeParks"
-            checked={Boolean(form.includeParks)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
-      <label className="toggle-field">
-        <span>Show roads</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeRoads"
-            checked={Boolean(form.includeRoads)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
-      <label className="toggle-field">
-        <span>Show rail</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeRail"
-            checked={Boolean(form.includeRail)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
-      <label className="toggle-field">
-        <span>Show aeroway</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeAeroway"
-            checked={Boolean(form.includeAeroway)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
+
+      {LAYER_ROWS.map((row, i) => {
+        const currentColor = themeColors[i];
+        const isOpen = openKey === row.colorKey;
+        const isCustom = row.colorKey in customColors;
+
+        return (
+          <div key={row.toggleName} className="layer-row">
+            <div className="toggle-field layer-toggle-field">
+              <span>{row.label}</span>
+              <div className="layer-row-controls">
+                <button
+                  type="button"
+                  className={`layer-color-btn${isCustom ? " is-custom" : ""}`}
+                  style={{ backgroundColor: currentColor }}
+                  onClick={() => setOpenKey(isOpen ? null : row.colorKey)}
+                  title={`Change ${row.label.replace("Show ", "")} color`}
+                  aria-pressed={isOpen}
+                />
+                <span className="theme-switch">
+                  <input
+                    type="checkbox"
+                    name={row.toggleName}
+                    checked={Boolean(form[row.toggleName])}
+                    onChange={onChange}
+                  />
+                  <span className="theme-switch-track" aria-hidden="true" />
+                </span>
+              </div>
+            </div>
+
+            {isOpen && (
+              <div className="layer-color-popover">
+                <ColorPicker
+                  currentColor={currentColor}
+                  suggestedColors={themeColors}
+                  onChange={(color) => onColorChange(row.colorKey, color)}
+                  onResetColor={() => onResetColor(row.colorKey)}
+                  canResetColor={isCustom}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
 
       <div className="map-details-section">
         <h3 className="map-details-subtitle">Map Details</h3>

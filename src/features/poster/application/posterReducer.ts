@@ -75,6 +75,7 @@ export type PosterAction =
   | { type: "SET_THEME"; themeId: string }
   | { type: "SET_LAYOUT"; layoutId: string; widthCm: string; heightCm: string }
   | { type: "SET_COLOR"; key: string; value: string }
+  | { type: "RESET_COLOR"; key: string }
   | { type: "RESET_COLORS" }
   | { type: "SELECT_LOCATION"; location: SearchResult }
   | { type: "SET_USER_LOCATION"; location: SearchResult | null }
@@ -171,6 +172,11 @@ export function posterReducer(
         ...state,
         customColors: { ...state.customColors, [action.key]: action.value },
       };
+
+    case "RESET_COLOR": {
+      const { [action.key]: _removed, ...rest } = state.customColors;
+      return { ...state, customColors: rest };
+    }
 
     case "RESET_COLORS":
       return { ...state, customColors: {} };

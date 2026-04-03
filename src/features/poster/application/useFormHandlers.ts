@@ -146,6 +146,13 @@ export function useFormHandlers() {
     [dispatch],
   );
 
+  const handleResetColor = useCallback(
+    (key: string) => {
+      dispatch({ type: "RESET_COLOR", key });
+    },
+    [dispatch],
+  );
+
   const handleResetColors = useCallback(() => {
     dispatch({ type: "RESET_COLORS" });
   }, [dispatch]);
@@ -188,6 +195,7 @@ export function useFormHandlers() {
     handleThemeChange,
     handleLayoutChange,
     handleColorChange,
+    handleResetColor,
     handleResetColors,
     handleLocationSelect,
     handleClearLocation,
