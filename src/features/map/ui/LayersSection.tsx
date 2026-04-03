@@ -97,7 +97,7 @@ export default function LayersSection({
                   title={`Change ${row.label.replace("Show ", "")} color`}
                   aria-pressed={isOpen}
                 />
-                <span className="theme-switch">
+                <label className="theme-switch">
                   <input
                     type="checkbox"
                     name={row.toggleName}
@@ -105,7 +105,7 @@ export default function LayersSection({
                     onChange={onChange}
                   />
                   <span className="theme-switch-track" aria-hidden="true" />
-                </span>
+                </label>
               </div>
             </div>
 
