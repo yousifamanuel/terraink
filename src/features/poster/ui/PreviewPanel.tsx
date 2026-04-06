@@ -73,7 +73,7 @@ export default function PreviewPanel() {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const ghostCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [mapBearing, setMapBearing] = useState(0);
+  const mapBearing = Number(form.bearing) || 0;
   const [isRotationEnabled, setIsRotationEnabled] = useState(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
@@ -118,14 +118,18 @@ export default function PreviewPanel() {
     if (!map) return;
 
     const syncBearing = () => {
-      setMapBearing(map.getBearing());
+      const b = map.getBearing();
+      dispatch({
+        type: "SET_FORM_FIELDS",
+        fields: { bearing: String(Math.round(b * 100) / 100) },
+      });
     };
 
-    map.on("rotate", syncBearing);
+    map.on("rotateend", syncBearing);
     return () => {
-      map.off("rotate", syncBearing);
+      map.off("rotateend", syncBearing);
     };
-  }, [mapRef]);
+  }, [mapRef, dispatch]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -194,11 +198,7 @@ export default function PreviewPanel() {
 
   const handleStartEditing = useCallback(() => {
     setIsEditing(true);
-    const map = mapRef.current;
-    if (map) {
-      setMapBearing(map.getBearing());
-    }
-  }, [mapRef]);
+  }, []);
 
   const handleFinishEditing = useCallback(() => {
     setIsEditing(false);
@@ -246,10 +246,10 @@ export default function PreviewPanel() {
       if (!map) return;
       const nextBearing = Number(event.target.value);
       if (!Number.isFinite(nextBearing)) return;
-      setMapBearing(nextBearing);
+      dispatch({ type: "SET_FORM_FIELDS", fields: { bearing: String(nextBearing) } });
       map.rotateTo(nextBearing, { duration: MAP_BUTTON_ZOOM_DURATION_MS });
     },
-    [mapRef],
+    [mapRef, dispatch],
   );
 
   const handleRotateBy = useCallback(
@@ -258,10 +258,10 @@ export default function PreviewPanel() {
       if (!map) return;
       const current = map.getBearing();
       const nextBearing = Math.max(-180, Math.min(180, current + deltaDeg));
-      setMapBearing(nextBearing);
+      dispatch({ type: "SET_FORM_FIELDS", fields: { bearing: String(nextBearing) } });
       map.rotateTo(nextBearing, { duration: MAP_BUTTON_ZOOM_DURATION_MS });
     },
-    [mapRef],
+    [mapRef, dispatch],
   );
 
   const handleRecenter = useCallback(() => {
@@ -312,7 +312,7 @@ export default function PreviewPanel() {
       bearing: 0,
       pitch: 0,
     });
-    setMapBearing(0);
+    dispatch({ type: "SET_FORM_FIELDS", fields: { bearing: "0" } });
 
     if (city && country) {
       // All display names known — single dispatch with coordinates + correct names.
@@ -411,6 +411,7 @@ export default function PreviewPanel() {
             style={mapStyle}
             center={mapCenter}
             zoom={mapZoom}
+            bearing={mapBearing}
             mapRef={mapRef}
             interactive={isEditing && !isMarkerEditorActive}
             allowRotation={isEditing && isRotationEnabled}
