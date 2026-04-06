@@ -651,6 +651,12 @@
     color: #effff5;
   }
 
+  .mobile-export-option--clipboard {
+    background: rgba(12, 42, 52, 0.92);
+    border-color: rgba(94, 210, 255, 0.36);
+    color: #aae4ff;
+  }
+
   .mobile-export-option-icon {
     width: 24px;
     height: 24px;
