@@ -2751,3 +2751,130 @@ button.location-clear-btn:focus-visible {
     margin-left: 0;
   }
 }
+
+/* ── Presets ── */
+
+.presets-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.presets-save-row {
+  display: flex;
+  gap: 8px;
+}
+
+.presets-name-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.presets-save-btn {
+  padding: 6px 14px;
+  border: 1px solid rgba(136, 183, 213, 0.3);
+  border-radius: 8px;
+  background: rgba(136, 183, 213, 0.12);
+  color: #88b7d5;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.presets-save-btn:hover {
+  background: rgba(136, 183, 213, 0.22);
+  border-color: rgba(136, 183, 213, 0.5);
+}
+
+.presets-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.presets-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(136, 183, 213, 0.15);
+  border-radius: 8px;
+  background: rgba(136, 183, 213, 0.06);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.presets-card:hover {
+  border-color: rgba(136, 183, 213, 0.3);
+}
+
+.presets-card-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  background: none;
+  border: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.presets-card-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #d9e7f2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.presets-card-meta {
+  font-size: 0.72rem;
+  color: #6b8fa8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.presets-card-delete {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 100%;
+  min-height: 40px;
+  background: none;
+  border: none;
+  border-left: 1px solid rgba(136, 183, 213, 0.1);
+  color: #6b8fa8;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.presets-card-delete:hover {
+  color: #ff7b7b;
+  background: rgba(255, 123, 123, 0.08);
+}
+
+.presets-card-delete svg {
+  width: 13px;
+  height: 13px;
+}
+
+.presets-empty {
+  font-size: 0.8rem;
+  color: #6b8fa8;
+  margin: 0;
+  text-align: center;
+  padding: 8px 0;
+}
