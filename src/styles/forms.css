@@ -311,6 +311,7 @@ button.text-align-btn {
   border: 1px solid rgba(136, 183, 213, 0.25);
   background: rgba(136, 183, 213, 0.08);
   color: #a8c8de;
+  font-family: "Spline Sans Mono", monospace;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
