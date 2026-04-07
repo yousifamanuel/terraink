@@ -31,9 +31,9 @@ const ALIGN_OPTIONS: { label: string; value: 'left' | 'center' | 'right'; title:
 ];
 
 const VALIGN_OPTIONS: { label: string; value: 'top' | 'middle' | 'bottom'; title: string }[] = [
-  { label: "\u2191", value: "top", title: "Align top" },
-  { label: "\u2195", value: "middle", title: "Align middle" },
-  { label: "\u2193", value: "bottom", title: "Align bottom" },
+  { label: "Top", value: "top", title: "Position top" },
+  { label: "Mid", value: "middle", title: "Position middle" },
+  { label: "Bot", value: "bottom", title: "Position bottom" },
 ];
 
 export default function TypographySection({

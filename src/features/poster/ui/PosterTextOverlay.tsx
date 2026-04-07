@@ -127,7 +127,7 @@ export default function PosterTextOverlay({
             className="poster-city"
             style={{
               fontFamily: titleFont,
-              top: `${TEXT_CITY_Y_RATIO * 100}%`,
+              top: dynTop(TEXT_CITY_Y_RATIO, 0),
               fontSize: cityFontSize,
               ...alignStyle,
             }}
