@@ -67,13 +67,28 @@ export default function PosterTextOverlay({
   const cityLen = Math.max(city.length, 1);
   const cityBaseSize = toCqMin(CITY_FONT_BASE_PX) * cityFontScale;
   const cityMinSize = toCqMin(CITY_FONT_MIN_PX) * cityFontScale;
-  const cityFontSize =
+  const cityFontSizeNum =
     cityLen > CITY_TEXT_SHRINK_THRESHOLD
-      ? `${Math.max(cityMinSize, cityBaseSize * (CITY_TEXT_SHRINK_THRESHOLD / cityLen))}cqmin`
-      : `${cityBaseSize}cqmin`;
+      ? Math.max(cityMinSize, cityBaseSize * (CITY_TEXT_SHRINK_THRESHOLD / cityLen))
+      : cityBaseSize;
+  const cityFontSize = `${cityFontSizeNum}cqmin`;
+
+  // Scale=1 city size, for computing how much extra space the scaled text needs
+  const cityBaseScale1 = toCqMin(CITY_FONT_BASE_PX);
+  const cityFontSizeScale1 =
+    cityLen > CITY_TEXT_SHRINK_THRESHOLD
+      ? Math.max(toCqMin(CITY_FONT_MIN_PX), cityBaseScale1 * (CITY_TEXT_SHRINK_THRESHOLD / cityLen))
+      : cityBaseScale1;
 
   const countryFontSize = `${toCqMin(COUNTRY_FONT_BASE_PX) * countryFontScale}cqmin`;
   const coordsFontSize = `${toCqMin(COORDS_FONT_BASE_PX) * coordsFontScale}cqmin`;
+
+  // Extra half-heights compared to scale=1, in cqmin — used to push divider/country/coords down
+  const extraCityHalf = (cityFontSizeNum - cityFontSizeScale1) / 2;
+  const extraCountryHalf = (countryFontScale - 1) * toCqMin(COUNTRY_FONT_BASE_PX) / 2;
+
+  const dynTop = (base: number, offset: number) =>
+    offset !== 0 ? `calc(${base * 100}% + ${offset}cqmin)` : `${base * 100}%`;
 
   const edgePadding = `${TEXT_EDGE_MARGIN_RATIO * 2 * 100}%`;
   const alignStyle: React.CSSProperties =
@@ -112,7 +127,7 @@ export default function PosterTextOverlay({
             className="poster-divider"
             style={{
               borderColor: textColor,
-              top: `${TEXT_DIVIDER_Y_RATIO * 100}%`,
+              top: dynTop(TEXT_DIVIDER_Y_RATIO, extraCityHalf),
               ...dividerStyle,
             }}
           />
@@ -120,7 +135,7 @@ export default function PosterTextOverlay({
             className="poster-country"
             style={{
               fontFamily: titleFont,
-              top: `${TEXT_COUNTRY_Y_RATIO * 100}%`,
+              top: dynTop(TEXT_COUNTRY_Y_RATIO, extraCityHalf),
               fontSize: countryFontSize,
               ...alignStyle,
             }}
@@ -131,7 +146,7 @@ export default function PosterTextOverlay({
             className="poster-coords"
             style={{
               fontFamily: bodyFont,
-              top: `${TEXT_COORDS_Y_RATIO * 100}%`,
+              top: dynTop(TEXT_COORDS_Y_RATIO, extraCityHalf + extraCountryHalf),
               fontSize: coordsFontSize,
               ...alignStyle,
             }}

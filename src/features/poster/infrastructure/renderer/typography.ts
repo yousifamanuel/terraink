@@ -64,10 +64,22 @@ export function drawPosterText(
 
     const countryFontSize = COUNTRY_FONT_BASE_PX * dimScale * countryFontScale;
     const coordinateFontSize = COORDS_FONT_BASE_PX * dimScale * coordsFontScale;
+
+    // Scale=1 city size, for computing how much extra space the scaled font needs
+    let baseCityFontSize = CITY_FONT_BASE_PX * dimScale;
+    if (cityLength > CITY_TEXT_SHRINK_THRESHOLD) {
+      baseCityFontSize = Math.max(
+        CITY_FONT_MIN_PX * dimScale,
+        baseCityFontSize * (CITY_TEXT_SHRINK_THRESHOLD / cityLength),
+      );
+    }
+    const extraCityHalf = (cityFontSize - baseCityFontSize) / 2;
+    const extraCountryHalf = (countryFontScale - 1) * COUNTRY_FONT_BASE_PX * dimScale / 2;
+
     const cityY = height * TEXT_CITY_Y_RATIO;
-    const lineY = height * TEXT_DIVIDER_Y_RATIO;
-    const countryY = height * TEXT_COUNTRY_Y_RATIO;
-    const coordinatesY = height * TEXT_COORDS_Y_RATIO;
+    const lineY = height * TEXT_DIVIDER_Y_RATIO + extraCityHalf;
+    const countryY = height * TEXT_COUNTRY_Y_RATIO + extraCityHalf;
+    const coordinatesY = height * TEXT_COORDS_Y_RATIO + extraCityHalf + extraCountryHalf;
 
     const margin = width * TEXT_EDGE_MARGIN_RATIO * 2;
     const textX =
