@@ -24,6 +24,7 @@ export interface ExportOptions {
   displayContinent?: string;
   fontFamily: string;
   textAlign?: 'left' | 'center' | 'right';
+  textVerticalAlign?: 'top' | 'middle' | 'bottom';
   cityFontScale?: number;
   countryFontScale?: number;
   coordsFontScale?: number;

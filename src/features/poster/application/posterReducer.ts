@@ -28,6 +28,7 @@ export interface PosterForm {
   displayContinent: string;
   fontFamily: string;
   textAlign: 'left' | 'center' | 'right';
+  textVerticalAlign: 'top' | 'middle' | 'bottom';
   cityFontScale: string;
   countryFontScale: string;
   coordsFontScale: string;

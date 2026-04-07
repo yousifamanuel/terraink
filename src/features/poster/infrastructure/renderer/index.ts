@@ -25,6 +25,7 @@ export async function compositeExport(
     displayCountry,
     fontFamily,
     textAlign = 'center',
+    textVerticalAlign = 'bottom',
     cityFontScale = 1,
     countryFontScale = 1,
     coordsFontScale = 1,
@@ -87,6 +88,7 @@ export async function compositeExport(
     cityFontScale,
     countryFontScale,
     coordsFontScale,
+    textVerticalAlign,
   );
 
   const size: CanvasSize = {

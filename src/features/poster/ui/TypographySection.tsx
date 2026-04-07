@@ -30,6 +30,12 @@ const ALIGN_OPTIONS: { label: string; value: 'left' | 'center' | 'right'; title:
   { label: "\u2192", value: "right", title: "Align right" },
 ];
 
+const VALIGN_OPTIONS: { label: string; value: 'top' | 'middle' | 'bottom'; title: string }[] = [
+  { label: "\u2191", value: "top", title: "Align top" },
+  { label: "\u2195", value: "middle", title: "Align middle" },
+  { label: "\u2193", value: "bottom", title: "Align bottom" },
+];
+
 export default function TypographySection({
   form,
   onChange,
@@ -131,6 +137,22 @@ export default function TypographySection({
                     className={`text-align-btn${form.textAlign === value ? " is-active" : ""}`}
                     title={title}
                     onClick={() => onFieldChange("textAlign", value)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="text-options-row">
+              <span className="text-options-label">Position</span>
+              <div className="text-align-group" role="group" aria-label="Text vertical position">
+                {VALIGN_OPTIONS.map(({ label, value, title }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`text-align-btn${form.textVerticalAlign === value ? " is-active" : ""}`}
+                    title={title}
+                    onClick={() => onFieldChange("textVerticalAlign", value)}
                   >
                     {label}
                   </button>

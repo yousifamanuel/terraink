@@ -27,6 +27,7 @@ interface PosterTextOverlayProps {
   includeCredits: boolean;
   showOverlay: boolean;
   textAlign?: 'left' | 'center' | 'right';
+  textVerticalAlign?: 'top' | 'middle' | 'bottom';
   cityFontScale?: number;
   countryFontScale?: number;
   coordsFontScale?: number;
@@ -49,6 +50,7 @@ export default function PosterTextOverlay({
   includeCredits,
   showOverlay,
   textAlign = 'center',
+  textVerticalAlign = 'bottom',
   cityFontScale = 1,
   countryFontScale = 1,
   coordsFontScale = 1,
@@ -87,8 +89,17 @@ export default function PosterTextOverlay({
   const extraCityHalf = (cityFontSizeNum - cityFontSizeScale1) / 2;
   const extraCountryHalf = (countryFontScale - 1) * toCqMin(COUNTRY_FONT_BASE_PX) / 2;
 
-  const dynTop = (base: number, offset: number) =>
-    offset !== 0 ? `calc(${base * 100}% + ${offset}cqmin)` : `${base * 100}%`;
+  const blockMidRatio = (TEXT_CITY_Y_RATIO + TEXT_COORDS_Y_RATIO) / 2;
+  const vOffsetPct =
+    textVerticalAlign === 'top' ? ((1 - TEXT_COORDS_Y_RATIO) - TEXT_CITY_Y_RATIO) * 100 :
+    textVerticalAlign === 'middle' ? (0.5 - blockMidRatio) * 100 :
+    0;
+
+  const dynTop = (base: number, cqminOffset: number) => {
+    const pctPart = base * 100 + vOffsetPct;
+    if (cqminOffset !== 0) return `calc(${pctPart}% + ${cqminOffset}cqmin)`;
+    return `${pctPart}%`;
+  };
 
   const edgePadding = `${TEXT_EDGE_MARGIN_RATIO * 2 * 100}%`;
   const alignStyle: React.CSSProperties =

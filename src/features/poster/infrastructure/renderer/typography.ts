@@ -33,6 +33,7 @@ export function drawPosterText(
   cityFontScale: number = 1,
   countryFontScale: number = 1,
   coordsFontScale: number = 1,
+  textVerticalAlign: 'top' | 'middle' | 'bottom' = 'bottom',
 ): void {
   const textColor = theme.ui?.text || "#111111";
   const landColor = theme.map?.land || "#808080";
@@ -76,10 +77,16 @@ export function drawPosterText(
     const extraCityHalf = (cityFontSize - baseCityFontSize) / 2;
     const extraCountryHalf = (countryFontScale - 1) * COUNTRY_FONT_BASE_PX * dimScale / 2;
 
-    const cityY = height * TEXT_CITY_Y_RATIO;
-    const lineY = height * TEXT_DIVIDER_Y_RATIO + extraCityHalf;
-    const countryY = height * TEXT_COUNTRY_Y_RATIO + extraCityHalf;
-    const coordinatesY = height * TEXT_COORDS_Y_RATIO + extraCityHalf + extraCountryHalf;
+    const blockMidRatio = (TEXT_CITY_Y_RATIO + TEXT_COORDS_Y_RATIO) / 2;
+    const vOffset =
+      textVerticalAlign === 'top' ? ((1 - TEXT_COORDS_Y_RATIO) - TEXT_CITY_Y_RATIO) * height :
+      textVerticalAlign === 'middle' ? (0.5 - blockMidRatio) * height :
+      0;
+
+    const cityY = height * TEXT_CITY_Y_RATIO + vOffset;
+    const lineY = height * TEXT_DIVIDER_Y_RATIO + extraCityHalf + vOffset;
+    const countryY = height * TEXT_COUNTRY_Y_RATIO + extraCityHalf + vOffset;
+    const coordinatesY = height * TEXT_COORDS_Y_RATIO + extraCityHalf + extraCountryHalf + vOffset;
 
     const margin = width * TEXT_EDGE_MARGIN_RATIO * 2;
     const textX =
