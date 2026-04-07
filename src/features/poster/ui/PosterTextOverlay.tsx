@@ -12,7 +12,6 @@ import {
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
   formatCityLabel,
-  computeCityFontScale,
   computeAttributionColor,
 } from "@/features/poster/domain/textLayout";
 
@@ -27,6 +26,10 @@ interface PosterTextOverlayProps {
   showPosterText: boolean;
   includeCredits: boolean;
   showOverlay: boolean;
+  textAlign?: 'left' | 'center' | 'right';
+  cityFontScale?: number;
+  countryFontScale?: number;
+  coordsFontScale?: number;
 }
 
 /**
@@ -45,6 +48,10 @@ export default function PosterTextOverlay({
   showPosterText,
   includeCredits,
   showOverlay,
+  textAlign = 'center',
+  cityFontScale = 1,
+  countryFontScale = 1,
+  coordsFontScale = 1,
 }: PosterTextOverlayProps) {
   const toCqMin = (px: number) => (px / TEXT_DIMENSION_REFERENCE_PX) * 100;
 
@@ -56,9 +63,32 @@ export default function PosterTextOverlay({
     : '"IBM Plex Mono", monospace';
 
   const cityLabel = formatCityLabel(city);
-  const cityFontSize = `${toCqMin(CITY_FONT_BASE_PX) * computeCityFontScale(city)}cqmin`;
-  const countryFontSize = `${toCqMin(COUNTRY_FONT_BASE_PX)}cqmin`;
-  const coordsFontSize = `${toCqMin(COORDS_FONT_BASE_PX)}cqmin`;
+
+  const cityLen = Math.max(city.length, 1);
+  const cityBaseSize = toCqMin(CITY_FONT_BASE_PX) * cityFontScale;
+  const cityMinSize = toCqMin(CITY_FONT_MIN_PX) * cityFontScale;
+  const cityFontSize =
+    cityLen > CITY_TEXT_SHRINK_THRESHOLD
+      ? `${Math.max(cityMinSize, cityBaseSize * (CITY_TEXT_SHRINK_THRESHOLD / cityLen))}cqmin`
+      : `${cityBaseSize}cqmin`;
+
+  const countryFontSize = `${toCqMin(COUNTRY_FONT_BASE_PX) * countryFontScale}cqmin`;
+  const coordsFontSize = `${toCqMin(COORDS_FONT_BASE_PX) * coordsFontScale}cqmin`;
+
+  const edgePadding = `${TEXT_EDGE_MARGIN_RATIO * 2 * 100}%`;
+  const alignStyle: React.CSSProperties =
+    textAlign === 'left'
+      ? { textAlign: 'left', paddingLeft: edgePadding, paddingRight: 0 }
+      : textAlign === 'right'
+      ? { textAlign: 'right', paddingLeft: 0, paddingRight: edgePadding }
+      : { textAlign: 'center' };
+
+  const dividerStyle: React.CSSProperties =
+    textAlign === 'left'
+      ? { left: edgePadding, right: '70%' }
+      : textAlign === 'right'
+      ? { left: '70%', right: edgePadding }
+      : { left: '40%', right: '40%' };
   const attributionFontSize = `${toCqMin(ATTRIBUTION_FONT_BASE_PX)}cqmin`;
   const attributionColor = computeAttributionColor(textColor, landColor, showOverlay);
   const attributionOpacity = showOverlay ? 0.55 : 0.9;
@@ -73,6 +103,7 @@ export default function PosterTextOverlay({
               fontFamily: titleFont,
               top: `${TEXT_CITY_Y_RATIO * 100}%`,
               fontSize: cityFontSize,
+              ...alignStyle,
             }}
           >
             {cityLabel}
@@ -82,6 +113,7 @@ export default function PosterTextOverlay({
             style={{
               borderColor: textColor,
               top: `${TEXT_DIVIDER_Y_RATIO * 100}%`,
+              ...dividerStyle,
             }}
           />
           <p
@@ -90,6 +122,7 @@ export default function PosterTextOverlay({
               fontFamily: titleFont,
               top: `${TEXT_COUNTRY_Y_RATIO * 100}%`,
               fontSize: countryFontSize,
+              ...alignStyle,
             }}
           >
             {country.toUpperCase()}
@@ -100,6 +133,7 @@ export default function PosterTextOverlay({
               fontFamily: bodyFont,
               top: `${TEXT_COORDS_Y_RATIO * 100}%`,
               fontSize: coordsFontSize,
+              ...alignStyle,
             }}
           >
             {formatCoordinates(lat, lon)}

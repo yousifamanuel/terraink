@@ -283,6 +283,105 @@ label {
   font-weight: 400;
 }
 
+/* ── Text alignment + size controls ── */
+
+.text-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.text-options-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #d9e7f2;
+}
+
+.text-align-group {
+  display: flex;
+  gap: 4px;
+}
+
+button.text-align-btn {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(136, 183, 213, 0.25);
+  background: rgba(136, 183, 213, 0.08);
+  color: #a8c8de;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+button.text-align-btn:hover {
+  background: rgba(136, 183, 213, 0.18);
+  border-color: rgba(136, 183, 213, 0.45);
+  color: #dff0fb;
+}
+
+button.text-align-btn.is-active {
+  background: rgba(94, 174, 212, 0.22);
+  border-color: #5eaed4;
+  color: #dff0fb;
+}
+
+.font-scale-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.font-scale-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.font-scale-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #b9cfde;
+  flex-shrink: 0;
+  min-width: 80px;
+}
+
+.font-scale-btns {
+  display: flex;
+  gap: 4px;
+}
+
+button.font-scale-btn {
+  min-width: 34px;
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(136, 183, 213, 0.25);
+  background: rgba(136, 183, 213, 0.08);
+  color: #a8c8de;
+  font-size: 0.76rem;
+  font-weight: 600;
+  font-family: "Spline Sans Mono", monospace;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+button.font-scale-btn:hover {
+  background: rgba(136, 183, 213, 0.18);
+  border-color: rgba(136, 183, 213, 0.45);
+  color: #dff0fb;
+}
+
+button.font-scale-btn.is-active {
+  background: rgba(94, 174, 212, 0.22);
+  border-color: #5eaed4;
+  color: #dff0fb;
+}
+
 /* ── Credits removal confirmation modal ── */
 
 .credits-confirm-modal {

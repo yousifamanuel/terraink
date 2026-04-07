@@ -182,6 +182,13 @@ export function useFormHandlers() {
     [dispatch],
   );
 
+  const handleFieldChange = useCallback(
+    (name: string, value: string | boolean) => {
+      dispatch({ type: "SET_FIELD", name, value });
+    },
+    [dispatch],
+  );
+
   return {
     handleChange,
     handleNumericFieldBlur,
@@ -193,5 +200,6 @@ export function useFormHandlers() {
     handleClearLocation,
     setLocationFocused,
     handleCreditsChange,
+    handleFieldChange,
   };
 }

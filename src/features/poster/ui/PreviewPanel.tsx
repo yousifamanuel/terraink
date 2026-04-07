@@ -436,6 +436,10 @@ export default function PreviewPanel() {
             showPosterText={form.showPosterText}
             includeCredits={form.includeCredits}
             showOverlay={form.showMarkers}
+            textAlign={form.textAlign}
+            cityFontScale={parseFloat(form.cityFontScale) || 1}
+            countryFontScale={parseFloat(form.countryFontScale) || 1}
+            coordsFontScale={parseFloat(form.coordsFontScale) || 1}
           />
 
           <div className="map-controls" aria-label="Map controls">
