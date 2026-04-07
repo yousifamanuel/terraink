@@ -13,6 +13,7 @@ interface LayerRow {
 }
 
 const LAYER_ROWS: LayerRow[] = [
+  { toggleName: "includeLandcover", label: "Show landcover", colorKey: "map.landcover" },
   { toggleName: "includeBuildings", label: "Show buildings", colorKey: "map.buildings" },
   { toggleName: "includeWater",     label: "Show water",     colorKey: "map.water"     },
   { toggleName: "includeParks",     label: "Show parks",     colorKey: "map.parks"     },
@@ -66,18 +67,6 @@ export default function LayersSection({
   return (
     <section className="panel-block" ref={sectionRef}>
       <p className="section-summary-label">LAYERS</p>
-      <label className="toggle-field">
-        <span>Show landcover</span>
-        <span className="theme-switch">
-          <input
-            type="checkbox"
-            name="includeLandcover"
-            checked={Boolean(form.includeLandcover)}
-            onChange={onChange}
-          />
-          <span className="theme-switch-track" aria-hidden="true" />
-        </span>
-      </label>
 
       {LAYER_ROWS.map((row, i) => {
         const currentColor = themeColors[i];
