@@ -60,7 +60,7 @@ export function useExport() {
     null,
   );
   const { form } = state;
-  const hasVisibleMarkers = form.showMarkers && state.markers.length > 0;
+  const hasVisibleMarkers = state.markers.length > 0;
 
   const registerSuccessfulExport = useCallback(() => {
     const nextCount = readPosterExportCount() + 1;
