@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ensureGoogleFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
+import FontPicker from "./FontPicker";
 import {
   PLACEHOLDER_EXAMPLE_CITY,
   PLACEHOLDER_EXAMPLE_COUNTRY,
@@ -82,26 +83,16 @@ export default function TypographySection({
         </div>
         <label>
           Font
-          <select
-            className="form-control-tall"
-            name="fontFamily"
+          <FontPicker
             value={form.fontFamily}
-            onChange={onChange}
-          >
-            {fontOptions.map((fontOption) => (
-              <option
-                key={fontOption.value || "default"}
-                value={fontOption.value}
-                style={{
-                  fontFamily: fontOption.value
-                    ? `"${fontOption.value}", "Space Grotesk", sans-serif`
-                    : `"Space Grotesk", sans-serif`,
-                }}
-              >
-                {fontOption.label}
-              </option>
-            ))}
-          </select>
+            fontOptions={fontOptions}
+            onChange={(val) => {
+              const syntheticEvent = {
+                target: { name: "fontFamily", value: val, type: "text" },
+              } as unknown as React.ChangeEvent<HTMLSelectElement>;
+              onChange(syntheticEvent);
+            }}
+          />
         </label>
 
       </section>

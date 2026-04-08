@@ -2751,3 +2751,84 @@ button.location-clear-btn:focus-visible {
     margin-left: 0;
   }
 }
+
+/* ── Font picker custom dropdown ── */
+
+.font-picker {
+  position: relative;
+  margin-top: 4px;
+}
+
+.font-picker-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0;
+  border: 1px solid rgba(151, 183, 207, 0.26);
+  border-radius: 10px;
+  background: rgba(9, 18, 27, 0.84);
+  padding: 12px 12px;
+  color: #ebf3fa;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.font-picker-trigger:focus-visible {
+  border-color: rgba(102, 174, 209, 0.82);
+  box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.24);
+  outline: none;
+}
+
+.font-picker-trigger[aria-expanded="true"] {
+  border-color: rgba(102, 174, 209, 0.82);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.font-picker-arrow {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  color: #8ca8bc;
+  margin-left: 8px;
+}
+
+.font-picker-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  background: rgba(9, 18, 27, 0.97);
+  border: 1px solid rgba(102, 174, 209, 0.82);
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.font-picker-option {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: #d9e7f2;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.font-picker-option:hover {
+  background: rgba(94, 174, 212, 0.12);
+  color: #ebf3fa;
+}
+
+.font-picker-option.is-selected {
+  color: #dff3ff;
+  background: rgba(94, 174, 212, 0.18);
+}

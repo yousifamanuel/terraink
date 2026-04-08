@@ -80,5 +80,5 @@ export const FONT_OPTIONS: FontOption[] = [
   { value: "Raleway", label: "Raleway" },
   { value: "Lato", label: "Lato" },
   { value: "Merriweather", label: "Merriweather" },
-  { value: "Bebas neue", label: "Bebas Neue" },
+  { value: "Bebas Neue", label: "Bebas Neue" },
 ];
