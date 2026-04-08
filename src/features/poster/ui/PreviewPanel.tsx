@@ -58,7 +58,7 @@ export default function PreviewPanel() {
     isMarkerEditorActive,
     activeMarkerId,
   } = state;
-  const hasVisibleMarkers = form.showMarkers && state.markers.length > 0;
+  const hasVisibleMarkers = state.markers.length > 0;
   const {
     mapCenter,
     mapZoom,
