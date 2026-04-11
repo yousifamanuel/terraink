@@ -13,6 +13,7 @@ import {
   createLayeredSvgBlobFromMap,
   createPosterFilename,
   triggerDownloadBlob,
+  copyCanvasToClipboard,
 } from "@/core/services";
 import {
   CM_PER_INCH,
@@ -169,7 +170,9 @@ export function useExport() {
           format,
         );
 
-        if (format === "pdf") {
+        if (format === "clipboard") {
+          await copyCanvasToClipboard(canvas);
+        } else if (format === "pdf") {
           const pdfBlob = createPdfBlobFromCanvas(canvas, {
             widthCm,
             heightCm,
@@ -214,11 +217,17 @@ export function useExport() {
     [exportPoster],
   );
 
+  const handleCopyToClipboard = useCallback(
+    () => exportPoster("clipboard"),
+    [exportPoster],
+  );
+
   return {
     isExporting: state.isExporting,
     handleDownloadPng,
     handleDownloadPdf,
     handleDownloadSvg,
+    handleCopyToClipboard,
     supportPrompt,
     dismissSupportPrompt,
   };

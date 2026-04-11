@@ -77,6 +77,7 @@ export const DEFAULT_FORM: PosterForm = {
   includeRoadMinorLow: true,
   includeRoadOutline: true,
   showMarkers: true,
+  bearing: "0",
 };
 
 const INITIAL_STATE: PosterState = {

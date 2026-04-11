@@ -6,6 +6,7 @@ import type { MapInstanceRef } from "@/features/map/domain/types";
 import {
   MAP_CENTER_SYNC_EPSILON,
   MAP_ZOOM_SYNC_EPSILON,
+  MAP_BEARING_SYNC_EPSILON,
 } from "@/features/map/infrastructure";
 
 /**
@@ -74,6 +75,7 @@ interface MapPreviewProps {
   style: StyleSpecification;
   center: [lon: number, lat: number];
   zoom: number;
+  bearing?: number;
   mapRef: MapInstanceRef;
   interactive?: boolean;
   allowRotation?: boolean;
@@ -96,6 +98,7 @@ export default function MapPreview({
   style,
   center,
   zoom,
+  bearing = 0,
   mapRef,
   interactive = false,
   allowRotation = false,
@@ -248,20 +251,22 @@ export default function MapPreview({
       Math.abs(currentCenter.lat - center[1]),
     );
     const zoomDelta = Math.abs(map.getZoom() - zoom);
+    const bearingDelta = Math.abs(map.getBearing() - bearing);
 
     if (
       centerDelta < MAP_CENTER_SYNC_EPSILON &&
-      zoomDelta < MAP_ZOOM_SYNC_EPSILON
+      zoomDelta < MAP_ZOOM_SYNC_EPSILON &&
+      bearingDelta < MAP_BEARING_SYNC_EPSILON
     ) {
       return;
     }
 
     isSyncing.current = true;
-    map.jumpTo({ center, zoom });
+    map.jumpTo({ center, zoom, bearing });
     requestAnimationFrame(() => {
       isSyncing.current = false;
     });
-  }, [center, zoom, mapRef]);
+  }, [center, zoom, bearing, mapRef]);
 
   const normalizedOverzoomScale = Math.max(1, overzoomScale);
   const innerStyle: CSSProperties =

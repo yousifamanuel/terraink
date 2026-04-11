@@ -11,6 +11,7 @@ import MapSettingsSection from "@/features/map/ui/MapSettingsSection";
 import LayersSection from "@/features/map/ui/LayersSection";
 import MarkersSection from "@/features/markers/ui/MarkersSection";
 import TypographySection from "@/features/poster/ui/TypographySection";
+import PresetsSection from "@/features/presets/ui/PresetsSection";
 import {
   LocationIcon,
   ThemeIcon,
@@ -18,6 +19,7 @@ import {
   LayersIcon,
   MarkersIcon,
   StyleIcon,
+  SaveIcon,
   ChevronDownIcon,
 } from "@/shared/ui/Icons";
 
@@ -36,7 +38,8 @@ type SectionId =
   | "layout"
   | "layers"
   | "markers"
-  | "style";
+  | "style"
+  | "presets";
 
 const accordionSections: {
   id: SectionId;
@@ -49,6 +52,7 @@ const accordionSections: {
   { id: "layers", label: "Layers", Icon: LayersIcon },
   { id: "markers", label: "Markers", Icon: MarkersIcon },
   { id: "style", label: "Style", Icon: StyleIcon },
+  { id: "presets", label: "Presets", Icon: SaveIcon },
 ];
 
 export default function SettingsPanel({
@@ -281,6 +285,25 @@ export default function SettingsPanel({
                 fontOptions={FONT_OPTIONS}
               />
             ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`mobile-section mobile-section--presets accordion-item${openSections.has("presets") ? " accordion-item--open" : ""}`}
+      >
+        <AccordionHeader
+          sectionId="presets"
+          label={accordionSections[6].label}
+          Icon={accordionSections[6].Icon}
+          isOpen={openSections.has("presets")}
+          onToggle={toggleSection}
+        />
+        <div
+          className={`accordion-body${openSections.has("presets") ? " is-open" : ""}`}
+        >
+          <div className="accordion-body-inner">
+            {!isAuxEditorActive ? <PresetsSection /> : null}
           </div>
         </div>
       </div>

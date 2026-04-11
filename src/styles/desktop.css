@@ -1164,7 +1164,7 @@
   .desktop-export-fab:hover .desktop-export-flyout,
   .desktop-export-fab:focus-within .desktop-export-flyout,
   .desktop-export-fab.is-exporting .desktop-export-flyout {
-    max-height: 180px;
+    max-height: 240px;
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
@@ -1249,6 +1249,21 @@
     );
     border-color: rgba(147, 235, 183, 0.88);
     color: #f0fff6;
+  }
+
+  /* Clipboard — teal accent */
+  .desktop-export-btn--clipboard {
+    background: rgba(12, 42, 52, 0.92);
+    border-color: rgba(94, 210, 255, 0.36);
+    color: #aae4ff;
+  }
+
+  .desktop-export-btn--clipboard:hover:not(:disabled) {
+    transform: none;
+    filter: none;
+    background: rgba(16, 56, 70, 0.96);
+    border-color: rgba(94, 210, 255, 0.64);
+    color: #c4edff;
   }
 
   /* Label swap: "Download" by default, "PNG" on FAB hover */

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useExport } from "@/features/export/application/useExport";
 import type { ExportFormat } from "@/features/export/domain/types";
-import { CloseIcon, DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
+import { CloseIcon, CopyIcon, DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
@@ -11,6 +11,7 @@ export default function MobileExportFab() {
     handleDownloadPng,
     handleDownloadPdf,
     handleDownloadSvg,
+    handleCopyToClipboard,
     supportPrompt,
     dismissSupportPrompt,
   } = useExport();
@@ -53,6 +54,10 @@ export default function MobileExportFab() {
     }
     if (format === "pdf") {
       void handleDownloadPdf();
+      return;
+    }
+    if (format === "clipboard") {
+      void handleCopyToClipboard();
       return;
     }
     void handleDownloadSvg();
@@ -138,6 +143,19 @@ export default function MobileExportFab() {
                   <DownloadIcon className="mobile-export-option-icon" />
                 )}
                 <span>SVG</span>
+              </button>
+              <button
+                type="button"
+                className="mobile-export-option mobile-export-option--clipboard"
+                onClick={() => runExport("clipboard")}
+                disabled={isExporting}
+              >
+                {isLoading("clipboard") ? (
+                  <LoaderIcon className="mobile-export-option-icon is-spinning" />
+                ) : (
+                  <CopyIcon className="mobile-export-option-icon" />
+                )}
+                <span>Copy</span>
               </button>
             </div>
             <p className="mobile-export-support-label">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useExport } from "@/features/export/application/useExport";
 import type { ExportFormat } from "@/features/export/domain/types";
-import { DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
+import { CopyIcon, DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
 
 export default function DesktopExportFab() {
@@ -10,6 +10,7 @@ export default function DesktopExportFab() {
     handleDownloadPng,
     handleDownloadPdf,
     handleDownloadSvg,
+    handleCopyToClipboard,
     supportPrompt,
     dismissSupportPrompt,
   } = useExport();
@@ -27,6 +28,17 @@ export default function DesktopExportFab() {
       <div className={`desktop-export-fab${isExporting ? " is-exporting" : ""}`}>
         {/* SVG + PDF fly out above on hover */}
         <div className="desktop-export-flyout">
+          <button
+            type="button"
+            className="desktop-export-btn desktop-export-btn--clipboard"
+            disabled={isExporting}
+            onClick={() => { setActiveFormat("clipboard"); void handleCopyToClipboard(); }}
+          >
+            {isLoading("clipboard")
+              ? <LoaderIcon className="desktop-export-btn-icon is-spinning" />
+              : <CopyIcon className="desktop-export-btn-icon" />}
+            <span>Copy</span>
+          </button>
           <button
             type="button"
             className="desktop-export-btn desktop-export-btn--svg"
