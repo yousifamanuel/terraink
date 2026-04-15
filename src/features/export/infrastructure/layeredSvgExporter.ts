@@ -5,6 +5,8 @@ import type {
   MarkerItem,
 } from "@/features/markers/domain/types";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
+import type { GpxTrack } from "@/features/gpx/domain/types";
+import { drawGpxTracksOnCanvas } from "@/features/gpx/infrastructure/rendering";
 import { applyFades } from "@/features/poster/infrastructure/renderer/layers";
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
@@ -28,6 +30,7 @@ interface LayeredSvgOptions {
   includeCredits: boolean;
   markers: MarkerItem[];
   markerIcons: MarkerIconDefinition[];
+  gpxTracks?: GpxTrack[];
 }
 
 function renderMapCanvasToDataUrl(
@@ -82,6 +85,7 @@ export async function createLayeredSvgBlobFromMap({
   includeCredits,
   markers,
   markerIcons,
+  gpxTracks = [],
 }: LayeredSvgOptions): Promise<Blob> {
   await waitForMapIdle(map);
 
@@ -166,6 +170,26 @@ export async function createLayeredSvgBlobFromMap({
           applyFades(ctx, exportWidth, exportHeight, theme.ui.bg);
         }),
       });
+    }
+
+    if (gpxTracks.length > 0) {
+      const gpxCanvas = document.createElement("canvas");
+      gpxCanvas.width = exportWidth;
+      gpxCanvas.height = exportHeight;
+      const gpxCtx = gpxCanvas.getContext("2d");
+      if (gpxCtx) {
+        drawGpxTracksOnCanvas(
+          gpxCtx,
+          gpxTracks,
+          markerProjection,
+          markerScaleX,
+          markerScaleY,
+        );
+        overlayLayers.push({
+          id: "gpx-tracks",
+          dataUrl: gpxCanvas.toDataURL("image/png"),
+        });
+      }
     }
 
     if (markers.length > 0 && markerIcons.length > 0) {

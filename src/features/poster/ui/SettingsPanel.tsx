@@ -10,6 +10,7 @@ import LocationSection from "@/features/location/ui/LocationSection";
 import MapSettingsSection from "@/features/map/ui/MapSettingsSection";
 import LayersSection from "@/features/map/ui/LayersSection";
 import MarkersSection from "@/features/markers/ui/MarkersSection";
+import GpxSection from "@/features/gpx/ui/GpxSection";
 import TypographySection from "@/features/poster/ui/TypographySection";
 import {
   LocationIcon,
@@ -256,6 +257,7 @@ export default function SettingsPanel({
         >
           <div className="accordion-body-inner">
             {!isColorEditorActive ? <MarkersSection /> : null}
+            {!isColorEditorActive ? <GpxSection /> : null}
           </div>
         </div>
       </div>
