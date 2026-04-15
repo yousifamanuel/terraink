@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { localStorageCache } from "@/core/cache/localStorageCache";
 import type { ExportFormat } from "@/features/export/domain/types";
@@ -63,6 +63,14 @@ export function useExport() {
   const { state, dispatch, effectiveTheme, mapRef } = usePosterContext();
   const { form } = state;
   const hasVisibleMarkers = form.showMarkers && state.markers.length > 0;
+  const visibleGpxTracks = useMemo(
+    () =>
+      form.showGpxTracks
+        ? state.gpxTracks.filter((track) => track.visible)
+        : [],
+    [form.showGpxTracks, state.gpxTracks],
+  );
+  const hasVisibleOverlays = hasVisibleMarkers || visibleGpxTracks.length > 0;
 
   const registerSuccessfulExport = useCallback(() => {
     const nextCount = readPosterExportCount() + 1;
@@ -125,6 +133,7 @@ export function useExport() {
             markerIcons: hasVisibleMarkers
               ? getAllMarkerIcons(state.customMarkerIcons)
               : [],
+            gpxTracks: visibleGpxTracks,
           });
           const svgFilename = createPosterFilename(
             form.displayCity || form.location,
@@ -162,10 +171,11 @@ export function useExport() {
           markerIcons: hasVisibleMarkers
             ? getAllMarkerIcons(state.customMarkerIcons)
             : [],
-          markerProjection: hasVisibleMarkers ? markerProjection : undefined,
-          markerScaleX: hasVisibleMarkers ? markerScaleX : undefined,
-          markerScaleY: hasVisibleMarkers ? markerScaleY : undefined,
+          markerProjection: hasVisibleOverlays ? markerProjection : undefined,
+          markerScaleX: hasVisibleOverlays ? markerScaleX : undefined,
+          markerScaleY: hasVisibleOverlays ? markerScaleY : undefined,
           markerSizeScale: hasVisibleMarkers ? markerSizeScale : undefined,
+          gpxTracks: visibleGpxTracks,
         });
 
         // 3. Download
@@ -199,6 +209,8 @@ export function useExport() {
       effectiveTheme,
       dispatch,
       hasVisibleMarkers,
+      hasVisibleOverlays,
+      visibleGpxTracks,
       registerSuccessfulExport,
       state.markers,
       state.customMarkerIcons,

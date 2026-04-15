@@ -25,6 +25,7 @@ import {
   loadCustomMarkerIcons,
   saveCustomMarkerIcons,
 } from "@/features/markers/infrastructure/customIconStorage";
+import { createDefaultGpxSettings } from "@/features/gpx/infrastructure/helpers";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -77,6 +78,7 @@ export const DEFAULT_FORM: PosterForm = {
   includeRoadMinorLow: true,
   includeRoadOutline: true,
   showMarkers: true,
+  showGpxTracks: true,
 };
 
 const INITIAL_STATE: PosterState = {
@@ -90,6 +92,8 @@ const INITIAL_STATE: PosterState = {
   },
   isMarkerEditorActive: false,
   activeMarkerId: null,
+  gpxTracks: [],
+  gpxDefaults: createDefaultGpxSettings(),
   error: "",
   isExporting: false,
   isLocationFocused: false,

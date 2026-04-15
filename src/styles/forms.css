@@ -2830,3 +2830,194 @@ button.location-clear-btn:focus-visible {
     margin-left: 0;
   }
 }
+
+/* ── GPX tracks ── */
+
+.poster-gpx-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.poster-gpx-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.gpx-settings-screen {
+  margin-top: 16px;
+}
+
+.gpx-section__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.gpx-section__empty {
+  margin: 0;
+  padding: 12px;
+  font-size: 0.85rem;
+  color: rgba(231, 242, 251, 0.65);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+.gpx-section__empty code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 0.8em;
+  padding: 1px 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+
+.gpx-section__error {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #ffb4a8;
+  background: rgba(220, 68, 50, 0.12);
+  border: 1px solid rgba(220, 68, 50, 0.3);
+  border-radius: 6px;
+}
+
+.gpx-track-card {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.gpx-track-card.is-open {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.gpx-track-card__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gpx-track-card__swatch {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  padding: 0;
+}
+
+.gpx-track-card__swatch:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.gpx-track-card__meta {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.gpx-track-card__label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e7f2fb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gpx-track-card__sub {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: rgba(231, 242, 251, 0.55);
+}
+
+.gpx-track-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gpx-track-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gpx-track-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gpx-track-card__field label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: rgba(231, 242, 251, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gpx-track-card__field input[type="range"] {
+  width: 100%;
+}
+
+.gpx-track-card__value {
+  font-size: 0.8rem;
+  color: rgba(231, 242, 251, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+.gpx-track-card__color-toggle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.gpx-track-card__style-toggle {
+  display: inline-flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px;
+  border-radius: 6px;
+}
+
+.gpx-track-card__style-btn {
+  flex: 1 1 0;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(231, 242, 251, 0.7);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.gpx-track-card__style-btn:hover {
+  color: #e7f2fb;
+}
+
+.gpx-track-card__style-btn.is-active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e7f2fb;
+}
