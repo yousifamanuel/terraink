@@ -22,7 +22,7 @@ function countTrackPoints(track: GpxTrack): number {
   return track.segments.reduce((sum, seg) => sum + seg.length, 0);
 }
 
-export default function GpxSection() {
+export default function RoutesSection() {
   const { state, dispatch, effectiveTheme } = usePosterContext();
   const { form, gpxTracks } = state;
   const { uploadGpxFile } = useGpxUpload();
@@ -95,13 +95,13 @@ export default function GpxSection() {
   return (
     <section className="panel-block gpx-settings-screen">
       <div className="markers-section-head">
-        <p className="section-summary-label">TRACKS</p>
+        <p className="section-summary-label">ROUTES</p>
         <div className="markers-section-head-actions">
           <button
             type="button"
             className="marker-row__icon-btn marker-header-action-btn"
             onClick={toggleShowAll}
-            title={form.showGpxTracks ? "Hide tracks" : "Show tracks"}
+            title={form.showGpxTracks ? "Hide routes" : "Show routes"}
             disabled={gpxTracks.length === 0}
           >
             <span className="marker-row__icon-btn-label">
@@ -140,6 +140,7 @@ export default function GpxSection() {
         {gpxTracks.length === 0 ? (
           <p className="gpx-section__empty">
             Upload a <code>.gpx</code> file to draw a route on the poster.
+            Drawing routes manually is coming soon.
           </p>
         ) : null}
 
@@ -158,7 +159,7 @@ export default function GpxSection() {
                 <button
                   type="button"
                   className="gpx-track-card__swatch"
-                  style={{ backgroundColor: track.color, opacity: track.opacity }}
+                  style={{ color: track.color, opacity: track.opacity }}
                   onClick={() => {
                     setOpenTrackId(isOpen ? null : track.id);
                     setOpenColorPickerId(null);
@@ -293,7 +294,25 @@ export default function GpxSection() {
                             updateTrack(track.id, { lineStyle: style })
                           }
                         >
-                          {style === "solid" ? "Solid" : "Dashed"}
+                          <span>{style === "solid" ? "Solid" : "Dashed"}</span>
+                          <svg
+                            className="gpx-track-card__style-preview"
+                            width="28"
+                            height="8"
+                            viewBox="0 0 28 8"
+                            aria-hidden="true"
+                          >
+                            <line
+                              x1="1"
+                              y1="4"
+                              x2="27"
+                              y2="4"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeDasharray={style === "dashed" ? "4 3" : undefined}
+                            />
+                          </svg>
                         </button>
                       ))}
                     </div>
