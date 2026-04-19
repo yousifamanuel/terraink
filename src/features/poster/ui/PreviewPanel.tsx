@@ -9,6 +9,7 @@ import { usePosterContext } from "./PosterContext";
 import { useMapSync } from "@/features/map/application/useMapSync";
 import MapPreview from "@/features/map/ui/MapPreview";
 import MarkerOverlay from "@/features/markers/ui/MarkerOverlay";
+import GpxTrackOverlay from "@/features/gpx/ui/GpxTrackOverlay";
 import GradientFades from "./GradientFades";
 import PosterTextOverlay from "./PosterTextOverlay";
 import SettingsInfo from "./SettingsInfo";
@@ -412,6 +413,12 @@ export default function PreviewPanel() {
           {form.showMarkers ? (
             <GradientFades color={effectiveTheme.ui.bg} />
           ) : null}
+          <GpxTrackOverlay
+            tracks={state.gpxTracks}
+            mapRef={mapRef}
+            visible={form.showGpxTracks}
+            overzoomScale={overzoomScale}
+          />
           {hasVisibleMarkers ? (
             <MarkerOverlay
               markers={state.markers}

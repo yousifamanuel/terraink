@@ -11,6 +11,13 @@ import {
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
 import { featuredMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
 import { clamp } from "@/shared/geo/math";
+import type { GpxDefaults, GpxTrack } from "@/features/gpx/domain/types";
+import {
+  MAX_GPX_OPACITY,
+  MAX_GPX_STROKE_WIDTH,
+  MIN_GPX_OPACITY,
+  MIN_GPX_STROKE_WIDTH,
+} from "@/features/gpx/domain/constants";
 
 /* ────── Form state ────── */
 
@@ -40,6 +47,7 @@ export interface PosterForm {
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
   showMarkers: boolean;
+  showGpxTracks: boolean;
 }
 
 /* ────── App-level state ────── */
@@ -52,6 +60,8 @@ export interface PosterState {
   markerDefaults: MarkerDefaults;
   isMarkerEditorActive: boolean;
   activeMarkerId: string | null;
+  gpxTracks: GpxTrack[];
+  gpxDefaults: GpxDefaults;
   error: string;
   isExporting: boolean;
   isLocationFocused: boolean;
@@ -97,7 +107,16 @@ export type PosterAction =
       defaults: Partial<MarkerDefaults>;
       applyToMarkers?: boolean;
     }
-  | { type: "RESET_MARKER_DEFAULTS" };
+  | { type: "RESET_MARKER_DEFAULTS" }
+  | { type: "ADD_GPX_TRACK"; track: GpxTrack }
+  | { type: "UPDATE_GPX_TRACK"; trackId: string; changes: Partial<GpxTrack> }
+  | { type: "REMOVE_GPX_TRACK"; trackId: string }
+  | { type: "CLEAR_GPX_TRACKS" }
+  | {
+      type: "SET_GPX_DEFAULTS";
+      defaults: Partial<GpxDefaults>;
+      applyToTracks?: boolean;
+    };
 
 /* ────── Reducer ────── */
 
@@ -363,6 +382,88 @@ export function posterReducer(
           size: defaults.size,
           color: defaults.color,
         })),
+      };
+    }
+
+    case "ADD_GPX_TRACK":
+      return {
+        ...state,
+        gpxTracks: [...state.gpxTracks, action.track],
+      };
+
+    case "UPDATE_GPX_TRACK":
+      return {
+        ...state,
+        gpxTracks: state.gpxTracks.map((track) =>
+          track.id === action.trackId
+            ? {
+                ...track,
+                ...action.changes,
+                id: track.id,
+                segments: track.segments,
+                strokeWidth:
+                  typeof action.changes.strokeWidth === "number"
+                    ? clamp(
+                        action.changes.strokeWidth,
+                        MIN_GPX_STROKE_WIDTH,
+                        MAX_GPX_STROKE_WIDTH,
+                      )
+                    : track.strokeWidth,
+                opacity:
+                  typeof action.changes.opacity === "number"
+                    ? clamp(
+                        action.changes.opacity,
+                        MIN_GPX_OPACITY,
+                        MAX_GPX_OPACITY,
+                      )
+                    : track.opacity,
+              }
+            : track,
+        ),
+      };
+
+    case "REMOVE_GPX_TRACK":
+      return {
+        ...state,
+        gpxTracks: state.gpxTracks.filter(
+          (track) => track.id !== action.trackId,
+        ),
+      };
+
+    case "CLEAR_GPX_TRACKS":
+      return { ...state, gpxTracks: [] };
+
+    case "SET_GPX_DEFAULTS": {
+      const { defaults: partial } = action;
+      const nextDefaults: GpxDefaults = {
+        color: partial.color ?? state.gpxDefaults.color,
+        strokeWidth:
+          typeof partial.strokeWidth === "number"
+            ? clamp(
+                partial.strokeWidth,
+                MIN_GPX_STROKE_WIDTH,
+                MAX_GPX_STROKE_WIDTH,
+              )
+            : state.gpxDefaults.strokeWidth,
+        opacity:
+          typeof partial.opacity === "number"
+            ? clamp(partial.opacity, MIN_GPX_OPACITY, MAX_GPX_OPACITY)
+            : state.gpxDefaults.opacity,
+        lineStyle: partial.lineStyle ?? state.gpxDefaults.lineStyle,
+      };
+
+      return {
+        ...state,
+        gpxDefaults: nextDefaults,
+        gpxTracks: action.applyToTracks
+          ? state.gpxTracks.map((track) => ({
+              ...track,
+              color: nextDefaults.color,
+              strokeWidth: nextDefaults.strokeWidth,
+              opacity: nextDefaults.opacity,
+              lineStyle: nextDefaults.lineStyle,
+            }))
+          : state.gpxTracks,
       };
     }
 

@@ -4,6 +4,7 @@ import type {
   MarkerItem,
   MarkerProjectionInput,
 } from "@/features/markers/domain/types";
+import type { GpxTrack } from "@/features/gpx/domain/types";
 
 export interface CanvasSize {
   width: number;
@@ -32,6 +33,7 @@ export interface ExportOptions {
   markerScaleX?: number;
   markerScaleY?: number;
   markerSizeScale?: number;
+  gpxTracks?: GpxTrack[];
 }
 
 export interface Typography {
