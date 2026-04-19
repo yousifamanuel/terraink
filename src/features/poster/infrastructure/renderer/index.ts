@@ -1,7 +1,7 @@
 import { applyFades } from "./layers";
 import { drawPosterText } from "./typography";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
-import { drawGpxTracksOnCanvas } from "@/features/gpx/infrastructure/rendering";
+import { drawGpxTracksOnCanvas } from "@/features/routes/infrastructure/rendering";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
 
 /**

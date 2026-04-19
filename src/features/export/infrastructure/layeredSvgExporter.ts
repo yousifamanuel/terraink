@@ -5,8 +5,8 @@ import type {
   MarkerItem,
 } from "@/features/markers/domain/types";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
-import type { GpxTrack } from "@/features/gpx/domain/types";
-import { drawGpxTracksOnCanvas } from "@/features/gpx/infrastructure/rendering";
+import type { GpxTrack } from "@/features/routes/domain/types";
+import { drawGpxTracksOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { applyFades } from "@/features/poster/infrastructure/renderer/layers";
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";

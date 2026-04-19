@@ -1,14 +1,14 @@
 import { useCallback, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
-import { useGpxUpload } from "@/features/gpx/application/useGpxUpload";
-import type { GpxTrack } from "@/features/gpx/domain/types";
+import { useGpxUpload } from "@/features/routes/application/useGpxUpload";
+import type { GpxTrack } from "@/features/routes/domain/types";
 import {
   GPX_LINE_STYLES,
   MAX_GPX_OPACITY,
   MAX_GPX_STROKE_WIDTH,
   MIN_GPX_OPACITY,
   MIN_GPX_STROKE_WIDTH,
-} from "@/features/gpx/domain/constants";
+} from "@/features/routes/domain/constants";
 import ColorPicker from "@/features/theme/ui/ColorPicker";
 import { buildDynamicColorChoices } from "@/features/theme/domain/colorSuggestions";
 import {

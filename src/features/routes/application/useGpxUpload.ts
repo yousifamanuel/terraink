@@ -1,14 +1,14 @@
 import { useCallback } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { gpxParser } from "@/core/services";
-import { MAX_GPX_FILE_SIZE_BYTES } from "@/features/gpx/domain/constants";
+import { MAX_GPX_FILE_SIZE_BYTES } from "@/features/routes/domain/constants";
 import {
   boundsCenter,
   boundsHalfWidthMeters,
   createGpxTrack,
   getGpxUploadLabel,
   readFileAsText,
-} from "@/features/gpx/infrastructure/helpers";
+} from "@/features/routes/infrastructure/helpers";
 
 interface UseGpxUploadResult {
   uploadGpxFile: (file: File) => Promise<void>;

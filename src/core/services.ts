@@ -43,5 +43,5 @@ export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownlo
 
 /* ── GPX ── */
 
-export { gpxParser } from "@/features/gpx/infrastructure/gpxParser";
-export { drawGpxTracksOnCanvas } from "@/features/gpx/infrastructure/rendering";
+export { gpxParser } from "@/features/routes/infrastructure/gpxParser";
+export { drawGpxTracksOnCanvas } from "@/features/routes/infrastructure/rendering";
