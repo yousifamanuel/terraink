@@ -1,5 +1,6 @@
 import { haversineMeters } from "@/shared/geo/math";
 import type { Coordinate } from "@/shared/geo/types";
+import type { MarkerItem } from "@/features/markers/domain/types";
 import {
   DEFAULT_ROUTE_COLOR,
   DEFAULT_ROUTE_ENDPOINT_SIZE,
@@ -82,6 +83,32 @@ export function createRoute(input: {
       defaults: input.defaults,
     }),
   };
+}
+
+export function routeEndpointMarkerItems(routes: Route[]): MarkerItem[] {
+  const items: MarkerItem[] = [];
+  for (const route of routes) {
+    if (!route.visible || !route.showEndpoints) continue;
+    const endpoints = routeEndpoints(route);
+    if (!endpoints) continue;
+    items.push({
+      id: `${route.id}-start`,
+      lat: endpoints.start.lat,
+      lon: endpoints.start.lon,
+      iconId: route.startMarker.iconId,
+      color: route.startMarker.color,
+      size: route.startMarker.size,
+    });
+    items.push({
+      id: `${route.id}-finish`,
+      lat: endpoints.finish.lat,
+      lon: endpoints.finish.lon,
+      iconId: route.finishMarker.iconId,
+      color: route.finishMarker.color,
+      size: route.finishMarker.size,
+    });
+  }
+  return items;
 }
 
 export function routeEndpoints(

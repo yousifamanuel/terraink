@@ -65,8 +65,9 @@ export function drawRoutesOnCanvas(
   projection: MarkerProjectionInput,
   scaleX = 1,
   scaleY = 1,
+  sizeScale = 1,
 ): void {
-  const widthScale = (scaleX + scaleY) / 2;
+  const widthScale = ((scaleX + scaleY) / 2) * sizeScale;
   drawRoutesWithProjector(
     ctx,
     routes,
