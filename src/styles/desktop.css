@@ -677,6 +677,12 @@
     display: none;
   }
 
+  [data-desktop-tab="routes"]
+    .desktop-settings-slide
+    .mobile-section:not(.mobile-section--routes) {
+    display: none;
+  }
+
   [data-desktop-tab="style"]
     .desktop-settings-slide
     .mobile-section:not(.mobile-section--style) {

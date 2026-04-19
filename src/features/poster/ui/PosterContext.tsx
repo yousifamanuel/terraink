@@ -93,7 +93,10 @@ const INITIAL_STATE: PosterState = {
   isMarkerEditorActive: false,
   activeMarkerId: null,
   gpxTracks: [],
-  gpxDefaults: createDefaultGpxSettings(),
+  gpxDefaults: {
+    ...createDefaultGpxSettings(),
+    color: getTheme(defaultThemeName).ui.text,
+  },
   error: "",
   isExporting: false,
   isLocationFocused: false,
@@ -130,6 +133,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(posterReducer, INITIAL_STATE);
   const mapRef = useRef(null) as MapInstanceRef;
   const lastSyncedMarkerThemeColorRef = useRef<string | null>(null);
+  const lastSyncedGpxThemeColorRef = useRef<string | null>(null);
   const hasLoadedCustomIconsRef = useRef(false);
 
   // Set initial position from browser geolocation (or Hanover fallback)
@@ -160,6 +164,19 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       type: "SET_MARKER_DEFAULTS",
       defaults: { color: markerThemeColor },
       applyToMarkers: true,
+    });
+  }, [dispatch, effectiveTheme.ui.text]);
+
+  useEffect(() => {
+    const gpxThemeColor = effectiveTheme.ui.text;
+    if (lastSyncedGpxThemeColorRef.current === gpxThemeColor) {
+      return;
+    }
+    lastSyncedGpxThemeColorRef.current = gpxThemeColor;
+    dispatch({
+      type: "SET_GPX_DEFAULTS",
+      defaults: { color: gpxThemeColor },
+      applyToTracks: true,
     });
   }, [dispatch, effectiveTheme.ui.text]);
 

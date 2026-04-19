@@ -1442,6 +1442,11 @@
     display: none;
   }
 
+  /* Routes tab: show only the routes section */
+  [data-mobile-tab="routes"] .mobile-section:not(.mobile-section--routes) {
+    display: none;
+  }
+
   /* Style tab: show only the style/typography section */
   [data-mobile-tab="style"] .mobile-section:not(.mobile-section--style) {
     display: none;

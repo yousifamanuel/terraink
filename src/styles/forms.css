@@ -2908,14 +2908,17 @@ button.location-clear-btn:focus-visible {
   flex: 0 0 auto;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: currentColor;
   cursor: pointer;
   padding: 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
 .gpx-track-card__swatch:hover {
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
 }
 
 .gpx-track-card__meta {
@@ -2981,16 +2984,22 @@ button.location-clear-btn:focus-visible {
 }
 
 .gpx-track-card__color-toggle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  width: 40px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
   padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.gpx-track-card__color-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: scale(1.05);
 }
 
 .gpx-track-card__style-toggle {
@@ -3003,6 +3012,10 @@ button.location-clear-btn:focus-visible {
 
 .gpx-track-card__style-btn {
   flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 6px 10px;
   font-size: 0.8rem;
   border-radius: 4px;
@@ -3015,6 +3028,11 @@ button.location-clear-btn:focus-visible {
 
 .gpx-track-card__style-btn:hover {
   color: #e7f2fb;
+}
+
+.gpx-track-card__style-preview {
+  flex: 0 0 auto;
+  color: currentColor;
 }
 
 .gpx-track-card__style-btn.is-active {
