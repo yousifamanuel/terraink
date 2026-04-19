@@ -25,7 +25,7 @@ import {
   loadCustomMarkerIcons,
   saveCustomMarkerIcons,
 } from "@/features/markers/infrastructure/customIconStorage";
-import { createDefaultGpxSettings } from "@/features/gpx/infrastructure/helpers";
+import { createDefaultGpxSettings } from "@/features/routes/infrastructure/helpers";
 
 /* ────── Default form (moved from appConfig) ────── */
 

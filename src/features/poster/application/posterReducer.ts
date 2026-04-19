@@ -11,13 +11,13 @@ import {
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
 import { featuredMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
 import { clamp } from "@/shared/geo/math";
-import type { GpxDefaults, GpxTrack } from "@/features/gpx/domain/types";
+import type { GpxDefaults, GpxTrack } from "@/features/routes/domain/types";
 import {
   MAX_GPX_OPACITY,
   MAX_GPX_STROKE_WIDTH,
   MIN_GPX_OPACITY,
   MIN_GPX_STROKE_WIDTH,
-} from "@/features/gpx/domain/constants";
+} from "@/features/routes/domain/constants";
 
 /* ────── Form state ────── */
 

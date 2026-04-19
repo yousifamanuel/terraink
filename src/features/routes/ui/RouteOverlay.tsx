@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { MapInstanceRef } from "@/features/map/domain/types";
-import type { GpxTrack } from "@/features/gpx/domain/types";
-import { drawGpxTracksWithProjector } from "@/features/gpx/infrastructure/rendering";
+import type { GpxTrack } from "@/features/routes/domain/types";
+import { drawGpxTracksWithProjector } from "@/features/routes/infrastructure/rendering";
 
 interface GpxTrackOverlayProps {
   tracks: GpxTrack[];
