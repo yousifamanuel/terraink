@@ -1,7 +1,11 @@
 import { haversineMeters } from "@/shared/geo/math";
+import type { Coordinate } from "@/shared/geo/types";
 import {
   DEFAULT_ROUTE_COLOR,
+  DEFAULT_ROUTE_ENDPOINT_SIZE,
+  DEFAULT_ROUTE_FINISH_ICON_ID,
   DEFAULT_ROUTE_OPACITY,
+  DEFAULT_ROUTE_START_ICON_ID,
   DEFAULT_ROUTE_STROKE_WIDTH,
 } from "../domain/constants";
 import type {
@@ -9,6 +13,7 @@ import type {
   Route,
   RouteBounds,
   RouteDefaults,
+  RouteEndpointMarker,
   RouteSource,
 } from "../domain/types";
 
@@ -27,12 +32,25 @@ export function createDefaultRouteSettings(): RouteDefaults {
     strokeWidth: DEFAULT_ROUTE_STROKE_WIDTH,
     opacity: DEFAULT_ROUTE_OPACITY,
     lineStyle: "solid",
+    startIconId: DEFAULT_ROUTE_START_ICON_ID,
+    finishIconId: DEFAULT_ROUTE_FINISH_ICON_ID,
   };
 }
 
 export function getGpxUploadLabel(filename: string): string {
   const baseName = filename.replace(/\.[^.]+$/, "").trim();
   return baseName || "Route";
+}
+
+export function createRouteEndpointMarker(input: {
+  iconId: string;
+  defaults: RouteDefaults;
+}): RouteEndpointMarker {
+  return {
+    iconId: input.iconId,
+    color: input.defaults.color,
+    size: DEFAULT_ROUTE_ENDPOINT_SIZE,
+  };
 }
 
 export function createRoute(input: {
@@ -54,7 +72,29 @@ export function createRoute(input: {
     opacity: input.defaults.opacity,
     lineStyle: input.defaults.lineStyle,
     visible: true,
+    showEndpoints: true,
+    startMarker: createRouteEndpointMarker({
+      iconId: input.defaults.startIconId,
+      defaults: input.defaults,
+    }),
+    finishMarker: createRouteEndpointMarker({
+      iconId: input.defaults.finishIconId,
+      defaults: input.defaults,
+    }),
   };
+}
+
+export function routeEndpoints(
+  route: Route,
+): { start: Coordinate; finish: Coordinate } | null {
+  let start: Coordinate | null = null;
+  let finish: Coordinate | null = null;
+  for (const segment of route.segments) {
+    if (segment.length === 0) continue;
+    if (!start) start = segment[0]!;
+    finish = segment[segment.length - 1]!;
+  }
+  return start && finish ? { start, finish } : null;
 }
 
 export function boundsCenter(bounds: RouteBounds): { lat: number; lon: number } {
