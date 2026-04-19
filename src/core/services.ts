@@ -41,7 +41,7 @@ export { createPosterFilename } from "@/features/export/infrastructure/filenameG
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
 
-/* ── GPX ── */
+/* ── Routes ── */
 
 export { gpxParser } from "@/features/routes/infrastructure/gpxParser";
-export { drawGpxTracksOnCanvas } from "@/features/routes/infrastructure/rendering";
+export { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";

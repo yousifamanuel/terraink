@@ -63,14 +63,14 @@ export function useExport() {
   const { state, dispatch, effectiveTheme, mapRef } = usePosterContext();
   const { form } = state;
   const hasVisibleMarkers = form.showMarkers && state.markers.length > 0;
-  const visibleGpxTracks = useMemo(
+  const visibleRoutes = useMemo(
     () =>
-      form.showGpxTracks
-        ? state.gpxTracks.filter((track) => track.visible)
+      form.showRoutes
+        ? state.routes.filter((route) => route.visible)
         : [],
-    [form.showGpxTracks, state.gpxTracks],
+    [form.showRoutes, state.routes],
   );
-  const hasVisibleOverlays = hasVisibleMarkers || visibleGpxTracks.length > 0;
+  const hasVisibleOverlays = hasVisibleMarkers || visibleRoutes.length > 0;
 
   const registerSuccessfulExport = useCallback(() => {
     const nextCount = readPosterExportCount() + 1;
@@ -133,7 +133,7 @@ export function useExport() {
             markerIcons: hasVisibleMarkers
               ? getAllMarkerIcons(state.customMarkerIcons)
               : [],
-            gpxTracks: visibleGpxTracks,
+            routes: visibleRoutes,
           });
           const svgFilename = createPosterFilename(
             form.displayCity || form.location,
@@ -175,7 +175,7 @@ export function useExport() {
           markerScaleX: hasVisibleOverlays ? markerScaleX : undefined,
           markerScaleY: hasVisibleOverlays ? markerScaleY : undefined,
           markerSizeScale: hasVisibleMarkers ? markerSizeScale : undefined,
-          gpxTracks: visibleGpxTracks,
+          routes: visibleRoutes,
         });
 
         // 3. Download
@@ -210,7 +210,7 @@ export function useExport() {
       dispatch,
       hasVisibleMarkers,
       hasVisibleOverlays,
-      visibleGpxTracks,
+      visibleRoutes,
       registerSuccessfulExport,
       state.markers,
       state.customMarkerIcons,
