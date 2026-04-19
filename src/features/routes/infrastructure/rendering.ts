@@ -1,9 +1,9 @@
 import type { MarkerProjectionInput } from "@/features/markers/domain/types";
 import { projectMarkerToCanvas } from "@/features/markers/infrastructure/projection";
-import { GPX_DASH_PATTERN } from "../domain/constants";
-import type { GpxTrack } from "../domain/types";
+import { ROUTE_DASH_PATTERN } from "../domain/constants";
+import type { Route } from "../domain/types";
 
-export type GpxPointProjector = (
+export type RoutePointProjector = (
   lat: number,
   lon: number,
 ) => { x: number; y: number } | null;
@@ -12,30 +12,30 @@ interface DrawOptions {
   widthScale?: number;
 }
 
-export function drawGpxTracksWithProjector(
+export function drawRoutesWithProjector(
   ctx: CanvasRenderingContext2D,
-  tracks: GpxTrack[],
-  project: GpxPointProjector,
+  routes: Route[],
+  project: RoutePointProjector,
   { widthScale = 1 }: DrawOptions = {},
 ): void {
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
-  for (const track of tracks) {
-    if (!track.visible || track.segments.length === 0) continue;
+  for (const route of routes) {
+    if (!route.visible || route.segments.length === 0) continue;
 
-    const width = Math.max(0.5, track.strokeWidth * widthScale);
+    const width = Math.max(0.5, route.strokeWidth * widthScale);
     ctx.lineWidth = width;
-    ctx.strokeStyle = track.color;
-    ctx.globalAlpha = track.opacity;
-    if (track.lineStyle === "dashed") {
-      ctx.setLineDash([GPX_DASH_PATTERN[0] * width, GPX_DASH_PATTERN[1] * width]);
+    ctx.strokeStyle = route.color;
+    ctx.globalAlpha = route.opacity;
+    if (route.lineStyle === "dashed") {
+      ctx.setLineDash([ROUTE_DASH_PATTERN[0] * width, ROUTE_DASH_PATTERN[1] * width]);
     } else {
       ctx.setLineDash([]);
     }
 
-    for (const segment of track.segments) {
+    for (const segment of route.segments) {
       if (segment.length < 2) continue;
       ctx.beginPath();
       let started = false;
@@ -59,17 +59,17 @@ export function drawGpxTracksWithProjector(
   ctx.restore();
 }
 
-export function drawGpxTracksOnCanvas(
+export function drawRoutesOnCanvas(
   ctx: CanvasRenderingContext2D,
-  tracks: GpxTrack[],
+  routes: Route[],
   projection: MarkerProjectionInput,
   scaleX = 1,
   scaleY = 1,
 ): void {
   const widthScale = (scaleX + scaleY) / 2;
-  drawGpxTracksWithProjector(
+  drawRoutesWithProjector(
     ctx,
-    tracks,
+    routes,
     (lat, lon) => {
       const { x, y } = projectMarkerToCanvas(lat, lon, projection);
       return { x: x * scaleX, y: y * scaleY };

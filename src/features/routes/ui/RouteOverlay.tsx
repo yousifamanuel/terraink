@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import type { MapInstanceRef } from "@/features/map/domain/types";
-import type { GpxTrack } from "@/features/routes/domain/types";
-import { drawGpxTracksWithProjector } from "@/features/routes/infrastructure/rendering";
+import type { Route } from "@/features/routes/domain/types";
+import { drawRoutesWithProjector } from "@/features/routes/infrastructure/rendering";
 
-interface GpxTrackOverlayProps {
-  tracks: GpxTrack[];
+interface RouteOverlayProps {
+  routes: Route[];
   mapRef: MapInstanceRef;
   visible: boolean;
   overzoomScale: number;
 }
 
-export default function GpxTrackOverlay({
-  tracks,
+export default function RouteOverlay({
+  routes,
   mapRef,
   visible,
   overzoomScale,
-}: GpxTrackOverlayProps) {
+}: RouteOverlayProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [renderTick, setRenderTick] = useState(0);
@@ -73,11 +73,11 @@ export default function GpxTrackOverlay({
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, cssWidth, cssHeight);
 
-    if (!visible || tracks.length === 0) return;
+    if (!visible || routes.length === 0) return;
 
-    drawGpxTracksWithProjector(
+    drawRoutesWithProjector(
       ctx,
-      tracks,
+      routes,
       (lat, lon) => {
         try {
           const point = map.project([lon, lat]);
@@ -90,15 +90,15 @@ export default function GpxTrackOverlay({
         }
       },
     );
-  }, [mapRef, tracks, visible, overzoomScale, renderTick]);
+  }, [mapRef, routes, visible, overzoomScale, renderTick]);
 
   return (
     <div
       ref={containerRef}
-      className="poster-gpx-overlay"
+      className="poster-route-overlay"
       aria-hidden="true"
     >
-      <canvas ref={canvasRef} className="poster-gpx-canvas" />
+      <canvas ref={canvasRef} className="poster-route-canvas" />
     </div>
   );
 }

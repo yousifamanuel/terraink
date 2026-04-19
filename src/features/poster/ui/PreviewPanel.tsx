@@ -414,9 +414,9 @@ export default function PreviewPanel() {
             <GradientFades color={effectiveTheme.ui.bg} />
           ) : null}
           <RouteOverlay
-            tracks={state.gpxTracks}
+            routes={state.routes}
             mapRef={mapRef}
-            visible={form.showGpxTracks}
+            visible={form.showRoutes}
             overzoomScale={overzoomScale}
           />
           {hasVisibleMarkers ? (

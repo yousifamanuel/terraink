@@ -11,12 +11,12 @@ import {
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
 import { featuredMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
 import { clamp } from "@/shared/geo/math";
-import type { GpxDefaults, GpxTrack } from "@/features/routes/domain/types";
+import type { Route, RouteDefaults } from "@/features/routes/domain/types";
 import {
-  MAX_GPX_OPACITY,
-  MAX_GPX_STROKE_WIDTH,
-  MIN_GPX_OPACITY,
-  MIN_GPX_STROKE_WIDTH,
+  MAX_ROUTE_OPACITY,
+  MAX_ROUTE_STROKE_WIDTH,
+  MIN_ROUTE_OPACITY,
+  MIN_ROUTE_STROKE_WIDTH,
 } from "@/features/routes/domain/constants";
 
 /* ────── Form state ────── */
@@ -47,7 +47,7 @@ export interface PosterForm {
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
   showMarkers: boolean;
-  showGpxTracks: boolean;
+  showRoutes: boolean;
 }
 
 /* ────── App-level state ────── */
@@ -60,8 +60,8 @@ export interface PosterState {
   markerDefaults: MarkerDefaults;
   isMarkerEditorActive: boolean;
   activeMarkerId: string | null;
-  gpxTracks: GpxTrack[];
-  gpxDefaults: GpxDefaults;
+  routes: Route[];
+  routeDefaults: RouteDefaults;
   error: string;
   isExporting: boolean;
   isLocationFocused: boolean;
@@ -108,14 +108,15 @@ export type PosterAction =
       applyToMarkers?: boolean;
     }
   | { type: "RESET_MARKER_DEFAULTS" }
-  | { type: "ADD_GPX_TRACK"; track: GpxTrack }
-  | { type: "UPDATE_GPX_TRACK"; trackId: string; changes: Partial<GpxTrack> }
-  | { type: "REMOVE_GPX_TRACK"; trackId: string }
-  | { type: "CLEAR_GPX_TRACKS" }
+  | { type: "ADD_ROUTE"; route: Route }
+  | { type: "UPDATE_ROUTE"; routeId: string; changes: Partial<Route> }
+  | { type: "REMOVE_ROUTE"; routeId: string }
+  | { type: "REPLACE_ROUTES"; routes: Route[] }
+  | { type: "CLEAR_ROUTES" }
   | {
-      type: "SET_GPX_DEFAULTS";
-      defaults: Partial<GpxDefaults>;
-      applyToTracks?: boolean;
+      type: "SET_ROUTE_DEFAULTS";
+      defaults: Partial<RouteDefaults>;
+      applyToRoutes?: boolean;
     };
 
 /* ────── Reducer ────── */
@@ -385,85 +386,86 @@ export function posterReducer(
       };
     }
 
-    case "ADD_GPX_TRACK":
+    case "ADD_ROUTE":
       return {
         ...state,
-        gpxTracks: [...state.gpxTracks, action.track],
+        routes: [...state.routes, action.route],
       };
 
-    case "UPDATE_GPX_TRACK":
+    case "UPDATE_ROUTE":
       return {
         ...state,
-        gpxTracks: state.gpxTracks.map((track) =>
-          track.id === action.trackId
+        routes: state.routes.map((route) =>
+          route.id === action.routeId
             ? {
-                ...track,
+                ...route,
                 ...action.changes,
-                id: track.id,
-                segments: track.segments,
+                id: route.id,
+                segments: route.segments,
                 strokeWidth:
                   typeof action.changes.strokeWidth === "number"
                     ? clamp(
                         action.changes.strokeWidth,
-                        MIN_GPX_STROKE_WIDTH,
-                        MAX_GPX_STROKE_WIDTH,
+                        MIN_ROUTE_STROKE_WIDTH,
+                        MAX_ROUTE_STROKE_WIDTH,
                       )
-                    : track.strokeWidth,
+                    : route.strokeWidth,
                 opacity:
                   typeof action.changes.opacity === "number"
                     ? clamp(
                         action.changes.opacity,
-                        MIN_GPX_OPACITY,
-                        MAX_GPX_OPACITY,
+                        MIN_ROUTE_OPACITY,
+                        MAX_ROUTE_OPACITY,
                       )
-                    : track.opacity,
+                    : route.opacity,
               }
-            : track,
+            : route,
         ),
       };
 
-    case "REMOVE_GPX_TRACK":
+    case "REMOVE_ROUTE":
       return {
         ...state,
-        gpxTracks: state.gpxTracks.filter(
-          (track) => track.id !== action.trackId,
-        ),
+        routes: state.routes.filter((route) => route.id !== action.routeId),
       };
 
-    case "CLEAR_GPX_TRACKS":
-      return { ...state, gpxTracks: [] };
+    case "REPLACE_ROUTES":
+      return { ...state, routes: action.routes };
 
-    case "SET_GPX_DEFAULTS": {
+    case "CLEAR_ROUTES":
+      return { ...state, routes: [] };
+
+    case "SET_ROUTE_DEFAULTS": {
       const { defaults: partial } = action;
-      const nextDefaults: GpxDefaults = {
-        color: partial.color ?? state.gpxDefaults.color,
+      const nextDefaults: RouteDefaults = {
+        color: partial.color ?? state.routeDefaults.color,
         strokeWidth:
           typeof partial.strokeWidth === "number"
             ? clamp(
                 partial.strokeWidth,
-                MIN_GPX_STROKE_WIDTH,
-                MAX_GPX_STROKE_WIDTH,
+                MIN_ROUTE_STROKE_WIDTH,
+                MAX_ROUTE_STROKE_WIDTH,
               )
-            : state.gpxDefaults.strokeWidth,
+            : state.routeDefaults.strokeWidth,
         opacity:
           typeof partial.opacity === "number"
-            ? clamp(partial.opacity, MIN_GPX_OPACITY, MAX_GPX_OPACITY)
-            : state.gpxDefaults.opacity,
-        lineStyle: partial.lineStyle ?? state.gpxDefaults.lineStyle,
+            ? clamp(partial.opacity, MIN_ROUTE_OPACITY, MAX_ROUTE_OPACITY)
+            : state.routeDefaults.opacity,
+        lineStyle: partial.lineStyle ?? state.routeDefaults.lineStyle,
       };
 
       return {
         ...state,
-        gpxDefaults: nextDefaults,
-        gpxTracks: action.applyToTracks
-          ? state.gpxTracks.map((track) => ({
-              ...track,
+        routeDefaults: nextDefaults,
+        routes: action.applyToRoutes
+          ? state.routes.map((route) => ({
+              ...route,
               color: nextDefaults.color,
               strokeWidth: nextDefaults.strokeWidth,
               opacity: nextDefaults.opacity,
               lineStyle: nextDefaults.lineStyle,
             }))
-          : state.gpxTracks,
+          : state.routes,
       };
     }
 

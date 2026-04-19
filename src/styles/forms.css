@@ -2780,6 +2780,10 @@ button.location-clear-btn:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .routes-section__content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .marker-row__actions {
     justify-content: flex-end;
   }
@@ -2831,9 +2835,9 @@ button.location-clear-btn:focus-visible {
   }
 }
 
-/* ── GPX tracks ── */
+/* ── Routes ── */
 
-.poster-gpx-overlay {
+.poster-route-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -2841,24 +2845,25 @@ button.location-clear-btn:focus-visible {
   overflow: hidden;
 }
 
-.poster-gpx-canvas {
+.poster-route-canvas {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.gpx-settings-screen {
+.routes-settings-screen {
   margin-top: 16px;
 }
 
-.gpx-section__content {
-  display: flex;
-  flex-direction: column;
+.routes-section__content {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   margin-top: 8px;
 }
 
-.gpx-section__empty {
+.routes-section__empty {
+  grid-column: 1 / -1;
   margin: 0;
   padding: 12px;
   font-size: 0.85rem;
@@ -2868,7 +2873,7 @@ button.location-clear-btn:focus-visible {
   border-radius: 8px;
 }
 
-.gpx-section__empty code {
+.routes-section__empty code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
   font-size: 0.8em;
   padding: 1px 4px;
@@ -2876,7 +2881,7 @@ button.location-clear-btn:focus-visible {
   border-radius: 3px;
 }
 
-.gpx-section__error {
+.routes-section__error {
   margin: 8px 0 0;
   padding: 8px 12px;
   font-size: 0.85rem;
@@ -2886,84 +2891,147 @@ button.location-clear-btn:focus-visible {
   border-radius: 6px;
 }
 
-.gpx-track-card {
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.04);
+.route-card {
+  position: relative;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-.gpx-track-card.is-open {
+.route-card.is-open {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-.gpx-track-card__row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.gpx-track-card__swatch {
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: currentColor;
-  cursor: pointer;
-  padding: 0;
-  transition: border-color 0.15s ease, transform 0.15s ease;
-}
-
-.gpx-track-card__swatch:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  transform: scale(1.05);
-}
-
-.gpx-track-card__meta {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.gpx-track-card__label {
+button.route-card__summary {
+  width: 100%;
   margin: 0;
-  font-size: 0.9rem;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #d8e8f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.route-card.is-open button.route-card__summary {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 40px 10px 12px;
+  text-align: left;
+}
+
+button.route-card__summary:not(:disabled):hover,
+button.route-card__summary:focus-visible {
+  transform: none;
+  filter: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.route-card__swatch {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.route-card__meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.route-card.is-open .route-card__meta {
+  flex: 1 1 auto;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.route-card__label {
+  font-size: 0.8rem;
   font-weight: 600;
   color: #e7f2fb;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 100%;
 }
 
-.gpx-track-card__sub {
-  margin: 2px 0 0;
+.route-card.is-open .route-card__label {
+  font-size: 0.9rem;
+}
+
+.route-card__distance {
+  font-size: 0.72rem;
+  color: rgba(231, 242, 251, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+.route-card.is-open .route-card__distance {
   font-size: 0.75rem;
-  color: rgba(231, 242, 251, 0.55);
 }
 
-.gpx-track-card__actions {
-  display: flex;
+button.route-card__delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(35%, -35%);
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 152, 129, 0.34);
+  background: rgba(82, 44, 36, 0.86);
+  color: #ffd5cb;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  cursor: pointer;
 }
 
-.gpx-track-card__body {
+button.route-card__delete svg {
+  width: 15px;
+  height: 15px;
+}
+
+button.route-card__delete:not(:disabled):hover,
+button.route-card__delete:focus-visible {
+  transform: translate(35%, -35%);
+  filter: none;
+  border-color: rgba(255, 152, 129, 0.72);
+  background: rgba(97, 53, 44, 0.94);
+}
+
+.route-card__body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-top: 12px;
-  margin-top: 10px;
+  padding: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.gpx-track-card__field {
+.route-card__field {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.gpx-track-card__field label {
+.route-card__field label {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2973,17 +3041,17 @@ button.location-clear-btn:focus-visible {
   letter-spacing: 0.04em;
 }
 
-.gpx-track-card__field input[type="range"] {
+.route-card__field input[type="range"] {
   width: 100%;
 }
 
-.gpx-track-card__value {
+.route-card__value {
   font-size: 0.8rem;
   color: rgba(231, 242, 251, 0.6);
   font-variant-numeric: tabular-nums;
 }
 
-.gpx-track-card__color-toggle {
+.route-card__color-toggle {
   width: 40px;
   height: 28px;
   border-radius: 6px;
@@ -2997,12 +3065,12 @@ button.location-clear-btn:focus-visible {
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
-.gpx-track-card__color-toggle:hover {
+.route-card__color-toggle:hover {
   border-color: rgba(255, 255, 255, 0.55);
   transform: scale(1.05);
 }
 
-.gpx-track-card__style-toggle {
+.route-card__style-toggle {
   display: inline-flex;
   gap: 4px;
   background: rgba(255, 255, 255, 0.05);
@@ -3010,7 +3078,7 @@ button.location-clear-btn:focus-visible {
   border-radius: 6px;
 }
 
-.gpx-track-card__style-btn {
+.route-card__style-btn {
   flex: 1 1 0;
   display: inline-flex;
   align-items: center;
@@ -3026,16 +3094,16 @@ button.location-clear-btn:focus-visible {
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.gpx-track-card__style-btn:hover {
+.route-card__style-btn:hover {
   color: #e7f2fb;
 }
 
-.gpx-track-card__style-preview {
+.route-card__style-preview {
   flex: 0 0 auto;
   color: currentColor;
 }
 
-.gpx-track-card__style-btn.is-active {
+.route-card__style-btn.is-active {
   background: rgba(255, 255, 255, 0.12);
   color: #e7f2fb;
 }

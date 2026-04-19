@@ -1,7 +1,7 @@
 import { applyFades } from "./layers";
 import { drawPosterText } from "./typography";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
-import { drawGpxTracksOnCanvas } from "@/features/routes/infrastructure/rendering";
+import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
 
 /**
@@ -34,7 +34,7 @@ export async function compositeExport(
     markerScaleX = 1,
     markerScaleY = 1,
     markerSizeScale = 1,
-    gpxTracks = [],
+    routes = [],
   } = options;
 
   const width = mapCanvas.width;
@@ -55,11 +55,11 @@ export async function compositeExport(
     applyFades(ctx, width, height, theme.ui.bg);
   }
 
-  // 3. GPX tracks (below markers)
-  if (gpxTracks.length > 0 && markerProjection) {
-    drawGpxTracksOnCanvas(
+  // 3. Routes (below markers)
+  if (routes.length > 0 && markerProjection) {
+    drawRoutesOnCanvas(
       ctx,
-      gpxTracks,
+      routes,
       markerProjection,
       markerScaleX,
       markerScaleY,

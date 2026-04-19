@@ -1,6 +1,6 @@
 import type { Coordinate } from "@/shared/geo/types";
 import type { IGpxParserPort } from "../domain/ports";
-import type { GpxBounds, ParsedGpx } from "../domain/types";
+import type { ParsedGpx, RouteBounds } from "../domain/types";
 
 function deriveLabelFromGpx(doc: Document, fallback: string): string {
   const nameNode = doc.querySelector("trk > name")
@@ -32,7 +32,7 @@ function parseSegments(doc: Document): Coordinate[][] {
   return segments;
 }
 
-function computeBounds(segments: Coordinate[][]): GpxBounds {
+function computeBounds(segments: Coordinate[][]): RouteBounds {
   let minLat = Infinity;
   let maxLat = -Infinity;
   let minLon = Infinity;

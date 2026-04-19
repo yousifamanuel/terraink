@@ -5,8 +5,8 @@ import type {
   MarkerItem,
 } from "@/features/markers/domain/types";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
-import type { GpxTrack } from "@/features/routes/domain/types";
-import { drawGpxTracksOnCanvas } from "@/features/routes/infrastructure/rendering";
+import type { Route } from "@/features/routes/domain/types";
+import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { applyFades } from "@/features/poster/infrastructure/renderer/layers";
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
@@ -30,7 +30,7 @@ interface LayeredSvgOptions {
   includeCredits: boolean;
   markers: MarkerItem[];
   markerIcons: MarkerIconDefinition[];
-  gpxTracks?: GpxTrack[];
+  routes?: Route[];
 }
 
 function renderMapCanvasToDataUrl(
@@ -85,7 +85,7 @@ export async function createLayeredSvgBlobFromMap({
   includeCredits,
   markers,
   markerIcons,
-  gpxTracks = [],
+  routes = [],
 }: LayeredSvgOptions): Promise<Blob> {
   await waitForMapIdle(map);
 
@@ -172,22 +172,22 @@ export async function createLayeredSvgBlobFromMap({
       });
     }
 
-    if (gpxTracks.length > 0) {
-      const gpxCanvas = document.createElement("canvas");
-      gpxCanvas.width = exportWidth;
-      gpxCanvas.height = exportHeight;
-      const gpxCtx = gpxCanvas.getContext("2d");
-      if (gpxCtx) {
-        drawGpxTracksOnCanvas(
-          gpxCtx,
-          gpxTracks,
+    if (routes.length > 0) {
+      const routesCanvas = document.createElement("canvas");
+      routesCanvas.width = exportWidth;
+      routesCanvas.height = exportHeight;
+      const routesCtx = routesCanvas.getContext("2d");
+      if (routesCtx) {
+        drawRoutesOnCanvas(
+          routesCtx,
+          routes,
           markerProjection,
           markerScaleX,
           markerScaleY,
         );
         overlayLayers.push({
-          id: "gpx-tracks",
-          dataUrl: gpxCanvas.toDataURL("image/png"),
+          id: "routes",
+          dataUrl: routesCanvas.toDataURL("image/png"),
         });
       }
     }
