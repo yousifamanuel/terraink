@@ -130,7 +130,7 @@ export function useExport() {
             showOverlay: form.showMarkers,
             includeCredits: form.includeCredits,
             markers: hasVisibleMarkers ? state.markers : [],
-            markerIcons: hasVisibleMarkers
+            markerIcons: hasVisibleOverlays
               ? getAllMarkerIcons(state.customMarkerIcons)
               : [],
             routes: visibleRoutes,
@@ -168,13 +168,13 @@ export function useExport() {
           showOverlay: form.showMarkers,
           includeCredits: form.includeCredits,
           markers: hasVisibleMarkers ? state.markers : [],
-          markerIcons: hasVisibleMarkers
+          markerIcons: hasVisibleOverlays
             ? getAllMarkerIcons(state.customMarkerIcons)
             : [],
           markerProjection: hasVisibleOverlays ? markerProjection : undefined,
           markerScaleX: hasVisibleOverlays ? markerScaleX : undefined,
           markerScaleY: hasVisibleOverlays ? markerScaleY : undefined,
-          markerSizeScale: hasVisibleMarkers ? markerSizeScale : undefined,
+          markerSizeScale: hasVisibleOverlays ? markerSizeScale : undefined,
           routes: visibleRoutes,
         });
 

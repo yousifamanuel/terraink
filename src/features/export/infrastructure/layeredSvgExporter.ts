@@ -7,6 +7,7 @@ import type {
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
 import type { Route } from "@/features/routes/domain/types";
 import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
+import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
 import { applyFades } from "@/features/poster/infrastructure/renderer/layers";
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
@@ -184,11 +185,37 @@ export async function createLayeredSvgBlobFromMap({
           markerProjection,
           markerScaleX,
           markerScaleY,
+          markerSizeScale,
         );
         overlayLayers.push({
           id: "routes",
           dataUrl: routesCanvas.toDataURL("image/png"),
         });
+      }
+    }
+
+    if (routes.length > 0 && markerIcons.length > 0) {
+      const endpointItems = routeEndpointMarkerItems(routes);
+      if (endpointItems.length > 0) {
+        const endpointsCanvas = document.createElement("canvas");
+        endpointsCanvas.width = exportWidth;
+        endpointsCanvas.height = exportHeight;
+        const endpointsCtx = endpointsCanvas.getContext("2d");
+        if (endpointsCtx) {
+          await drawMarkersOnCanvas(
+            endpointsCtx,
+            endpointItems,
+            markerIcons,
+            markerProjection,
+            markerScaleX,
+            markerScaleY,
+            markerSizeScale,
+          );
+          overlayLayers.push({
+            id: "route-endpoints",
+            dataUrl: endpointsCanvas.toDataURL("image/png"),
+          });
+        }
       }
     }
 
