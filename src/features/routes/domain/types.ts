@@ -5,6 +5,12 @@ export type RouteLineStyle = (typeof ROUTE_LINE_STYLES)[number];
 
 export type RouteSource = "gpx" | "manual";
 
+export interface RouteEndpointMarker {
+  iconId: string;
+  color: string;
+  size: number;
+}
+
 export interface Route {
   id: string;
   label: string;
@@ -16,6 +22,9 @@ export interface Route {
   opacity: number;
   lineStyle: RouteLineStyle;
   visible: boolean;
+  showEndpoints: boolean;
+  startMarker: RouteEndpointMarker;
+  finishMarker: RouteEndpointMarker;
 }
 
 export interface RouteDefaults {
@@ -23,6 +32,8 @@ export interface RouteDefaults {
   strokeWidth: number;
   opacity: number;
   lineStyle: RouteLineStyle;
+  startIconId: string;
+  finishIconId: string;
 }
 
 export interface RouteBounds {

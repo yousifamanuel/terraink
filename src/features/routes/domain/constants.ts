@@ -13,3 +13,7 @@ export const ROUTE_DASH_PATTERN: [number, number] = [3, 2];
 export const ROUTE_LINE_STYLES = ["solid", "dashed"] as const;
 
 export const MAX_GPX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
+
+export const DEFAULT_ROUTE_START_ICON_ID = "circle";
+export const DEFAULT_ROUTE_FINISH_ICON_ID = "flag";
+export const DEFAULT_ROUTE_ENDPOINT_SIZE = 24;

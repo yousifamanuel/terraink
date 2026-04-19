@@ -10,6 +10,7 @@ import { useMapSync } from "@/features/map/application/useMapSync";
 import MapPreview from "@/features/map/ui/MapPreview";
 import MarkerOverlay from "@/features/markers/ui/MarkerOverlay";
 import RouteOverlay from "@/features/routes/ui/RouteOverlay";
+import RouteEndpointsOverlay from "@/features/routes/ui/RouteEndpointsOverlay";
 import GradientFades from "./GradientFades";
 import PosterTextOverlay from "./PosterTextOverlay";
 import SettingsInfo from "./SettingsInfo";
@@ -415,6 +416,13 @@ export default function PreviewPanel() {
           ) : null}
           <RouteOverlay
             routes={state.routes}
+            mapRef={mapRef}
+            visible={form.showRoutes}
+            overzoomScale={overzoomScale}
+          />
+          <RouteEndpointsOverlay
+            routes={state.routes}
+            customIcons={state.customMarkerIcons}
             mapRef={mapRef}
             visible={form.showRoutes}
             overzoomScale={overzoomScale}

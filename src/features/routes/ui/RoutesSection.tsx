@@ -2,7 +2,15 @@ import { useCallback, useMemo, useRef, useState, type ChangeEvent } from "react"
 import { createPortal } from "react-dom";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useGpxUpload } from "@/features/routes/application/useGpxUpload";
-import type { Route, RouteBounds } from "@/features/routes/domain/types";
+import type {
+  Route,
+  RouteBounds,
+  RouteEndpointMarker,
+} from "@/features/routes/domain/types";
+import {
+  MAX_MARKER_SIZE,
+  MIN_MARKER_SIZE,
+} from "@/features/markers/domain/constants";
 import { routeLengthMeters } from "@/features/routes/infrastructure/helpers";
 import {
   ROUTE_LINE_STYLES,
@@ -18,7 +26,19 @@ import {
   type ThemeColorKey,
 } from "@/features/theme/domain/types";
 import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
-import { CloseIcon } from "@/shared/ui/Icons";
+import { CheckIcon, CloseIcon, TrashIcon } from "@/shared/ui/Icons";
+import MarkerVisual from "@/features/markers/ui/MarkerVisual";
+import {
+  findMarkerIcon,
+  predefinedMarkerIcons,
+} from "@/features/markers/infrastructure/iconRegistry";
+
+type RouteEndpointKind = "start" | "finish";
+
+interface EndpointPickerState {
+  routeId: string;
+  kind: RouteEndpointKind;
+}
 
 function formatRouteDistance(meters: number): string {
   if (!Number.isFinite(meters) || meters <= 0) return "—";
@@ -97,7 +117,7 @@ function RouteBoundsWarningModal({
 
 export default function RoutesSection() {
   const { state, dispatch, effectiveTheme } = usePosterContext();
-  const { form, routes } = state;
+  const { form, routes, customMarkerIcons } = state;
   const { uploadGpxFile, confirmAddRoute, confirmReplaceRoutes } =
     useGpxUpload();
 
@@ -108,6 +128,10 @@ export default function RoutesSection() {
   const [openColorPickerId, setOpenColorPickerId] = useState<string | null>(
     null,
   );
+  const [activeEndpoint, setActiveEndpoint] =
+    useState<EndpointPickerState | null>(null);
+  const [isEndpointIconOpen, setIsEndpointIconOpen] = useState(false);
+  const [isEndpointColorOpen, setIsEndpointColorOpen] = useState(false);
   const [pendingConfirmation, setPendingConfirmation] =
     useState<PendingConfirmation | null>(null);
 
@@ -162,6 +186,9 @@ export default function RoutesSection() {
       setOpenColorPickerId((current) =>
         current === routeId ? null : current,
       );
+      setActiveEndpoint((current) =>
+        current?.routeId === routeId ? null : current,
+      );
     },
     [dispatch],
   );
@@ -177,7 +204,56 @@ export default function RoutesSection() {
   const toggleCardOpen = useCallback((routeId: string) => {
     setOpenRouteId((current) => (current === routeId ? null : routeId));
     setOpenColorPickerId(null);
+    setActiveEndpoint(null);
+    setIsEndpointIconOpen(false);
+    setIsEndpointColorOpen(false);
   }, []);
+
+  const closeCard = useCallback(() => {
+    setOpenRouteId(null);
+    setOpenColorPickerId(null);
+    setActiveEndpoint(null);
+    setIsEndpointIconOpen(false);
+    setIsEndpointColorOpen(false);
+  }, []);
+
+  const openEndpointEditor = useCallback(
+    (routeId: string, kind: RouteEndpointKind) => {
+      setActiveEndpoint({ routeId, kind });
+      setIsEndpointIconOpen(false);
+      setIsEndpointColorOpen(false);
+      setOpenColorPickerId(null);
+    },
+    [],
+  );
+
+  const closeEndpointEditor = useCallback(() => {
+    setActiveEndpoint(null);
+    setIsEndpointIconOpen(false);
+    setIsEndpointColorOpen(false);
+  }, []);
+
+  const updateEndpoint = useCallback(
+    (
+      routeId: string,
+      kind: RouteEndpointKind,
+      changes: Partial<RouteEndpointMarker>,
+    ) => {
+      const route = routes.find((r) => r.id === routeId);
+      if (!route) return;
+      const current = kind === "start" ? route.startMarker : route.finishMarker;
+      const next: RouteEndpointMarker = { ...current, ...changes };
+      dispatch({
+        type: "UPDATE_ROUTE",
+        routeId,
+        changes:
+          kind === "start"
+            ? { startMarker: next }
+            : { finishMarker: next },
+      });
+    },
+    [dispatch, routes],
+  );
 
   return (
     <section className="panel-block routes-settings-screen">
@@ -256,27 +332,47 @@ export default function RoutesSection() {
           const isColorOpen = openColorPickerId === route.id;
           const colorChoices = buildDynamicColorChoices(route.color, palette);
           const distanceLabel = formatRouteDistance(routeLengthMeters(route));
+          const endpointKind =
+            activeEndpoint?.routeId === route.id ? activeEndpoint.kind : null;
+          const isEditingEndpoint = endpointKind !== null;
 
           return (
             <article
               key={route.id}
               className={`route-card${isOpen ? " is-open" : ""}`}
             >
-              <button
-                type="button"
-                className="route-card__delete"
-                onClick={() => removeRoute(route.id)}
-                title="Remove route"
-                aria-label={`Remove ${route.label}`}
-              >
-                <CloseIcon />
-              </button>
+              {!isOpen ? (
+                <button
+                  type="button"
+                  className="route-card__delete"
+                  onClick={() => removeRoute(route.id)}
+                  title="Remove route"
+                  aria-label={`Remove ${route.label}`}
+                >
+                  <CloseIcon />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="route-card__done"
+                  onClick={
+                    isEditingEndpoint ? closeEndpointEditor : closeCard
+                  }
+                  title={isEditingEndpoint ? "Finish endpoint" : "Done"}
+                  aria-label={
+                    isEditingEndpoint ? "Finish endpoint" : "Done editing route"
+                  }
+                >
+                  <CheckIcon />
+                </button>
+              )}
 
               <button
                 type="button"
                 className="route-card__summary"
                 onClick={() => toggleCardOpen(route.id)}
                 aria-expanded={isOpen}
+                disabled={isEditingEndpoint}
               >
                 <span
                   className="route-card__swatch"
@@ -287,13 +383,203 @@ export default function RoutesSection() {
                   aria-hidden="true"
                 />
                 <span className="route-card__meta">
-                  <span className="route-card__label">{route.label}</span>
-                  <span className="route-card__distance">{distanceLabel}</span>
+                  <span className="route-card__label">
+                    {isEditingEndpoint
+                      ? `Edit ${endpointKind === "start" ? "Start" : "Finish"}`
+                      : route.label}
+                  </span>
+                  <span className="route-card__distance">
+                    {isEditingEndpoint ? route.label : distanceLabel}
+                  </span>
                 </span>
               </button>
 
-              {isOpen ? (
+              {isOpen && isEditingEndpoint ? (() => {
+                const endpoint =
+                  endpointKind === "start"
+                    ? route.startMarker
+                    : route.finishMarker;
+                const icon = findMarkerIcon(endpoint.iconId, customMarkerIcons);
+                const endpointColorChoices = buildDynamicColorChoices(
+                  endpoint.color,
+                  palette,
+                );
+                return (
+                  <div className="route-card__body">
+                    <div className="route-card__field">
+                      <label>
+                        <span>Icon</span>
+                        <button
+                          type="button"
+                          className="route-card__endpoint-toggle"
+                          onClick={() =>
+                            setIsEndpointIconOpen((current) => !current)
+                          }
+                          aria-expanded={isEndpointIconOpen}
+                          aria-label={
+                            isEndpointIconOpen
+                              ? "Close icon picker"
+                              : "Change icon"
+                          }
+                        >
+                          {icon ? (
+                            <MarkerVisual
+                              icon={icon}
+                              size={22}
+                              color={endpoint.color}
+                            />
+                          ) : null}
+                        </button>
+                      </label>
+                      {isEndpointIconOpen ? (
+                        <div className="route-card__endpoint-picker">
+                          {predefinedMarkerIcons.map((option) => (
+                            <button
+                              key={option.id}
+                              type="button"
+                              className={`route-card__endpoint-option${
+                                option.id === endpoint.iconId
+                                  ? " is-selected"
+                                  : ""
+                              }`}
+                              onClick={() =>
+                                updateEndpoint(route.id, endpointKind!, {
+                                  iconId: option.id,
+                                })
+                              }
+                              title={option.label}
+                              aria-label={option.label}
+                            >
+                              <MarkerVisual
+                                icon={option}
+                                size={24}
+                                color={endpoint.color}
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div className="route-card__field">
+                      <label>
+                        <span>Color</span>
+                        <button
+                          type="button"
+                          className="route-card__color-toggle"
+                          style={{ backgroundColor: endpoint.color }}
+                          onClick={() =>
+                            setIsEndpointColorOpen((current) => !current)
+                          }
+                          aria-label={
+                            isEndpointColorOpen
+                              ? "Close color picker"
+                              : "Open color picker"
+                          }
+                        >
+                          {isEndpointColorOpen ? <CloseIcon /> : null}
+                        </button>
+                      </label>
+                      {isEndpointColorOpen ? (
+                        <ColorPicker
+                          currentColor={endpoint.color}
+                          suggestedColors={endpointColorChoices.suggestedColors}
+                          moreColors={endpointColorChoices.moreColors}
+                          onChange={(color) =>
+                            updateEndpoint(route.id, endpointKind!, { color })
+                          }
+                          onResetColor={() =>
+                            updateEndpoint(route.id, endpointKind!, {
+                              color: route.color,
+                            })
+                          }
+                        />
+                      ) : null}
+                    </div>
+
+                    <div className="route-card__field">
+                      <label
+                        htmlFor={`route-${route.id}-${endpointKind}-size`}
+                      >
+                        <span>Size</span>
+                        <span className="route-card__value">
+                          {endpoint.size}px
+                        </span>
+                      </label>
+                      <input
+                        id={`route-${route.id}-${endpointKind}-size`}
+                        type="range"
+                        min={MIN_MARKER_SIZE}
+                        max={MAX_MARKER_SIZE}
+                        step={1}
+                        value={endpoint.size}
+                        onChange={(event) =>
+                          updateEndpoint(route.id, endpointKind!, {
+                            size: Number(event.target.value),
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                );
+              })() : null}
+
+              {isOpen && !isEditingEndpoint ? (
                 <div className="route-card__body">
+                  <label className="toggle-field">
+                    <span>Show endpoints</span>
+                    <span className="theme-switch">
+                      <input
+                        type="checkbox"
+                        checked={route.showEndpoints}
+                        onChange={(event) =>
+                          updateRoute(route.id, {
+                            showEndpoints: event.target.checked,
+                          })
+                        }
+                      />
+                      <span className="theme-switch-track" aria-hidden="true" />
+                    </span>
+                  </label>
+
+                  {route.showEndpoints ? (
+                    <div className="route-card__endpoint-rows">
+                      {(["start", "finish"] as const).map((kind) => {
+                        const endpoint =
+                          kind === "start"
+                            ? route.startMarker
+                            : route.finishMarker;
+                        const icon = findMarkerIcon(
+                          endpoint.iconId,
+                          customMarkerIcons,
+                        );
+                        const label = kind === "start" ? "Start" : "Finish";
+                        return (
+                          <button
+                            key={kind}
+                            type="button"
+                            className="route-card__endpoint-row"
+                            onClick={() => openEndpointEditor(route.id, kind)}
+                            aria-label={`Edit ${label.toLowerCase()} marker`}
+                          >
+                            <span className="route-card__endpoint-row-icon">
+                              {icon ? (
+                                <MarkerVisual
+                                  icon={icon}
+                                  size={24}
+                                  color={endpoint.color}
+                                />
+                              ) : null}
+                            </span>
+                            <span className="route-card__endpoint-row-label">
+                              {label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+
                   <div className="route-card__field">
                     <label>
                       <span>Color</span>
@@ -406,6 +692,20 @@ export default function RoutesSection() {
                         </button>
                       ))}
                     </div>
+                  </div>
+
+                  <div className="route-card__actions">
+                    <button
+                      type="button"
+                      className="marker-row__icon-btn marker-row__icon-btn--danger"
+                      onClick={() => removeRoute(route.id)}
+                      title="Remove route"
+                    >
+                      <TrashIcon />
+                      <span className="marker-row__icon-btn-label">
+                        Remove Route
+                      </span>
+                    </button>
                   </div>
                 </div>
               ) : null}

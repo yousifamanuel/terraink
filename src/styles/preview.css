@@ -104,6 +104,20 @@
   pointer-events: none;
 }
 
+.poster-route-endpoints {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.poster-route-endpoint {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 .poster-marker-overlay.is-edit-mode {
   pointer-events: auto;
   touch-action: none;

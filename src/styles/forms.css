@@ -3107,3 +3107,141 @@ button.route-card__delete:focus-visible {
   background: rgba(255, 255, 255, 0.12);
   color: #e7f2fb;
 }
+
+button.route-card__done {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(35%, -35%);
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(143, 215, 176, 0.45);
+  background: rgba(33, 66, 50, 0.92);
+  color: #d7f3e3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button.route-card__done svg {
+  width: 15px;
+  height: 15px;
+}
+
+button.route-card__done:not(:disabled):hover,
+button.route-card__done:focus-visible {
+  transform: translate(35%, -35%);
+  filter: none;
+  border-color: rgba(143, 215, 176, 0.8);
+  background: rgba(46, 84, 66, 0.96);
+}
+
+.route-card__endpoint-rows {
+  display: flex;
+  gap: 8px;
+}
+
+button.route-card__endpoint-row {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #e7f2fb;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+button.route-card__endpoint-row:not(:disabled):hover,
+button.route-card__endpoint-row:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.route-card__endpoint-row-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+}
+
+.route-card__endpoint-row-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.route-card__actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.route-card__endpoint-toggle {
+  width: 40px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.route-card__endpoint-toggle:hover,
+.route-card__endpoint-toggle[aria-expanded="true"] {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.route-card__endpoint-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+  gap: 4px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+button.route-card__endpoint-option {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+button.route-card__endpoint-option:not(:disabled):hover,
+button.route-card__endpoint-option:focus-visible {
+  transform: none;
+  filter: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+button.route-card__endpoint-option.is-selected {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.45);
+}

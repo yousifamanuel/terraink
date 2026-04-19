@@ -452,6 +452,8 @@ export function posterReducer(
             ? clamp(partial.opacity, MIN_ROUTE_OPACITY, MAX_ROUTE_OPACITY)
             : state.routeDefaults.opacity,
         lineStyle: partial.lineStyle ?? state.routeDefaults.lineStyle,
+        startIconId: partial.startIconId ?? state.routeDefaults.startIconId,
+        finishIconId: partial.finishIconId ?? state.routeDefaults.finishIconId,
       };
 
       return {
