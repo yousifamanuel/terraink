@@ -1,7 +1,7 @@
 import type { ResolvedTheme } from "@/features/theme/domain/types";
 import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
 import { blendHex } from "@/shared/utils/color";
-import type { StyleSpecification } from "maplibre-gl";
+import type { StyleSpecification, ExpressionSpecification } from "maplibre-gl";
 
 const OPENFREEMAP_SOURCE = "https://tiles.openfreemap.org/planet";
 const SOURCE_ID = "openfreemap";
@@ -131,13 +131,13 @@ const ROAD_PATH_OVERVIEW_MIN_ZOOM = 5;
 const ROAD_PATH_DETAIL_MIN_ZOOM = 8;
 const ROAD_OVERVIEW_MAX_ZOOM = 11.8;
 
-const LINE_GEOMETRY_FILTER = [
+const LINE_GEOMETRY_FILTER: ExpressionSpecification = [
   "match",
   ["geometry-type"],
   ["LineString", "MultiLineString"],
   true,
   false,
-] as const;
+];
 
 /**
  * Over-zoom preview/export shrinks rendered strokes after viewport scale compensation.
@@ -155,12 +155,12 @@ function resolveBuildingMinZoom(distanceMeters?: number): number {
   return MAP_BUILDING_MIN_ZOOM_DEFAULT;
 }
 
-function widthExpr(stops: [number, number][]): any {
+function widthExpr(stops: [number, number][]): ExpressionSpecification {
   const flat = stops.flatMap(([zoom, width]) => [zoom, width]);
   return ["interpolate", ["linear"], ["zoom"], ...flat];
 }
 
-function opacityExpr(stops: [number, number][]): any {
+function opacityExpr(stops: [number, number][]): ExpressionSpecification {
   const flat = stops.flatMap(([zoom, opacity]) => [zoom, opacity]);
   return ["interpolate", ["linear"], ["zoom"], ...flat];
 }
@@ -178,7 +178,7 @@ function compensateLineWidthStops(
   return scaledStops(stops, OVERZOOM_LINE_WIDTH_SCALE);
 }
 
-function lineClassFilter(classes: string[]): any {
+function lineClassFilter(classes: string[]): ExpressionSpecification {
   return [
     "all",
     LINE_GEOMETRY_FILTER,
