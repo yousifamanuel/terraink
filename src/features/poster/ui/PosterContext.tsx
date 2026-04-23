@@ -77,6 +77,8 @@ export const DEFAULT_FORM: PosterForm = {
   includeRoadPath: true,
   includeRoadMinorLow: true,
   includeRoadOutline: true,
+  includeSkiResorts: false,
+  includeCycleWays: false,
   showMarkers: true,
   showRoutes: true,
 };
@@ -223,6 +225,8 @@ export function PosterProvider({ children }: { children: ReactNode }) {
         includeRoadPath: state.form.includeRoadPath,
         includeRoadMinorLow: state.form.includeRoadMinorLow,
         includeRoadOutline: state.form.includeRoadOutline,
+        includeSkiResorts: state.form.includeSkiResorts,
+        includeCycleWays: state.form.includeCycleWays,
         distanceMeters: Number(state.form.distance),
       }),
     [
@@ -237,6 +241,8 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       state.form.includeRoadPath,
       state.form.includeRoadMinorLow,
       state.form.includeRoadOutline,
+      state.form.includeSkiResorts,
+      state.form.includeCycleWays,
       state.form.distance,
     ],
   );

@@ -199,6 +199,8 @@ export function generateMapStyle(
     includeRoadPath?: boolean;
     includeRoadMinorLow?: boolean;
     includeRoadOutline?: boolean;
+    includeSkiResorts?: boolean;
+    includeCycleWays?: boolean;
     distanceMeters?: number;
   },
 ): StyleSpecification {
@@ -220,6 +222,8 @@ export function generateMapStyle(
   const includeRoadPath = options?.includeRoadPath ?? true;
   const includeRoadMinorLow = options?.includeRoadMinorLow ?? true;
   const includeRoadOutline = options?.includeRoadOutline ?? true;
+  const includeSkiResorts = options?.includeSkiResorts ?? false;
+  const includeCycleWays = options?.includeCycleWays ?? false;
   const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
 
   const minorHighCasingStops = scaledStops(
@@ -684,6 +688,125 @@ export function generateMapStyle(
         },
         layout: {
           visibility: includeRoads ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+      {
+        id: "ski-lifts",
+        source: SOURCE_ID,
+        "source-layer": "transportation",
+        type: "line" as const,
+        filter: lineClassFilter(["aerialway"]),
+        paint: {
+          "line-color": theme.map.roads.major,
+          "line-width": widthExpr(roadMajorWidthStops),
+        },
+        layout: {
+          visibility: includeSkiResorts ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+
+      {
+        id: "ski-slopes",
+        source: SOURCE_ID,
+        "source-layer": "transportation",
+        type: "line" as const,
+        filter: [
+          "all",
+          LINE_GEOMETRY_FILTER,
+          ["==", ["get", "class"], "path"],
+        ],
+        paint: {
+          "line-color": theme.map.rail,
+          "line-width": widthExpr(
+            compensateLineWidthStops([
+              [3, 0.4],
+              [6, 0.7],
+              [10, 1],
+              [18, 1.5],
+            ]
+          )),
+          "line-opacity": opacityExpr([
+            [0, 0.56],
+            [12, 0.62],
+            [18, 0.72],
+          ]),
+          "line-dasharray": [2, 1.6],
+        },
+        layout: {
+          visibility: includeSkiResorts ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+
+      {
+        id: "bike-dedicated-cycleway",
+        source: SOURCE_ID,
+        "source-layer": "transportation",
+        type: "line" as const,
+        minzoom: 6,
+        filter: [
+          "all",
+          LINE_GEOMETRY_FILTER,
+          ["match", ["get", "subclass"], "cycleway", true, false],
+        ],
+        paint: {
+          "line-color": theme.map.roads.major,
+          "line-width": widthExpr(
+            compensateLineWidthStops([
+              [6, 0.3],
+              [10, 0.5],
+              [14, 0.8],
+              [18, 1.2],
+            ])
+          ),
+          "line-opacity": opacityExpr([
+            [6, 0.8],
+            [12, 0.9],
+            [18, 1],
+          ]),
+        },
+        layout: {
+          visibility: includeCycleWays ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+      {
+        id: "bike-shared-lane",
+        source: SOURCE_ID,
+        "source-layer": "transportation",
+        type: "line" as const,
+        minzoom: 6,
+        filter: [
+          "all",
+          LINE_GEOMETRY_FILTER,
+          ["has", "bicycle"],
+          ["!", ["in", ["get", "bicycle"], ["literal", ["no", "dismount", "use_sidepath", "private"]]]],
+        ],
+        paint: {
+          "line-color": theme.map.roads.major,
+          "line-width": widthExpr(
+            compensateLineWidthStops([
+              [6, 0.2],
+              [10, 0.35],
+              [14, 0.6],
+              [18, 0.9],
+            ])
+          ),
+          "line-opacity": opacityExpr([
+            [6, 0.6],
+            [12, 0.7],
+            [18, 0.8],
+          ]),
+          "line-dasharray": [4, 2],
+        },
+        layout: {
+          visibility: includeCycleWays ? ("visible" as const) : ("none" as const),
           "line-cap": "round" as const,
           "line-join": "round" as const,
         },
