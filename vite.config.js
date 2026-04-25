@@ -34,8 +34,27 @@ function getPackageName(id) {
   return parts[0];
 }
 
+function adsTxtPlugin() {
+  return {
+    name: "ads-txt",
+    closeBundle() {
+      const clientId = process.env.VITE_ADSENSE_CLIENT;
+      if (!clientId) {
+        console.warn("[ads-txt] VITE_ADSENSE_CLIENT is not set — skipping ads.txt generation");
+        return;
+      }
+      const outDir = path.resolve(__dirname, "dist");
+      fs.writeFileSync(
+        path.join(outDir, "ads.txt"),
+        `google.com, ${clientId}, DIRECT, f08c47fec0942fa0\n`,
+        "utf8",
+      );
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), adsTxtPlugin()],
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },
