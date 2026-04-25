@@ -35,15 +35,19 @@ function getPackageName(id) {
 }
 
 function adsTxtPlugin() {
+  let resolvedConfig;
   return {
     name: "ads-txt",
+    configResolved(config) {
+      resolvedConfig = config;
+    },
     closeBundle() {
-      const clientId = process.env.VITE_ADSENSE_CLIENT;
+      const clientId = resolvedConfig.env.VITE_ADSENSE_CLIENT;
       if (!clientId) {
         console.warn("[ads-txt] VITE_ADSENSE_CLIENT is not set — skipping ads.txt generation");
         return;
       }
-      const outDir = path.resolve(__dirname, "dist");
+      const outDir = path.resolve(resolvedConfig.root, resolvedConfig.build.outDir);
       fs.writeFileSync(
         path.join(outDir, "ads.txt"),
         `google.com, ${clientId}, DIRECT, f08c47fec0942fa0\n`,
