@@ -46,17 +46,15 @@
 
 ## User Interface
 
-![](./public/assets/screenshots/Web_UI.png)
+![Terraink web UI](./docs/images/Web_UI.png)
 
 ## Showcase
-
-All showcase images are stored in `public/assets/showcase/`.
 
 ### Featured Examples
 
 <p align="center">
-  <img src="./public/assets/showcase/showcase_1.png" alt="Featured showcase example 1" width="100%" />
-  <img src="./public/assets/showcase/showcase_2.png" alt="Featured showcase example 2" width="100%" />
+  <img src="./docs/images/showcase_1.png" alt="Featured showcase example 1" width="100%" />
+  <img src="./docs/images/showcase_2.png" alt="Featured showcase example 2" width="100%" />
 </p>
 
 ## License
