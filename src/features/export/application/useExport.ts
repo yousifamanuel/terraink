@@ -19,6 +19,14 @@ import {
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
 } from "@/core/config";
+import { getCachedAdBlockState } from "@/features/export/application/adBlockDetection";
+import {
+  canDownloadWithAdBlock,
+  hoursUntilAdBlockReset,
+  recordAdBlockDownload,
+} from "@/features/export/application/adBlockLimit";
+
+export const ADBLOCK_LIMIT_EVENT = "terraink:adblock-limit";
 
 const EXPORT_COUNT_STORAGE_KEY = "terraink.poster.count";
 
@@ -91,6 +99,15 @@ export function useExport() {
 
   const exportPoster = useCallback(
     async (format: ExportFormat) => {
+      if (getCachedAdBlockState() && !canDownloadWithAdBlock()) {
+        window.dispatchEvent(
+          new CustomEvent(ADBLOCK_LIMIT_EVENT, {
+            detail: { hoursUntilReset: hoursUntilAdBlockReset() },
+          }),
+        );
+        return;
+      }
+
       const map = mapRef.current;
       if (!map) {
         dispatch({ type: "SET_ERROR", error: "Map is not ready." });
@@ -142,6 +159,7 @@ export function useExport() {
           );
           await triggerDownloadBlob(svgBlob, svgFilename);
           registerSuccessfulExport();
+          if (getCachedAdBlockState()) recordAdBlockDownload();
           dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
           return;
         }
@@ -197,6 +215,7 @@ export function useExport() {
         }
 
         registerSuccessfulExport();
+        if (getCachedAdBlockState()) recordAdBlockDownload();
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
         const message = err instanceof Error ? err.message : "Export failed.";

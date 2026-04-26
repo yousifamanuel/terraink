@@ -14,10 +14,13 @@ import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
 import { CheckIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
+import AdBlockModal from "@/features/export/ui/AdBlockModal";
 import {
   SUPPORT_PROMPT_EVENT,
+  ADBLOCK_LIMIT_EVENT,
   type SupportPromptState,
 } from "@/features/export/application/useExport";
+import { detectAdBlocker } from "@/features/export/application/adBlockDetection";
 
 const AboutModal = lazy(() => import("@/shared/ui/AboutModal"));
 const SettingsPanel = lazy(() => import("@/features/poster/ui/SettingsPanel"));
@@ -87,6 +90,10 @@ export default function AppShell() {
     useState(true);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(null);
+  const [adBlockModal, setAdBlockModal] = useState<{
+    variant: "warning" | "limit";
+    hoursUntilReset?: number;
+  } | null>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -94,6 +101,26 @@ export default function AppShell() {
     };
     window.addEventListener(SUPPORT_PROMPT_EVENT, handler);
     return () => window.removeEventListener(SUPPORT_PROMPT_EVENT, handler);
+  }, []);
+
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem("terraink.adblock.warned") === today) return;
+    detectAdBlocker().then((blocked) => {
+      if (blocked) {
+        localStorage.setItem("terraink.adblock.warned", today);
+        setAdBlockModal({ variant: "warning" });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { hoursUntilReset } = (e as CustomEvent).detail;
+      setAdBlockModal({ variant: "limit", hoursUntilReset });
+    };
+    window.addEventListener(ADBLOCK_LIMIT_EVENT, handler);
+    return () => window.removeEventListener(ADBLOCK_LIMIT_EVENT, handler);
   }, []);
 
   useEffect(() => {
@@ -310,6 +337,13 @@ export default function AppShell() {
           posterNumber={supportPrompt.posterNumber}
           variant={supportPrompt.variant}
           onClose={() => setSupportPrompt(null)}
+        />
+      ) : null}
+      {adBlockModal ? (
+        <AdBlockModal
+          variant={adBlockModal.variant}
+          hoursUntilReset={adBlockModal.hoursUntilReset}
+          onClose={() => setAdBlockModal(null)}
         />
       ) : null}
     </div>
