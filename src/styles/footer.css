@@ -19,6 +19,11 @@
   color: #cbe8ff;
   text-decoration: underline;
   text-underline-offset: 2px;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
 }
 
 .source-link:hover,

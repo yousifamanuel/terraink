@@ -1,47 +1,60 @@
 ﻿import { APP_VERSION, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 
+function handleCookieSettings() {
+  const gfc = (window as any).googlefc;
+  gfc?.callbackQueue?.push({
+    CONSENT_DATA_READY: () => gfc.showRevocationMessage(),
+  });
+}
+
 export default function FooterNote() {
   const appVersion = APP_VERSION;
   const contactEmail = String(CONTACT_EMAIL ?? "").trim();
   const legalNoticeUrl = String(LEGAL_NOTICE_URL ?? "").trim();
   const privacyUrl = String(PRIVACY_URL ?? "").trim();
-  const hasLegal = Boolean(contactEmail || legalNoticeUrl || privacyUrl);
+  const hasLegalLinks = Boolean(contactEmail || legalNoticeUrl || privacyUrl);
 
   return (
     <footer className="app-footer desktop-footer">
       <div className="desktop-footer-left">
-        {hasLegal ? (
-          <p className="source-note">
-            {contactEmail && (
-              <a className="source-link" href={`mailto:${contactEmail}`}>
-                {contactEmail}
-              </a>
-            )}
-            {contactEmail && (legalNoticeUrl || privacyUrl) && " | "}
-            {legalNoticeUrl && (
-              <a
-                className="source-link"
-                href={legalNoticeUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Imprint
-              </a>
-            )}
-            {legalNoticeUrl && privacyUrl && " | "}
-            {privacyUrl && (
-              <a
-                className="source-link"
-                href={privacyUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Data Privacy
-              </a>
-            )}
-          </p>
-        ) : null}
+        <p className="source-note">
+          {contactEmail && (
+            <a className="source-link" href={`mailto:${contactEmail}`}>
+              {contactEmail}
+            </a>
+          )}
+          {contactEmail && (legalNoticeUrl || privacyUrl) && " | "}
+          {legalNoticeUrl && (
+            <a
+              className="source-link"
+              href={legalNoticeUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Imprint
+            </a>
+          )}
+          {legalNoticeUrl && privacyUrl && " | "}
+          {privacyUrl && (
+            <a
+              className="source-link"
+              href={privacyUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Data Privacy
+            </a>
+          )}
+          {hasLegalLinks && " | "}
+          <button
+            type="button"
+            className="source-link"
+            onClick={handleCookieSettings}
+          >
+            Cookie Settings
+          </button>
+        </p>
       </div>
 
       <div className="desktop-footer-middle">
