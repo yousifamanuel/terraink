@@ -27,10 +27,11 @@ import {
 } from "@/features/export/application/adBlockLimit";
 
 export const ADBLOCK_LIMIT_EVENT = "terraink:adblock-limit";
+export const ADBLOCK_WARN_EVENT = "terraink:adblock-warn";
 
 const EXPORT_COUNT_STORAGE_KEY = "terraink.poster.count";
 
-export type SupportPromptVariant = "first" | "milestone";
+export type SupportPromptVariant = "first" | "milestone" | "ad";
 
 export interface SupportPromptState {
   posterNumber: number;
@@ -80,13 +81,22 @@ export function useExport() {
   );
   const hasVisibleOverlays = hasVisibleMarkers || visibleRoutes.length > 0;
 
-  const registerSuccessfulExport = useCallback(() => {
+  const registerSuccessfulExport = useCallback((adBlocked: boolean) => {
     const nextCount = readPosterExportCount() + 1;
     writePosterExportCount(nextCount);
+
+    if (adBlocked) {
+      // Show the ad blocker warning only on the first download
+      if (nextCount === 1) {
+        window.dispatchEvent(new CustomEvent(ADBLOCK_WARN_EVENT));
+      }
+      return;
+    }
 
     let variant: SupportPromptVariant | null = null;
     if (nextCount === 1) variant = "first";
     else if (nextCount % 5 === 0) variant = "milestone";
+    else variant = "ad";
 
     if (variant) {
       window.dispatchEvent(
@@ -159,8 +169,8 @@ export function useExport() {
             "svg",
           );
           await triggerDownloadBlob(svgBlob, svgFilename);
-          registerSuccessfulExport();
-          if (isAdBlocked) recordAdBlockDownload();
+          registerSuccessfulExport(isAdBlocked);
+          if (isAdBlocked) recordAdBlockDownload(readPosterExportCount());
           dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
           return;
         }
@@ -215,8 +225,8 @@ export function useExport() {
           await triggerDownloadBlob(pngBlob, filename);
         }
 
-        registerSuccessfulExport();
-        if (isAdBlocked) recordAdBlockDownload();
+        registerSuccessfulExport(isAdBlocked);
+        if (isAdBlocked) recordAdBlockDownload(readPosterExportCount());
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
         const message = err instanceof Error ? err.message : "Export failed.";
