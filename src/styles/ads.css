@@ -24,6 +24,12 @@
   width: 100%;
 }
 
+/* Hide the whole slot (label + ins) when the ad hasn't been filled yet */
+.panel-ad-slot:has(.adsbygoogle:not([data-adsbygoogle-status])),
+.panel-ad-slot:has(.adsbygoogle[data-adsbygoogle-status="done"]:empty) {
+  display: none;
+}
+
 /* ── Right sidebar slot (desktop right panel) ── */
 
 .sidebar-ad-slot {
@@ -39,6 +45,11 @@
   border-radius: inherit;
 }
 
+.sidebar-ad-slot:has(.adsbygoogle:not([data-adsbygoogle-status])),
+.sidebar-ad-slot:has(.adsbygoogle[data-adsbygoogle-status="done"]:empty) {
+  display: none;
+}
+
 /* ── Modal ad slot (post-download) ── */
 
 .support-modal__ad {
@@ -46,4 +57,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.support-modal__ad:has(.adsbygoogle:not([data-adsbygoogle-status])),
+.support-modal__ad:has(.adsbygoogle[data-adsbygoogle-status="done"]:empty) {
+  display: none;
 }
