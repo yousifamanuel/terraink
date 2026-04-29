@@ -8,6 +8,8 @@ import {
 import { usePosterContext } from "./PosterContext";
 import { useMapSync } from "@/features/map/application/useMapSync";
 import MapPreview from "@/features/map/ui/MapPreview";
+import AdUnit from "@/shared/ui/AdUnit";
+import { AD_SLOT_SIDEBAR } from "@/core/config";
 import MarkerOverlay from "@/features/markers/ui/MarkerOverlay";
 import RouteOverlay from "@/features/routes/ui/RouteOverlay";
 import RouteEndpointsOverlay from "@/features/routes/ui/RouteEndpointsOverlay";
@@ -587,14 +589,20 @@ export default function PreviewPanel() {
         </div>
       </div>
 
-      <SettingsInfo
-        location={infoLocationLabel}
-        theme={effectiveTheme.name}
-        layout={infoLayoutLabel}
-        posterSize={posterSizeLabel}
-        markers={markersLabel}
-        coordinates={coordinatesLabel}
-      />
+      <div className="desktop-right-panel">
+        <SettingsInfo
+          location={infoLocationLabel}
+          theme={effectiveTheme.name}
+          layout={infoLayoutLabel}
+          posterSize={posterSizeLabel}
+          markers={markersLabel}
+          coordinates={coordinatesLabel}
+        />
+        <div className="sidebar-ad-slot" role="presentation">
+          <p className="panel-ad-label">Ads keep Terraink free</p>
+          <AdUnit slot={AD_SLOT_SIDEBAR} format="rectangle" />
+        </div>
+      </div>
     </section>
   );
 }
