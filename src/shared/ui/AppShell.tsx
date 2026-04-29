@@ -14,8 +14,11 @@ import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
 import { CheckIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
+import AdBlockModal from "@/features/export/ui/AdBlockModal";
 import {
   SUPPORT_PROMPT_EVENT,
+  ADBLOCK_LIMIT_EVENT,
+  ADBLOCK_WARN_EVENT,
   type SupportPromptState,
 } from "@/features/export/application/useExport";
 
@@ -87,6 +90,10 @@ export default function AppShell() {
     useState(true);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(null);
+  const [adBlockModal, setAdBlockModal] = useState<{
+    variant: "warning" | "limit";
+    hoursUntilReset?: number;
+  } | null>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -94,6 +101,21 @@ export default function AppShell() {
     };
     window.addEventListener(SUPPORT_PROMPT_EVENT, handler);
     return () => window.removeEventListener(SUPPORT_PROMPT_EVENT, handler);
+  }, []);
+
+  useEffect(() => {
+    const handler = () => setAdBlockModal({ variant: "warning" });
+    window.addEventListener(ADBLOCK_WARN_EVENT, handler);
+    return () => window.removeEventListener(ADBLOCK_WARN_EVENT, handler);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { hoursUntilReset } = (e as CustomEvent).detail;
+      setAdBlockModal({ variant: "limit", hoursUntilReset });
+    };
+    window.addEventListener(ADBLOCK_LIMIT_EVENT, handler);
+    return () => window.removeEventListener(ADBLOCK_LIMIT_EVENT, handler);
   }, []);
 
   useEffect(() => {
@@ -310,6 +332,13 @@ export default function AppShell() {
           posterNumber={supportPrompt.posterNumber}
           variant={supportPrompt.variant}
           onClose={() => setSupportPrompt(null)}
+        />
+      ) : null}
+      {adBlockModal ? (
+        <AdBlockModal
+          variant={adBlockModal.variant}
+          hoursUntilReset={adBlockModal.hoursUntilReset}
+          onClose={() => setAdBlockModal(null)}
         />
       ) : null}
     </div>

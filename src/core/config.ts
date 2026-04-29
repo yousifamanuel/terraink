@@ -39,6 +39,11 @@ export const DEFAULT_LON = 9.732;
 export const DEFAULT_CITY = "Hanover";
 export const DEFAULT_COUNTRY = "Germany";
 
+export const ADSENSE_CLIENT = import.meta.env.VITE_ADSENSE_CLIENT ?? "";
+export const AD_SLOT_INFEED = import.meta.env.VITE_AD_SLOT_INFEED ?? "";
+export const AD_SLOT_SIDEBAR = import.meta.env.VITE_AD_SLOT_SIDEBAR ?? "";
+export const AD_SLOT_MODAL = import.meta.env.VITE_AD_SLOT_MODAL ?? "";
+
 export const REPO_URL = import.meta.env.VITE_REPO_URL ?? "";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";
 export const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "";

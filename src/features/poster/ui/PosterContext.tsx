@@ -25,6 +25,7 @@ import {
   loadCustomMarkerIcons,
   saveCustomMarkerIcons,
 } from "@/features/markers/infrastructure/customIconStorage";
+import { createDefaultRouteSettings } from "@/features/routes/infrastructure/helpers";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -77,6 +78,7 @@ export const DEFAULT_FORM: PosterForm = {
   includeRoadMinorLow: true,
   includeRoadOutline: true,
   showMarkers: true,
+  showRoutes: true,
 };
 
 const INITIAL_STATE: PosterState = {
@@ -90,6 +92,11 @@ const INITIAL_STATE: PosterState = {
   },
   isMarkerEditorActive: false,
   activeMarkerId: null,
+  routes: [],
+  routeDefaults: {
+    ...createDefaultRouteSettings(),
+    color: getTheme(defaultThemeName).ui.text,
+  },
   error: "",
   isExporting: false,
   isLocationFocused: false,
@@ -126,6 +133,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(posterReducer, INITIAL_STATE);
   const mapRef = useRef(null) as MapInstanceRef;
   const lastSyncedMarkerThemeColorRef = useRef<string | null>(null);
+  const lastSyncedRouteThemeColorRef = useRef<string | null>(null);
   const hasLoadedCustomIconsRef = useRef(false);
 
   // Set initial position from browser geolocation (or Hanover fallback)
@@ -156,6 +164,19 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       type: "SET_MARKER_DEFAULTS",
       defaults: { color: markerThemeColor },
       applyToMarkers: true,
+    });
+  }, [dispatch, effectiveTheme.ui.text]);
+
+  useEffect(() => {
+    const routeThemeColor = effectiveTheme.ui.text;
+    if (lastSyncedRouteThemeColorRef.current === routeThemeColor) {
+      return;
+    }
+    lastSyncedRouteThemeColorRef.current = routeThemeColor;
+    dispatch({
+      type: "SET_ROUTE_DEFAULTS",
+      defaults: { color: routeThemeColor },
+      applyToRoutes: true,
     });
   }, [dispatch, effectiveTheme.ui.text]);
 

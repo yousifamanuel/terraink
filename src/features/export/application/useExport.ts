@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { localStorageCache } from "@/core/cache/localStorageCache";
 import type { ExportFormat } from "@/features/export/domain/types";
@@ -19,10 +19,19 @@ import {
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
 } from "@/core/config";
+import { checkAdBlockerNow } from "@/features/export/application/adBlockDetection";
+import {
+  canDownloadWithAdBlock,
+  hoursUntilAdBlockReset,
+  recordAdBlockDownload,
+} from "@/features/export/application/adBlockLimit";
+
+export const ADBLOCK_LIMIT_EVENT = "terraink:adblock-limit";
+export const ADBLOCK_WARN_EVENT = "terraink:adblock-warn";
 
 const EXPORT_COUNT_STORAGE_KEY = "terraink.poster.count";
 
-export type SupportPromptVariant = "first" | "milestone";
+export type SupportPromptVariant = "first" | "milestone" | "ad";
 
 export interface SupportPromptState {
   posterNumber: number;
@@ -63,14 +72,31 @@ export function useExport() {
   const { state, dispatch, effectiveTheme, mapRef } = usePosterContext();
   const { form } = state;
   const hasVisibleMarkers = form.showMarkers && state.markers.length > 0;
+  const visibleRoutes = useMemo(
+    () =>
+      form.showRoutes
+        ? state.routes.filter((route) => route.visible)
+        : [],
+    [form.showRoutes, state.routes],
+  );
+  const hasVisibleOverlays = hasVisibleMarkers || visibleRoutes.length > 0;
 
-  const registerSuccessfulExport = useCallback(() => {
+  const registerSuccessfulExport = useCallback((adBlocked: boolean) => {
     const nextCount = readPosterExportCount() + 1;
     writePosterExportCount(nextCount);
+
+    if (adBlocked) {
+      // Show the ad blocker warning only on the first download
+      if (nextCount === 1) {
+        window.dispatchEvent(new CustomEvent(ADBLOCK_WARN_EVENT));
+      }
+      return;
+    }
 
     let variant: SupportPromptVariant | null = null;
     if (nextCount === 1) variant = "first";
     else if (nextCount % 5 === 0) variant = "milestone";
+    else variant = "ad";
 
     if (variant) {
       window.dispatchEvent(
@@ -83,6 +109,16 @@ export function useExport() {
 
   const exportPoster = useCallback(
     async (format: ExportFormat) => {
+      const isAdBlocked = await checkAdBlockerNow();
+      if (isAdBlocked && !canDownloadWithAdBlock()) {
+        window.dispatchEvent(
+          new CustomEvent(ADBLOCK_LIMIT_EVENT, {
+            detail: { hoursUntilReset: hoursUntilAdBlockReset() },
+          }),
+        );
+        return;
+      }
+
       const map = mapRef.current;
       if (!map) {
         dispatch({ type: "SET_ERROR", error: "Map is not ready." });
@@ -122,9 +158,10 @@ export function useExport() {
             showOverlay: form.showMarkers,
             includeCredits: form.includeCredits,
             markers: hasVisibleMarkers ? state.markers : [],
-            markerIcons: hasVisibleMarkers
+            markerIcons: hasVisibleOverlays
               ? getAllMarkerIcons(state.customMarkerIcons)
               : [],
+            routes: visibleRoutes,
           });
           const svgFilename = createPosterFilename(
             form.displayCity || form.location,
@@ -132,7 +169,8 @@ export function useExport() {
             "svg",
           );
           await triggerDownloadBlob(svgBlob, svgFilename);
-          registerSuccessfulExport();
+          registerSuccessfulExport(isAdBlocked);
+          if (isAdBlocked) recordAdBlockDownload(readPosterExportCount());
           dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
           return;
         }
@@ -159,13 +197,14 @@ export function useExport() {
           showOverlay: form.showMarkers,
           includeCredits: form.includeCredits,
           markers: hasVisibleMarkers ? state.markers : [],
-          markerIcons: hasVisibleMarkers
+          markerIcons: hasVisibleOverlays
             ? getAllMarkerIcons(state.customMarkerIcons)
             : [],
-          markerProjection: hasVisibleMarkers ? markerProjection : undefined,
-          markerScaleX: hasVisibleMarkers ? markerScaleX : undefined,
-          markerScaleY: hasVisibleMarkers ? markerScaleY : undefined,
-          markerSizeScale: hasVisibleMarkers ? markerSizeScale : undefined,
+          markerProjection: hasVisibleOverlays ? markerProjection : undefined,
+          markerScaleX: hasVisibleOverlays ? markerScaleX : undefined,
+          markerScaleY: hasVisibleOverlays ? markerScaleY : undefined,
+          markerSizeScale: hasVisibleOverlays ? markerSizeScale : undefined,
+          routes: visibleRoutes,
         });
 
         // 3. Download
@@ -186,7 +225,8 @@ export function useExport() {
           await triggerDownloadBlob(pngBlob, filename);
         }
 
-        registerSuccessfulExport();
+        registerSuccessfulExport(isAdBlocked);
+        if (isAdBlocked) recordAdBlockDownload(readPosterExportCount());
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
         const message = err instanceof Error ? err.message : "Export failed.";
@@ -199,6 +239,8 @@ export function useExport() {
       effectiveTheme,
       dispatch,
       hasVisibleMarkers,
+      hasVisibleOverlays,
+      visibleRoutes,
       registerSuccessfulExport,
       state.markers,
       state.customMarkerIcons,

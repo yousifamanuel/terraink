@@ -677,6 +677,12 @@
     display: none;
   }
 
+  [data-desktop-tab="routes"]
+    .desktop-settings-slide
+    .mobile-section:not(.mobile-section--routes) {
+    display: none;
+  }
+
   [data-desktop-tab="style"]
     .desktop-settings-slide
     .mobile-section:not(.mobile-section--style) {
@@ -785,15 +791,24 @@
     margin: 0;
   }
 
-  /* Desktop settings info summary card on right side */
-  .app-shell > .preview-panel .settings-info-card {
-    display: grid;
+  /* Desktop right panel — wraps settings card + sidebar ad */
+  .app-shell > .preview-panel .desktop-right-panel {
     position: absolute;
     top: 14px;
     right: 14px;
     width: 320px;
-    margin: 0;
     z-index: 16;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Desktop settings info summary card on right side */
+  .app-shell > .preview-panel .settings-info-card {
+    display: grid;
+    position: static;
+    width: auto;
+    margin: 0;
     background: rgba(10, 20, 31, 0.72);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);

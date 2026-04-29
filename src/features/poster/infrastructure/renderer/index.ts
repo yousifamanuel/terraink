@@ -1,6 +1,8 @@
 import { applyFades } from "./layers";
 import { drawPosterText } from "./typography";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
+import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
+import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
 
 /**
@@ -33,6 +35,7 @@ export async function compositeExport(
     markerScaleX = 1,
     markerScaleY = 1,
     markerSizeScale = 1,
+    routes = [],
   } = options;
 
   const width = mapCanvas.width;
@@ -53,7 +56,35 @@ export async function compositeExport(
     applyFades(ctx, width, height, theme.ui.bg);
   }
 
-  // 3. Markers
+  // 3. Routes (below markers)
+  if (routes.length > 0 && markerProjection) {
+    drawRoutesOnCanvas(
+      ctx,
+      routes,
+      markerProjection,
+      markerScaleX,
+      markerScaleY,
+      markerSizeScale,
+    );
+  }
+
+  // 4. Route endpoint markers (between route lines and user markers)
+  if (routes.length > 0 && markerIcons.length > 0 && markerProjection) {
+    const endpointItems = routeEndpointMarkerItems(routes);
+    if (endpointItems.length > 0) {
+      await drawMarkersOnCanvas(
+        ctx,
+        endpointItems,
+        markerIcons,
+        markerProjection,
+        markerScaleX,
+        markerScaleY,
+        markerSizeScale,
+      );
+    }
+  }
+
+  // 5. User markers
   if (markers.length > 0 && markerIcons.length > 0 && markerProjection) {
     await drawMarkersOnCanvas(
       ctx,
@@ -66,7 +97,7 @@ export async function compositeExport(
     );
   }
 
-  // 4. Poster text
+  // 6. Poster text
   drawPosterText(
     ctx,
     width,

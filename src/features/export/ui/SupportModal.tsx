@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
-import { KOFI_URL, SOCIAL_INSTAGRAM } from "@/core/config";
+import { KOFI_URL, SOCIAL_INSTAGRAM, AD_SLOT_MODAL } from "@/core/config";
 import { CloseIcon, InstagramIcon } from "@/shared/ui/Icons";
+import AdUnit from "@/shared/ui/AdUnit";
 import type { SupportPromptVariant } from "@/features/export/application/useExport";
 
 interface SupportModalProps {
@@ -62,6 +63,25 @@ export default function SupportModal({
                 ) : null}
               </div>
             </>
+          ) : variant === "ad" ? (
+            <>
+              <p className="support-modal__headline" id={titleId}>
+                ✨ Your poster is ready!
+              </p>
+              <div className="support-modal__ad" role="presentation">
+                <p className="panel-ad-label">Ads keep Terraink free</p>
+                <AdUnit slot={AD_SLOT_MODAL} format="rectangle" />
+              </div>
+              <div className="support-modal__actions">
+                <button
+                  type="button"
+                  className="support-modal__dismiss"
+                  onClick={onClose}
+                >
+                  Close
+                </button>
+              </div>
+            </>
           ) : (
             <>
               <p className="support-modal__headline" id={titleId}>
@@ -102,6 +122,10 @@ export default function SupportModal({
                     Close
                   </button>
                 )}
+              </div>
+              <div className="support-modal__ad" role="presentation">
+                <p className="panel-ad-label">Ads keep Terraink free</p>
+                <AdUnit slot={AD_SLOT_MODAL} format="rectangle" />
               </div>
             </>
           )}

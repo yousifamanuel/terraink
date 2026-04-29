@@ -40,3 +40,8 @@ export { createPdfBlobFromCanvas } from "@/features/export/infrastructure/pdfExp
 export { createPosterFilename } from "@/features/export/infrastructure/filenameGenerator";
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
+
+/* ── Routes ── */
+
+export { gpxParser } from "@/features/routes/infrastructure/gpxParser";
+export { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";

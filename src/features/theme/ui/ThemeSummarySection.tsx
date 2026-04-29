@@ -2,6 +2,10 @@ import type { RefObject } from "react";
 import ThemeCard from "./ThemeCard";
 import { EditIcon } from "@/shared/ui/Icons";
 import type { ThemeOption } from "../domain/types";
+import AdUnit from "@/shared/ui/AdUnit";
+import { AD_SLOT_INFEED } from "@/core/config";
+
+const AD_AFTER_NTH_CARD = 4;
 
 interface ThemeSummarySectionProps {
   listRef?: RefObject<HTMLDivElement>;
@@ -50,14 +54,26 @@ export default function ThemeSummarySection({
         aria-label="Theme options"
         ref={listRef}
       >
-        {themeOptions.map((themeOption) => (
-          <ThemeCard
-            key={themeOption.id}
-            themeOption={themeOption}
-            isSelected={themeOption.id === selectedThemeId}
-            onClick={() => onThemeSelect(themeOption.id)}
-          />
-        ))}
+        {themeOptions.flatMap((themeOption, i) => {
+          const card = (
+            <ThemeCard
+              key={themeOption.id}
+              themeOption={themeOption}
+              isSelected={themeOption.id === selectedThemeId}
+              onClick={() => onThemeSelect(themeOption.id)}
+            />
+          );
+          if ((i + 1) % AD_AFTER_NTH_CARD === 0) {
+            return [
+              card,
+              <div key={`ad-theme-${i}`} className="panel-ad-slot" role="presentation">
+                <p className="panel-ad-label">Ads keep Terraink free</p>
+                <AdUnit slot={AD_SLOT_INFEED} format="rectangle" />
+              </div>,
+            ];
+          }
+          return [card];
+        })}
       </div>
     </div>
   );
