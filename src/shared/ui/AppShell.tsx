@@ -20,7 +20,10 @@ import {
   ADBLOCK_LIMIT_EVENT,
   type SupportPromptState,
 } from "@/features/export/application/useExport";
-import { detectAdBlocker } from "@/features/export/application/adBlockDetection";
+import {
+  detectAdBlocker,
+  detectAdBlockerAsync,
+} from "@/features/export/application/adBlockDetection";
 
 const AboutModal = lazy(() => import("@/shared/ui/AboutModal"));
 const SettingsPanel = lazy(() => import("@/features/poster/ui/SettingsPanel"));
@@ -105,13 +108,20 @@ export default function AppShell() {
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10);
-    if (localStorage.getItem("terraink.adblock.warned") === today) return;
-    detectAdBlocker().then((blocked) => {
-      if (blocked) {
+    const alreadyWarned = () =>
+      localStorage.getItem("terraink.adblock.warned") === today;
+
+    const handleDetected = (blocked: boolean) => {
+      if (blocked && !alreadyWarned()) {
         localStorage.setItem("terraink.adblock.warned", today);
         setAdBlockModal({ variant: "warning" });
       }
-    });
+    };
+
+    // Fast path: bait element (~1 ms) — catches CSS-based blockers
+    detectAdBlocker().then(handleDetected);
+    // Slow path: AdSense script poll (up to 3 s) — catches AdGuard / DNS blockers
+    detectAdBlockerAsync().then(handleDetected);
   }, []);
 
   useEffect(() => {

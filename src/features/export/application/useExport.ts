@@ -19,7 +19,7 @@ import {
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
 } from "@/core/config";
-import { getCachedAdBlockState } from "@/features/export/application/adBlockDetection";
+import { checkAdBlockerNow } from "@/features/export/application/adBlockDetection";
 import {
   canDownloadWithAdBlock,
   hoursUntilAdBlockReset,
@@ -99,7 +99,8 @@ export function useExport() {
 
   const exportPoster = useCallback(
     async (format: ExportFormat) => {
-      if (getCachedAdBlockState() && !canDownloadWithAdBlock()) {
+      const isAdBlocked = await checkAdBlockerNow();
+      if (isAdBlocked && !canDownloadWithAdBlock()) {
         window.dispatchEvent(
           new CustomEvent(ADBLOCK_LIMIT_EVENT, {
             detail: { hoursUntilReset: hoursUntilAdBlockReset() },
@@ -159,7 +160,7 @@ export function useExport() {
           );
           await triggerDownloadBlob(svgBlob, svgFilename);
           registerSuccessfulExport();
-          if (getCachedAdBlockState()) recordAdBlockDownload();
+          if (isAdBlocked) recordAdBlockDownload();
           dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
           return;
         }
@@ -215,7 +216,7 @@ export function useExport() {
         }
 
         registerSuccessfulExport();
-        if (getCachedAdBlockState()) recordAdBlockDownload();
+        if (isAdBlocked) recordAdBlockDownload();
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
         const message = err instanceof Error ? err.message : "Export failed.";

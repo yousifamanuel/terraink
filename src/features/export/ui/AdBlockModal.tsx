@@ -19,7 +19,7 @@ export default function AdBlockModal({
       onClick={onClose}
     >
       <div
-        className="picker-modal adblock-modal"
+        className="picker-modal support-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="adblock-modal-title"
@@ -33,24 +33,25 @@ export default function AdBlockModal({
         >
           <CloseIcon />
         </button>
-        <div className="adblock-modal__body">
+        <div className="support-modal__body">
           {variant === "warning" ? (
             <>
-              <p className="adblock-modal__headline" id="adblock-modal-title">
+              <p className="support-modal__headline" id="adblock-modal-title">
                 Ads keep Terraink free
               </p>
-              <p className="adblock-modal__text">
+              <p className="support-modal__text">
                 Terraink is 100% free. Ads help cover server and development
                 costs — please consider disabling your ad blocker to support
                 the project.
               </p>
-              <p className="adblock-modal__text adblock-modal__text--muted">
-                With an ad blocker active you get 1 free download per day.
+              <p className="support-modal__text">
+                With an ad blocker active you get{" "}
+                <strong>1 free download per day</strong>.
               </p>
-              <div className="adblock-modal__actions">
+              <div className="support-modal__actions">
                 <button
                   type="button"
-                  className="adblock-modal__dismiss"
+                  className="support-modal__dismiss"
                   onClick={onClose}
                 >
                   Got it
@@ -59,20 +60,20 @@ export default function AdBlockModal({
             </>
           ) : (
             <>
-              <p className="adblock-modal__headline" id="adblock-modal-title">
+              <p className="support-modal__headline" id="adblock-modal-title">
                 Daily limit reached
               </p>
-              <p className="adblock-modal__text">
+              <p className="support-modal__text">
                 You've used your free download for today. Disable your ad
                 blocker for unlimited downloads.
               </p>
-              <p className="adblock-modal__text adblock-modal__text--muted">
-                Resets in ~{hoursUntilReset}h.
+              <p className="support-modal__text">
+                Resets in <strong>~{hoursUntilReset}h</strong>.
               </p>
-              <div className="adblock-modal__actions">
+              <div className="support-modal__actions">
                 <button
                   type="button"
-                  className="adblock-modal__dismiss"
+                  className="support-modal__dismiss"
                   onClick={onClose}
                 >
                   OK
