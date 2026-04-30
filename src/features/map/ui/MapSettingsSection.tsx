@@ -441,10 +441,7 @@ export default function MapSettingsSection({
                     />
                   ))}
                 </div>
-                <div className="panel-ad-slot" role="presentation">
-                  <p className="panel-ad-label">Ads keep Terraink free</p>
-                  <AdUnit slot={AD_SLOT_INFEED} format="rectangle" />
-                </div>
+                <AdUnit slot={AD_SLOT_INFEED} format="rectangle" />
               </section>
             ))}
           </div>

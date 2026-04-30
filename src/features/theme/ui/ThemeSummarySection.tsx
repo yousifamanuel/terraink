@@ -66,10 +66,7 @@ export default function ThemeSummarySection({
           if ((i + 1) % AD_AFTER_NTH_CARD === 0) {
             return [
               card,
-              <div key={`ad-theme-${i}`} className="panel-ad-slot" role="presentation">
-                <p className="panel-ad-label">Ads keep Terraink free</p>
-                <AdUnit slot={AD_SLOT_INFEED} format="rectangle" />
-              </div>,
+              <AdUnit key={`ad-theme-${i}`} slot={AD_SLOT_INFEED} format="rectangle" />,
             ];
           }
           return [card];

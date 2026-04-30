@@ -68,10 +68,7 @@ export default function SupportModal({
               <p className="support-modal__headline" id={titleId}>
                 ✨ Your poster is ready!
               </p>
-              <div className="support-modal__ad" role="presentation">
-                <p className="panel-ad-label">Ads keep Terraink free</p>
-                <AdUnit slot={AD_SLOT_MODAL} format="rectangle" />
-              </div>
+              <AdUnit slot={AD_SLOT_MODAL} format="rectangle" className="support-modal__ad" />
               <div className="support-modal__actions">
                 <button
                   type="button"
@@ -123,10 +120,7 @@ export default function SupportModal({
                   </button>
                 )}
               </div>
-              <div className="support-modal__ad" role="presentation">
-                <p className="panel-ad-label">Ads keep Terraink free</p>
-                <AdUnit slot={AD_SLOT_MODAL} format="rectangle" />
-              </div>
+              <AdUnit slot={AD_SLOT_MODAL} format="rectangle" className="support-modal__ad" />
             </>
           )}
         </div>

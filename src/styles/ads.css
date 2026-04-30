@@ -14,9 +14,9 @@
   text-align: center;
 }
 
-/* ── In-panel slots (between themes, between layout groups) ── */
+/* ── Default ad unit slot (between themes, layout groups) ── */
 
-.panel-ad-slot {
+.ad-unit-slot {
   padding: 12px 0;
   display: flex;
   flex-direction: column;
@@ -26,11 +26,8 @@
 
 /* ── Right sidebar slot (desktop right panel) ── */
 
-.sidebar-ad-slot {
+.ad-unit-slot.sidebar-ad-slot {
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background: rgba(10, 20, 31, 0.72);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -41,9 +38,7 @@
 
 /* ── Modal ad slot (post-download) ── */
 
-.support-modal__ad {
+.ad-unit-slot.support-modal__ad {
   margin-top: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0;
 }

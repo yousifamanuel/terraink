@@ -598,10 +598,7 @@ export default function PreviewPanel() {
           markers={markersLabel}
           coordinates={coordinatesLabel}
         />
-        <div className="sidebar-ad-slot" role="presentation">
-          <p className="panel-ad-label">Ads keep Terraink free</p>
-          <AdUnit slot={AD_SLOT_SIDEBAR} format="rectangle" />
-        </div>
+        <AdUnit slot={AD_SLOT_SIDEBAR} format="rectangle" className="sidebar-ad-slot" />
       </div>
     </section>
   );
