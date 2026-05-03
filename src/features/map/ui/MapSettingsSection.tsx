@@ -40,6 +40,8 @@ interface MapSettingsForm {
   includeRoadPath: boolean;
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
+  includeSkiResorts: boolean;
+  includeCycleWays: boolean;
 }
 
 interface MapSettingsSectionProps {
