@@ -19,8 +19,15 @@ import MapDimensionFields from "./MapDimensionFields";
 import ColorPicker from "@/features/theme/ui/ColorPicker";
 import ThemeColorEditor from "@/features/theme/ui/ThemeColorEditor";
 import ThemeSummarySection from "@/features/theme/ui/ThemeSummarySection";
+import SaveThemeModal from "@/features/theme/ui/SaveThemeModal";
+import SaveChoiceModal from "@/features/theme/ui/SaveChoiceModal";
+import ConfirmModal from "@/shared/ui/ConfirmModal";
 import { CheckIcon, EditIcon } from "@/shared/ui/Icons";
-import type { ResolvedTheme } from "@/features/theme/domain/types";
+import type {
+  ResolvedTheme,
+  SavedTheme,
+  ThemeColors,
+} from "@/features/theme/domain/types";
 import type { LayoutGroup } from "@/features/layout/domain/types";
 
 const FALLBACK_COLOR = "#000000";
@@ -58,6 +65,12 @@ interface MapSettingsSectionProps {
   onColorChange: (key: string, value: string) => void;
   onResetColors: () => void;
   onColorEditorActiveChange?: (active: boolean) => void;
+  effectiveTheme: ResolvedTheme;
+  savedThemes: SavedTheme[];
+  onAddSavedTheme: (theme: SavedTheme) => void;
+  onUpdateSavedTheme: (themeId: string, changes: Partial<SavedTheme>) => void;
+  onRemoveSavedTheme: (themeId: string) => void;
+  onSetCustomColors: (colors: Record<string, string>) => void;
 }
 
 export default function MapSettingsSection({
@@ -76,9 +89,20 @@ export default function MapSettingsSection({
   onColorChange,
   onResetColors,
   onColorEditorActiveChange,
+  effectiveTheme,
+  savedThemes,
+  onAddSavedTheme,
+  onUpdateSavedTheme,
+  onRemoveSavedTheme,
+  onSetCustomColors,
 }: MapSettingsSectionProps) {
   const [isThemeEditing, setIsThemeEditing] = useState(false);
   const [isLayoutEditing, setIsLayoutEditing] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [isSaveChoiceModalOpen, setIsSaveChoiceModalOpen] = useState(false);
+  const [pendingDeleteThemeId, setPendingDeleteThemeId] = useState<
+    string | null
+  >(null);
   const defaultColorKey: ThemeColorKey = DISPLAY_PALETTE_KEYS[0] ?? "ui.bg";
   const [activeColorKey, setActiveColorKey] = useState<ThemeColorKey | null>(
     null,
@@ -94,8 +118,20 @@ export default function MapSettingsSection({
   const selectedThemeOption = useMemo(() => {
     const matchingOption = themeOptions.find((t) => t.id === form.theme);
     if (matchingOption) return matchingOption;
+    const matchingSaved = savedThemes.find((t) => t.id === form.theme);
+    if (matchingSaved) {
+      const palette = DISPLAY_PALETTE_KEYS.map(
+        (key) => getThemeColorByPath(matchingSaved.colors, key) || "",
+      );
+      return {
+        id: matchingSaved.id,
+        name: matchingSaved.name,
+        description: matchingSaved.description,
+        palette,
+      };
+    }
     return createFallbackThemeOption(form.theme, selectedTheme);
-  }, [form.theme, selectedTheme, themeOptions]);
+  }, [form.theme, savedThemes, selectedTheme, themeOptions]);
 
   const currentThemePalette = useMemo(
     () =>
@@ -240,6 +276,124 @@ export default function MapSettingsSection({
     });
   }
 
+  function handleApplySavedTheme(themeId: string) {
+    onThemeChange(themeId);
+    clearColorPickerState();
+  }
+
+  function handleRequestDeleteSavedTheme(themeId: string) {
+    setPendingDeleteThemeId(themeId);
+  }
+
+  function handleCancelDeleteSavedTheme() {
+    setPendingDeleteThemeId(null);
+  }
+
+  function handleConfirmDeleteSavedTheme() {
+    const themeId = pendingDeleteThemeId;
+    if (!themeId) return;
+
+    if (form.theme === themeId) {
+      // Snapshot the deleted theme's colors as customColors and switch to
+      // a built-in base, so the map keeps showing the same colors.
+      const deleted = savedThemes.find((t) => t.id === themeId);
+      const fallbackBaseThemeId =
+        themeOptions.find((t) => t.id !== themeId)?.id ?? form.theme;
+      onThemeChange(fallbackBaseThemeId);
+      if (deleted) {
+        const colorOverrides: Record<string, string> = {};
+        for (const key of DISPLAY_PALETTE_KEYS) {
+          const color = getThemeColorByPath(deleted.colors, key);
+          if (color) colorOverrides[key] = color;
+        }
+        onSetCustomColors(colorOverrides);
+      }
+    }
+
+    onRemoveSavedTheme(themeId);
+    setPendingDeleteThemeId(null);
+  }
+
+  function buildSuggestedThemeName(): string {
+    const baseName = (selectedThemeOption.name || selectedTheme.name || "Theme").trim();
+    const now = new Date();
+    const pad = (n: number, width = 2) => String(n).padStart(width, "0");
+    const stamp =
+      `${now.getFullYear()}` +
+      `${pad(now.getMonth() + 1)}` +
+      `${pad(now.getDate())}` +
+      `${pad(now.getHours())}` +
+      `${pad(now.getMinutes())}` +
+      `${pad(now.getSeconds())}`;
+    return `${baseName}-${stamp}`;
+  }
+
+  const isOnSavedTheme = savedThemes.some((t) => t.id === form.theme);
+
+  function handleOpenSaveModal() {
+    if (isOnSavedTheme) {
+      setIsSaveChoiceModalOpen(true);
+      return;
+    }
+    setIsSaveModalOpen(true);
+  }
+
+  function handleCancelSaveChoice() {
+    setIsSaveChoiceModalOpen(false);
+  }
+
+  function handleChooseSaveAsCopy() {
+    setIsSaveChoiceModalOpen(false);
+    setIsSaveModalOpen(true);
+  }
+
+  function handleChooseSaveOverwrite() {
+    const targetId = form.theme;
+    const colorsSnapshot: ThemeColors = {
+      ui: { ...effectiveTheme.ui },
+      map: {
+        ...effectiveTheme.map,
+        roads: { ...effectiveTheme.map.roads },
+      },
+    };
+    onUpdateSavedTheme(targetId, {
+      colors: colorsSnapshot,
+      savedAt: new Date().toISOString(),
+    });
+    onResetColors();
+    setIsSaveChoiceModalOpen(false);
+  }
+
+  function handleCancelSave() {
+    setIsSaveModalOpen(false);
+  }
+
+  function handleConfirmSave(name: string, description: string) {
+    const colorsSnapshot: ThemeColors = {
+      ui: { ...effectiveTheme.ui },
+      map: {
+        ...effectiveTheme.map,
+        roads: { ...effectiveTheme.map.roads },
+      },
+    };
+    const id =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? `saved-${crypto.randomUUID()}`
+        : `saved-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const newTheme: SavedTheme = {
+      id,
+      name,
+      description,
+      colors: colorsSnapshot,
+      savedAt: new Date().toISOString(),
+    };
+    onAddSavedTheme(newTheme);
+    // Switch to the newly saved theme so the map keeps showing what
+    // the user just saved (SET_THEME also clears customColors).
+    onThemeChange(id);
+    setIsSaveModalOpen(false);
+  }
+
   function handleResetSingleColor(key: ThemeColorKey) {
     const originalColor =
       normalizeHexColor(getThemeColorByPath(selectedTheme, key)) ||
@@ -359,6 +513,7 @@ export default function MapSettingsSection({
               activeColorLabel={activeColorLabel}
               hasCustomColors={hasCustomColors}
               onResetAllColors={handleResetThemeColors}
+              onSave={handleOpenSaveModal}
               onDone={handleDoneThemeEditor}
               colorTargets={colorTargets}
               onTargetSelect={handleSwatchClick}
@@ -372,9 +527,46 @@ export default function MapSettingsSection({
             selectedThemeOption={summaryThemeOption}
             onThemeSelect={handleThemeSelect}
             onCustomize={handleOpenThemeEditor}
+            savedThemes={savedThemes}
+            onApplySavedTheme={handleApplySavedTheme}
+            onDeleteSavedTheme={handleRequestDeleteSavedTheme}
           />
         )}
       </div>
+
+      {isSaveChoiceModalOpen ? (
+        <SaveChoiceModal
+          themeName={selectedThemeOption.name}
+          onSave={handleChooseSaveOverwrite}
+          onSaveAsCopy={handleChooseSaveAsCopy}
+          onCancel={handleCancelSaveChoice}
+        />
+      ) : null}
+
+      {isSaveModalOpen ? (
+        <SaveThemeModal
+          suggestedName={buildSuggestedThemeName()}
+          suggestedDescription={selectedThemeOption.description ?? ""}
+          existingNames={savedThemes.map((t) => t.name)}
+          onConfirm={handleConfirmSave}
+          onCancel={handleCancelSave}
+        />
+      ) : null}
+
+      {pendingDeleteThemeId ? (
+        <ConfirmModal
+          title="Delete saved theme"
+          message={`Delete "${
+            savedThemes.find((t) => t.id === pendingDeleteThemeId)?.name ??
+            "this theme"
+          }"? This cannot be undone.`}
+          confirmLabel="Delete"
+          cancelLabel="Cancel"
+          destructive
+          onConfirm={handleConfirmDeleteSavedTheme}
+          onCancel={handleCancelDeleteSavedTheme}
+        />
+      ) : null}
 
       <div className="map-settings-layout-part">
         <h2>Layout</h2>
