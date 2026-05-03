@@ -3245,3 +3245,285 @@ button.route-card__endpoint-option.is-selected {
   background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.45);
 }
+
+/* ── Saved themes ── */
+
+.theme-section {
+  margin-top: 14px;
+}
+
+.theme-section:first-of-type {
+  margin-top: 10px;
+}
+
+.theme-section-heading {
+  margin: 0 0 8px;
+  font-family: "Spline Sans Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #8cb6d0;
+}
+
+button.theme-save-btn {
+  width: auto;
+  margin: 0;
+  padding: 5px 10px;
+  border: 1px solid rgba(143, 215, 175, 0.55);
+  border-radius: 8px;
+  background: rgba(28, 64, 50, 0.88);
+  color: #d6f3e2;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+button.theme-save-btn:not(:disabled):hover,
+button.theme-save-btn:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(143, 215, 175, 0.85);
+  background: rgba(38, 80, 62, 0.96);
+}
+
+.theme-card-wrap {
+  position: relative;
+  margin: 0 0 8px;
+}
+
+.theme-card-wrap:last-child {
+  margin-bottom: 0;
+}
+
+.theme-card-wrap > .theme-card {
+  margin: 0;
+}
+
+button.theme-card-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255, 177, 142, 0.55);
+  border-radius: 999px;
+  background: rgba(43, 22, 16, 0.86);
+  color: #ffd7c2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+button.theme-card-delete svg {
+  width: 12px;
+  height: 12px;
+}
+
+button.theme-card-delete:not(:disabled):hover,
+button.theme-card-delete:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(255, 177, 142, 0.9);
+  background: rgba(82, 38, 26, 0.96);
+}
+
+.saved-themes-empty {
+  margin: 12px 0;
+  padding: 24px 14px;
+  border: 1px dashed rgba(151, 183, 207, 0.32);
+  border-radius: 12px;
+  background: rgba(9, 18, 27, 0.56);
+  text-align: center;
+}
+
+.saved-themes-empty-text {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #9fb6c6;
+  line-height: 1.5;
+}
+
+/* ── Save Theme modal ── */
+
+.save-theme-modal {
+  width: min(420px, 100%);
+}
+
+.save-theme-modal-body {
+  display: grid;
+  gap: 10px;
+}
+
+.save-theme-field {
+  display: grid;
+  gap: 6px;
+}
+
+.save-theme-field-label {
+  font-family: "Spline Sans Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: #8cb6d0;
+}
+
+.save-theme-modal input[type="text"] {
+  width: 100%;
+}
+
+.save-theme-hint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #8fa8b9;
+  line-height: 1.4;
+}
+
+.save-theme-error {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #ffb18e;
+  line-height: 1.4;
+}
+
+.save-theme-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+button.save-theme-cancel {
+  width: auto;
+  margin: 0;
+  padding: 7px 14px;
+  border: 1px solid rgba(151, 183, 207, 0.42);
+  border-radius: 8px;
+  background: rgba(24, 49, 64, 0.95);
+  color: #e8f3fb;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+button.save-theme-cancel:not(:disabled):hover,
+button.save-theme-cancel:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: var(--focus-ring);
+  background: rgba(44, 78, 102, 0.98);
+}
+
+button.save-theme-confirm {
+  width: auto;
+  margin: 0;
+  padding: 7px 16px;
+  border: 1px solid rgba(143, 215, 175, 0.6);
+  border-radius: 8px;
+  background: rgba(28, 64, 50, 0.95);
+  color: #d6f3e2;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+button.save-theme-confirm:not(:disabled):hover,
+button.save-theme-confirm:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(143, 215, 175, 0.95);
+  background: rgba(40, 88, 68, 1);
+}
+
+button.save-theme-confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.save-theme-description-input {
+  width: 100%;
+  resize: vertical;
+  min-height: 64px;
+  padding: 8px 10px;
+  border: 1px solid rgba(151, 183, 207, 0.42);
+  border-radius: 8px;
+  background: rgba(11, 21, 30, 0.86);
+  color: #e8f3fb;
+  font: inherit;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.save-theme-description-input:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+}
+
+/* ── Save choice modal ── */
+
+.save-choice-modal {
+  width: min(420px, 100%);
+}
+
+.save-choice-message {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #c8dbe8;
+}
+
+.save-choice-message strong {
+  color: #e7f2fb;
+  font-weight: 700;
+}
+
+.save-choice-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Confirm modal ── */
+
+.confirm-modal {
+  width: min(380px, 100%);
+}
+
+.confirm-modal-message {
+  margin: 0;
+  padding: 4px 2px 10px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #c8dbe8;
+}
+
+.confirm-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+button.confirm-modal-destructive {
+  width: auto;
+  margin: 0;
+  padding: 7px 16px;
+  border: 1px solid rgba(255, 138, 110, 0.65);
+  border-radius: 8px;
+  background: rgba(96, 32, 22, 0.95);
+  color: #ffd7c2;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+button.confirm-modal-destructive:not(:disabled):hover,
+button.confirm-modal-destructive:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(255, 138, 110, 0.95);
+  background: rgba(126, 42, 28, 1);
+}

@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { usePosterContext } from "../ui/PosterContext";
+import type { SavedTheme } from "@/features/theme/domain/types";
 import { clamp } from "@/shared/geo/math";
 import {
   normalizePosterSizeValue,
@@ -150,6 +151,34 @@ export function useFormHandlers() {
     dispatch({ type: "RESET_COLORS" });
   }, [dispatch]);
 
+  const handleSetCustomColors = useCallback(
+    (colors: Record<string, string>) => {
+      dispatch({ type: "SET_CUSTOM_COLORS", colors });
+    },
+    [dispatch],
+  );
+
+  const handleAddSavedTheme = useCallback(
+    (theme: SavedTheme) => {
+      dispatch({ type: "ADD_SAVED_THEME", theme });
+    },
+    [dispatch],
+  );
+
+  const handleUpdateSavedTheme = useCallback(
+    (themeId: string, changes: Partial<SavedTheme>) => {
+      dispatch({ type: "UPDATE_SAVED_THEME", themeId, changes });
+    },
+    [dispatch],
+  );
+
+  const handleRemoveSavedTheme = useCallback(
+    (themeId: string) => {
+      dispatch({ type: "REMOVE_SAVED_THEME", themeId });
+    },
+    [dispatch],
+  );
+
   const handleLocationSelect = useCallback(
     (suggestion: {
       label: string;
@@ -189,6 +218,10 @@ export function useFormHandlers() {
     handleLayoutChange,
     handleColorChange,
     handleResetColors,
+    handleSetCustomColors,
+    handleAddSavedTheme,
+    handleUpdateSavedTheme,
+    handleRemoveSavedTheme,
     handleLocationSelect,
     handleClearLocation,
     setLocationFocused,
