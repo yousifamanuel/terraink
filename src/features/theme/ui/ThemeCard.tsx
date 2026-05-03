@@ -3,12 +3,15 @@ import {
   type ThemeOption,
   type ThemeColorKey,
 } from "../domain/types";
+import { TrashIcon } from "@/shared/ui/Icons";
 
 interface ThemeCardProps {
   themeOption: ThemeOption | null;
   onClick?: () => void;
   isSelected?: boolean;
   showFullPalette?: boolean;
+  onDelete?: () => void;
+  deleteAriaLabel?: string;
 }
 
 export default function ThemeCard({
@@ -16,6 +19,8 @@ export default function ThemeCard({
   onClick,
   isSelected = false,
   showFullPalette = false,
+  onDelete,
+  deleteAriaLabel,
 }: ThemeCardProps) {
   if (!themeOption) {
     return null;
@@ -46,11 +51,15 @@ export default function ThemeCard({
     }
     return result;
   })();
-  const className = ["theme-card", isSelected ? "is-selected" : ""]
+  const className = [
+    "theme-card",
+    isSelected ? "is-selected" : "",
+    onDelete ? "theme-card--deletable" : "",
+  ]
     .filter(Boolean)
     .join(" ");
 
-  return (
+  const cardButton = (
     <button
       type="button"
       className={className}
@@ -79,5 +88,24 @@ export default function ThemeCard({
       <span className="theme-card-name-shadow" aria-hidden="true" />
       <p className="theme-card-name">{themeOption.name}</p>
     </button>
+  );
+
+  if (!onDelete) return cardButton;
+
+  return (
+    <div className="theme-card-wrap">
+      {cardButton}
+      <button
+        type="button"
+        className="theme-card-delete"
+        onClick={(e) => {
+          e.stopPropagation();
+          onDelete();
+        }}
+        aria-label={deleteAriaLabel ?? `Delete ${themeOption.name}`}
+      >
+        <TrashIcon />
+      </button>
+    </div>
   );
 }
