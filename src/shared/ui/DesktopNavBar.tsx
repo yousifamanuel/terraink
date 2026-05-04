@@ -69,9 +69,15 @@ export default function DesktopNavBar({
 
       <button
         type="button"
-        className="desktop-nav-tab desktop-nav-tab--settings"
+        className={`desktop-nav-tab desktop-nav-tab--settings${
+          panelOpen && activeTab === "settings" ? " is-active" : ""
+        }`}
+        title="Settings"
         aria-label="Settings"
-        disabled
+        aria-current={
+          panelOpen && activeTab === "settings" ? "page" : undefined
+        }
+        onClick={() => onTabChange("settings")}
       >
         <SettingsIcon className="desktop-nav-icon" />
         <span className="desktop-nav-label">Settings</span>
