@@ -19,6 +19,7 @@ import {
   MIN_ROUTE_STROKE_WIDTH,
 } from "@/features/routes/domain/constants";
 import type { SavedTheme } from "@/features/theme/domain/types";
+import type { UserDefaults } from "@/features/settings/domain/types";
 
 /* ────── Form state ────── */
 
@@ -57,6 +58,7 @@ export interface PosterState {
   form: PosterForm;
   customColors: Record<string, string>;
   savedThemes: SavedTheme[];
+  userDefaults: UserDefaults;
   markers: MarkerItem[];
   customMarkerIcons: MarkerIconDefinition[];
   markerDefaults: MarkerDefaults;
@@ -89,6 +91,8 @@ export type PosterAction =
   | { type: "SET_COLOR"; key: string; value: string }
   | { type: "SET_CUSTOM_COLORS"; colors: Record<string, string> }
   | { type: "RESET_COLORS" }
+  | { type: "SET_USER_DEFAULTS"; defaults: UserDefaults }
+  | { type: "RESET_USER_DEFAULTS" }
   | { type: "SET_SAVED_THEMES"; themes: SavedTheme[] }
   | { type: "ADD_SAVED_THEME"; theme: SavedTheme }
   | { type: "UPDATE_SAVED_THEME"; themeId: string; changes: Partial<SavedTheme> }
@@ -204,6 +208,12 @@ export function posterReducer(
 
     case "RESET_COLORS":
       return { ...state, customColors: {} };
+
+    case "SET_USER_DEFAULTS":
+      return { ...state, userDefaults: action.defaults };
+
+    case "RESET_USER_DEFAULTS":
+      return { ...state, userDefaults: {} };
 
     case "SET_SAVED_THEMES":
       return { ...state, savedThemes: action.themes };
