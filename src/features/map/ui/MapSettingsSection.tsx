@@ -47,6 +47,7 @@ interface MapSettingsForm {
   includeRoadPath: boolean;
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
+  includeBorders: boolean;
 }
 
 interface MapSettingsSectionProps {
