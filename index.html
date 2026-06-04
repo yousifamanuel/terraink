@@ -76,7 +76,10 @@
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Terraink — free map poster and wallpaper creator" />
+    <meta
+      property="og:image:alt"
+      content="Terraink — free map poster and wallpaper creator"
+    />
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -92,7 +95,10 @@
       name="twitter:image"
       content="https://terraink.app/assets/banner.jpg"
     />
-    <meta name="twitter:image:alt" content="Terraink — free map poster and wallpaper creator" />
+    <meta
+      name="twitter:image:alt"
+      content="Terraink — free map poster and wallpaper creator"
+    />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -134,27 +140,82 @@
         }
       }
     </script>
-    <!-- Consent Mode v2 — must be first -->
+    <!-- Consent Mode v2 — must load before GA4 and AdSense -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'denied',
-        'wait_for_update': 500
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      // Default for the rest of the world: granted (no consent banner is
+      // shown outside regulated regions, so denying here would block GA/ads
+      // permanently for those visitors).
+      gtag("consent", "default", {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        analytics_storage: "granted",
+      });
+
+      // Stricter default for regulated regions (EEA + UK + Switzerland):
+      // denied until the user grants consent via the CMP banner. The
+      // region-scoped default takes precedence for these countries.
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        wait_for_update: 500,
+        region: [
+          "AT",
+          "BE",
+          "BG",
+          "HR",
+          "CY",
+          "CZ",
+          "DK",
+          "EE",
+          "FI",
+          "FR",
+          "DE",
+          "GR",
+          "HU",
+          "IE",
+          "IT",
+          "LV",
+          "LT",
+          "LU",
+          "MT",
+          "NL",
+          "PL",
+          "PT",
+          "RO",
+          "SK",
+          "SI",
+          "ES",
+          "SE",
+          "IS",
+          "LI",
+          "NO",
+          "GB",
+          "CH",
+        ],
       });
     </script>
 
     <!-- GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '%VITE_GA_MEASUREMENT_ID%', {
-        'anonymize_ip': true
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "%VITE_GA_MEASUREMENT_ID%", {
+        anonymize_ip: true,
       });
     </script>
 
