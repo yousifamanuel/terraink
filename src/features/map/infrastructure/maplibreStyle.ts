@@ -32,6 +32,14 @@ const MAP_RAIL_WIDTH_STOPS: [number, number][] = [
   [18, 1.5],
 ];
 
+const MAP_COUNTRY_BORDER_WIDTH_STOPS: [number, number][] = [
+  [0, 0.8],
+  [4, 1.2],
+  [8, 2.0],
+  [14, 3.0],
+  [18, 4.2],
+];
+
 /**
  * Road classes are intentionally broad in minor/detail buckets so dense road texture
  * remains visible when the camera zooms out.
@@ -199,6 +207,7 @@ export function generateMapStyle(
     includeRoadPath?: boolean;
     includeRoadMinorLow?: boolean;
     includeRoadOutline?: boolean;
+    includeBorders?: boolean;
     distanceMeters?: number;
   },
 ): StyleSpecification {
@@ -220,6 +229,7 @@ export function generateMapStyle(
   const includeRoadPath = options?.includeRoadPath ?? true;
   const includeRoadMinorLow = options?.includeRoadMinorLow ?? true;
   const includeRoadOutline = options?.includeRoadOutline ?? true;
+  const includeBorders = options?.includeBorders ?? false;
   const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
 
   const minorHighCasingStops = scaledStops(
@@ -234,6 +244,7 @@ export function generateMapStyle(
   const majorCasingStops = scaledStops(MAP_ROAD_MAJOR_WIDTH_STOPS, 1.38);
   const waterwayWidthStops = compensateLineWidthStops(MAP_WATERWAY_WIDTH_STOPS);
   const railWidthStops = compensateLineWidthStops(MAP_RAIL_WIDTH_STOPS);
+  const countryBorderWidthStops = compensateLineWidthStops(MAP_COUNTRY_BORDER_WIDTH_STOPS);
   const roadMinorOverviewHighWidthStops = compensateLineWidthStops(
     MAP_ROAD_MINOR_HIGH_OVERVIEW_WIDTH_STOPS,
   );
@@ -684,6 +695,23 @@ export function generateMapStyle(
         },
         layout: {
           visibility: includeRoads ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+      {
+        id: "country-borders",
+        source: SOURCE_ID,
+        "source-layer": "boundary",
+        type: "line" as const,
+        filter: ["all", ["==", "admin_level", 2], ["!=", "maritime", 1]] as any,
+        paint: {
+          "line-color": blendHex(theme.map.land || "#ffffff", theme.ui.text || "#111111", 0.82),
+          "line-width": widthExpr(countryBorderWidthStops),
+          "line-opacity": 0.9,
+        },
+        layout: {
+          visibility: includeBorders ? ("visible" as const) : ("none" as const),
           "line-cap": "round" as const,
           "line-join": "round" as const,
         },
