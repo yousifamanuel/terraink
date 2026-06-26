@@ -8,9 +8,16 @@ import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering
 import type { Route } from "@/features/routes/domain/types";
 import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
-import { applyFades } from "@/features/poster/infrastructure/renderer/layers";
+import {
+  applyFades,
+  drawTemplateFrame,
+} from "@/features/poster/infrastructure/renderer/layers";
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
+import {
+  getPosterStyleTemplate,
+  type PosterStyleTemplateId,
+} from "@/features/poster/domain/posterStyleTemplates";
 import {
   waitForMapIdle,
   createOffscreenContainer,
@@ -29,6 +36,7 @@ interface LayeredSvgOptions {
   showPosterText: boolean;
   showOverlay: boolean;
   includeCredits: boolean;
+  posterStyleTemplate?: PosterStyleTemplateId;
   markers: MarkerItem[];
   markerIcons: MarkerIconDefinition[];
   routes?: Route[];
@@ -84,11 +92,13 @@ export async function createLayeredSvgBlobFromMap({
   showPosterText,
   showOverlay,
   includeCredits,
+  posterStyleTemplate,
   markers,
   markerIcons,
   routes = [],
 }: LayeredSvgOptions): Promise<Blob> {
   await waitForMapIdle(map);
+  const template = getPosterStyleTemplate(posterStyleTemplate);
 
   const {
     center: mapCenter,
@@ -168,7 +178,7 @@ export async function createLayeredSvgBlobFromMap({
       overlayLayers.push({
         id: "fades",
         dataUrl: canvasToDataUrl(exportWidth, exportHeight, (ctx) => {
-          applyFades(ctx, exportWidth, exportHeight, theme.ui.bg);
+          applyFades(ctx, exportWidth, exportHeight, theme.ui.bg, template);
         }),
       });
     }
@@ -242,6 +252,15 @@ export async function createLayeredSvgBlobFromMap({
       }
     }
 
+    if (template.frame.type !== "none") {
+      overlayLayers.push({
+        id: "frame",
+        dataUrl: canvasToDataUrl(exportWidth, exportHeight, (ctx) => {
+          drawTemplateFrame(ctx, exportWidth, exportHeight, theme.ui.text, template);
+        }),
+      });
+    }
+
     overlayLayers.push({
       id: "text",
       dataUrl: canvasToDataUrl(exportWidth, exportHeight, (ctx) => {
@@ -257,6 +276,7 @@ export async function createLayeredSvgBlobFromMap({
           showPosterText,
           showOverlay,
           includeCredits,
+          template.id,
         );
       }),
     });

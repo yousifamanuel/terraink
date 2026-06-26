@@ -18,6 +18,7 @@ import {
   MIN_ROUTE_OPACITY,
   MIN_ROUTE_STROKE_WIDTH,
 } from "@/features/routes/domain/constants";
+import type { PosterStyleTemplateId } from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Form state ────── */
 
@@ -34,6 +35,7 @@ export interface PosterForm {
   displayCountry: string;
   displayContinent: string;
   fontFamily: string;
+  posterStyleTemplate: PosterStyleTemplateId;
   showPosterText: boolean;
   includeCredits: boolean;
   includeLandcover: boolean;

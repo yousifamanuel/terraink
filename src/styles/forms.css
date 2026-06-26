@@ -983,6 +983,269 @@ button.color-editor-target:focus-visible {
   text-transform: uppercase;
 }
 
+.poster-style-template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+button.poster-style-template-card {
+  margin: 0;
+  min-width: 0;
+  min-height: 154px;
+  padding: 8px;
+  border: 1px solid rgba(151, 183, 207, 0.26);
+  border-radius: 8px;
+  background: rgba(9, 18, 27, 0.74);
+  color: #dbeaf5;
+  display: grid;
+  grid-template-rows: 88px minmax(0, 1fr);
+  gap: 8px;
+  text-align: left;
+}
+
+button.poster-style-template-card:not(:disabled):hover,
+button.poster-style-template-card:focus-visible {
+  transform: none;
+  filter: none;
+  border-color: rgba(112, 184, 222, 0.72);
+  background: rgba(18, 36, 51, 0.92);
+}
+
+button.poster-style-template-card.is-selected {
+  border-color: rgba(125, 216, 240, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(125, 216, 240, 0.34),
+    0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.poster-style-template-preview {
+  position: relative;
+  width: 100%;
+  height: 88px;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(214, 233, 247, 0.14);
+  background:
+    linear-gradient(135deg, rgba(55, 97, 122, 0.72), rgba(21, 42, 56, 0.9)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: auto, 13px 13px, 13px 13px;
+}
+
+.poster-style-template-map {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(24deg, transparent 0 42%, rgba(174, 219, 175, 0.22) 43% 49%, transparent 50%),
+    linear-gradient(148deg, transparent 0 54%, rgba(97, 165, 193, 0.28) 55% 61%, transparent 62%);
+}
+
+.poster-style-template-frame,
+.poster-style-template-panel,
+.poster-style-template-title,
+.poster-style-template-line,
+.poster-style-template-meta {
+  position: absolute;
+  display: block;
+}
+
+.poster-style-template-title,
+.poster-style-template-line,
+.poster-style-template-meta {
+  background: rgba(238, 248, 255, 0.88);
+}
+
+.poster-style-template-title {
+  height: 7px;
+  border-radius: 999px;
+}
+
+.poster-style-template-line {
+  height: 1px;
+  border-radius: 999px;
+  opacity: 0.84;
+}
+
+.poster-style-template-meta {
+  height: 3px;
+  border-radius: 999px;
+  opacity: 0.68;
+}
+
+.poster-style-template-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.poster-style-template-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #edf7ff;
+}
+
+.poster-style-template-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  font-weight: 500;
+  color: rgba(185, 207, 222, 0.86);
+}
+
+/* Horizon — grand centered title seated on a soft bottom horizon. */
+.poster-style-template-card--classic .poster-style-template-preview {
+  background:
+    linear-gradient(to top, rgba(8, 17, 25, 0.94), transparent 46%),
+    linear-gradient(135deg, rgba(55, 97, 122, 0.72), rgba(21, 42, 56, 0.9));
+}
+
+.poster-style-template-card--classic .poster-style-template-title {
+  left: 22%;
+  right: 22%;
+  bottom: 24px;
+}
+
+.poster-style-template-card--classic .poster-style-template-line {
+  left: 43%;
+  right: 43%;
+  bottom: 18px;
+}
+
+.poster-style-template-card--classic .poster-style-template-meta {
+  left: 36%;
+  right: 36%;
+  bottom: 11px;
+}
+
+/* Compass — poised right-aligned lockup, region eyebrow above the city. */
+.poster-style-template-card--minimal .poster-style-template-preview {
+  background:
+    linear-gradient(to top, rgba(8, 17, 25, 0.94), transparent 46%),
+    linear-gradient(135deg, rgba(48, 86, 108, 0.7), rgba(18, 38, 51, 0.9));
+}
+
+.poster-style-template-card--minimal .poster-style-template-frame {
+  display: none;
+}
+
+.poster-style-template-card--minimal .poster-style-template-meta {
+  right: 11%;
+  width: 24%;
+  bottom: 40px;
+}
+
+.poster-style-template-card--minimal .poster-style-template-line {
+  right: 11%;
+  width: 20%;
+  bottom: 33px;
+}
+
+.poster-style-template-card--minimal .poster-style-template-title {
+  right: 11%;
+  width: 48%;
+  bottom: 18px;
+}
+
+/* Editorial — bold left-aligned masthead, short kicker rule. */
+.poster-style-template-card--editorial .poster-style-template-preview {
+  background:
+    linear-gradient(to top, rgba(8, 17, 25, 0.96), transparent 50%),
+    linear-gradient(135deg, rgba(72, 89, 113, 0.9), rgba(18, 44, 54, 0.9));
+}
+
+.poster-style-template-card--editorial .poster-style-template-frame {
+  display: none;
+}
+
+.poster-style-template-card--editorial .poster-style-template-title {
+  left: 11%;
+  width: 52%;
+  height: 9px;
+  bottom: 24px;
+}
+
+.poster-style-template-card--editorial .poster-style-template-line {
+  left: 11%;
+  width: 18%;
+  bottom: 17px;
+}
+
+.poster-style-template-card--editorial .poster-style-template-meta {
+  left: 11%;
+  width: 34%;
+  bottom: 10px;
+}
+
+/* Gallery — matted fine-art frame with a delicate centered caption. */
+.poster-style-template-card--caption .poster-style-template-panel {
+  display: none;
+}
+
+.poster-style-template-card--caption .poster-style-template-preview {
+  background:
+    linear-gradient(to bottom, rgba(8, 17, 25, 0.82), transparent 42%),
+    linear-gradient(135deg, rgba(55, 97, 122, 0.72), rgba(21, 42, 56, 0.9));
+}
+
+.poster-style-template-card--caption .poster-style-template-frame {
+  inset: 7px;
+  border: 1px solid rgba(238, 248, 255, 0.5);
+  box-shadow: inset 0 0 0 3px rgba(238, 248, 255, 0.16);
+}
+
+.poster-style-template-card--caption .poster-style-template-title {
+  left: 16%;
+  width: 40%;
+  top: 16px;
+}
+
+.poster-style-template-card--caption .poster-style-template-line {
+  left: 16%;
+  width: 20%;
+  top: 29px;
+}
+
+.poster-style-template-card--caption .poster-style-template-meta {
+  left: 16%;
+  width: 30%;
+  top: 38px;
+}
+
+/* Masthead — cinematic title banded across the top. */
+.poster-style-template-card--masthead .poster-style-template-preview {
+  background:
+    linear-gradient(to bottom, rgba(8, 17, 25, 0.94), transparent 46%),
+    linear-gradient(135deg, rgba(42, 93, 116, 0.78), rgba(21, 42, 56, 0.9));
+}
+
+.poster-style-template-card--masthead .poster-style-template-title {
+  left: 22%;
+  right: 22%;
+  top: 16px;
+}
+
+.poster-style-template-card--masthead .poster-style-template-line {
+  left: 43%;
+  right: 43%;
+  top: 30px;
+}
+
+.poster-style-template-card--masthead .poster-style-template-meta {
+  left: 36%;
+  right: 36%;
+  top: 40px;
+}
+
 .layout-custom-editor {
   margin-bottom: 10px;
 }
