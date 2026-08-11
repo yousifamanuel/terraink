@@ -1,10 +1,13 @@
 import type { ResolvedTheme } from "@/features/theme/domain/types";
+import type { BoundaryMaskFeature } from "@/features/map/domain/boundaryMask";
 import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
 import { blendHex } from "@/shared/utils/color";
 import type { StyleSpecification } from "maplibre-gl";
 
 const OPENFREEMAP_SOURCE = "https://tiles.openfreemap.org/planet";
 const SOURCE_ID = "openfreemap";
+const BOUNDARY_MASK_SOURCE_ID = "boundary-mask";
+const BOUNDARY_MASK_LAYER_ID = "boundary-mask";
 
 /**
  * OpenFreeMap is OpenMapTiles-based and can generalize data at low zooms.
@@ -14,6 +17,7 @@ const SOURCE_MAX_ZOOM = 14;
 
 const BUILDING_BLEND_FACTOR = 0.14;
 const BUILDING_FILL_OPACITY = 0.84;
+const BOUNDARY_BLEND_FACTOR = 0.62;
 const MAP_BUILDING_MIN_ZOOM_DEFAULT = 8;
 const MAP_BUILDING_MIN_ZOOM_PRESERVE = 8.2;
 const DETAIL_PRESERVE_DISTANCE_METERS = 30_000;
@@ -31,6 +35,16 @@ const MAP_RAIL_WIDTH_STOPS: [number, number][] = [
   [10, 1],
   [18, 1.5],
 ];
+
+const MAP_BOUNDARY_WIDTH_STOPS: [number, number][] = [
+  [0, 0.3],
+  [4, 0.6],
+  [8, 1],
+  [14, 1.7],
+];
+
+/** OpenMapTiles admin levels 0-2 are national borders; 3+ are subnational. */
+const MAP_BOUNDARY_COUNTRY_MAX_ADMIN_LEVEL = 2;
 
 /**
  * Road classes are intentionally broad in minor/detail buckets so dense road texture
@@ -62,6 +76,12 @@ const MAP_ROAD_MINOR_LOW_CLASSES = [
 
 const MAP_ROAD_PATH_CLASSES = ["path", "pedestrian", "cycleway", "track"];
 const MAP_RAIL_CLASSES = ["rail", "transit"];
+
+/**
+ * OpenMapTiles files dedicated cycle infrastructure under class "path" with
+ * subclass "cycleway", so the cycle layer keys off subclass rather than class.
+ */
+const MAP_CYCLEWAY_SUBCLASSES = ["cycleway"];
 
 /**
  * Two-stage minor/path rendering:
@@ -117,6 +137,17 @@ const MAP_ROAD_PATH_DETAIL_WIDTH_STOPS: [number, number][] = [
   [18, 1.3],
 ];
 
+/**
+ * Cycle ways sit slightly above the path bucket so the network stays legible
+ * both as a highlight over roads and as the only visible network.
+ */
+const MAP_CYCLEWAY_WIDTH_STOPS: [number, number][] = [
+  [8, 0.3],
+  [12, 0.62],
+  [16, 1.2],
+  [18, 1.9],
+];
+
 const MAP_ROAD_MAJOR_WIDTH_STOPS: [number, number][] = [
   [0, 0.36],
   [3, 0.52],
@@ -130,6 +161,7 @@ const ROAD_MINOR_DETAIL_MIN_ZOOM = 6;
 const ROAD_PATH_OVERVIEW_MIN_ZOOM = 5;
 const ROAD_PATH_DETAIL_MIN_ZOOM = 8;
 const ROAD_OVERVIEW_MAX_ZOOM = 11.8;
+const CYCLEWAY_MIN_ZOOM = 8;
 
 const LINE_GEOMETRY_FILTER = [
   "match",
@@ -186,6 +218,33 @@ function lineClassFilter(classes: string[]): any {
   ];
 }
 
+function lineSubclassFilter(subclasses: string[]): any {
+  return [
+    "all",
+    LINE_GEOMETRY_FILTER,
+    ["match", ["get", "subclass"], subclasses, true, false],
+  ];
+}
+
+/**
+ * Maritime borders run far offshore and read as noise on a poster, so only the
+ * land-side national borders are kept. `to-number` guards against tiles that
+ * encode `maritime` as a boolean instead of 0/1.
+ */
+function countryBoundaryFilter(): any {
+  return [
+    "all",
+    LINE_GEOMETRY_FILTER,
+    ["has", "admin_level"],
+    [
+      "<=",
+      ["to-number", ["get", "admin_level"]],
+      MAP_BOUNDARY_COUNTRY_MAX_ADMIN_LEVEL,
+    ],
+    ["!=", ["to-number", ["get", "maritime"]], 1],
+  ];
+}
+
 export function generateMapStyle(
   theme: ResolvedTheme,
   options?: {
@@ -199,6 +258,9 @@ export function generateMapStyle(
     includeRoadPath?: boolean;
     includeRoadMinorLow?: boolean;
     includeRoadOutline?: boolean;
+    includeCycleways?: boolean;
+    includeCountryBorders?: boolean;
+    boundaryMask?: BoundaryMaskFeature | null;
     distanceMeters?: number;
   },
 ): StyleSpecification {
@@ -220,7 +282,15 @@ export function generateMapStyle(
   const includeRoadPath = options?.includeRoadPath ?? true;
   const includeRoadMinorLow = options?.includeRoadMinorLow ?? true;
   const includeRoadOutline = options?.includeRoadOutline ?? true;
+  const includeCycleways = options?.includeCycleways ?? false;
+  const includeCountryBorders = options?.includeCountryBorders ?? false;
   const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
+
+  const boundaryColor = blendHex(
+    theme.map.land || "#ffffff",
+    theme.ui.text || "#111111",
+    BOUNDARY_BLEND_FACTOR,
+  );
 
   const minorHighCasingStops = scaledStops(
     MAP_ROAD_MINOR_HIGH_DETAIL_WIDTH_STOPS,
@@ -258,6 +328,8 @@ export function generateMapStyle(
   const roadPathDetailWidthStops = compensateLineWidthStops(
     MAP_ROAD_PATH_DETAIL_WIDTH_STOPS,
   );
+  const cyclewayWidthStops = compensateLineWidthStops(MAP_CYCLEWAY_WIDTH_STOPS);
+  const boundaryWidthStops = compensateLineWidthStops(MAP_BOUNDARY_WIDTH_STOPS);
   const roadMajorWidthStops = compensateLineWidthStops(
     MAP_ROAD_MAJOR_WIDTH_STOPS,
   );
@@ -272,7 +344,7 @@ export function generateMapStyle(
   const roadPathColor = theme.map.roads.path;
   const roadOutlineColor = theme.map.roads.outline;
 
-  return {
+  const style: StyleSpecification = {
     version: 8,
     sources: {
       [SOURCE_ID]: {
@@ -688,6 +760,78 @@ export function generateMapStyle(
           "line-join": "round" as const,
         },
       },
+
+      // Drawn on top of the road stack and deliberately independent of the
+      // roads toggle so a cycle network can be rendered on its own.
+      {
+        id: "cycleway",
+        source: SOURCE_ID,
+        "source-layer": "transportation",
+        type: "line",
+        minzoom: CYCLEWAY_MIN_ZOOM,
+        filter: lineSubclassFilter(MAP_CYCLEWAY_SUBCLASSES),
+        paint: {
+          "line-color": theme.map.roads.major,
+          "line-width": widthExpr(cyclewayWidthStops),
+          "line-opacity": opacityExpr([
+            [8, 0.78],
+            [12, 0.88],
+            [18, 1],
+          ]),
+        },
+        layout: {
+          visibility: includeCycleways ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+
+      // Topmost so national borders stay readable over any enabled layer.
+      {
+        id: "boundary-country",
+        source: SOURCE_ID,
+        "source-layer": "boundary",
+        type: "line" as const,
+        filter: countryBoundaryFilter(),
+        paint: {
+          "line-color": boundaryColor,
+          "line-width": widthExpr(boundaryWidthStops),
+          "line-opacity": opacityExpr([
+            [0, 0.7],
+            [8, 0.82],
+            [14, 0.9],
+          ]),
+          "line-dasharray": [4, 2],
+        },
+        layout: {
+          visibility: includeCountryBorders
+            ? ("visible" as const)
+            : ("none" as const),
+          "line-cap": "butt" as const,
+          "line-join": "round" as const,
+        },
+      },
     ],
   };
+
+  // Appended last so it covers every map layer. Marker, route and text
+  // overlays are drawn outside the style and stay unaffected.
+  const boundaryMask = options?.boundaryMask;
+  if (boundaryMask) {
+    style.sources[BOUNDARY_MASK_SOURCE_ID] = {
+      type: "geojson",
+      data: boundaryMask,
+    };
+    style.layers.push({
+      id: BOUNDARY_MASK_LAYER_ID,
+      source: BOUNDARY_MASK_SOURCE_ID,
+      type: "fill",
+      paint: {
+        "fill-color": theme.map.land,
+        "fill-antialias": true,
+      },
+    });
+  }
+
+  return style;
 }

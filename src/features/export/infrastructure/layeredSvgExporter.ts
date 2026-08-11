@@ -16,6 +16,7 @@ import {
   createOffscreenContainer,
   resolveExportRenderParams,
 } from "./exportUtils";
+import { renderMapLayersAsSvg, type VectorMapLayer } from "./vectorMapSvg";
 
 interface LayeredSvgOptions {
   map: MaplibreMap;
@@ -72,6 +73,68 @@ function sanitizeLayerId(id: string): string {
   return id.replace(/[^a-zA-Z0-9_-]/g, "-");
 }
 
+/**
+ * Raster fallback: shows one style layer at a time and snapshots the canvas,
+ * preserving the layered structure when vector geometry is unavailable.
+ */
+async function captureMapLayersAsDataUrls(
+  exportMap: MaplibreMap,
+  exportWidth: number,
+  exportHeight: number,
+): Promise<{ id: string; dataUrl: string }[]> {
+  const layerIds = (exportMap.getStyle().layers ?? []).map((layer) => layer.id);
+  const originalVisibility = new Map<string, string>();
+  const visibleLayerIds = layerIds.filter((layerId) => {
+    const visibility = String(
+      exportMap.getLayoutProperty(layerId, "visibility") ?? "visible",
+    );
+    originalVisibility.set(layerId, visibility);
+    return visibility !== "none";
+  });
+
+  for (const layerId of visibleLayerIds) {
+    exportMap.setLayoutProperty(layerId, "visibility", "none");
+  }
+  await waitForMapIdle(exportMap);
+
+  const captured: { id: string; dataUrl: string }[] = [];
+  for (const layerId of visibleLayerIds) {
+    exportMap.setLayoutProperty(layerId, "visibility", "visible");
+    await waitForMapIdle(exportMap);
+    captured.push({
+      id: layerId,
+      dataUrl: renderMapCanvasToDataUrl(
+        exportMap.getCanvas(),
+        exportWidth,
+        exportHeight,
+      ),
+    });
+    exportMap.setLayoutProperty(layerId, "visibility", "none");
+    await waitForMapIdle(exportMap);
+  }
+
+  for (const layerId of layerIds) {
+    exportMap.setLayoutProperty(
+      layerId,
+      "visibility",
+      originalVisibility.get(layerId) ?? "visible",
+    );
+  }
+  await waitForMapIdle(exportMap);
+
+  return captured;
+}
+
+function toSvgGroups(prefix: string, layers: VectorMapLayer[]): string {
+  return layers
+    .map(
+      (layer) => `<g id="${prefix}-${sanitizeLayerId(layer.id)}">
+  ${layer.markup}
+</g>`,
+    )
+    .join("\n");
+}
+
 export async function createLayeredSvgBlobFromMap({
   map,
   exportWidth,
@@ -124,43 +187,20 @@ export async function createLayeredSvgBlobFromMap({
   try {
     await waitForMapIdle(exportMap);
 
-    const exportStyle = exportMap.getStyle();
-    const layerIds = (exportStyle.layers ?? []).map((layer) => layer.id);
-    const originalVisibility = new Map<string, string>();
-    const visibleLayerIds = layerIds.filter((layerId) => {
-      const visibility = String(
-        exportMap.getLayoutProperty(layerId, "visibility") ?? "visible",
-      );
-      originalVisibility.set(layerId, visibility);
-      return visibility !== "none";
+    const vectorMapLayers = renderMapLayersAsSvg({
+      map: exportMap,
+      exportWidth,
+      exportHeight,
+      projection: markerProjection,
+      scaleX: markerScaleX,
+      scaleY: markerScaleY,
     });
 
-    for (const layerId of visibleLayerIds) {
-      exportMap.setLayoutProperty(layerId, "visibility", "none");
-    }
-    await waitForMapIdle(exportMap);
-
-    const mapLayerDataUrls: { id: string; dataUrl: string }[] = [];
-    for (const layerId of visibleLayerIds) {
-      exportMap.setLayoutProperty(layerId, "visibility", "visible");
-      await waitForMapIdle(exportMap);
-      mapLayerDataUrls.push({
-        id: layerId,
-        dataUrl: renderMapCanvasToDataUrl(
-          exportMap.getCanvas(),
-          exportWidth,
-          exportHeight,
-        ),
-      });
-      exportMap.setLayoutProperty(layerId, "visibility", "none");
-      await waitForMapIdle(exportMap);
-    }
-
-    for (const layerId of layerIds) {
-      const visibility = originalVisibility.get(layerId) ?? "visible";
-      exportMap.setLayoutProperty(layerId, "visibility", visibility);
-    }
-    await waitForMapIdle(exportMap);
+    // Falls back to the previous per-layer raster snapshots when the style
+    // produced no queryable geometry, so the export is never blank.
+    const mapLayerDataUrls = vectorMapLayers
+      ? []
+      : await captureMapLayersAsDataUrls(exportMap, exportWidth, exportHeight);
 
     const overlayLayers: { id: string; dataUrl: string }[] = [];
 
@@ -261,26 +301,29 @@ export async function createLayeredSvgBlobFromMap({
       }),
     });
 
-    const mapLayerGroups = mapLayerDataUrls
-      .map(
-        (layer) => `<g id="map-layer-${sanitizeLayerId(layer.id)}">
-  <image href="${layer.dataUrl}" width="${exportWidth}" height="${exportHeight}" preserveAspectRatio="none" />
-</g>`,
-      )
-      .join("\n");
+    const toImageLayer = (layer: { id: string; dataUrl: string }) => ({
+      id: layer.id,
+      markup: `<image href="${layer.dataUrl}" width="${exportWidth}" height="${exportHeight}" preserveAspectRatio="none" />`,
+    });
 
-    const overlayGroups = overlayLayers
-      .map(
-        (layer) => `<g id="overlay-layer-${sanitizeLayerId(layer.id)}">
-  <image href="${layer.dataUrl}" width="${exportWidth}" height="${exportHeight}" preserveAspectRatio="none" />
-</g>`,
-      )
-      .join("\n");
+    const mapGroups = toSvgGroups(
+      "map-layer",
+      vectorMapLayers ?? mapLayerDataUrls.map(toImageLayer),
+    );
+    const overlayGroups = toSvgGroups(
+      "overlay-layer",
+      overlayLayers.map(toImageLayer),
+    );
 
+    // Vector geometry extends past the poster edge; the clip keeps the artwork
+    // inside the page instead of relying on viewBox overflow behaviour.
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${exportWidth}" height="${exportHeight}" viewBox="0 0 ${exportWidth} ${exportHeight}">
-${mapLayerGroups}
+<defs><clipPath id="poster-frame"><rect width="${exportWidth}" height="${exportHeight}" /></clipPath></defs>
+<g clip-path="url(#poster-frame)">
+${mapGroups}
 ${overlayGroups}
+</g>
 </svg>`;
 
     return new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
