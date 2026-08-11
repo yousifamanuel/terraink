@@ -1,4 +1,4 @@
-import type { Location } from "./types";
+import type { Location, LocationBoundary } from "./types";
 
 export interface IGeocodePort {
   searchLocations(query: string, limit?: number, signal?: AbortSignal): Promise<Location[]>;
@@ -8,6 +8,14 @@ export interface IGeocodePort {
     city: string,
     country: string,
   ): Promise<{ lat: number; lon: number; displayName: string }>;
+  /**
+   * Resolves the administrative outline of a location.
+   * Returns null when the place has no polygon (single nodes, POIs).
+   */
+  fetchLocationBoundary(
+    location: Location,
+    toleranceDeg: number,
+  ): Promise<LocationBoundary | null>;
 }
 
 /** @internal Return type for geocodeCity. Ports allow alternative shapes. */

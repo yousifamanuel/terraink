@@ -1,21 +1,53 @@
 import type { ICache } from "@/core/cache/ports";
 import type { IHttp } from "@/core/http/ports";
 import type { IGeocodePort } from "../domain/ports";
-import type { SearchResult } from "../domain/types";
+import type { Location, LocationBoundary, SearchResult } from "../domain/types";
 import {
   normalizeLocationResult,
+  parseBoundaryRings,
   parseLocationResponseItems,
 } from "./locationParser";
 import { GEOCODE_TTL_MS, LOCATION_SEARCH_TTL_MS } from "./constants";
 import {
+  getBoundaryCacheKey,
   getGeocodeCacheKey,
   getLocationSearchCacheKey,
   getReverseGeocodeCacheKey,
 } from "./cacheKeys";
 
+/** Nominatim `osm_ids` uses a single-letter prefix per OSM element type. */
+const OSM_TYPE_PREFIXES: Record<string, string> = {
+  relation: "R",
+  way: "W",
+  node: "N",
+};
+
+/**
+ * Outlines share the localStorage quota with the geocoding caches, so an
+ * unusually large one is used but not persisted.
+ */
+const MAX_CACHEABLE_BOUNDARY_POSITIONS = 20_000;
+
+function countPositions(rings: number[][][]): number {
+  return rings.reduce((total, ring) => total + ring.length, 0);
+}
+
 // Deduplicate concurrent requests for the same query/coordinates
 const inFlightSearchRequests = new Map<string, Promise<SearchResult[]>>();
 const inFlightReverseRequests = new Map<string, Promise<SearchResult>>();
+const inFlightBoundaryRequests = new Map<
+  string,
+  Promise<LocationBoundary | null>
+>();
+
+function resolveOsmRef(location: Location | null | undefined): string {
+  const prefix = OSM_TYPE_PREFIXES[String(location?.osmType ?? "").toLowerCase()];
+  const osmId = Number(location?.osmId);
+  if (!prefix || !Number.isInteger(osmId) || osmId <= 0) {
+    return "";
+  }
+  return `${prefix}${osmId}`;
+}
 
 export function createNominatimAdapter(
   http: IHttp,
@@ -144,5 +176,66 @@ export function createNominatimAdapter(
     return promise;
   }
 
-  return { searchLocations, geocodeLocation, reverseGeocode, geocodeCity };
+  /**
+   * Nominatim only returns geometry when `polygon_threshold` keeps it small —
+   * an unsimplified country outline runs into megabytes — so the caller-provided
+   * tolerance is always sent and is part of the cache key.
+   */
+  async function fetchLocationBoundary(
+    location: Location,
+    toleranceDeg: number,
+  ): Promise<LocationBoundary | null> {
+    const osmRef = resolveOsmRef(location);
+    if (!osmRef) {
+      return null;
+    }
+
+    if (!Number.isFinite(toleranceDeg) || toleranceDeg <= 0) {
+      throw new Error("A positive simplification tolerance is required.");
+    }
+
+    const cacheKey = getBoundaryCacheKey(osmRef, toleranceDeg);
+    const cached = cache.read<LocationBoundary>(cacheKey, GEOCODE_TTL_MS);
+    if (cached && Array.isArray(cached.rings)) {
+      return cached.rings.length > 0 ? cached : null;
+    }
+
+    if (inFlightBoundaryRequests.has(cacheKey)) {
+      return inFlightBoundaryRequests.get(cacheKey)!;
+    }
+
+    const url =
+      "https://nominatim.openstreetmap.org/lookup?" +
+      `format=jsonv2&polygon_geojson=1&polygon_threshold=${toleranceDeg}` +
+      `&osm_ids=${encodeURIComponent(osmRef)}`;
+
+    const promise = http
+      .get(url, { headers: { Accept: "application/json" } }, 20_000)
+      .then(async (response) => {
+        const data = await response.json();
+        const entry = Array.isArray(data) ? data[0] : null;
+        const rings = parseBoundaryRings(entry?.geojson);
+        const boundary: LocationBoundary = { id: osmRef, rings };
+
+        // Cached either way: a place without an outline stays without one.
+        if (countPositions(rings) <= MAX_CACHEABLE_BOUNDARY_POSITIONS) {
+          cache.write(cacheKey, boundary);
+        }
+        return rings.length > 0 ? boundary : null;
+      })
+      .finally(() => {
+        inFlightBoundaryRequests.delete(cacheKey);
+      });
+
+    inFlightBoundaryRequests.set(cacheKey, promise);
+    return promise;
+  }
+
+  return {
+    searchLocations,
+    geocodeLocation,
+    reverseGeocode,
+    geocodeCity,
+    fetchLocationBoundary,
+  };
 }

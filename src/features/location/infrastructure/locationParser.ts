@@ -6,10 +6,21 @@ interface NominatimEntry {
   display_name?: string;
   label?: string;
   place_id?: number | string;
+  osm_type?: string;
+  osm_id?: number | string;
+  osmType?: string;
+  osmId?: number | string;
   city?: string;
   country?: string;
   address?: Record<string, string>;
 }
+
+interface NominatimGeometry {
+  type?: string;
+  coordinates?: unknown;
+}
+
+const MIN_RING_POSITIONS = 4;
 
 function inferContinentFromCoordinates(lat: number, lon: number): string {
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) return "";
@@ -77,6 +88,13 @@ export function normalizeLocationResult(
     pickFirstAddressValue(address, ["continent"]) ||
     inferContinentFromCoordinates(lat, lon);
 
+  // Cached entries are re-normalized from a previous output, so both the raw
+  // Nominatim keys and the normalized ones have to round-trip.
+  const osmType = String(entry.osm_type ?? entry.osmType ?? "")
+    .trim()
+    .toLowerCase();
+  const osmId = Number(entry.osm_id ?? entry.osmId);
+
   return {
     id: String(entry.place_id ?? label),
     label,
@@ -86,7 +104,56 @@ export function normalizeLocationResult(
     continent,
     lat,
     lon,
+    ...(osmType ? { osmType } : {}),
+    ...(Number.isInteger(osmId) && osmId > 0 ? { osmId } : {}),
   };
+}
+
+function toRing(value: unknown): number[][] | null {
+  if (!Array.isArray(value) || value.length < MIN_RING_POSITIONS) {
+    return null;
+  }
+
+  const ring: number[][] = [];
+  for (const position of value) {
+    if (!Array.isArray(position) || position.length < 2) {
+      return null;
+    }
+    const lon = Number(position[0]);
+    const lat = Number(position[1]);
+    if (!Number.isFinite(lon) || !Number.isFinite(lat)) {
+      return null;
+    }
+    ring.push([lon, lat]);
+  }
+
+  return ring;
+}
+
+/**
+ * Extracts the exterior ring of every polygon in a Nominatim `geojson` value.
+ * Non-area geometries (points, lines) yield an empty list.
+ */
+export function parseBoundaryRings(geometry: unknown): number[][][] {
+  const geojson = (geometry ?? {}) as NominatimGeometry;
+  const { coordinates } = geojson;
+
+  if (geojson.type === "Polygon" && Array.isArray(coordinates)) {
+    const ring = toRing(coordinates[0]);
+    return ring ? [ring] : [];
+  }
+
+  if (geojson.type === "MultiPolygon" && Array.isArray(coordinates)) {
+    const rings: number[][][] = [];
+    for (const polygon of coordinates) {
+      if (!Array.isArray(polygon)) continue;
+      const ring = toRing(polygon[0]);
+      if (ring) rings.push(ring);
+    }
+    return rings;
+  }
+
+  return [];
 }
 
 export function parseLocationResponseItems(payload: unknown): SearchResult[] {
