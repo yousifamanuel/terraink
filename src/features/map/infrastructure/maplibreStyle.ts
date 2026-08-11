@@ -1,10 +1,13 @@
 import type { ResolvedTheme } from "@/features/theme/domain/types";
+import type { BoundaryMaskFeature } from "@/features/map/domain/boundaryMask";
 import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
 import { blendHex } from "@/shared/utils/color";
 import type { StyleSpecification } from "maplibre-gl";
 
 const OPENFREEMAP_SOURCE = "https://tiles.openfreemap.org/planet";
 const SOURCE_ID = "openfreemap";
+const BOUNDARY_MASK_SOURCE_ID = "boundary-mask";
+const BOUNDARY_MASK_LAYER_ID = "boundary-mask";
 
 /**
  * OpenFreeMap is OpenMapTiles-based and can generalize data at low zooms.
@@ -257,6 +260,7 @@ export function generateMapStyle(
     includeRoadOutline?: boolean;
     includeCycleways?: boolean;
     includeCountryBorders?: boolean;
+    boundaryMask?: BoundaryMaskFeature | null;
     distanceMeters?: number;
   },
 ): StyleSpecification {
@@ -340,7 +344,7 @@ export function generateMapStyle(
   const roadPathColor = theme.map.roads.path;
   const roadOutlineColor = theme.map.roads.outline;
 
-  return {
+  const style: StyleSpecification = {
     version: 8,
     sources: {
       [SOURCE_ID]: {
@@ -809,4 +813,25 @@ export function generateMapStyle(
       },
     ],
   };
+
+  // Appended last so it covers every map layer. Marker, route and text
+  // overlays are drawn outside the style and stay unaffected.
+  const boundaryMask = options?.boundaryMask;
+  if (boundaryMask) {
+    style.sources[BOUNDARY_MASK_SOURCE_ID] = {
+      type: "geojson",
+      data: boundaryMask,
+    };
+    style.layers.push({
+      id: BOUNDARY_MASK_LAYER_ID,
+      source: BOUNDARY_MASK_SOURCE_ID,
+      type: "fill",
+      paint: {
+        "fill-color": theme.map.land,
+        "fill-antialias": true,
+      },
+    });
+  }
+
+  return style;
 }

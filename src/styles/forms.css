@@ -218,6 +218,21 @@ label {
   gap: 12px;
 }
 
+.toggle-field--disabled {
+  opacity: 0.5;
+}
+
+.toggle-field--disabled .theme-switch input {
+  cursor: not-allowed;
+}
+
+.layers-section__hint {
+  margin: -4px 0 10px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #9fbcd0;
+}
+
 .theme-switch {
   position: relative;
   display: inline-flex;

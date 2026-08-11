@@ -17,7 +17,9 @@ import type { ResolvedTheme } from "@/features/theme/domain/types";
 import { getTheme } from "@/features/theme/infrastructure/themeRepository";
 import { applyThemeColorOverrides } from "@/features/theme/domain/colorPaths";
 import { generateMapStyle } from "@/features/map/infrastructure/maplibreStyle";
+import { createBoundaryMask } from "@/features/map/domain/boundaryMask";
 import { useGeolocation } from "@/features/map/application/useGeolocation";
+import { useLocationBoundary } from "@/features/map/application/useLocationBoundary";
 import type { StyleSpecification } from "maplibre-gl";
 import type { MapInstanceRef } from "@/features/map/domain/types";
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
@@ -89,6 +91,7 @@ export const DEFAULT_FORM: PosterForm = {
   includeRoadOutline: true,
   includeCycleways: false,
   includeCountryBorders: false,
+  clipToBoundary: false,
   showMarkers: true,
   showRoutes: true,
 };
@@ -138,6 +141,8 @@ function buildInitialState(): PosterState {
     isLocationFocused: false,
     selectedLocation: null,
     userLocation: null,
+    locationBoundary: null,
+    locationBoundaryStatus: "idle",
     displayNameOverrides: {
       city: false,
       country: false,
@@ -180,6 +185,12 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const initialUserDefaultsRef = useRef(state.userDefaults);
 
   useGeolocation(dispatch);
+  useLocationBoundary(
+    state.form.clipToBoundary,
+    state.selectedLocation,
+    Number(state.form.distance),
+    dispatch,
+  );
 
   const selectedTheme = useMemo(() => {
     const saved = state.savedThemes.find((t) => t.id === state.form.theme);
@@ -281,6 +292,14 @@ export function PosterProvider({ children }: { children: ReactNode }) {
     saveUserDefaults(state.userDefaults);
   }, [state.userDefaults]);
 
+  const boundaryMask = useMemo(
+    () =>
+      state.form.clipToBoundary
+        ? createBoundaryMask(state.locationBoundary?.rings)
+        : null,
+    [state.form.clipToBoundary, state.locationBoundary],
+  );
+
   const mapStyle = useMemo(
     () =>
       generateMapStyle(effectiveTheme, {
@@ -296,6 +315,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
         includeRoadOutline: state.form.includeRoadOutline,
         includeCycleways: state.form.includeCycleways,
         includeCountryBorders: state.form.includeCountryBorders,
+        boundaryMask,
         distanceMeters: Number(state.form.distance),
       }),
     [
@@ -312,6 +332,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       state.form.includeRoadOutline,
       state.form.includeCycleways,
       state.form.includeCountryBorders,
+      boundaryMask,
       state.form.distance,
     ],
   );
