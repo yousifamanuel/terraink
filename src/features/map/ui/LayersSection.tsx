@@ -14,6 +14,7 @@ interface LayerForm {
   includeRoadPath: boolean;
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
+  includeCycleways: boolean;
 }
 
 interface LayersSectionProps {
@@ -101,6 +102,18 @@ export default function LayersSection({
             type="checkbox"
             name="includeRail"
             checked={Boolean(form.includeRail)}
+            onChange={onChange}
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
+      <label className="toggle-field">
+        <span>Show cycle ways</span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            name="includeCycleways"
+            checked={Boolean(form.includeCycleways)}
             onChange={onChange}
           />
           <span className="theme-switch-track" aria-hidden="true" />

@@ -64,6 +64,12 @@ const MAP_ROAD_PATH_CLASSES = ["path", "pedestrian", "cycleway", "track"];
 const MAP_RAIL_CLASSES = ["rail", "transit"];
 
 /**
+ * OpenMapTiles files dedicated cycle infrastructure under class "path" with
+ * subclass "cycleway", so the cycle layer keys off subclass rather than class.
+ */
+const MAP_CYCLEWAY_SUBCLASSES = ["cycleway"];
+
+/**
  * Two-stage minor/path rendering:
  * - overview layer: very thin roads at low zoom so detail does not disappear abruptly
  * - detail layer: thicker, readable network from mid zoom upward
@@ -117,6 +123,17 @@ const MAP_ROAD_PATH_DETAIL_WIDTH_STOPS: [number, number][] = [
   [18, 1.3],
 ];
 
+/**
+ * Cycle ways sit slightly above the path bucket so the network stays legible
+ * both as a highlight over roads and as the only visible network.
+ */
+const MAP_CYCLEWAY_WIDTH_STOPS: [number, number][] = [
+  [8, 0.3],
+  [12, 0.62],
+  [16, 1.2],
+  [18, 1.9],
+];
+
 const MAP_ROAD_MAJOR_WIDTH_STOPS: [number, number][] = [
   [0, 0.36],
   [3, 0.52],
@@ -130,6 +147,7 @@ const ROAD_MINOR_DETAIL_MIN_ZOOM = 6;
 const ROAD_PATH_OVERVIEW_MIN_ZOOM = 5;
 const ROAD_PATH_DETAIL_MIN_ZOOM = 8;
 const ROAD_OVERVIEW_MAX_ZOOM = 11.8;
+const CYCLEWAY_MIN_ZOOM = 8;
 
 const LINE_GEOMETRY_FILTER = [
   "match",
@@ -186,6 +204,14 @@ function lineClassFilter(classes: string[]): any {
   ];
 }
 
+function lineSubclassFilter(subclasses: string[]): any {
+  return [
+    "all",
+    LINE_GEOMETRY_FILTER,
+    ["match", ["get", "subclass"], subclasses, true, false],
+  ];
+}
+
 export function generateMapStyle(
   theme: ResolvedTheme,
   options?: {
@@ -199,6 +225,7 @@ export function generateMapStyle(
     includeRoadPath?: boolean;
     includeRoadMinorLow?: boolean;
     includeRoadOutline?: boolean;
+    includeCycleways?: boolean;
     distanceMeters?: number;
   },
 ): StyleSpecification {
@@ -220,6 +247,7 @@ export function generateMapStyle(
   const includeRoadPath = options?.includeRoadPath ?? true;
   const includeRoadMinorLow = options?.includeRoadMinorLow ?? true;
   const includeRoadOutline = options?.includeRoadOutline ?? true;
+  const includeCycleways = options?.includeCycleways ?? false;
   const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
 
   const minorHighCasingStops = scaledStops(
@@ -258,6 +286,7 @@ export function generateMapStyle(
   const roadPathDetailWidthStops = compensateLineWidthStops(
     MAP_ROAD_PATH_DETAIL_WIDTH_STOPS,
   );
+  const cyclewayWidthStops = compensateLineWidthStops(MAP_CYCLEWAY_WIDTH_STOPS);
   const roadMajorWidthStops = compensateLineWidthStops(
     MAP_ROAD_MAJOR_WIDTH_STOPS,
   );
@@ -684,6 +713,31 @@ export function generateMapStyle(
         },
         layout: {
           visibility: includeRoads ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+
+      // Drawn on top of the road stack and deliberately independent of the
+      // roads toggle so a cycle network can be rendered on its own.
+      {
+        id: "cycleway",
+        source: SOURCE_ID,
+        "source-layer": "transportation",
+        type: "line",
+        minzoom: CYCLEWAY_MIN_ZOOM,
+        filter: lineSubclassFilter(MAP_CYCLEWAY_SUBCLASSES),
+        paint: {
+          "line-color": theme.map.roads.major,
+          "line-width": widthExpr(cyclewayWidthStops),
+          "line-opacity": opacityExpr([
+            [8, 0.78],
+            [12, 0.88],
+            [18, 1],
+          ]),
+        },
+        layout: {
+          visibility: includeCycleways ? ("visible" as const) : ("none" as const),
           "line-cap": "round" as const,
           "line-join": "round" as const,
         },
