@@ -15,6 +15,7 @@ interface LayerForm {
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
   includeCycleways: boolean;
+  includeCountryBorders: boolean;
 }
 
 interface LayersSectionProps {
@@ -126,6 +127,19 @@ export default function LayersSection({
             type="checkbox"
             name="includeAeroway"
             checked={Boolean(form.includeAeroway)}
+            onChange={onChange}
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
+
+      <label className="toggle-field">
+        <span>Show country borders</span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            name="includeCountryBorders"
+            checked={Boolean(form.includeCountryBorders)}
             onChange={onChange}
           />
           <span className="theme-switch-track" aria-hidden="true" />

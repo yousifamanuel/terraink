@@ -14,6 +14,7 @@ const SOURCE_MAX_ZOOM = 14;
 
 const BUILDING_BLEND_FACTOR = 0.14;
 const BUILDING_FILL_OPACITY = 0.84;
+const BOUNDARY_BLEND_FACTOR = 0.62;
 const MAP_BUILDING_MIN_ZOOM_DEFAULT = 8;
 const MAP_BUILDING_MIN_ZOOM_PRESERVE = 8.2;
 const DETAIL_PRESERVE_DISTANCE_METERS = 30_000;
@@ -31,6 +32,16 @@ const MAP_RAIL_WIDTH_STOPS: [number, number][] = [
   [10, 1],
   [18, 1.5],
 ];
+
+const MAP_BOUNDARY_WIDTH_STOPS: [number, number][] = [
+  [0, 0.3],
+  [4, 0.6],
+  [8, 1],
+  [14, 1.7],
+];
+
+/** OpenMapTiles admin levels 0-2 are national borders; 3+ are subnational. */
+const MAP_BOUNDARY_COUNTRY_MAX_ADMIN_LEVEL = 2;
 
 /**
  * Road classes are intentionally broad in minor/detail buckets so dense road texture
@@ -212,6 +223,25 @@ function lineSubclassFilter(subclasses: string[]): any {
   ];
 }
 
+/**
+ * Maritime borders run far offshore and read as noise on a poster, so only the
+ * land-side national borders are kept. `to-number` guards against tiles that
+ * encode `maritime` as a boolean instead of 0/1.
+ */
+function countryBoundaryFilter(): any {
+  return [
+    "all",
+    LINE_GEOMETRY_FILTER,
+    ["has", "admin_level"],
+    [
+      "<=",
+      ["to-number", ["get", "admin_level"]],
+      MAP_BOUNDARY_COUNTRY_MAX_ADMIN_LEVEL,
+    ],
+    ["!=", ["to-number", ["get", "maritime"]], 1],
+  ];
+}
+
 export function generateMapStyle(
   theme: ResolvedTheme,
   options?: {
@@ -226,6 +256,7 @@ export function generateMapStyle(
     includeRoadMinorLow?: boolean;
     includeRoadOutline?: boolean;
     includeCycleways?: boolean;
+    includeCountryBorders?: boolean;
     distanceMeters?: number;
   },
 ): StyleSpecification {
@@ -248,7 +279,14 @@ export function generateMapStyle(
   const includeRoadMinorLow = options?.includeRoadMinorLow ?? true;
   const includeRoadOutline = options?.includeRoadOutline ?? true;
   const includeCycleways = options?.includeCycleways ?? false;
+  const includeCountryBorders = options?.includeCountryBorders ?? false;
   const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
+
+  const boundaryColor = blendHex(
+    theme.map.land || "#ffffff",
+    theme.ui.text || "#111111",
+    BOUNDARY_BLEND_FACTOR,
+  );
 
   const minorHighCasingStops = scaledStops(
     MAP_ROAD_MINOR_HIGH_DETAIL_WIDTH_STOPS,
@@ -287,6 +325,7 @@ export function generateMapStyle(
     MAP_ROAD_PATH_DETAIL_WIDTH_STOPS,
   );
   const cyclewayWidthStops = compensateLineWidthStops(MAP_CYCLEWAY_WIDTH_STOPS);
+  const boundaryWidthStops = compensateLineWidthStops(MAP_BOUNDARY_WIDTH_STOPS);
   const roadMajorWidthStops = compensateLineWidthStops(
     MAP_ROAD_MAJOR_WIDTH_STOPS,
   );
@@ -739,6 +778,32 @@ export function generateMapStyle(
         layout: {
           visibility: includeCycleways ? ("visible" as const) : ("none" as const),
           "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+
+      // Topmost so national borders stay readable over any enabled layer.
+      {
+        id: "boundary-country",
+        source: SOURCE_ID,
+        "source-layer": "boundary",
+        type: "line" as const,
+        filter: countryBoundaryFilter(),
+        paint: {
+          "line-color": boundaryColor,
+          "line-width": widthExpr(boundaryWidthStops),
+          "line-opacity": opacityExpr([
+            [0, 0.7],
+            [8, 0.82],
+            [14, 0.9],
+          ]),
+          "line-dasharray": [4, 2],
+        },
+        layout: {
+          visibility: includeCountryBorders
+            ? ("visible" as const)
+            : ("none" as const),
+          "line-cap": "butt" as const,
           "line-join": "round" as const,
         },
       },
