@@ -467,6 +467,110 @@
           "minor_low": "#CCCCDA"
         }
       }
+    },
+    "catppuccin_latte": {
+      "name": "Catppuccin Latte",
+      "description": "Catppuccin's light flavor with soft neutrals and vivid pastel accents",
+      "ui": {
+        "bg": "#eff1f5",
+        "text": "#4c4f69"
+      },
+      "map": {
+        "land": "#eff1f5",
+        "landcover": "#e6e9ef",
+        "water": "#1e66f5",
+        "waterway": "#209fb5",
+        "parks": "#40a02b",
+        "buildings": "#ccd0da",
+        "aeroway": "#bcc0cc",
+        "rail": "#fe640b",
+        "roads": {
+          "major": "#8839ef",
+          "minor_high": "#7287fd",
+          "minor_mid": "#7c7f93",
+          "minor_low": "#8c8fa1",
+          "path": "#9ca0b0",
+          "outline": "#dce0e8"
+        }
+      }
+    },
+    "catppuccin_frappe": {
+      "name": "Catppuccin Frappé",
+      "description": "Catppuccin's muted dark flavor with cool pastels and gentle contrast",
+      "ui": {
+        "bg": "#303446",
+        "text": "#c6d0f5"
+      },
+      "map": {
+        "land": "#303446",
+        "landcover": "#292c3c",
+        "water": "#8caaee",
+        "waterway": "#85c1dc",
+        "parks": "#a6d189",
+        "buildings": "#414559",
+        "aeroway": "#51576d",
+        "rail": "#ef9f76",
+        "roads": {
+          "major": "#ca9ee6",
+          "minor_high": "#babbf1",
+          "minor_mid": "#949cbb",
+          "minor_low": "#838ba7",
+          "path": "#737994",
+          "outline": "#232634"
+        }
+      }
+    },
+    "catppuccin_macchiato": {
+      "name": "Catppuccin Macchiato",
+      "description": "Catppuccin's medium-dark flavor with rich pastels and balanced contrast",
+      "ui": {
+        "bg": "#24273a",
+        "text": "#cad3f5"
+      },
+      "map": {
+        "land": "#24273a",
+        "landcover": "#1e2030",
+        "water": "#8aadf4",
+        "waterway": "#7dc4e4",
+        "parks": "#a6da95",
+        "buildings": "#363a4f",
+        "aeroway": "#494d64",
+        "rail": "#f5a97f",
+        "roads": {
+          "major": "#c6a0f6",
+          "minor_high": "#b7bdf8",
+          "minor_mid": "#939ab7",
+          "minor_low": "#8087a2",
+          "path": "#6e738d",
+          "outline": "#181926"
+        }
+      }
+    },
+    "catppuccin_mocha": {
+      "name": "Catppuccin Mocha",
+      "description": "Catppuccin's darkest flavor with warm pastels and crisp contrast",
+      "ui": {
+        "bg": "#1e1e2e",
+        "text": "#cdd6f4"
+      },
+      "map": {
+        "land": "#1e1e2e",
+        "landcover": "#181825",
+        "water": "#89b4fa",
+        "waterway": "#74c7ec",
+        "parks": "#a6e3a1",
+        "buildings": "#313244",
+        "aeroway": "#45475a",
+        "rail": "#fab387",
+        "roads": {
+          "major": "#cba6f7",
+          "minor_high": "#b4befe",
+          "minor_mid": "#9399b2",
+          "minor_low": "#7f849c",
+          "path": "#6c7086",
+          "outline": "#11111b"
+        }
+      }
     }
   }
 }
