@@ -158,4 +158,4 @@ Terraink was inspired by [MapToPoster](https://github.com/originalankur/maptopos
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yousifamanuel/terraink&type=Date)](https://star-history.com/#yousifamanuel/terraink&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=yousifamanuel/terraink&type=Date)](https://star-history.dera.page/#yousifamanuel/terraink&Date)
