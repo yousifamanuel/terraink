@@ -1,9 +1,10 @@
-import { applyFades } from "./layers";
+import { applyFades, drawTemplateFrame } from "./layers";
 import { drawPosterText } from "./typography";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
 import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
+import { getPosterStyleTemplate } from "@/features/poster/domain/posterStyleTemplates";
 
 /**
  * Composites a final poster from a MapLibre snapshot canvas.
@@ -28,6 +29,7 @@ export async function compositeExport(
     fontFamily,
     showPosterText = true,
     showOverlay = true,
+    posterStyleTemplate,
     includeCredits = true,
     markers = [],
     markerIcons = [],
@@ -40,6 +42,7 @@ export async function compositeExport(
 
   const width = mapCanvas.width;
   const height = mapCanvas.height;
+  const template = getPosterStyleTemplate(posterStyleTemplate);
 
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -53,7 +56,7 @@ export async function compositeExport(
 
   // 2. Gradient fades
   if (showOverlay) {
-    applyFades(ctx, width, height, theme.ui.bg);
+    applyFades(ctx, width, height, theme.ui.bg, template);
   }
 
   // 3. Routes (below markers)
@@ -97,7 +100,10 @@ export async function compositeExport(
     );
   }
 
-  // 6. Poster text
+  // 6. Template frame
+  drawTemplateFrame(ctx, width, height, theme.ui.text, template);
+
+  // 7. Poster text
   drawPosterText(
     ctx,
     width,
@@ -110,6 +116,7 @@ export async function compositeExport(
     showPosterText,
     showOverlay,
     includeCredits,
+    posterStyleTemplate,
   );
 
   const size: CanvasSize = {
