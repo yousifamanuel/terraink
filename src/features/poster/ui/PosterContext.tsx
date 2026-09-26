@@ -25,6 +25,7 @@ import {
   saveCustomMarkerIcons,
 } from "@/features/markers/infrastructure/customIconStorage";
 import { createDefaultRouteSettings } from "@/features/routes/infrastructure/helpers";
+import { DEFAULT_POSTER_STYLE_TEMPLATE_ID } from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -64,6 +65,7 @@ export const DEFAULT_FORM: PosterForm = {
   displayCountry: "Germany",
   displayContinent: "Europe",
   fontFamily: "",
+  posterStyleTemplate: DEFAULT_POSTER_STYLE_TEMPLATE_ID,
   showPosterText: true,
   includeCredits: true,
   includeLandcover: true,

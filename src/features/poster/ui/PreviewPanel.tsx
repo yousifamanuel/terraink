@@ -43,6 +43,7 @@ import {
   formatLayoutDimensions,
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
+import { getPosterStyleTemplate } from "@/features/poster/domain/posterStyleTemplates";
 
 const LOCKED_HINT = "Map is locked to prevent unintended movement.";
 const UNLOCK_HINT = `${LOCKED_HINT}\nClick to unlock map editing.`;
@@ -168,6 +169,7 @@ export default function PreviewPanel() {
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
   const aspect = widthCm / heightCm;
+  const posterStyleTemplate = getPosterStyleTemplate(form.posterStyleTemplate);
   const formLat = Number(form.latitude) || 0;
   const formLon = Number(form.longitude) || 0;
   const layoutOption =
@@ -414,7 +416,10 @@ export default function PreviewPanel() {
             onMoveEnd={handleMoveEnd}
           />
           {form.showMarkers ? (
-            <GradientFades color={effectiveTheme.ui.bg} />
+            <GradientFades
+              color={effectiveTheme.ui.bg}
+              template={posterStyleTemplate}
+            />
           ) : null}
           <RouteOverlay
             routes={state.routes}
@@ -453,6 +458,7 @@ export default function PreviewPanel() {
             showPosterText={form.showPosterText}
             includeCredits={form.includeCredits}
             showOverlay={form.showMarkers}
+            template={posterStyleTemplate}
           />
 
           <div className="map-controls" aria-label="Map controls">
