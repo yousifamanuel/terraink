@@ -6,7 +6,11 @@ import {
   normalizeLocationResult,
   parseLocationResponseItems,
 } from "./locationParser";
-import { GEOCODE_TTL_MS, LOCATION_SEARCH_TTL_MS } from "./constants";
+import {
+  GEOCODE_TTL_MS,
+  LOCATION_SEARCH_TTL_MS,
+  NOMINATIM_LOCAL_NAME_QUERY,
+} from "./constants";
 import {
   getGeocodeCacheKey,
   getLocationSearchCacheKey,
@@ -44,7 +48,7 @@ export function createNominatimAdapter(
 
     const url =
       "https://nominatim.openstreetmap.org/search?" +
-      `format=jsonv2&addressdetails=1&limit=${normalizedLimit}&q=${encodeURIComponent(lookup)}`;
+      `format=jsonv2&addressdetails=1&limit=${normalizedLimit}&q=${encodeURIComponent(lookup)}&${NOMINATIM_LOCAL_NAME_QUERY}`;
 
     const promise = http
       .get(url, { headers: { Accept: "application/json" }, signal }, 16_000)
@@ -123,7 +127,7 @@ export function createNominatimAdapter(
 
     const url =
       "https://nominatim.openstreetmap.org/reverse?" +
-      `format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(String(lat))}&lon=${encodeURIComponent(String(lon))}`;
+      `format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(String(lat))}&lon=${encodeURIComponent(String(lon))}&${NOMINATIM_LOCAL_NAME_QUERY}`;
 
     const promise = http
       .get(url, { headers: { Accept: "application/json" } }, 16_000)
