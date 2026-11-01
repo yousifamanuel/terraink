@@ -1,3 +1,0 @@
-# Terraink ads.txt — generated automatically at build time from VITE_ADSENSE_CLIENT
-# If deploying manually, replace the line below with your publisher ID:
-# google.com, pub-XXXXXXXXXX, DIRECT, f08c47fec0942fa0

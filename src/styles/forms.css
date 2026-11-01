@@ -367,7 +367,7 @@ label {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 20px;
+  padding: 13px 44px;
   border-radius: 999px;
   border: 1px solid rgba(94, 174, 212, 0.55);
   background: linear-gradient(
@@ -377,7 +377,7 @@ label {
   );
   color: #dff3ff;
   text-decoration: none;
-  font-size: 0.84rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow:
@@ -410,7 +410,7 @@ label {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 20px;
+  padding: 13px 26px;
   border-radius: 999px;
   border: 1px solid rgba(200, 120, 180, 0.45);
   background: linear-gradient(
@@ -420,7 +420,7 @@ label {
   );
   color: #f4dff0;
   text-decoration: none;
-  font-size: 0.84rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow:
@@ -608,6 +608,78 @@ button.location-current-btn:focus-visible {
   padding: 8px 10px;
   font-size: 0.78rem;
   color: #8fb0c6;
+}
+
+/* Recent-locations history rows inside the suggestions dropdown */
+.location-recent-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.location-recent-row .location-recent-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.location-recent-icon {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: #8fb0c6;
+}
+
+.location-recent-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+button.location-recent-remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #8fb0c6;
+}
+
+button.location-recent-remove:not(:disabled):hover,
+button.location-recent-remove:focus-visible {
+  background: rgba(69, 133, 169, 0.2);
+  color: #dfebf6;
+  transform: none;
+  filter: none;
+}
+
+.location-suggestions-action {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #9fc1da;
+  border-radius: 8px;
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.location-suggestions-action:not(:disabled):hover,
+.location-suggestions-action:focus-visible {
+  background: rgba(69, 133, 169, 0.2);
+  transform: none;
+  filter: none;
+}
+
+.location-suggestions-action--danger {
+  color: #ffbda8;
 }
 
 .theme-note {
@@ -2897,7 +2969,9 @@ button.location-clear-btn:focus-visible {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .route-card.is-open {
@@ -3062,7 +3136,9 @@ button.route-card__delete:focus-visible {
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .route-card__color-toggle:hover {
@@ -3091,7 +3167,9 @@ button.route-card__delete:focus-visible {
   color: rgba(231, 242, 251, 0.7);
   border: none;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .route-card__style-btn:hover {
@@ -3157,7 +3235,9 @@ button.route-card__endpoint-row {
   border-radius: 6px;
   color: #e7f2fb;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 button.route-card__endpoint-row:not(:disabled):hover,
@@ -3199,7 +3279,9 @@ button.route-card__endpoint-row:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .route-card__endpoint-toggle:hover,
@@ -3230,7 +3312,9 @@ button.route-card__endpoint-option {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 button.route-card__endpoint-option:not(:disabled):hover,

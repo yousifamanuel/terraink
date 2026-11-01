@@ -3,6 +3,8 @@ import { usePosterContext } from "../ui/PosterContext";
 import type { SavedTheme } from "@/features/theme/domain/types";
 import type { UserDefaults } from "@/features/settings/domain/types";
 import { clamp } from "@/shared/geo/math";
+import { recordRecentLocation } from "@/features/location/application/useRecentLocations";
+import type { SearchResult } from "@/features/location/domain/types";
 import {
   normalizePosterSizeValue,
   resolveLayoutIdForSize,
@@ -199,15 +201,9 @@ export function useFormHandlers() {
   }, [dispatch]);
 
   const handleLocationSelect = useCallback(
-    (suggestion: {
-      label: string;
-      lat: number;
-      lon: number;
-      city: string;
-      country: string;
-      id: string;
-    }) => {
+    (suggestion: SearchResult) => {
       dispatch({ type: "SELECT_LOCATION", location: suggestion });
+      recordRecentLocation(suggestion);
     },
     [dispatch],
   );

@@ -8,8 +8,9 @@
 
 import { localStorageCache } from "@/core/cache/localStorageCache";
 import { fetchAdapter } from "@/core/http/fetchAdapter";
-import { googleFontsAdapter } from "@/core/fonts/googleFontsAdapter";
+import { localFontsAdapter } from "@/core/fonts/localFontsAdapter";
 import { createNominatimAdapter } from "@/features/location/infrastructure/nominatimAdapter";
+import { createRecentLocationsStore } from "@/features/location/infrastructure/recentLocationsStore";
 
 /* ── Location / Geocoding ── */
 
@@ -19,10 +20,19 @@ export const searchLocations = nominatim.searchLocations;
 export const geocodeLocation = nominatim.geocodeLocation;
 export const reverseGeocodeCoordinates = nominatim.reverseGeocode;
 
+/* ── Recent location history ── */
+
+const recentLocations = createRecentLocationsStore();
+
+export const listRecentLocations = recentLocations.list;
+export const addRecentLocation = recentLocations.add;
+export const removeRecentLocation = recentLocations.remove;
+export const clearRecentLocations = recentLocations.clear;
+
 /* ── Fonts ── */
 
-export const ensureGoogleFont =
-  googleFontsAdapter.ensureFont.bind(googleFontsAdapter);
+export const ensureFont =
+  localFontsAdapter.ensureFont.bind(localFontsAdapter);
 
 /* ── Poster compositing ── */
 
@@ -40,6 +50,14 @@ export { createPdfBlobFromCanvas } from "@/features/export/infrastructure/pdfExp
 export { createPosterFilename } from "@/features/export/infrastructure/filenameGenerator";
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
+
+/* ── Analytics ── */
+
+export { trackEvent, setUserProperty } from "@/core/analytics/gtagAnalytics";
+
+/* ── Legal docs ── */
+
+export { fetchMarkdownDoc } from "@/features/legal/infrastructure/legalDocsAdapter";
 
 /* ── Routes ── */
 

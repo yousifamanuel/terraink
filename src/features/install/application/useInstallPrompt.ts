@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { localStorageCache } from "@/core/cache/localStorageCache";
 import { isNativePlatform } from "@/core/platform";
+import { trackEvent } from "@/core/services";
 import {
   BeforeInstallPromptEvent,
   INSTALL_DISMISS_KEY,
@@ -120,6 +121,7 @@ export default function useInstallPrompt() {
         setDeferredPrompt(null);
         setShowAndroidHint(false);
         setPromptOutcome("accepted");
+        trackEvent("install_accepted");
       } else {
         setShowAndroidHint(true);
         setPromptOutcome("dismissed");

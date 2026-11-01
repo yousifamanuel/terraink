@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { ensureGoogleFont } from "@/core/services";
+import { useCallback, useRef } from "react";
+import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
 import {
@@ -21,12 +21,21 @@ export default function TypographySection({
   onChange,
   fontOptions,
 }: TypographySectionProps) {
-  useEffect(() => {
+  const previewsRequested = useRef(false);
+
+  // Each <option> previews itself in its own typeface, which means every family
+  // has to be loaded for the dropdown to look right. That is a lot of bytes for
+  // the many users who never change the font, so hold off until they actually
+  // reach for the control rather than paying it on mount.
+  const preloadFontPreviews = useCallback(() => {
+    if (previewsRequested.current) return;
+    previewsRequested.current = true;
+
     const families = fontOptions
       .map((option) => String(option.value || "").trim())
       .filter(Boolean);
 
-    void Promise.allSettled(families.map((family) => ensureGoogleFont(family)));
+    void Promise.allSettled(families.map((family) => ensureFont(family)));
   }, [fontOptions]);
 
   return (
@@ -87,6 +96,9 @@ export default function TypographySection({
             name="fontFamily"
             value={form.fontFamily}
             onChange={onChange}
+            onFocus={preloadFontPreviews}
+            onMouseDown={preloadFontPreviews}
+            onTouchStart={preloadFontPreviews}
           >
             {fontOptions.map((fontOption) => (
               <option

@@ -167,6 +167,12 @@
   gap: 8px;
 }
 
+.mobile-export-social-links .general-header-text-btn {
+  height: 50px;
+  padding: 0 22px;
+  font-size: 0.92rem;
+}
+
 .mobile-export-social-links .general-header-github-stars {
   display: inline-flex;
   align-items: center;

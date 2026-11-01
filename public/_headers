@@ -1,0 +1,25 @@
+# Cloudflare Pages response headers.
+#
+# Production is served by Pages, not by nginx.conf — that file only applies to
+# the self-hosted Docker image, so any header set there has to be repeated here
+# to actually reach terraink.app.
+#
+# Note: when several rules match one request, Pages joins duplicate header
+# values with a comma instead of overriding them. Keep the blocks below from
+# setting the same header twice.
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), payment=()
+
+# The worker must never be served stale, or clients pin an old bundle.
+/sw.js
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+  Service-Worker-Allowed: /
+
+# Deliberately no /assets/* immutable rule: that directory mixes Vite's
+# content-hashed bundles with verbatim copies from public/assets (banner.png,
+# the favicons, logo.svg). A year of immutable caching would pin those
+# unhashed files, so they keep Pages' default revalidating cache instead.

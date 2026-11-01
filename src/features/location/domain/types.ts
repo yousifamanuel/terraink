@@ -10,3 +10,7 @@ export interface Location {
 }
 
 export interface SearchResult extends Location {}
+
+export interface RecentLocation extends Location {
+  lastUsedAt: number;
+}

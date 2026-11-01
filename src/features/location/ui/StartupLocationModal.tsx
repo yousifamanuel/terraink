@@ -15,6 +15,11 @@ import {
 import { MyLocationIcon } from "@/shared/ui/Icons";
 import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
+import {
+  recordRecentLocation,
+  useRecentLocations,
+} from "@/features/location/application/useRecentLocations";
+import LocationSuggestionsDropdown from "./LocationSuggestionsDropdown";
 import type { SearchResult } from "@/features/location/domain/types";
 
 const CLOSE_ANIMATION_MS = 220;
@@ -42,12 +47,15 @@ export default function StartupLocationModal({
   const [locationInput, setLocationInput] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [pendingLocation, setPendingLocation] = useState<PendingLocation | null>(null);
+  // The picked suggestion backing pendingLocation, if any. Only confirms of an
+  // actual suggestion pick are recorded into history — GPS and typed-text
+  // geocode fallbacks are not.
+  const [pendingSuggestion, setPendingSuggestion] = useState<SearchResult | null>(null);
   const [isResolving, setIsResolving] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { locationSuggestions, isLocationSearching, clearLocationSuggestions, searchNow } =
     useLocationAutocomplete(locationInput, isInputFocused);
-
-  const showSuggestions = isInputFocused && locationSuggestions.length > 0;
+  const { recent, removeRecent, clearRecent } = useRecentLocations();
 
   const closeModal = () => {
     setIsClosing(true);
@@ -110,6 +118,7 @@ export default function StartupLocationModal({
 
     setIsResolving(true);
     setErrorMessage("");
+    setPendingSuggestion(null);
     void (async () => {
       const positionResult = await requestCurrentPositionWithRetry({
         timeoutMs: GEOLOCATION_TIMEOUT_MS,
@@ -168,6 +177,7 @@ export default function StartupLocationModal({
       country: suggestion.country,
       continent: String(suggestion.continent ?? "").trim(),
     });
+    setPendingSuggestion(suggestion);
     setLocationInput(suggestion.label);
     setIsInputFocused(false);
     clearLocationSuggestions();
@@ -190,6 +200,9 @@ export default function StartupLocationModal({
     }
 
     if (pendingLocation && pendingLocation.label === query) {
+      if (pendingSuggestion && pendingSuggestion.label === query) {
+        recordRecentLocation(pendingSuggestion);
+      }
       applyResolvedLocation(pendingLocation);
       closeModal();
       setIsResolving(false);
@@ -241,6 +254,7 @@ export default function StartupLocationModal({
           onChange={(event) => {
             setLocationInput(event.target.value);
             setPendingLocation(null);
+            setPendingSuggestion(null);
             // Restore focus state when user types after selecting a suggestion
             // (DOM focus may still be on the input, so onFocus won't re-fire).
             if (!isInputFocused) setIsInputFocused(true);
@@ -251,27 +265,18 @@ export default function StartupLocationModal({
           placeholder="Type a city or place"
           autoComplete="off"
         />
-        {showSuggestions ? (
-          <ul className="startup-location-suggestions" role="listbox">
-            {locationSuggestions.map((suggestion) => (
-              <li key={suggestion.id}>
-                <button
-                  type="button"
-                  className="startup-location-suggestion"
-                  onMouseDown={(event) => {
-                    event.preventDefault();
-                    onSuggestionSelect(suggestion);
-                  }}
-                >
-                  {suggestion.label}
-                </button>
-              </li>
-            ))}
-            {isLocationSearching ? (
-              <li className="startup-location-suggestion-status">Searching...</li>
-            ) : null}
-          </ul>
-        ) : null}
+        <LocationSuggestionsDropdown
+          query={locationInput}
+          isFocused={isInputFocused}
+          suggestions={locationSuggestions}
+          isSearching={isLocationSearching}
+          onSelect={onSuggestionSelect}
+          recent={recent}
+          onRecentSelect={onSuggestionSelect}
+          onRecentRemove={removeRecent}
+          onClearRecent={clearRecent}
+          variant="startup"
+        />
         <button
           type="button"
           className="startup-location-action startup-location-action--geo"

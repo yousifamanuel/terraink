@@ -54,6 +54,10 @@
     padding: 0;
     margin: 0;
     height: 100vh;
+    /* AdSense forces `height: auto !important` on every ancestor of an ad;
+       min/max keep the shell one viewport tall regardless. */
+    min-height: 100vh;
+    max-height: 100vh;
     overflow: hidden;
     display: grid;
     grid-template-columns: 64px 1fr;
@@ -796,7 +800,10 @@
     position: absolute;
     top: 14px;
     right: 14px;
-    width: 320px;
+    /* Ad networks require a 300px sidebar container excluding padding. Sized
+       so it still clears that if an ad lands inside the info card, whose
+       12px padding would otherwise leave only 296px. */
+    width: 344px;
     z-index: 16;
     display: flex;
     flex-direction: column;
@@ -939,28 +946,50 @@
     height: 12px;
   }
 
+  /* Attribution lives in a modal on desktop; hide the inline copy here.
+     (Mobile shows it inline inside the settings drawer — see mobile.css.) */
   .desktop-footer-attribution {
-    position: absolute;
-    right: 0;
-    bottom: calc(100% + 8px);
-    max-width: min(420px, 55vw);
-    padding: 8px 10px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: rgba(10, 20, 31, 0.98);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42);
-    font-size: 0.66rem;
-    line-height: 1.35;
-    white-space: normal;
-    color: #9bb3c5;
-    z-index: 60;
-    text-align: left;
     display: none;
   }
 
-  .desktop-footer-right:hover .desktop-footer-attribution,
-  .desktop-footer-info-btn:hover + .desktop-footer-attribution {
-    display: block;
+  .desktop-footer-info-btn {
+    cursor: pointer;
+  }
+
+  .desktop-footer-info-btn[aria-expanded="true"] {
+    border-color: rgba(94, 174, 212, 0.5);
+    color: #c8e8f8;
+  }
+
+  /* Attribution modal box (reuses .about-modal-backdrop for the overlay). */
+  .attribution-modal {
+    position: relative;
+    width: min(420px, 90vw);
+    background: var(--sheet-bg);
+    border: 1px solid rgba(146, 176, 200, 0.18);
+    border-radius: 16px;
+    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
+    padding: 24px;
+    animation: about-modal-in 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .attribution-modal-title {
+    margin: 0 0 12px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+    color: #ecf5ff;
+  }
+
+  .attribution-modal-line {
+    margin: 0 0 8px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #9bb3c5;
+  }
+
+  .attribution-modal-line:last-child {
+    margin-bottom: 0;
   }
 
   .mobile-persistent-footer {

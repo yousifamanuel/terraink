@@ -1,0 +1,39 @@
+# Terraink
+
+> Terraink is a free, browser-based map poster and wallpaper generator. Pick any
+> location on Earth, style it with themes and typography, and export print-ready
+> map art as PNG, PDF, or SVG. No sign-up, no account.
+
+Everything runs client-side in the browser — map rendering and export happen on
+the user's device, and posters are never uploaded to a server. Fonts are
+self-hosted, so choosing a typeface makes no third-party request. Map data comes
+from OpenStreetMap, served as OpenMapTiles vector tiles by OpenFreeMap and
+rendered with MapLibre GL.
+
+What it does:
+- Search any city, region, or address by name, or enter coordinates directly
+- Style roads, water, parks, and building footprints with per-layer colors
+- Choose from curated themes or build a custom palette
+- Set city/country labels in one of nine bundled typefaces
+- Export as PNG, PDF, or layered SVG
+
+Terraink is a design tool, not a data source — there is no public API, and the
+useful output is a poster file produced through the interface.
+
+## Main
+
+- [Terraink](https://terraink.app): The app itself — create and export a map poster
+- [Source code](https://github.com/yousifamanuel/terraink): AGPL-3.0 licensed, contributions welcome
+
+## Legal
+
+- [Privacy Policy](https://terraink.app/privacy): What is collected, analytics and consent
+- [Imprint](https://terraink.app/imprint): Operator and contact details
+
+## Optional
+
+- [OpenStreetMap](https://www.openstreetmap.org/copyright): Source of all map data, ODbL licensed
+- [OpenMapTiles](https://openmaptiles.org): Vector tile schema the map styles are built against
+- [OpenFreeMap](https://openfreemap.org): Tile hosting the app fetches at runtime
+- [Nominatim](https://nominatim.openstreetmap.org): Geocoding for location search
+- [MapLibre GL](https://maplibre.org): Rendering engine used for the map canvas

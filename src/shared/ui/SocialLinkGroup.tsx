@@ -1,6 +1,7 @@
 import { KOFI_URL, REPO_API_URL, REPO_URL, SOCIAL_INSTAGRAM } from "@/core/config";
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
-import { GitHubIcon, InstagramIcon, KofiIcon, StarIcon } from "@/shared/ui/Icons";
+import { GitHubIcon, InstagramIcon, DonateIcon, StarIcon } from "@/shared/ui/Icons";
+import { trackEvent } from "@/shared/utils/analytics";
 
 interface SocialLinkGroupProps {
   variant: "header" | "mobile-export";
@@ -27,6 +28,7 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
           rel="noreferrer"
           aria-label="Open Terraink repository on GitHub"
           title="GitHub repository"
+          onClick={() => trackEvent("github_click")}
         >
           <GitHubIcon />
           <span className="general-header-github-stars">
@@ -43,20 +45,25 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
           rel="noreferrer"
           aria-label="Follow Terraink on Instagram"
           title="Instagram"
+          onClick={() => trackEvent("follow_click")}
         >
           <InstagramIcon />
         </a>
       ) : null}
       {kofiUrl ? (
         <a
-          className="general-header-social-btn"
+          className="general-header-text-btn"
           href={kofiUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Support Terraink on Ko-fi"
-          title="Ko-fi"
+          aria-label="Support Terraink and donate to keep it free"
+          title="Support Terraink and donate to keep it free"
+          onClick={() => trackEvent("donate_click")}
         >
-          <KofiIcon />
+          <span className="general-header-btn-label">Donate</span>
+          <span className="general-header-btn-icon" aria-hidden="true">
+            <DonateIcon />
+          </span>
         </a>
       ) : null}
     </div>

@@ -41,3 +41,8 @@ updates.json
 
 # ignore agent setting files
 .claude/
+
+# Keep visual assets; ignore documentation files
+/docs/*
+!/docs/images/
+!/docs/images/**

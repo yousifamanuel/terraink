@@ -1,4 +1,11 @@
-import type { Location } from "./types";
+import type { Location, RecentLocation } from "./types";
+
+export interface IRecentLocationsStore {
+  list(): RecentLocation[];
+  add(location: Location): RecentLocation[];
+  remove(id: string): RecentLocation[];
+  clear(): void;
+}
 
 export interface IGeocodePort {
   searchLocations(query: string, limit?: number, signal?: AbortSignal): Promise<Location[]>;

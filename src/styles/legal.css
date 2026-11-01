@@ -1,0 +1,117 @@
+/* ══════════════════════════════════════════════════════════════
+   Legal modal — in-app privacy policy / imprint (markdown)
+   ═══════════════════════════════════════════════════════════════ */
+
+.legal-modal {
+  position: relative;
+  width: min(680px, 100%);
+}
+
+button.legal-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(190, 214, 232, 0.85);
+  cursor: pointer;
+}
+
+button.legal-modal__close:hover,
+button.legal-modal__close:focus-visible {
+  background: rgba(151, 183, 207, 0.16);
+  color: #fff;
+}
+
+.legal-modal__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px 20px 8px;
+}
+
+.legal-modal__status {
+  margin: 24px 0;
+  text-align: center;
+  color: rgba(170, 198, 220, 0.75);
+}
+
+.legal-modal__status a {
+  color: #7fb4e6;
+}
+
+/* ── Markdown content typography ── */
+
+.legal-modal__content {
+  color: rgba(214, 228, 240, 0.92);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.legal-modal__content h1,
+.legal-modal__content h2,
+.legal-modal__content h3 {
+  color: #fff;
+  line-height: 1.25;
+  margin: 1.4em 0 0.5em;
+}
+
+.legal-modal__content h1 {
+  font-size: 1.35rem;
+}
+
+.legal-modal__content h2 {
+  font-size: 1.12rem;
+}
+
+.legal-modal__content h3 {
+  font-size: 1rem;
+}
+
+.legal-modal__content :first-child {
+  margin-top: 0;
+}
+
+.legal-modal__content p,
+.legal-modal__content ul,
+.legal-modal__content ol {
+  margin: 0 0 0.9em;
+}
+
+.legal-modal__content ul,
+.legal-modal__content ol {
+  padding-left: 1.4em;
+}
+
+.legal-modal__content li {
+  margin: 0.25em 0;
+}
+
+.legal-modal__content a {
+  color: #7fb4e6;
+  word-break: break-word;
+}
+
+.legal-modal__content a:hover {
+  text-decoration: underline;
+}
+
+.legal-modal__content hr {
+  border: none;
+  border-top: 1px solid rgba(151, 183, 207, 0.22);
+  margin: 1.4em 0;
+}
+
+.legal-modal__content code {
+  background: rgba(151, 183, 207, 0.14);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}

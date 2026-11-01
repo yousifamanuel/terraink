@@ -17,7 +17,6 @@ import type { ResolvedTheme } from "@/features/theme/domain/types";
 import { getTheme } from "@/features/theme/infrastructure/themeRepository";
 import { applyThemeColorOverrides } from "@/features/theme/domain/colorPaths";
 import { generateMapStyle } from "@/features/map/infrastructure/maplibreStyle";
-import { useGeolocation } from "@/features/map/application/useGeolocation";
 import type { StyleSpecification } from "maplibre-gl";
 import type { MapInstanceRef } from "@/features/map/domain/types";
 import { createDefaultMarkerSettings } from "@/features/markers/infrastructure/helpers";
@@ -177,7 +176,9 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const hasLoadedSavedThemesRef = useRef(false);
   const initialUserDefaultsRef = useRef(state.userDefaults);
 
-  useGeolocation(dispatch);
+  // The map opens on the DEFAULT_FORM coordinates. Reading the visitor's
+  // position here would raise a permission prompt nobody asked for, so
+  // locating stays behind the "use my location" control.
 
   const selectedTheme = useMemo(() => {
     const saved = state.savedThemes.find((t) => t.id === state.form.theme);

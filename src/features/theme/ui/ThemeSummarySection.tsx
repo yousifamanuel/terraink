@@ -7,10 +7,6 @@ import {
   type ThemeOption,
 } from "../domain/types";
 import { getThemeColorByPath } from "../domain/colorPaths";
-import AdUnit from "@/shared/ui/AdUnit";
-import { AD_SLOT_INFEED } from "@/core/config";
-
-const AD_AFTER_NTH_CARD = 4;
 
 interface ThemeSummarySectionProps {
   listRef?: RefObject<HTMLDivElement>;
@@ -107,23 +103,14 @@ export default function ThemeSummarySection({
           aria-label="Theme options"
           ref={listRef}
         >
-          {themeOptions.flatMap((themeOption, i) => {
-            const card = (
-              <ThemeCard
-                key={themeOption.id}
-                themeOption={themeOption}
-                isSelected={themeOption.id === selectedThemeId}
-                onClick={() => onThemeSelect(themeOption.id)}
-              />
-            );
-            if ((i + 1) % AD_AFTER_NTH_CARD === 0) {
-              return [
-                card,
-                <AdUnit key={`ad-theme-${i}`} slot={AD_SLOT_INFEED} format="rectangle" />,
-              ];
-            }
-            return [card];
-          })}
+          {themeOptions.map((themeOption) => (
+            <ThemeCard
+              key={themeOption.id}
+              themeOption={themeOption}
+              isSelected={themeOption.id === selectedThemeId}
+              onClick={() => onThemeSelect(themeOption.id)}
+            />
+          ))}
         </div>
       </section>
     </div>

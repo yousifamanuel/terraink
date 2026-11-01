@@ -1,10 +1,9 @@
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
+import { trackEvent } from "@/shared/utils/analytics";
 import {
   REPO_URL,
   REPO_API_URL,
   CONTACT_EMAIL,
-  LEGAL_NOTICE_URL,
-  PRIVACY_URL,
   SOCIAL_LINKEDIN,
   SOCIAL_INSTAGRAM,
   SOCIAL_REDDIT,
@@ -16,7 +15,6 @@ import {
   GitHubIcon,
   StarIcon,
   CheckIcon,
-  KofiIcon,
   LinkedInIcon,
   InstagramIcon,
   RedditIcon,
@@ -90,6 +88,7 @@ function HelpUsGrowSection({
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Open Terraink repository on GitHub"
+                onClick={() => trackEvent("github_click")}
               >
                 <GitHubIcon className="badge-icon" />
                 <span>GitHub Repo</span>
@@ -126,15 +125,15 @@ function HelpUsGrowSection({
                 href={kofiUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Support Terraink on Ko-fi"
+                aria-label="Support Terraink and donate to keep it free"
+                title="Support Terraink and donate to keep it free"
+                onClick={() => trackEvent("donate_click")}
               >
-                <KofiIcon className="badge-icon" />
-                <span>Support on Ko-fi</span>
+                <span>Donate</span>
               </a>
             ) : (
               <span className="github-badge" style={{ opacity: 0.45 }}>
-                <KofiIcon className="badge-icon" />
-                <span>Support on Ko-fi</span>
+                <span>Donate</span>
               </span>
             )}
           </div>

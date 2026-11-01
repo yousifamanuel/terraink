@@ -1,28 +1,80 @@
 {
   "themes": {
-    "coral": {
-      "name": "Coral",
-      "description": "Soft ivory base with warm coral roads and muted pink-blue features.",
+    "carrara": {
+      "name": "Carrara",
+      "description": "White marble — pale stone with soft charcoal veining",
       "ui": {
-        "bg": "#F3E1DA",
-        "text": "#6E2F28"
+        "bg": "#F4F1EA",
+        "text": "#2E2A26"
       },
       "map": {
-        "land": "#F3E1DA",
-        "landcover": "#EFD8D0",
-        "water": "#DFC0B5",
-        "waterway": "#DFC0B5",
-        "parks": "#EACFC6",
-        "buildings": "#E39B89",
-        "aeroway": "#EACFC6",
-        "rail": "#6e2f28",
+        "land": "#F4F1EA",
+        "landcover": "#ECE7DD",
+        "water": "#C7CDD0",
+        "waterway": "#C7CDD0",
+        "parks": "#E6E3D8",
+        "buildings": "#E0DACD",
+        "aeroway": "#DAD4C7",
+        "rail": "#2E2A26",
         "roads": {
-          "major": "#B9473A",
-          "path": "#E8C4B8",
-          "outline": "#EDD2C8",
-          "minor_high": "#C86050",
-          "minor_mid": "#E09888",
-          "minor_low": "#DDAA9A"
+          "major": "#3A3631",
+          "minor_high": "#565049",
+          "minor_mid": "#6E675E",
+          "minor_low": "#8B8378",
+          "path": "#A89F92",
+          "outline": "#F4F1EA"
+        }
+      }
+    },
+    "blush": {
+      "name": "Blush",
+      "description": "Dusty rose on warm white",
+      "ui": {
+        "bg": "#F9F1F0",
+        "text": "#7A4351"
+      },
+      "map": {
+        "land": "#F9F1F0",
+        "landcover": "#F1E1E0",
+        "water": "#E0BFC4",
+        "waterway": "#E0BFC4",
+        "parks": "#EDD6D6",
+        "buildings": "#E9CCCE",
+        "aeroway": "#E3C6C8",
+        "rail": "#7A4351",
+        "roads": {
+          "major": "#9C5566",
+          "minor_high": "#B27180",
+          "minor_mid": "#C68F9B",
+          "minor_low": "#DBB2BB",
+          "path": "#E8CDD3",
+          "outline": "#F9F1F0"
+        }
+      }
+    },
+    "sandstone": {
+      "name": "Sandstone",
+      "description": "Warm beige with muted brown lines",
+      "ui": {
+        "bg": "#F1E9DB",
+        "text": "#6B5436"
+      },
+      "map": {
+        "land": "#F1E9DB",
+        "landcover": "#E8DCC8",
+        "water": "#CDBC9C",
+        "waterway": "#CDBC9C",
+        "parks": "#E0D2B8",
+        "buildings": "#DCCBAB",
+        "aeroway": "#D5C5A6",
+        "rail": "#6B5436",
+        "roads": {
+          "major": "#8A6E45",
+          "minor_high": "#A0855C",
+          "minor_mid": "#B59C76",
+          "minor_low": "#CBB694",
+          "path": "#DBC9AC",
+          "outline": "#F1E9DB"
         }
       }
     },
@@ -101,32 +153,6 @@
           "minor_high": "#587A68",
           "minor_mid": "#92B4A2",
           "minor_low": "#AABFB4"
-        }
-      }
-    },
-    "copper": {
-      "name": "Copper",
-      "description": "Oxidized cream and copper tones with warm metallic road accents.",
-      "ui": {
-        "bg": "#E1D2C6",
-        "text": "#4E2F22"
-      },
-      "map": {
-        "land": "#E1D2C6",
-        "landcover": "#DCCCBE",
-        "water": "#CBB5A1",
-        "waterway": "#CBB5A1",
-        "parks": "#D8C6B5",
-        "buildings": "#C88B72",
-        "aeroway": "#D8C6B5",
-        "rail": "#4e2f22",
-        "roads": {
-          "major": "#7C452E",
-          "path": "#CEBAA6",
-          "outline": "#D4C2AE",
-          "minor_high": "#9E5A3C",
-          "minor_mid": "#C49078",
-          "minor_low": "#C8A890"
         }
       }
     },

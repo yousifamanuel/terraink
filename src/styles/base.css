@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap");
+/* UI typefaces are self-hosted and imported in src/main.tsx (@fontsource). */
 
 :root {
   --ink: #e6edf4;

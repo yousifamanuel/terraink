@@ -1,5 +1,57 @@
 {
   "themes": {
+    "coral": {
+      "name": "Coral",
+      "description": "Soft ivory base with warm coral roads and muted pink-blue features.",
+      "ui": {
+        "bg": "#F3E1DA",
+        "text": "#6E2F28"
+      },
+      "map": {
+        "land": "#F3E1DA",
+        "landcover": "#EFD8D0",
+        "water": "#DFC0B5",
+        "waterway": "#DFC0B5",
+        "parks": "#EACFC6",
+        "buildings": "#E39B89",
+        "aeroway": "#EACFC6",
+        "rail": "#6e2f28",
+        "roads": {
+          "major": "#B9473A",
+          "path": "#E8C4B8",
+          "outline": "#EDD2C8",
+          "minor_high": "#C86050",
+          "minor_mid": "#E09888",
+          "minor_low": "#DDAA9A"
+        }
+      }
+    },
+    "copper": {
+      "name": "Copper",
+      "description": "Oxidized cream and copper tones with warm metallic road accents.",
+      "ui": {
+        "bg": "#E1D2C6",
+        "text": "#4E2F22"
+      },
+      "map": {
+        "land": "#E1D2C6",
+        "landcover": "#DCCCBE",
+        "water": "#CBB5A1",
+        "waterway": "#CBB5A1",
+        "parks": "#D8C6B5",
+        "buildings": "#C88B72",
+        "aeroway": "#D8C6B5",
+        "rail": "#4e2f22",
+        "roads": {
+          "major": "#7C452E",
+          "path": "#CEBAA6",
+          "outline": "#D4C2AE",
+          "minor_high": "#9E5A3C",
+          "minor_mid": "#C49078",
+          "minor_low": "#C8A890"
+        }
+      }
+    },
     "old_navy": {
       "name": "Old Navy",
       "description": "Deep navy map fields with gold-accented typography and roads.",

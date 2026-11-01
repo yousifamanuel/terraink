@@ -1,3 +1,5 @@
+import { isNativePlatform } from "@/core/platform";
+
 export type GeolocationFailureReason =
   | "denied"
   | "unavailable"
@@ -147,7 +149,9 @@ export function getGeolocationFailureMessage(
 
   const baseMessage =
     reason === "denied"
-      ? "Location access is blocked. Enable location permission in your browser settings, then try again."
+      ? isNativePlatform()
+        ? "Location access is blocked. Enable location for Terraink in your device Settings, then try again."
+        : "Location access is blocked. Enable location permission in your browser settings, then try again."
       : reason === "unsupported"
         ? "Location is not supported in this browser."
         : reason === "insecure"

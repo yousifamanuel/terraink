@@ -3,6 +3,8 @@ import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
 import { useCurrentLocation } from "@/features/location/application/useCurrentLocation";
+import { useRecentLocations } from "@/features/location/application/useRecentLocations";
+import LocationSuggestionsDropdown from "@/features/location/ui/LocationSuggestionsDropdown";
 import { useMapSync } from "@/features/map/application/useMapSync";
 import {
   PLACEHOLDER_LOCATION_SEARCH,
@@ -33,12 +35,11 @@ export default function DesktopLocationBar() {
   const { flyToLocation } = useMapSync(state, dispatch, mapRef);
   const { handleUseCurrentLocation, isLocatingUser, locationPermissionMessage } =
     useCurrentLocation(flyToLocation);
+  const { recent, removeRecent, clearRecent } = useRecentLocations();
 
   const [showCoords, setShowCoords] = useState(false);
 
   const hasLocationValue = state.form.location.trim().length > 0;
-  const showLocationSuggestions =
-    state.isLocationFocused && locationSuggestions.length > 0;
 
   const onLocationSelect = (location: SearchResult) => {
     handleLocationSelectBase(location);
@@ -105,27 +106,17 @@ export default function DesktopLocationBar() {
             </div>
           </div>
 
-          {showLocationSuggestions ? (
-            <ul className="location-suggestions" role="listbox">
-              {locationSuggestions.map((suggestion) => (
-                <li key={suggestion.id}>
-                  <button
-                    type="button"
-                    className="location-suggestion"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      onLocationSelect(suggestion);
-                    }}
-                  >
-                    {suggestion.label}
-                  </button>
-                </li>
-              ))}
-              {isLocationSearching ? (
-                <li className="location-suggestion-status">Searching...</li>
-              ) : null}
-            </ul>
-          ) : null}
+          <LocationSuggestionsDropdown
+            query={state.form.location}
+            isFocused={state.isLocationFocused}
+            suggestions={locationSuggestions}
+            isSearching={isLocationSearching}
+            onSelect={onLocationSelect}
+            recent={recent}
+            onRecentSelect={onLocationSelect}
+            onRecentRemove={removeRecent}
+            onClearRecent={clearRecent}
+          />
         </div>
 
         {locationPermissionMessage ? (

@@ -107,6 +107,11 @@ feature/fix branch → dev → beta → main
 
 All PRs target `dev`. Never open PRs against `main` or `beta`.
 
+**Do not create a new branch for features/fixes unless the user explicitly
+demands it.** By default, commit directly to the current branch. The
+`feature/fix → dev → beta → main` flow above describes the user's own
+workflow — it is not a cue for Claude to auto-branch.
+
 ## Do Not
 
 - Add logic to `App.tsx` — it must stay a thin shell

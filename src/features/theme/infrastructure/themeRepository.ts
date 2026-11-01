@@ -108,14 +108,15 @@ const referenceAliases: Record<string, string> = {
 };
 
 const preferredThemeOrder = [
+  "carrara",
+  "blush",
+  "sandstone",
   "midnight_blue",
   "terracotta",
   "neon",
-  "coral",
   "heatwave",
   "ruby",
   "sage",
-  "copper",
   "rustic",
 ];
 

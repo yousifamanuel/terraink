@@ -33,8 +33,8 @@
 - **Smart geocoding** — search for any city or region by name, or enter coordinates manually
 - **Rich theme system** — choose from dozens of curated themes or build your own custom color palette
 - **Detailed map layers** — roads, water bodies, parks, and building footprints with per-layer styling
-- **Typography controls** — set city/country display labels and load any Google Fonts family
-- **High-resolution PNG export** — download a print-ready poster at any defined dimension
+- **Typography controls** — set city/country display labels in one of nine bundled, self-hosted typefaces
+- **High-resolution export** — download a print-ready poster as PNG, PDF, or layered SVG at any defined dimension
 
 ## Data Providers and Mapping Stack
 

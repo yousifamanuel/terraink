@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   Ads — in-panel and modal ad slot styles
+   Ads — sidebar ad slot styles
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Shared label ── */
@@ -14,7 +14,13 @@
   text-align: center;
 }
 
-/* ── Default ad unit slot (between themes, layout groups) ── */
+/* Zero-height measuring wrapper — lets AdUnit read the available width
+   before committing an <ins> to the DOM (avoids 0-width ad requests). */
+.ad-unit-measure {
+  width: 100%;
+}
+
+/* ── Ad unit slot ── */
 
 .ad-unit-slot {
   padding: 12px 0;
@@ -34,11 +40,4 @@
   border: 1px solid rgba(146, 176, 200, 0.2);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
   border-radius: inherit;
-}
-
-/* ── Modal ad slot (post-download) ── */
-
-.ad-unit-slot.support-modal__ad {
-  margin-top: 14px;
-  padding: 0;
 }

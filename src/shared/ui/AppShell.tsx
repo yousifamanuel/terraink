@@ -14,15 +14,19 @@ import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
 import { CheckIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
-import AdBlockModal from "@/features/export/ui/AdBlockModal";
 import {
   SUPPORT_PROMPT_EVENT,
-  ADBLOCK_LIMIT_EVENT,
-  ADBLOCK_WARN_EVENT,
   type SupportPromptState,
 } from "@/features/export/application/useExport";
+import { useSessionAnalytics } from "@/features/export/application/useSessionAnalytics";
+import {
+  LEGAL_DOC_EVENT,
+  type LegalDocDetail,
+  type LegalDocType,
+} from "@/features/legal/application/legalDoc";
 
 const AboutModal = lazy(() => import("@/shared/ui/AboutModal"));
+const LegalModal = lazy(() => import("@/features/legal/ui/LegalModal"));
 const SettingsPanel = lazy(() => import("@/features/poster/ui/SettingsPanel"));
 const AnnouncementModal = lazy(
   () => import("@/features/updates/ui/AnnouncementModal"),
@@ -70,6 +74,9 @@ function SettingsDrawer({
 
 export default function AppShell() {
   const { state, dispatch } = usePosterContext();
+
+  // Fire once-per-session analytics on load (app_open).
+  useSessionAnalytics();
   const { isMarkerEditorActive } = state;
   const activeMarker =
     state.activeMarkerId !== null
@@ -90,10 +97,7 @@ export default function AppShell() {
     useState(true);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(null);
-  const [adBlockModal, setAdBlockModal] = useState<{
-    variant: "warning" | "limit";
-    hoursUntilReset?: number;
-  } | null>(null);
+  const [legalDoc, setLegalDoc] = useState<LegalDocType | null>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -104,18 +108,11 @@ export default function AppShell() {
   }, []);
 
   useEffect(() => {
-    const handler = () => setAdBlockModal({ variant: "warning" });
-    window.addEventListener(ADBLOCK_WARN_EVENT, handler);
-    return () => window.removeEventListener(ADBLOCK_WARN_EVENT, handler);
-  }, []);
-
-  useEffect(() => {
     const handler = (e: Event) => {
-      const { hoursUntilReset } = (e as CustomEvent).detail;
-      setAdBlockModal({ variant: "limit", hoursUntilReset });
+      setLegalDoc((e as CustomEvent<LegalDocDetail>).detail.doc);
     };
-    window.addEventListener(ADBLOCK_LIMIT_EVENT, handler);
-    return () => window.removeEventListener(ADBLOCK_LIMIT_EVENT, handler);
+    window.addEventListener(LEGAL_DOC_EVENT, handler);
+    return () => window.removeEventListener(LEGAL_DOC_EVENT, handler);
   }, []);
 
   useEffect(() => {
@@ -330,16 +327,13 @@ export default function AppShell() {
       {supportPrompt ? (
         <SupportModal
           posterNumber={supportPrompt.posterNumber}
-          variant={supportPrompt.variant}
           onClose={() => setSupportPrompt(null)}
         />
       ) : null}
-      {adBlockModal ? (
-        <AdBlockModal
-          variant={adBlockModal.variant}
-          hoursUntilReset={adBlockModal.hoursUntilReset}
-          onClose={() => setAdBlockModal(null)}
-        />
+      {legalDoc ? (
+        <Suspense fallback={null}>
+          <LegalModal doc={legalDoc} onClose={() => setLegalDoc(null)} />
+        </Suspense>
       ) : null}
     </div>
   );

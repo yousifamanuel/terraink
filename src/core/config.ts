@@ -39,15 +39,23 @@ export const DEFAULT_LON = 9.732;
 export const DEFAULT_CITY = "Hanover";
 export const DEFAULT_COUNTRY = "Germany";
 
-export const ADSENSE_CLIENT = import.meta.env.VITE_ADSENSE_CLIENT ?? "";
+/**
+ * The sidebar ad in the poster preview panel is OFF unless
+ * VITE_ADS_SIDEBAR_ENABLED is explicitly set to "true".
+ */
+export const ADS_SIDEBAR_ENABLED =
+  String(import.meta.env.VITE_ADS_SIDEBAR_ENABLED ?? "")
+    .trim()
+    .toLowerCase() === "true";
+
 export const ADSENSE_AD_CLIENT = import.meta.env.VITE_ADSENSE_AD_CLIENT ?? "";
-export const AD_SLOT_INFEED = import.meta.env.VITE_AD_SLOT_INFEED ?? "";
 export const AD_SLOT_SIDEBAR = import.meta.env.VITE_AD_SLOT_SIDEBAR ?? "";
-export const AD_SLOT_MODAL = import.meta.env.VITE_AD_SLOT_MODAL ?? "";
 
 export const REPO_URL = import.meta.env.VITE_REPO_URL ?? "";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";
 export const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "";
+/* Raw markdown URLs (e.g. raw.githubusercontent.com) for the in-app legal
+   modal — imprint and privacy docs pulled from the meta repo. */
 export const LEGAL_NOTICE_URL = import.meta.env.VITE_LEGAL_NOTICE_URL ?? "";
 export const PRIVACY_URL = import.meta.env.VITE_PRIVACY_URL ?? "";
 

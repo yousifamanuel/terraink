@@ -20,6 +20,14 @@
       sizes="16x16"
       href="/assets/favicon-16.png"
     />
+    <!-- Google wants a search favicon larger than 48px; it does not read
+         site.webmanifest, so the 192px icon has to be declared here too. -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/icon-192.png"
+    />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -45,6 +53,8 @@
     <meta name="author" content="Terraink™" />
     <meta name="copyright" content="Terraink™" />
     <link rel="canonical" href="https://terraink.app" />
+    <!-- Plain-text site summary for AI agents (llmstxt.org) -->
+    <link rel="describedby" type="text/markdown" href="/llms.txt" />
 
     <!-- Theme colour -->
     <meta name="theme-color" content="#0a1824" />
@@ -72,8 +82,9 @@
     <meta property="og:url" content="https://terraink.app" />
     <meta
       property="og:image"
-      content="https://terraink.app/assets/banner.jpg"
+      content="https://terraink.app/assets/banner.png"
     />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -93,7 +104,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://terraink.app/assets/banner.jpg"
+      content="https://terraink.app/assets/banner.png"
     />
     <meta
       name="twitter:image:alt"
@@ -104,43 +115,56 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Terraink",
-        "alternateName": [
-          "Terraink Map Poster Creator",
-          "Terraink Map Wallpaper Generator"
-        ],
-        "url": "https://terraink.app",
-        "description": "Free online map poster and wallpaper generator. Design custom, print-ready map art for any city or location — export as PNG, PDF, or SVG. No sign-up required.",
-        "applicationCategory": "DesignApplication",
-        "operatingSystem": "Any",
-        "browserRequirements": "Requires a modern web browser",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "screenshot": "https://terraink.app/assets/banner.jpg",
-        "featureList": [
-          "Free map poster creator for any city or location",
-          "Map wallpaper generator with custom styles",
-          "High-resolution PNG, PDF, and SVG export",
-          "Powered by OpenStreetMap data",
-          "Dozens of curated map themes",
-          "Custom colour palettes",
-          "Typography controls with Google Fonts",
-          "No sign-up or account required",
-          "Works entirely in your browser"
-        ],
-        "keywords": "free map poster creator, map wallpaper generator, map poster maker, custom map art, city map print",
-        "creator": {
-          "@type": "Organization",
-          "name": "Terraink",
-          "url": "https://terraink.app"
-        }
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://terraink.app/#organization",
+            "name": "Terraink",
+            "url": "https://terraink.app",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://terraink.app/assets/icon-512.png",
+              "width": 512,
+              "height": 512
+            }
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://terraink.app/#webapp",
+            "name": "Terraink",
+            "alternateName": [
+              "Terraink Map Poster Creator",
+              "Terraink Map Wallpaper Generator"
+            ],
+            "url": "https://terraink.app",
+            "description": "Free online map poster and wallpaper generator. Design custom, print-ready map art for any city or location — export as PNG, PDF, or SVG. No sign-up required.",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires a modern web browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "screenshot": "https://terraink.app/assets/banner.png",
+            "featureList": [
+              "Free map poster creator for any city or location",
+              "Map wallpaper generator with custom styles",
+              "High-resolution PNG, PDF, and SVG export",
+              "Powered by OpenStreetMap data",
+              "Dozens of curated map themes",
+              "Custom colour palettes",
+              "Typography controls with self-hosted typefaces",
+              "No sign-up or account required",
+              "Works entirely in your browser"
+            ],
+            "keywords": "free map poster creator, map wallpaper generator, map poster maker, custom map art, city map print",
+            "creator": { "@id": "https://terraink.app/#organization" }
+          }
+        ]
       }
     </script>
-    <!-- Consent Mode v2 — must load before GA4 and AdSense -->
+    <!-- Consent Mode v2 — must load before GA4 and the ad script -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -219,11 +243,9 @@
       });
     </script>
 
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=%VITE_ADSENSE_CLIENT%"
-      crossorigin="anonymous"
-    ></script>
+    <!-- AdSense loader — injected by the adsense plugin when
+         VITE_ADSENSE_AD_CLIENT is set. -->
+    <!-- adsense-script -->
   </head>
   <body>
     <div id="root"></div>
