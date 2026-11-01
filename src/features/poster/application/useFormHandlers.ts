@@ -1,5 +1,7 @@
 import { useCallback } from "react";
 import { usePosterContext } from "../ui/PosterContext";
+import type { SavedTheme } from "@/features/theme/domain/types";
+import type { UserDefaults } from "@/features/settings/domain/types";
 import { clamp } from "@/shared/geo/math";
 import { recordRecentLocation } from "@/features/location/application/useRecentLocations";
 import type { SearchResult } from "@/features/location/domain/types";
@@ -152,6 +154,52 @@ export function useFormHandlers() {
     dispatch({ type: "RESET_COLORS" });
   }, [dispatch]);
 
+  const handleSetCustomColors = useCallback(
+    (colors: Record<string, string>) => {
+      dispatch({ type: "SET_CUSTOM_COLORS", colors });
+    },
+    [dispatch],
+  );
+
+  const handleAddSavedTheme = useCallback(
+    (theme: SavedTheme) => {
+      dispatch({ type: "ADD_SAVED_THEME", theme });
+    },
+    [dispatch],
+  );
+
+  const handleUpdateSavedTheme = useCallback(
+    (themeId: string, changes: Partial<SavedTheme>) => {
+      dispatch({ type: "UPDATE_SAVED_THEME", themeId, changes });
+    },
+    [dispatch],
+  );
+
+  const handleRemoveSavedTheme = useCallback(
+    (themeId: string) => {
+      dispatch({ type: "REMOVE_SAVED_THEME", themeId });
+    },
+    [dispatch],
+  );
+
+  const handleSaveCurrentAsDefaults = useCallback(() => {
+    const defaults: UserDefaults = {
+      theme: state.form.theme,
+      layout: state.form.layout,
+      fontFamily: state.form.fontFamily,
+    };
+    dispatch({ type: "SET_USER_DEFAULTS", defaults });
+  }, [
+    dispatch,
+    state.form.fontFamily,
+    state.form.layout,
+    state.form.theme,
+  ]);
+
+  const handleResetUserDefaults = useCallback(() => {
+    dispatch({ type: "RESET_USER_DEFAULTS" });
+  }, [dispatch]);
+
   const handleLocationSelect = useCallback(
     (suggestion: SearchResult) => {
       dispatch({ type: "SELECT_LOCATION", location: suggestion });
@@ -185,6 +233,12 @@ export function useFormHandlers() {
     handleLayoutChange,
     handleColorChange,
     handleResetColors,
+    handleSetCustomColors,
+    handleAddSavedTheme,
+    handleUpdateSavedTheme,
+    handleRemoveSavedTheme,
+    handleSaveCurrentAsDefaults,
+    handleResetUserDefaults,
     handleLocationSelect,
     handleClearLocation,
     setLocationFocused,

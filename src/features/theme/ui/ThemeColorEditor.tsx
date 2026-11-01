@@ -11,6 +11,7 @@ interface ThemeColorEditorProps {
   activeColorLabel: string;
   hasCustomColors: boolean;
   onResetAllColors: () => void;
+  onSave: () => void;
   onDone: () => void;
   colorTargets: ColorTarget[];
   onTargetSelect: (key: ThemeColorKey) => void;
@@ -20,6 +21,7 @@ export default function ThemeColorEditor({
   activeColorLabel,
   hasCustomColors,
   onResetAllColors,
+  onSave,
   onDone,
   colorTargets,
   onTargetSelect,
@@ -33,11 +35,18 @@ export default function ThemeColorEditor({
         <div className="theme-edit-actions">
           <button
             type="button"
+            className="theme-save-btn"
+            onClick={onSave}
+          >
+            Save
+          </button>
+          <button
+            type="button"
             className="theme-reset-all-btn"
             onClick={onResetAllColors}
             disabled={!hasCustomColors}
           >
-            Reset All Colors
+            Reset All
           </button>
           <button
             type="button"

@@ -49,7 +49,10 @@ function buildPhysChunk(dpi: number): Uint8Array {
   return chunk;
 }
 
-function injectDpiChunk(pngBytes: Uint8Array, dpi: number): Uint8Array {
+function injectDpiChunk(
+  pngBytes: Uint8Array<ArrayBuffer>,
+  dpi: number,
+): Uint8Array<ArrayBuffer> {
   if (dpi <= 0 || !Number.isFinite(dpi)) {
     return pngBytes;
   }

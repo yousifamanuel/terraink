@@ -8,6 +8,7 @@ import type { MobileTab } from "@/shared/ui/MobileNavBar";
 
 import LocationSection from "@/features/location/ui/LocationSection";
 import MapSettingsSection from "@/features/map/ui/MapSettingsSection";
+import SettingsSection from "@/features/settings/ui/SettingsSection";
 import LayersSection from "@/features/map/ui/LayersSection";
 import MarkersSection from "@/features/markers/ui/MarkersSection";
 import RoutesSection from "@/features/routes/ui/RoutesSection";
@@ -57,10 +58,13 @@ const accordionSections: {
 
 export default function SettingsPanel({
   mobileTab,
+  activeTab,
 }: {
   mobileTab?: MobileTab;
+  activeTab?: MobileTab;
 }) {
-  const { state, dispatch, mapRef, selectedTheme } = usePosterContext();
+  const { state, dispatch, mapRef, selectedTheme, effectiveTheme } =
+    usePosterContext();
   const {
     handleChange,
     handleNumericFieldBlur,
@@ -68,6 +72,10 @@ export default function SettingsPanel({
     handleLayoutChange,
     handleColorChange,
     handleResetColors,
+    handleSetCustomColors,
+    handleAddSavedTheme,
+    handleUpdateSavedTheme,
+    handleRemoveSavedTheme,
     handleLocationSelect,
     handleClearLocation,
     setLocationFocused,
@@ -104,6 +112,14 @@ export default function SettingsPanel({
     handleLocationSelect(location);
     flyToLocation(location.lat, location.lon);
   };
+
+  if (activeTab === "settings") {
+    return (
+      <form className="settings-panel" onSubmit={(e) => e.preventDefault()}>
+        <SettingsSection />
+      </form>
+    );
+  }
 
   return (
     <form className="settings-panel" onSubmit={(e) => e.preventDefault()}>
@@ -173,6 +189,12 @@ export default function SettingsPanel({
                 onColorChange={handleColorChange}
                 onResetColors={handleResetColors}
                 onColorEditorActiveChange={setIsColorEditorActive}
+                effectiveTheme={effectiveTheme}
+                savedThemes={state.savedThemes}
+                onAddSavedTheme={handleAddSavedTheme}
+                onUpdateSavedTheme={handleUpdateSavedTheme}
+                onRemoveSavedTheme={handleRemoveSavedTheme}
+                onSetCustomColors={handleSetCustomColors}
               />
             ) : null}
           </div>
@@ -210,6 +232,12 @@ export default function SettingsPanel({
                 onColorChange={handleColorChange}
                 onResetColors={handleResetColors}
                 onColorEditorActiveChange={setIsColorEditorActive}
+                effectiveTheme={effectiveTheme}
+                savedThemes={state.savedThemes}
+                onAddSavedTheme={handleAddSavedTheme}
+                onUpdateSavedTheme={handleUpdateSavedTheme}
+                onRemoveSavedTheme={handleRemoveSavedTheme}
+                onSetCustomColors={handleSetCustomColors}
               />
             ) : null}
           </div>
