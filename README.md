@@ -132,6 +132,16 @@ docker build -t terraink:latest .
 docker run -d --name terraink -p 7200:80 --restart unless-stopped terraink:latest
 ```
 
+## Reporting Bugs and Requesting Features
+
+Found a problem or have an idea? Open an issue on GitHub, the form asks for everything we need:
+
+- [Report a bug](https://github.com/yousifamanuel/terraink/issues/new?template=bug_report.yml): what happened, how to reproduce it, your device and browser
+- [Request a feature](https://github.com/yousifamanuel/terraink/issues/new?template=feature_request.yml): what you'd like to do and how it could work
+- Questions about using Terraink: [hello@terraink.app](mailto:hello@terraink.app)
+
+Please check the [open issues](https://github.com/yousifamanuel/terraink/issues) first, maybe it's already reported.
+
 ## Contributing
 
 > The contribution guidelines are meant to keep Terraink easy to extend, review, and maintain over time. They are here to support a durable architecture, not to add unnecessary friction.
