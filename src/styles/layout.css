@@ -571,6 +571,29 @@ button.install-prompt-dismiss:hover {
   color: rgba(214, 234, 247, 0.92);
 }
 
+.startup-location-input-wrap {
+  position: relative;
+}
+
+.startup-location-input.is-busy {
+  padding-right: 38px;
+}
+
+.startup-location-spinner {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  margin-top: -8px;
+  color: rgba(183, 215, 235, 0.7);
+  pointer-events: none;
+}
+
+.startup-location-spinner svg {
+  width: 16px;
+  height: 16px;
+}
+
 .startup-location-input {
   width: 100%;
   min-height: 46px;

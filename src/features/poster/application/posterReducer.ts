@@ -69,6 +69,8 @@ export interface PosterState {
   error: string;
   isExporting: boolean;
   isLocationFocused: boolean;
+  /** A place-name lookup for the current map position is waiting or running. */
+  isLocationLookupPending: boolean;
   selectedLocation: SearchResult | null;
   userLocation: SearchResult | null;
   displayNameOverrides: {
@@ -101,6 +103,7 @@ export type PosterAction =
   | { type: "SET_USER_LOCATION"; location: SearchResult | null }
   | { type: "CLEAR_LOCATION" }
   | { type: "SET_LOCATION_FOCUSED"; focused: boolean }
+  | { type: "SET_LOCATION_LOOKUP_PENDING"; pending: boolean }
   | { type: "SET_ERROR"; error: string }
   | { type: "SET_EXPORT_STATUS"; exporting: boolean; error?: string }
   | { type: "SET_MARKER_EDITOR_ACTIVE"; active: boolean }
@@ -279,6 +282,9 @@ export function posterReducer(
 
     case "SET_LOCATION_FOCUSED":
       return { ...state, isLocationFocused: action.focused };
+    case "SET_LOCATION_LOOKUP_PENDING":
+      if (state.isLocationLookupPending === action.pending) return state;
+      return { ...state, isLocationLookupPending: action.pending };
 
     case "SET_ERROR":
       return { ...state, error: action.error };

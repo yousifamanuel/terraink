@@ -3746,3 +3746,21 @@ button.settings-reset-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+/* Search box spinner: replaces the magnifier while a search or the
+   map-move place lookup is waiting or running. */
+.location-search-icon.is-busy svg {
+  animation: location-search-spin 0.9s linear infinite;
+}
+
+@keyframes location-search-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .location-search-icon.is-busy svg {
+    animation-duration: 2.5s;
+  }
+}

@@ -12,7 +12,7 @@ import {
   PLACEHOLDER_EXAMPLE_LONGITUDE,
 } from "@/features/location/ui/constants";
 import type { SearchResult } from "@/features/location/domain/types";
-import { MyLocationIcon, LocationIcon, SearchIcon } from "@/shared/ui/Icons";
+import { MyLocationIcon, LocationIcon, SearchIcon, LoaderIcon } from "@/shared/ui/Icons";
 
 /**
  * Desktop floating location bar.
@@ -34,6 +34,8 @@ export default function DesktopLocationBar() {
     state.isLocationFocused,
   );
   const { flyToLocation } = useMapSync(state, dispatch, mapRef);
+  // Spinner while a search waits/runs or the map-move place name is pending.
+  const isBusy = isLocationSearching || state.isLocationLookupPending;
   const { handleUseCurrentLocation, isLocatingUser, locationPermissionMessage } =
     useCurrentLocation(flyToLocation);
   const { recent, removeRecent, clearRecent } = useRecentLocations();
@@ -53,8 +55,11 @@ export default function DesktopLocationBar() {
         <div className="location-search-stack">
           <div className="location-search-main-row">
             <div className="location-search-row">
-              <span className="location-search-icon" aria-hidden="true">
-                <SearchIcon />
+              <span
+                className={`location-search-icon${isBusy ? " is-busy" : ""}`}
+                aria-hidden="true"
+              >
+                {isBusy ? <LoaderIcon /> : <SearchIcon />}
               </span>
               <div className="location-input-wrap">
                 <input
@@ -67,6 +72,7 @@ export default function DesktopLocationBar() {
                   onKeyDown={(e) => { if (e.key === "Enter") void searchNow(e.currentTarget.value); }}
                   placeholder={t("location.section.searchPlaceholder")}
                   autoComplete="off"
+                  aria-busy={isBusy}
                 />
                 {hasLocationValue ? (
                   <button

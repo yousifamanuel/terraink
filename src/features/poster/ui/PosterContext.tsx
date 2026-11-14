@@ -134,6 +134,7 @@ function buildInitialState(): PosterState {
     error: "",
     isExporting: false,
     isLocationFocused: false,
+    isLocationLookupPending: false,
     selectedLocation: null,
     userLocation: null,
     displayNameOverrides: {

@@ -84,11 +84,15 @@ interface MapSyncState {
   selectedLocation: { label?: string; city?: string; country?: string; continent?: string } | null;
 }
 
-type MapSyncDispatch = (action: {
-  type: "SET_FORM_FIELDS";
-  fields: Partial<Record<string, string>>;
-  resetDisplayNameOverrides?: boolean;
-}) => void;
+type MapSyncDispatch = (
+  action:
+    | {
+        type: "SET_FORM_FIELDS";
+        fields: Partial<Record<string, string>>;
+        resetDisplayNameOverrides?: boolean;
+      }
+    | { type: "SET_LOCATION_LOOKUP_PENDING"; pending: boolean },
+) => void;
 
 /**
  * Bidirectional synchronization between form fields and MapLibre view.
@@ -174,6 +178,7 @@ export function useMapSync(
         Math.abs(previous[0] - lat) >= 0.002 ||
         Math.abs(previous[1] - lon) >= 0.002;
       if (!movedEnough) {
+        dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
         return;
       }
 
@@ -212,6 +217,11 @@ export function useMapSync(
         })
         .catch(() => {
           // Ignore lookup failures; coordinates stay authoritative.
+        })
+        .finally(() => {
+          if (lookupSeq === latestLocationLookupSeqRef.current) {
+            dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
+          }
         });
     },
     [dispatch],
@@ -222,12 +232,13 @@ export function useMapSync(
   const updateLocationFromCoordinates = useCallback(
     (lat: number, lon: number, delayMs = MAP_REST_LOOKUP_MS) => {
       window.clearTimeout(pendingLookupTimerRef.current);
+      dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: true });
       pendingLookupTimerRef.current = window.setTimeout(() => {
         pendingLookupTimerRef.current = undefined;
         lookupLocationName(lat, lon);
       }, delayMs);
     },
-    [lookupLocationName],
+    [dispatch, lookupLocationName],
   );
 
   useEffect(() => () => window.clearTimeout(pendingLookupTimerRef.current), []);

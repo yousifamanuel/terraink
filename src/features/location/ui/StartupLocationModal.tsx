@@ -13,7 +13,7 @@ import {
   getGeolocationFailureMessage,
   requestCurrentPositionWithRetry,
 } from "@/features/location/infrastructure";
-import { MyLocationIcon } from "@/shared/ui/Icons";
+import { LoaderIcon, MyLocationIcon } from "@/shared/ui/Icons";
 import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
 import {
@@ -249,9 +249,11 @@ export default function StartupLocationModal({
         <p className="startup-location-title" id="startup-location-title">
           {t("location.startup.title")}
         </p>
+        <div className="startup-location-input-wrap">
         <input
           type="text"
-          className="startup-location-input"
+          className={`startup-location-input${isLocationSearching ? " is-busy" : ""}`}
+          aria-busy={isLocationSearching}
           value={locationInput}
           onChange={(event) => {
             setLocationInput(event.target.value);
@@ -267,6 +269,12 @@ export default function StartupLocationModal({
           placeholder={t("location.startup.placeholder")}
           autoComplete="off"
         />
+        {isLocationSearching ? (
+          <span className="startup-location-spinner location-search-icon is-busy" aria-hidden="true">
+            <LoaderIcon />
+          </span>
+        ) : null}
+        </div>
         <LocationSuggestionsDropdown
           query={locationInput}
           isFocused={isInputFocused}

@@ -80,6 +80,8 @@ export function useLocationAutocomplete(
     }
 
     let cancelled = false;
+    // Show "searching" right away, so the wait before the request is visible too.
+    setIsLocationSearching(true);
     debounceIdRef.current = window.setTimeout(() => {
       // Dragging the map doesn't blur the input, so when the map-move lookup
       // rewrites the field the "focused" flag can be stale. Only search while
@@ -87,6 +89,8 @@ export function useLocationAutocomplete(
       const typing = document.activeElement instanceof HTMLInputElement;
       if (!cancelled && typing) {
         void performSearch(query);
+      } else {
+        setIsLocationSearching(false);
       }
     }, DEBOUNCE_DELAY_MS);
 
