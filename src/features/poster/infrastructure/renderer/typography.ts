@@ -91,7 +91,7 @@ export function drawPosterText(
   ctx.textBaseline = "bottom";
   ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
   ctx.fillText(
-    "\u00a9 OpenStreetMap contributors",
+    "\u00a9 OpenStreetMap",
     width * (1 - TEXT_EDGE_MARGIN_RATIO),
     height * (1 - TEXT_EDGE_MARGIN_RATIO),
   );

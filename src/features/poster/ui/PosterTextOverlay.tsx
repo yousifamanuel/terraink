@@ -118,7 +118,7 @@ export default function PosterTextOverlay({
           right: `${TEXT_EDGE_MARGIN_RATIO * 100}%`,
         }}
       >
-        &copy; OpenStreetMap contributors
+        &copy; OpenStreetMap
       </span>
 
       {includeCredits && (
