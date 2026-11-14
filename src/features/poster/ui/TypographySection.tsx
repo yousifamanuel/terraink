@@ -135,18 +135,6 @@ export default function TypographySection({
         ) : null}
 
         <label className="toggle-field">
-          <span>{t("poster.typography.posterText")}</span>
-          <span className="theme-switch">
-            <input
-              type="checkbox"
-              name="showPosterText"
-              checked={Boolean(form.showPosterText)}
-              onChange={onChange}
-            />
-            <span className="theme-switch-track" aria-hidden="true" />
-          </span>
-        </label>
-        <label className="toggle-field">
           <span>{t("poster.typography.overlayLayer")}</span>
           <span className="theme-switch">
             <input
@@ -158,29 +146,44 @@ export default function TypographySection({
             <span className="theme-switch-track" aria-hidden="true" />
           </span>
         </label>
-
-        <div className="field-grid keep-two-mobile">
-          <label>
-            {t("poster.typography.displayCity")}
+        <label className="toggle-field">
+          <span>{t("poster.typography.posterText")}</span>
+          <span className="theme-switch">
             <input
-              className="form-control-tall"
-              name="displayCity"
-              value={form.displayCity}
+              type="checkbox"
+              name="showPosterText"
+              checked={Boolean(form.showPosterText)}
               onChange={onChange}
-              placeholder={PLACEHOLDER_EXAMPLE_CITY}
             />
-          </label>
-          <label>
-            {t("poster.typography.displayCountry")}
-            <input
-              className="form-control-tall"
-              name="displayCountry"
-              value={form.displayCountry}
-              onChange={onChange}
-              placeholder={PLACEHOLDER_EXAMPLE_COUNTRY}
-            />
-          </label>
-        </div>
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
+        </label>
+        {form.showPosterText ? (
+          <div className="toggle-subsettings">
+          <div className="field-grid keep-two-mobile">
+            <label>
+              {t("poster.typography.displayCity")}
+              <input
+                className="form-control-tall"
+                name="displayCity"
+                value={form.displayCity}
+                onChange={onChange}
+                placeholder={PLACEHOLDER_EXAMPLE_CITY}
+              />
+            </label>
+            <label>
+              {t("poster.typography.displayCountry")}
+              <input
+                className="form-control-tall"
+                name="displayCountry"
+                value={form.displayCountry}
+                onChange={onChange}
+                placeholder={PLACEHOLDER_EXAMPLE_COUNTRY}
+              />
+            </label>
+          </div>
+          </div>
+        ) : null}
         <label>
           {t("poster.typography.font")}
           <select
