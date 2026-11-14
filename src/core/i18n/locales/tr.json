@@ -347,7 +347,18 @@
         "right": "Sağ"
       },
       "border": "Çerçeve",
-      "borderWidth": "Çerçeve genişliği"
+      "borderWidth": "Çerçeve genişliği",
+      "borderLine": "Çizgi",
+      "line": {
+        "single": "Tek",
+        "double": "Çift"
+      },
+      "borderStyle": "Çizgi stili",
+      "dash": {
+        "solid": "Düz",
+        "dashed": "Kesik"
+      },
+      "lineThickness": "Çizgi kalınlığı"
     }
   },
   "theme": {

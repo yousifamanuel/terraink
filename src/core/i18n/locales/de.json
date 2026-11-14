@@ -347,7 +347,18 @@
         "right": "Rechts"
       },
       "border": "Rahmen",
-      "borderWidth": "Rahmenbreite"
+      "borderWidth": "Rahmenbreite",
+      "borderLine": "Linie",
+      "line": {
+        "single": "Einfach",
+        "double": "Doppelt"
+      },
+      "borderStyle": "Linienart",
+      "dash": {
+        "solid": "Durchgezogen",
+        "dashed": "Gestrichelt"
+      },
+      "lineThickness": "Linienstärke"
     }
   },
   "theme": {

@@ -347,7 +347,18 @@
         "right": "Rechts"
       },
       "border": "Rand",
-      "borderWidth": "Randbreedte"
+      "borderWidth": "Randbreedte",
+      "borderLine": "Lijn",
+      "line": {
+        "single": "Enkel",
+        "double": "Dubbel"
+      },
+      "borderStyle": "Lijnstijl",
+      "dash": {
+        "solid": "Doorgetrokken",
+        "dashed": "Gestreept"
+      },
+      "lineThickness": "Lijndikte"
     }
   },
   "theme": {

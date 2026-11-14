@@ -8,5 +8,8 @@ export function getPosterLayoutOptions(form: PosterForm): PosterLayoutOptions {
     textAlign: form.textAlign,
     border: form.showBorder,
     borderWidth: Number(form.borderWidth),
+    borderLine: form.borderLine,
+    borderDash: form.borderDash,
+    borderThickness: Number(form.borderThickness),
   };
 }

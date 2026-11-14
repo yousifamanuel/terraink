@@ -349,7 +349,18 @@
         "right": "Droite"
       },
       "border": "Bordure",
-      "borderWidth": "Largeur de la bordure"
+      "borderWidth": "Largeur de la bordure",
+      "borderLine": "Trait",
+      "line": {
+        "single": "Simple",
+        "double": "Double"
+      },
+      "borderStyle": "Style du trait",
+      "dash": {
+        "solid": "Plein",
+        "dashed": "Pointillé"
+      },
+      "lineThickness": "Épaisseur du trait"
     }
   },
   "theme": {

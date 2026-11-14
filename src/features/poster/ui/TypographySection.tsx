@@ -10,6 +10,10 @@ import {
   PLACEHOLDER_EXAMPLE_COUNTRY,
 } from "@/features/location/ui/constants";
 import {
+  BORDER_DASHES,
+  BORDER_LINES,
+  BORDER_THICKNESS_MAX,
+  BORDER_THICKNESS_MIN,
   BORDER_WIDTH_MAX,
   BORDER_WIDTH_MIN,
   POSTER_TEXT_ALIGNS,
@@ -99,6 +103,33 @@ export default function TypographySection({
               step={0.5}
               unit="%"
               onChange={(value) => setField("borderWidth", String(value))}
+            />
+            <SegmentedControl
+              label={t("poster.typography.borderLine")}
+              value={form.borderLine}
+              options={BORDER_LINES.map((line) => ({
+                value: line,
+                label: t(`poster.typography.line.${line}`),
+              }))}
+              onChange={(value) => setField("borderLine", value)}
+            />
+            <SegmentedControl
+              label={t("poster.typography.borderStyle")}
+              value={form.borderDash}
+              options={BORDER_DASHES.map((dash) => ({
+                value: dash,
+                label: t(`poster.typography.dash.${dash}`),
+              }))}
+              onChange={(value) => setField("borderDash", value)}
+            />
+            <SliderField
+              label={t("poster.typography.lineThickness")}
+              value={Number(form.borderThickness)}
+              min={BORDER_THICKNESS_MIN}
+              max={BORDER_THICKNESS_MAX}
+              step={0.05}
+              unit="%"
+              onChange={(value) => setField("borderThickness", String(value))}
             />
           </div>
         ) : null}

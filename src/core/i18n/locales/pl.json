@@ -351,7 +351,18 @@
         "right": "Prawo"
       },
       "border": "Ramka",
-      "borderWidth": "Szerokość ramki"
+      "borderWidth": "Szerokość ramki",
+      "borderLine": "Linia",
+      "line": {
+        "single": "Pojedyncza",
+        "double": "Podwójna"
+      },
+      "borderStyle": "Styl linii",
+      "dash": {
+        "solid": "Ciągła",
+        "dashed": "Przerywana"
+      },
+      "lineThickness": "Grubość linii"
     }
   },
   "theme": {

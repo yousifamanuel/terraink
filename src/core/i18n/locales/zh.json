@@ -345,7 +345,18 @@
         "right": "右"
       },
       "border": "边框",
-      "borderWidth": "边框宽度"
+      "borderWidth": "边框宽度",
+      "borderLine": "线条",
+      "line": {
+        "single": "单线",
+        "double": "双线"
+      },
+      "borderStyle": "线型",
+      "dash": {
+        "solid": "实线",
+        "dashed": "虚线"
+      },
+      "lineThickness": "线条粗细"
     }
   },
   "theme": {

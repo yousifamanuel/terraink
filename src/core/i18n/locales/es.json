@@ -349,7 +349,18 @@
         "right": "Derecha"
       },
       "border": "Borde",
-      "borderWidth": "Ancho del borde"
+      "borderWidth": "Ancho del borde",
+      "borderLine": "Línea",
+      "line": {
+        "single": "Simple",
+        "double": "Doble"
+      },
+      "borderStyle": "Estilo de línea",
+      "dash": {
+        "solid": "Continua",
+        "dashed": "Discontinua"
+      },
+      "lineThickness": "Grosor de línea"
     }
   },
   "theme": {

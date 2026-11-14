@@ -345,7 +345,18 @@
         "right": "右"
       },
       "border": "枠",
-      "borderWidth": "枠の幅"
+      "borderWidth": "枠の幅",
+      "borderLine": "線",
+      "line": {
+        "single": "一重",
+        "double": "二重"
+      },
+      "borderStyle": "線の種類",
+      "dash": {
+        "solid": "実線",
+        "dashed": "破線"
+      },
+      "lineThickness": "線の太さ"
     }
   },
   "theme": {

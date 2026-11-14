@@ -22,6 +22,8 @@ import {
 import type { SavedTheme } from "@/features/theme/domain/types";
 import type { UserDefaults } from "@/features/settings/domain/types";
 import type {
+  BorderDash,
+  BorderLine,
   PosterTextAlign,
   PosterTextPosition,
 } from "@/features/poster/domain/posterStyleTemplates";
@@ -47,6 +49,10 @@ export interface PosterForm {
   showBorder: boolean;
   /** Border width in % of the shorter side (string while editing the slider). */
   borderWidth: string;
+  borderLine: BorderLine;
+  borderDash: BorderDash;
+  /** Line thickness in % of the shorter side. */
+  borderThickness: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

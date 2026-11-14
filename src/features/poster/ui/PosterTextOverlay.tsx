@@ -11,7 +11,10 @@ import {
   computeCityFontScale,
   computeAttributionColor,
 } from "@/features/poster/domain/textLayout";
-import type { PosterStyleTemplate } from "@/features/poster/domain/posterStyleTemplates";
+import {
+  DOUBLE_LINE_GAP,
+  type PosterStyleTemplate,
+} from "@/features/poster/domain/posterStyleTemplates";
 
 interface PosterTextOverlayProps {
   city: string;
@@ -120,13 +123,24 @@ export default function PosterTextOverlay({
               }}
             />
           ) : null}
-          <div
-            className={`poster-template-frame poster-template-frame--${template.frame.type}`}
-            style={{
-              inset: `${template.frame.inset * 100}cqmin`,
-              borderColor: withAlpha(textColor, template.frame.alpha),
-            }}
-          />
+          {/* One element per line; a double border adds a line outside the main one. */}
+          {(template.frame.line === "double" ? [0, -(1 + DOUBLE_LINE_GAP)] : [0]).map(
+            (offsetInLines) => {
+              const thickness = (template.frame.thickness ?? 0.0025) * 100;
+              return (
+                <div
+                  key={offsetInLines}
+                  className={`poster-template-frame poster-template-frame--${template.frame.type}`}
+                  style={{
+                    inset: `max(0px, calc(${template.frame.inset * 100}cqmin + ${offsetInLines * thickness}cqmin))`,
+                    borderColor: withAlpha(textColor, template.frame.alpha),
+                    borderStyle: template.frame.dash === "dashed" ? "dashed" : "solid",
+                    borderWidth: `max(1px, ${thickness}cqmin)`,
+                  }}
+                />
+              );
+            },
+          )}
         </>
       ) : null}
 

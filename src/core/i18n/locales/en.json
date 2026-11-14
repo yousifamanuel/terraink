@@ -347,7 +347,18 @@
         "right": "Right"
       },
       "border": "Border",
-      "borderWidth": "Border width"
+      "borderWidth": "Border width",
+      "borderLine": "Line",
+      "line": {
+        "single": "Single",
+        "double": "Double"
+      },
+      "borderStyle": "Line style",
+      "dash": {
+        "solid": "Solid",
+        "dashed": "Dashed"
+      },
+      "lineThickness": "Line thickness"
     }
   },
   "theme": {

@@ -1,5 +1,8 @@
 import { withAlpha } from "@/shared/utils/color";
-import type { PosterStyleTemplate } from "@/features/poster/domain/posterStyleTemplates";
+import {
+  DOUBLE_LINE_GAP,
+  type PosterStyleTemplate,
+} from "@/features/poster/domain/posterStyleTemplates";
 
 export function applyFades(
   ctx: CanvasRenderingContext2D,
@@ -76,8 +79,9 @@ export function drawTemplateFrame(
   const { frame } = template;
   if (frame.type === "none") return;
 
-  const inset = Math.min(width, height) * frame.inset;
-  const lineWidth = Math.max(1, Math.min(width, height) * 0.0025);
+  const short = Math.min(width, height);
+  const inset = short * frame.inset;
+  const lineWidth = Math.max(1, short * (frame.thickness ?? 0.0025));
 
   ctx.save();
   if (frame.type === "mat") {
@@ -89,6 +93,16 @@ export function drawTemplateFrame(
   }
   ctx.strokeStyle = withAlpha(lineColor, frame.alpha);
   ctx.lineWidth = lineWidth;
-  ctx.strokeRect(inset, inset, width - inset * 2, height - inset * 2);
+  if (frame.dash === "dashed") ctx.setLineDash([lineWidth * 4, lineWidth * 3]);
+  // The main line is drawn inward from the frame edge; a double border adds
+  // a second line outside it, in the band (never past the poster edge).
+  const lines =
+    frame.line === "double"
+      ? [inset, Math.max(0, inset - lineWidth * (1 + DOUBLE_LINE_GAP))]
+      : [inset];
+  for (const at of lines) {
+    const half = lineWidth / 2;
+    ctx.strokeRect(at + half, at + half, width - (at + half) * 2, height - (at + half) * 2);
+  }
   ctx.restore();
 }

@@ -349,7 +349,18 @@
         "right": "Direita"
       },
       "border": "Borda",
-      "borderWidth": "Largura da borda"
+      "borderWidth": "Largura da borda",
+      "borderLine": "Linha",
+      "line": {
+        "single": "Simples",
+        "double": "Dupla"
+      },
+      "borderStyle": "Estilo da linha",
+      "dash": {
+        "solid": "Contínua",
+        "dashed": "Tracejada"
+      },
+      "lineThickness": "Espessura da linha"
     }
   },
   "theme": {

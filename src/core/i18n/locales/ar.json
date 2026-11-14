@@ -355,7 +355,18 @@
         "right": "يمين"
       },
       "border": "إطار",
-      "borderWidth": "عرض الإطار"
+      "borderWidth": "عرض الإطار",
+      "borderLine": "الخط",
+      "line": {
+        "single": "مفرد",
+        "double": "مزدوج"
+      },
+      "borderStyle": "نمط الخط",
+      "dash": {
+        "solid": "متصل",
+        "dashed": "متقطع"
+      },
+      "lineThickness": "سُمك الخط"
     }
   },
   "theme": {

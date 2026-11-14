@@ -9,11 +9,22 @@ export interface PosterFadeSpec {
   right?: number;
 }
 
+export type BorderLine = "single" | "double";
+export type BorderDash = "solid" | "dashed";
+
 export interface PosterFrameSpec {
   type: "none" | "hairline" | "mat";
   inset: number;
   alpha: number;
+  /** One line or two parallel lines. */
+  line?: BorderLine;
+  dash?: BorderDash;
+  /** Line width as a share of the shorter side. */
+  thickness?: number;
 }
+
+/** Gap between the two lines of a double border, in line widths. */
+export const DOUBLE_LINE_GAP = 2;
 
 export interface PosterTextPanelSpec {
   x: number;
@@ -69,6 +80,10 @@ export interface PosterLayoutOptions {
   border: boolean;
   /** Border width in % of the poster's shorter side. */
   borderWidth: number;
+  borderLine: BorderLine;
+  borderDash: BorderDash;
+  /** Line thickness in % of the shorter side. */
+  borderThickness: number;
 }
 
 export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
@@ -76,7 +91,15 @@ export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
   textAlign: "center",
   border: false,
   borderWidth: 4,
+  borderLine: "single",
+  borderDash: "solid",
+  borderThickness: 0.25,
 };
+
+export const BORDER_LINES: BorderLine[] = ["single", "double"];
+export const BORDER_DASHES: BorderDash[] = ["solid", "dashed"];
+export const BORDER_THICKNESS_MIN = 0.1;
+export const BORDER_THICKNESS_MAX = 1.5;
 
 /** Border width range, in % of the poster's shorter side (same on all sides). */
 export const BORDER_WIDTH_MIN = 1;
@@ -140,13 +163,26 @@ function borderInset(widthPercent: number): number {
   return Math.min(BORDER_WIDTH_MAX, Math.max(BORDER_WIDTH_MIN, value)) / 100;
 }
 
+/**
+ * How far the line(s) reach inward from the frame edge. A double border's
+ * extra line sits outside (in the band), so only the main line counts.
+ */
+function linesExtent(_line: BorderLine, thickness: number): number {
+  return thickness;
+}
+
+function clampThickness(percent: number): number {
+  const value = Number.isFinite(percent) ? percent : DEFAULT_POSTER_LAYOUT.borderThickness;
+  return Math.min(BORDER_THICKNESS_MAX, Math.max(BORDER_THICKNESS_MIN, value));
+}
+
 /** Builds the full text layout from the user's position and alignment. */
 export function buildPosterLayout(
   options: Partial<PosterLayoutOptions> = {},
   /** Poster width ÷ height, to turn shorter-side sizes into width/height shares. */
   aspect: number = DEFAULT_ASPECT,
 ): PosterStyleTemplate {
-  const { textPosition, textAlign, border, borderWidth } = {
+  const { textPosition, textAlign, border, borderWidth, borderLine, borderDash, borderThickness } = {
     ...DEFAULT_POSTER_LAYOUT,
     ...options,
   };
@@ -155,15 +191,24 @@ export function buildPosterLayout(
   const shortOfWidth = Math.min(1, 1 / safeAspect);
   const shortOfHeight = Math.min(1, safeAspect);
   const inset = border ? borderInset(borderWidth) : 0;
-  const creditInset = inset + BORDER_CREDIT_GAP;
+  const thickness = clampThickness(borderThickness) / 100;
+  // Inner edge of the line(s): credits and text keep their distance from it.
+  const frameInner = border ? inset + linesExtent(borderLine, thickness) : 0;
+  const creditInset = frameInner + BORDER_CREDIT_GAP;
   const marginX = border ? creditInset * shortOfWidth : ATTRIBUTION_MARGIN;
   const marginY = border ? creditInset * shortOfHeight : ATTRIBUTION_MARGIN;
 
   // With a border the text block is laid out inside the frame: rows are
   // squeezed into the inner area and the text shrinks with it, so a wider
   // border means proportionally smaller text (default width = normal size).
-  const insetY = inset * shortOfHeight;
-  const defaultInsetY = borderInset(DEFAULT_POSTER_LAYOUT.borderWidth) * shortOfHeight;
+  const insetY = frameInner * shortOfHeight;
+  const defaultInsetY =
+    (borderInset(DEFAULT_POSTER_LAYOUT.borderWidth) +
+      linesExtent(
+        DEFAULT_POSTER_LAYOUT.borderLine,
+        DEFAULT_POSTER_LAYOUT.borderThickness / 100,
+      )) *
+    shortOfHeight;
   const inner = (y: number) => insetY + y * (1 - 2 * insetY);
   const textScale = border ? (1 - 2 * insetY) / (1 - 2 * defaultInsetY) : 1;
   const rows = ROWS[textPosition];
@@ -180,7 +225,14 @@ export function buildPosterLayout(
   return {
     fade,
     frame: border
-      ? { type: "mat", inset, alpha: 0.85 }
+      ? {
+          type: "mat",
+          inset,
+          alpha: 0.85,
+          line: borderLine,
+          dash: borderDash,
+          thickness,
+        }
       : { type: "none", inset: 0, alpha: 0 },
     text: {
       align: textAlign,
