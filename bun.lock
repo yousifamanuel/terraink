@@ -21,6 +21,7 @@
       "devDependencies": {
         "@fontsource/bebas-neue": "^5.2.7",
         "@fontsource/ibm-plex-mono": "^5.3.0",
+        "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
         "@fontsource/instrument-sans": "^5.3.0",
         "@fontsource/lato": "^5.2.7",
         "@fontsource/merriweather": "^5.2.11",
@@ -93,6 +94,8 @@
     "@fontsource/bebas-neue": ["@fontsource/bebas-neue@5.2.7", "", {}, "sha512-DsmBrmq55d9BCU0mt4DT4RZDdH8vhWRKEUOfbuNB1EEjMuwbtFvM8N+3gIlkYSFbsb10P8Q19BV5OdpMu2h0fA=="],
 
     "@fontsource/ibm-plex-mono": ["@fontsource/ibm-plex-mono@5.3.0", "", {}, "sha512-eTgnZjZEGk1QtD3ZstF+Vclo2HLAni8YMy34/DxllwZvyz1lR/1RF/xTiAquOBO7MvqBx8D2Ig2WCPMVfdZu7Q=="],
+
+    "@fontsource/ibm-plex-sans-arabic": ["@fontsource/ibm-plex-sans-arabic@5.3.0", "", {}, "sha512-ZZ4g+JDgQY0NqSh4o0MNWU1sHQmtcee1g++aKAwyJvZxnT5y51JXsN1cIXnaQaMd40dcbK6QFYa+Z1LbaiNuqA=="],
 
     "@fontsource/instrument-sans": ["@fontsource/instrument-sans@5.3.0", "", {}, "sha512-QwXc4hb/px3XvSPS2CPAOgey8nyrQFxgxrmXQQ+pN+P51hKdAcchxpg8rSbjANFfPu6VKXhDqkVDucXMZ9CM5g=="],
 

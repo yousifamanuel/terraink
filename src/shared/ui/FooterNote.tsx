@@ -102,11 +102,15 @@ export default function FooterNote() {
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          <Trans
-            i18nKey="shell.footer.madeWith"
-            values={{ version: appVersion }}
-            components={{ heart: <span className="heart" /> }}
-          />
+          {/* One inline box, so the heart follows the text direction
+              (in Arabic it ends the sentence on the left). */}
+          <span>
+            <Trans
+              i18nKey="shell.footer.madeWith"
+              values={{ version: appVersion }}
+              components={{ heart: <span className="heart" /> }}
+            />
+          </span>
         </p>
       </div>
 
