@@ -14,5 +14,8 @@ export function getPosterLayoutOptions(form: PosterForm): PosterLayoutOptions {
     titleSize: Number(form.titleSize),
     subtitleSize: Number(form.subtitleSize),
     textOffset: Number(form.textOffset),
+    showDivider: form.showDivider,
+    dividerStyle: form.dividerStyle,
+    dividerThickness: Number(form.dividerThickness),
   };
 }

@@ -177,6 +177,8 @@ export default function PosterTextOverlay({
               className="poster-divider"
               style={{
                 borderColor: textColor,
+                borderTopStyle: text.dividerStyle ?? "solid",
+                borderTopWidth: `${2 * (text.dividerScale ?? 1)}px`,
                 top: `${(text.dividerY ?? text.countryY) * 100}%`,
                 left: `${(text.dividerStart ?? 0.4) * 100}%`,
                 right: `${(1 - (text.dividerEnd ?? 0.6)) * 100}%`,

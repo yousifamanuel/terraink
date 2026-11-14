@@ -16,6 +16,9 @@ import {
   BORDER_THICKNESS_MIN,
   BORDER_WIDTH_MAX,
   BORDER_WIDTH_MIN,
+  DIVIDER_STYLES,
+  DIVIDER_THICKNESS_MAX,
+  DIVIDER_THICKNESS_MIN,
   POSTER_TEXT_ALIGNS,
   POSTER_TEXT_POSITIONS,
   TEXT_OFFSET_MAX,
@@ -212,6 +215,40 @@ export default function TypographySection({
               unit="%"
               onChange={(value) => setField("textOffset", String(value))}
             />
+            <label className="toggle-field">
+              <span>{t("poster.typography.divider")}</span>
+              <span className="theme-switch">
+                <input
+                  type="checkbox"
+                  name="showDivider"
+                  checked={Boolean(form.showDivider)}
+                  onChange={onChange}
+                />
+                <span className="theme-switch-track" aria-hidden="true" />
+              </span>
+            </label>
+            {form.showDivider ? (
+              <>
+                <SegmentedControl
+                  label={t("poster.typography.dividerStyle")}
+                  value={form.dividerStyle}
+                  options={DIVIDER_STYLES.map((style) => ({
+                    value: style,
+                    label: t(`poster.typography.dividerStyles.${style}`),
+                  }))}
+                  onChange={(value) => setField("dividerStyle", value)}
+                />
+                <SliderField
+                  label={t("poster.typography.dividerThickness")}
+                  value={Number(form.dividerThickness)}
+                  min={DIVIDER_THICKNESS_MIN}
+                  max={DIVIDER_THICKNESS_MAX}
+                  step={10}
+                  unit="%"
+                  onChange={(value) => setField("dividerThickness", String(value))}
+                />
+              </>
+            ) : null}
           </div>
         ) : null}
         <label>

@@ -365,7 +365,15 @@
       "lineThickness": "Grubość linii",
       "titleSize": "Rozmiar tytułu",
       "subtitleSize": "Rozmiar podtytułu",
-      "textOffset": "W górę / w dół"
+      "textOffset": "W górę / w dół",
+      "divider": "Linia podziału",
+      "dividerStyle": "Styl linii",
+      "dividerStyles": {
+        "solid": "Ciągła",
+        "dashed": "Kreskowana",
+        "dotted": "Kropkowana"
+      },
+      "dividerThickness": "Grubość linii"
     }
   },
   "theme": {

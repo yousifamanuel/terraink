@@ -361,7 +361,15 @@
       "lineThickness": "Çizgi kalınlığı",
       "titleSize": "Başlık boyutu",
       "subtitleSize": "Alt başlık boyutu",
-      "textOffset": "Yukarı / aşağı"
+      "textOffset": "Yukarı / aşağı",
+      "divider": "Ayırıcı çizgi",
+      "dividerStyle": "Çizgi stili",
+      "dividerStyles": {
+        "solid": "Düz",
+        "dashed": "Kesik",
+        "dotted": "Noktalı"
+      },
+      "dividerThickness": "Çizgi kalınlığı"
     }
   },
   "theme": {

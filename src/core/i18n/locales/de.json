@@ -361,7 +361,15 @@
       "lineThickness": "Linienstärke",
       "titleSize": "Titelgröße",
       "subtitleSize": "Untertitelgröße",
-      "textOffset": "Nach oben / unten"
+      "textOffset": "Nach oben / unten",
+      "divider": "Trennlinie",
+      "dividerStyle": "Linienart",
+      "dividerStyles": {
+        "solid": "Durchgezogen",
+        "dashed": "Gestrichelt",
+        "dotted": "Gepunktet"
+      },
+      "dividerThickness": "Linienstärke"
     }
   },
   "theme": {

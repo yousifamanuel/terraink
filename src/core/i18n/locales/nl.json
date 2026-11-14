@@ -361,7 +361,15 @@
       "lineThickness": "Lijndikte",
       "titleSize": "Titelgrootte",
       "subtitleSize": "Ondertitelgrootte",
-      "textOffset": "Omhoog / omlaag"
+      "textOffset": "Omhoog / omlaag",
+      "divider": "Scheidingslijn",
+      "dividerStyle": "Lijnstijl",
+      "dividerStyles": {
+        "solid": "Doorgetrokken",
+        "dashed": "Gestreept",
+        "dotted": "Gestippeld"
+      },
+      "dividerThickness": "Lijndikte"
     }
   },
   "theme": {

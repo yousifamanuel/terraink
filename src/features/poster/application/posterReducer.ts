@@ -24,6 +24,7 @@ import type { UserDefaults } from "@/features/settings/domain/types";
 import type {
   BorderDash,
   BorderLine,
+  DividerStyle,
   PosterTextAlign,
   PosterTextPosition,
 } from "@/features/poster/domain/posterStyleTemplates";
@@ -57,6 +58,10 @@ export interface PosterForm {
   titleSize: string;
   subtitleSize: string;
   textOffset: string;
+  showDivider: boolean;
+  dividerStyle: DividerStyle;
+  /** Divider thickness in % of the default line. */
+  dividerThickness: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

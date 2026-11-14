@@ -361,7 +361,15 @@
       "lineThickness": "Line thickness",
       "titleSize": "Title size",
       "subtitleSize": "Subtitle size",
-      "textOffset": "Move up / down"
+      "textOffset": "Move up / down",
+      "divider": "Divider line",
+      "dividerStyle": "Divider style",
+      "dividerStyles": {
+        "solid": "Solid",
+        "dashed": "Dashed",
+        "dotted": "Dotted"
+      },
+      "dividerThickness": "Divider thickness"
     }
   },
   "theme": {

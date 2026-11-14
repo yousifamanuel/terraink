@@ -359,7 +359,15 @@
       "lineThickness": "线条粗细",
       "titleSize": "标题大小",
       "subtitleSize": "副标题大小",
-      "textOffset": "上下移动"
+      "textOffset": "上下移动",
+      "divider": "分隔线",
+      "dividerStyle": "线型",
+      "dividerStyles": {
+        "solid": "实线",
+        "dashed": "虚线",
+        "dotted": "点线"
+      },
+      "dividerThickness": "线条粗细"
     }
   },
   "theme": {

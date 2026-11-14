@@ -10,6 +10,7 @@ export interface PosterFadeSpec {
 }
 
 export type BorderLine = "single" | "double";
+export type DividerStyle = "solid" | "dashed" | "dotted";
 export type BorderDash = "solid" | "dashed";
 
 export interface PosterFrameSpec {
@@ -49,6 +50,9 @@ export interface PosterTextLayoutSpec {
   coordsScale: number;
   letterSpacedCity: boolean;
   showDivider: boolean;
+  dividerStyle?: DividerStyle;
+  /** Divider thickness relative to the default line (1 = default). */
+  dividerScale?: number;
   panel?: PosterTextPanelSpec;
 }
 
@@ -89,6 +93,11 @@ export interface PosterLayoutOptions {
   subtitleSize: number;
   /** Moves the whole text block, in % of the poster height (+ = down). */
   textOffset: number;
+  /** Short line between title and subtitle. */
+  showDivider: boolean;
+  dividerStyle: DividerStyle;
+  /** Divider thickness in % of the default line. */
+  dividerThickness: number;
 }
 
 export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
@@ -102,7 +111,14 @@ export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
   titleSize: 100,
   subtitleSize: 100,
   textOffset: 0,
+  showDivider: true,
+  dividerStyle: "solid",
+  dividerThickness: 100,
 };
+
+export const DIVIDER_STYLES: DividerStyle[] = ["solid", "dashed", "dotted"];
+export const DIVIDER_THICKNESS_MIN = 50;
+export const DIVIDER_THICKNESS_MAX = 300;
 
 export const TEXT_SIZE_MIN = 50;
 export const TEXT_SIZE_MAX = 150;
@@ -249,6 +265,9 @@ export function buildPosterLayout(
     titleSize,
     subtitleSize,
     textOffset,
+    showDivider,
+    dividerStyle,
+    dividerThickness,
   } = {
     ...DEFAULT_POSTER_LAYOUT,
     ...options,
@@ -315,7 +334,10 @@ export function buildPosterLayout(
       countryScale: 0.88 * textScale * subtitleRatio,
       coordsScale: 0.85 * textScale,
       letterSpacedCity: true,
-      showDivider: true,
+      showDivider,
+      dividerStyle,
+      dividerScale:
+        clampRange(dividerThickness, DIVIDER_THICKNESS_MIN, DIVIDER_THICKNESS_MAX, 100) / 100,
     },
     attribution: { margin: marginX, marginY, side: "split" },
   };

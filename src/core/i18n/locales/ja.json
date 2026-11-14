@@ -359,7 +359,15 @@
       "lineThickness": "線の太さ",
       "titleSize": "タイトルの大きさ",
       "subtitleSize": "サブタイトルの大きさ",
-      "textOffset": "上下の位置"
+      "textOffset": "上下の位置",
+      "divider": "区切り線",
+      "dividerStyle": "線の種類",
+      "dividerStyles": {
+        "solid": "実線",
+        "dashed": "破線",
+        "dotted": "点線"
+      },
+      "dividerThickness": "線の太さ"
     }
   },
   "theme": {

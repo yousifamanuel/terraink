@@ -363,7 +363,15 @@
       "lineThickness": "Spessore linea",
       "titleSize": "Dimensione titolo",
       "subtitleSize": "Dimensione sottotitolo",
-      "textOffset": "Su / giù"
+      "textOffset": "Su / giù",
+      "divider": "Linea divisoria",
+      "dividerStyle": "Stile linea",
+      "dividerStyles": {
+        "solid": "Continua",
+        "dashed": "Tratteggiata",
+        "dotted": "Punteggiata"
+      },
+      "dividerThickness": "Spessore linea"
     }
   },
   "theme": {

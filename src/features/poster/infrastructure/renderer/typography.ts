@@ -95,12 +95,22 @@ export function drawPosterText(
     ctx.fillText(cityLabel, anchorX, cityY, maxTextWidth);
 
     if (text.showDivider) {
+      const dividerWidth = 3 * dimScale * (text.dividerScale ?? 1);
+      ctx.save();
       ctx.strokeStyle = textColor;
-      ctx.lineWidth = 3 * dimScale;
+      ctx.lineWidth = dividerWidth;
+      if (text.dividerStyle === "dashed") {
+        ctx.setLineDash([dividerWidth * 3, dividerWidth * 2]);
+      } else if (text.dividerStyle === "dotted") {
+        // Round caps turn near-zero dashes into dots.
+        ctx.lineCap = "round";
+        ctx.setLineDash([0.01, dividerWidth * 2.2]);
+      }
       ctx.beginPath();
       ctx.moveTo(width * (text.dividerStart ?? 0.4), lineY);
       ctx.lineTo(width * (text.dividerEnd ?? 0.6), lineY);
       ctx.stroke();
+      ctx.restore();
     }
 
     ctx.font = `300 ${countryFontSize}px ${titleFontFamily}`;

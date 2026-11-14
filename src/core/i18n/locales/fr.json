@@ -363,7 +363,15 @@
       "lineThickness": "Épaisseur du trait",
       "titleSize": "Taille du titre",
       "subtitleSize": "Taille du sous-titre",
-      "textOffset": "Monter / descendre"
+      "textOffset": "Monter / descendre",
+      "divider": "Ligne de séparation",
+      "dividerStyle": "Style du trait",
+      "dividerStyles": {
+        "solid": "Plein",
+        "dashed": "Tirets",
+        "dotted": "Pointillé"
+      },
+      "dividerThickness": "Épaisseur du trait"
     }
   },
   "theme": {
