@@ -352,6 +352,8 @@
   .desktop-nav-label {
     line-height: 1;
     font-size: 0.48rem;
+    /* No extra spacing, so 12-letter words (Impostazioni, Instellingen) fit. */
+    letter-spacing: 0;
   }
 
   .desktop-nav-tab--settings {
