@@ -81,7 +81,11 @@ export function useLocationAutocomplete(
 
     let cancelled = false;
     debounceIdRef.current = window.setTimeout(() => {
-      if (!cancelled) {
+      // Dragging the map doesn't blur the input, so when the map-move lookup
+      // rewrites the field the "focused" flag can be stale. Only search while
+      // a text field really has focus, i.e. the user is typing.
+      const typing = document.activeElement instanceof HTMLInputElement;
+      if (!cancelled && typing) {
         void performSearch(query);
       }
     }, DEBOUNCE_DELAY_MS);
