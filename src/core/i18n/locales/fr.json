@@ -545,7 +545,15 @@
       "donate": "Faire un don",
       "donateLabel": "Soutenez Terraink et faites un don pour le garder gratuit",
       "follow": "Suivre Terraink sur {{network}}",
-      "credits": "Mentionnez-nous pour aider d’autres personnes à découvrir l’outil"
+      "credits": "Mentionnez-nous pour aider d’autres personnes à découvrir l’outil",
+      "builtWith": {
+        "title": "Conçu avec",
+        "mapData": "Données cartographiques",
+        "tiles": "Style de carte",
+        "hosting": "Hébergement des tuiles",
+        "search": "Recherche de lieux",
+        "renderer": "Moteur de carte"
+      }
     },
     "social": {
       "projectLinks": "Liens du projet",

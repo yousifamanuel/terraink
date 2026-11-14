@@ -541,7 +541,15 @@
       "donate": "寄付",
       "donateLabel": "Terrainkを無料で続けるために寄付で応援",
       "follow": "{{network}}でTerrainkをフォロー",
-      "credits": "クレジットを入れて、このツールを広めましょう"
+      "credits": "クレジットを入れて、このツールを広めましょう",
+      "builtWith": {
+        "title": "使用サービス",
+        "mapData": "地図データ",
+        "tiles": "地図スタイル",
+        "hosting": "タイル配信",
+        "search": "場所検索",
+        "renderer": "地図エンジン"
+      }
     },
     "social": {
       "projectLinks": "プロジェクトのリンク",

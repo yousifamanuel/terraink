@@ -543,7 +543,15 @@
       "donate": "Doneren",
       "donateLabel": "Doneer om Terraink gratis te houden",
       "follow": "Volg Terraink op {{network}}",
-      "credits": "Vermeld de bron zodat anderen de tool ontdekken"
+      "credits": "Vermeld de bron zodat anderen de tool ontdekken",
+      "builtWith": {
+        "title": "Gemaakt met",
+        "mapData": "Kaartgegevens",
+        "tiles": "Kaartstijl",
+        "hosting": "Tile-hosting",
+        "search": "Plaatsen zoeken",
+        "renderer": "Kaart-engine"
+      }
     },
     "social": {
       "projectLinks": "Projectlinks",

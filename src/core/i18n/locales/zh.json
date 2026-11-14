@@ -541,7 +541,15 @@
       "donate": "捐赠",
       "donateLabel": "支持 Terraink，捐赠让它保持免费",
       "follow": "在 {{network}} 上关注 Terraink",
-      "credits": "注明出处，帮助更多人发现这个工具"
+      "credits": "注明出处，帮助更多人发现这个工具",
+      "builtWith": {
+        "title": "技术支持",
+        "mapData": "地图数据",
+        "tiles": "地图样式",
+        "hosting": "瓦片托管",
+        "search": "地点搜索",
+        "renderer": "地图引擎"
+      }
     },
     "social": {
       "projectLinks": "项目链接",

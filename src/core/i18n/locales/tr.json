@@ -543,7 +543,15 @@
       "donate": "Bağış",
       "donateLabel": "Terraink'i ücretsiz tutmak için destek olun ve bağış yapın",
       "follow": "Terraink'i {{network}} üzerinde takip et",
-      "credits": "Aracı başkalarının keşfetmesi için kaynak göstermeyi unutmayın"
+      "credits": "Aracı başkalarının keşfetmesi için kaynak göstermeyi unutmayın",
+      "builtWith": {
+        "title": "Kullanılanlar",
+        "mapData": "Harita verisi",
+        "tiles": "Harita stili",
+        "hosting": "Karo barındırma",
+        "search": "Yer arama",
+        "renderer": "Harita motoru"
+      }
     },
     "social": {
       "projectLinks": "Proje bağlantıları",

@@ -545,7 +545,15 @@
       "donate": "Donar",
       "donateLabel": "Apoya Terraink y dona para mantenerlo gratis",
       "follow": "Sigue a Terraink en {{network}}",
-      "credits": "Incluye los créditos para ayudar a otros a descubrir la herramienta"
+      "credits": "Incluye los créditos para ayudar a otros a descubrir la herramienta",
+      "builtWith": {
+        "title": "Hecho con",
+        "mapData": "Datos del mapa",
+        "tiles": "Estilo del mapa",
+        "hosting": "Alojamiento de teselas",
+        "search": "Búsqueda de lugares",
+        "renderer": "Motor del mapa"
+      }
     },
     "social": {
       "projectLinks": "Enlaces del proyecto",

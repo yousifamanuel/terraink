@@ -547,7 +547,15 @@
       "donate": "Wesprzyj",
       "donateLabel": "Wesprzyj Terraink darowizną, by pozostał darmowy",
       "follow": "Obserwuj Terraink na {{network}}",
-      "credits": "Podaj źródło, by pomóc innym odkryć to narzędzie"
+      "credits": "Podaj źródło, by pomóc innym odkryć to narzędzie",
+      "builtWith": {
+        "title": "Zbudowano z",
+        "mapData": "Dane mapy",
+        "tiles": "Styl mapy",
+        "hosting": "Hosting kafelków",
+        "search": "Wyszukiwanie miejsc",
+        "renderer": "Silnik mapy"
+      }
     },
     "social": {
       "projectLinks": "Linki projektu",

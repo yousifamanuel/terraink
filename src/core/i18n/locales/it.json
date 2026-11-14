@@ -545,7 +545,15 @@
       "donate": "Dona",
       "donateLabel": "Sostieni Terraink e dona per mantenerlo gratuito",
       "follow": "Segui Terraink su {{network}}",
-      "credits": "Cita la fonte per aiutare altri a scoprire lo strumento"
+      "credits": "Cita la fonte per aiutare altri a scoprire lo strumento",
+      "builtWith": {
+        "title": "Realizzato con",
+        "mapData": "Dati mappa",
+        "tiles": "Stile mappa",
+        "hosting": "Hosting dei tile",
+        "search": "Ricerca luoghi",
+        "renderer": "Motore mappa"
+      }
     },
     "social": {
       "projectLinks": "Link del progetto",

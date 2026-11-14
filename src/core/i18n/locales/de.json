@@ -543,7 +543,15 @@
       "donate": "Spenden",
       "donateLabel": "Unterstütze Terraink und spende, damit es kostenlos bleibt",
       "follow": "Terraink auf {{network}} folgen",
-      "credits": "Nenne die Quelle, damit andere das Tool entdecken"
+      "credits": "Nenne die Quelle, damit andere das Tool entdecken",
+      "builtWith": {
+        "title": "Erstellt mit",
+        "mapData": "Kartendaten",
+        "tiles": "Kartenstil",
+        "hosting": "Tile-Hosting",
+        "search": "Ortssuche",
+        "renderer": "Karten-Engine"
+      }
     },
     "social": {
       "projectLinks": "Projektlinks",
