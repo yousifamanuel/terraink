@@ -345,7 +345,8 @@
         "left": "Left",
         "center": "Center",
         "right": "Right"
-      }
+      },
+      "border": "Border"
     }
   },
   "theme": {

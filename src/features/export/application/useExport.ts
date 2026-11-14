@@ -193,7 +193,11 @@ export function useExport() {
             coordinateText,
             showOverlay: form.showMarkers,
             includeCredits: form.includeCredits,
-            posterLayout: { textPosition: form.textPosition, textAlign: form.textAlign },
+            posterLayout: {
+            textPosition: form.textPosition,
+            textAlign: form.textAlign,
+            border: form.showBorder,
+          },
             markers: hasVisibleMarkers ? state.markers : [],
             markerIcons: hasVisibleOverlays
               ? getAllMarkerIcons(state.customMarkerIcons)
@@ -234,7 +238,11 @@ export function useExport() {
           coordinateText,
           showOverlay: form.showMarkers,
           includeCredits: form.includeCredits,
-          posterLayout: { textPosition: form.textPosition, textAlign: form.textAlign },
+          posterLayout: {
+            textPosition: form.textPosition,
+            textAlign: form.textAlign,
+            border: form.showBorder,
+          },
           markers: hasVisibleMarkers ? state.markers : [],
           markerIcons: hasVisibleOverlays
             ? getAllMarkerIcons(state.customMarkerIcons)

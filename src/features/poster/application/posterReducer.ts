@@ -44,6 +44,7 @@ export interface PosterForm {
   /** Title block at the top or bottom of the poster. */
   textPosition: PosterTextPosition;
   textAlign: PosterTextAlign;
+  showBorder: boolean;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

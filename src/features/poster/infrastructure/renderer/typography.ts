@@ -115,6 +115,7 @@ export function drawPosterText(
   }
 
   const margin = template.attribution.margin;
+  const marginY = template.attribution.marginY ?? margin;
   ctx.fillStyle = attributionColor;
   ctx.globalAlpha = attributionAlpha;
   ctx.textBaseline = "bottom";
@@ -125,13 +126,13 @@ export function drawPosterText(
     ctx.fillText(
       "\u00a9 OpenStreetMap contributors",
       width * margin,
-      height * (1 - margin),
+      height * (1 - marginY),
     );
     if (includeCredits) {
       ctx.fillText(
         `\u00a9 ${APP_CREDIT_URL}`,
         width * margin,
-        height * (1 - margin) - attributionFontSize * 1.25,
+        height * (1 - marginY) - attributionFontSize * 1.25,
       );
     }
     ctx.restore();
@@ -142,7 +143,7 @@ export function drawPosterText(
   ctx.fillText(
     "\u00a9 OpenStreetMap",
     width * (1 - margin),
-    height * (1 - margin),
+    height * (1 - marginY),
   );
 
   if (includeCredits) {
@@ -152,8 +153,8 @@ export function drawPosterText(
       `\u00a9 ${APP_CREDIT_URL}`,
       isRightStack ? width * (1 - margin) : width * margin,
       isRightStack
-        ? height * (1 - margin) - attributionFontSize * 1.25
-        : height * (1 - margin),
+        ? height * (1 - marginY) - attributionFontSize * 1.25
+        : height * (1 - marginY),
     );
   }
 

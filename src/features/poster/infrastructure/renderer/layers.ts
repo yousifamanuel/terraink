@@ -57,41 +57,35 @@ export function applyFades(
   }
 }
 
+/**
+ * Border: fills the band between the poster edge and the frame with the
+ * background color (no map there), then draws one thin line. The band is
+ * equally wide on all sides (share of the shorter side).
+ */
 export function drawTemplateFrame(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
-  color: string,
+  lineColor: string,
+  backgroundColor: string,
   template: PosterStyleTemplate,
 ): void {
   const { frame } = template;
   if (frame.type === "none") return;
 
   const inset = Math.min(width, height) * frame.inset;
-  const lineWidth =
-    frame.type === "mat" ? Math.max(2, inset * 0.18) : Math.max(1, inset * 0.08);
+  const lineWidth = Math.max(1, Math.min(width, height) * 0.0025);
 
   ctx.save();
-  ctx.strokeStyle = withAlpha(color, frame.alpha);
-  ctx.lineWidth = lineWidth;
-  ctx.strokeRect(
-    inset + lineWidth / 2,
-    inset + lineWidth / 2,
-    width - inset * 2 - lineWidth,
-    height - inset * 2 - lineWidth,
-  );
-
   if (frame.type === "mat") {
-    const innerInset = inset + lineWidth * 2.4;
-    ctx.globalAlpha = 0.4;
-    ctx.lineWidth = Math.max(1, lineWidth * 0.35);
-    ctx.strokeRect(
-      innerInset,
-      innerInset,
-      width - innerInset * 2,
-      height - innerInset * 2,
-    );
+    ctx.fillStyle = backgroundColor;
+    ctx.beginPath();
+    ctx.rect(0, 0, width, height);
+    ctx.rect(inset, inset, width - inset * 2, height - inset * 2);
+    ctx.fill("evenodd");
   }
-
+  ctx.strokeStyle = withAlpha(lineColor, frame.alpha);
+  ctx.lineWidth = lineWidth;
+  ctx.strokeRect(inset, inset, width - inset * 2, height - inset * 2);
   ctx.restore();
 }

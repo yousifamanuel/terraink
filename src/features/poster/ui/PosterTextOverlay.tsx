@@ -21,6 +21,8 @@ interface PosterTextOverlayProps {
   fontFamily: string;
   textColor: string;
   landColor: string;
+  /** Poster background, used for the band outside the border. */
+  backgroundColor: string;
   showPosterText: boolean;
   /** Pre-formatted coordinates; "" hides them. */
   coordinateText?: string;
@@ -37,6 +39,7 @@ export default function PosterTextOverlay({
   fontFamily,
   textColor,
   landColor,
+  backgroundColor,
   showPosterText,
   coordinateText,
   includeCredits,
@@ -67,6 +70,7 @@ export default function PosterTextOverlay({
   const attributionColor = computeAttributionColor(textColor, landColor, showOverlay);
   const attributionOpacity = showOverlay ? 0.55 : 0.9;
   const margin = template.attribution.margin * 100;
+  const marginY = (template.attribution.marginY ?? template.attribution.margin) * 100;
   const attributionBaseStyle = {
     fontFamily: bodyFont,
     color: attributionColor,
@@ -87,31 +91,43 @@ export default function PosterTextOverlay({
     template.attribution.side === "right"
       ? {
           right: `${margin}%`,
-          bottom: `calc(${margin}% + ${toCqMin(ATTRIBUTION_FONT_BASE_PX) * 1.25}cqmin)`,
+          bottom: `calc(${marginY}% + ${toCqMin(ATTRIBUTION_FONT_BASE_PX) * 1.25}cqmin)`,
           textAlign: "right" as const,
         }
       : template.attribution.side === "stacked-left"
         ? {
             left: `${margin}%`,
-            bottom: `calc(${margin}% + ${toCqMin(ATTRIBUTION_FONT_BASE_PX) * 1.25}cqmin)`,
+            bottom: `calc(${marginY}% + ${toCqMin(ATTRIBUTION_FONT_BASE_PX) * 1.25}cqmin)`,
             textAlign: "left" as const,
           }
         : {
             left: `${margin}%`,
-            bottom: `${margin}%`,
+            bottom: `${marginY}%`,
             textAlign: "left" as const,
           };
 
   return (
     <div className="poster-text-overlay" style={{ color: textColor }}>
       {template.frame.type !== "none" ? (
-        <div
-          className={`poster-template-frame poster-template-frame--${template.frame.type}`}
-          style={{
-            inset: `${template.frame.inset * 100}%`,
-            borderColor: withAlpha(textColor, template.frame.alpha),
-          }}
-        />
+        <>
+          {/* cqmin = share of the shorter side, so the band is even on all sides */}
+          {template.frame.type === "mat" ? (
+            <div
+              className="poster-border-band"
+              style={{
+                borderWidth: `${template.frame.inset * 100}cqmin`,
+                borderColor: backgroundColor,
+              }}
+            />
+          ) : null}
+          <div
+            className={`poster-template-frame poster-template-frame--${template.frame.type}`}
+            style={{
+              inset: `${template.frame.inset * 100}cqmin`,
+              borderColor: withAlpha(textColor, template.frame.alpha),
+            }}
+          />
+        </>
       ) : null}
 
       {showPosterText && (
@@ -185,7 +201,7 @@ export default function PosterTextOverlay({
         className="poster-attribution"
         style={{
           ...attributionBaseStyle,
-          bottom: `${margin}%`,
+          bottom: `${marginY}%`,
           right: `${margin}%`,
         }}
       >

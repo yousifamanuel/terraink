@@ -172,10 +172,14 @@ export default function PreviewPanel() {
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
   const aspect = widthCm / heightCm;
-  const posterLayout = buildPosterLayout({
-    textPosition: form.textPosition,
-    textAlign: form.textAlign,
-  });
+  const posterLayout = buildPosterLayout(
+    {
+      textPosition: form.textPosition,
+      textAlign: form.textAlign,
+      border: form.showBorder,
+    },
+    aspect,
+  );
   const formLat = Number(form.latitude) || 0;
   const formLon = Number(form.longitude) || 0;
   const layoutOption =
@@ -477,6 +481,7 @@ export default function PreviewPanel() {
             fontFamily={form.fontFamily}
             textColor={effectiveTheme.ui.text}
             landColor={effectiveTheme.map.land}
+            backgroundColor={effectiveTheme.ui.bg}
             showPosterText={form.showPosterText}
             coordinateText={
               form.showCoordinates

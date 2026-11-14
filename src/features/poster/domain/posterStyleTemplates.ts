@@ -40,7 +40,10 @@ export interface PosterTextLayoutSpec {
 }
 
 export interface PosterAttributionSpec {
+  /** Distance of the credits from the left/right edge (share of width). */
   margin: number;
+  /** Distance from the bottom edge (share of height); defaults to margin. */
+  marginY?: number;
   side: "split" | "right" | "stacked-left";
 }
 
@@ -60,12 +63,30 @@ export const POSTER_TEXT_ALIGNS: PosterTextAlign[] = ["left", "center", "right"]
 export interface PosterLayoutOptions {
   textPosition: PosterTextPosition;
   textAlign: PosterTextAlign;
+  /** Plain band around the map with a thin line, like a framed print. */
+  border: boolean;
 }
 
 export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
   textPosition: "bottom",
   textAlign: "center",
+  border: false,
 };
+
+/** Border width as a share of the poster's shorter side (same on all sides). */
+export const POSTER_BORDER_INSET = 0.04;
+
+/** Credits sit this far from the poster edge (share of width and of height). */
+const ATTRIBUTION_MARGIN = 0.032;
+
+/** With a border, credits sit just inside the line (share of the shorter side). */
+const BORDER_CREDIT_GAP = 0.022;
+
+/** With a border, the bottom text block moves up a bit to clear the credits. */
+const BORDER_TEXT_LIFT = 0.025;
+
+/** Typical poster (A-series portrait) when the real aspect isn't known. */
+const DEFAULT_ASPECT = 1 / Math.SQRT2;
 
 /*
  * Rows of the title block (city, divider, country, coordinates) as a share of
@@ -79,9 +100,6 @@ const ROWS: Record<PosterTextPosition, Pick<PosterTextLayoutSpec, "cityY" | "div
 
 /** Terraink's classic overlay: the same soft fade at the top and bottom. */
 const FADE: PosterFadeSpec = { top: 0.25, bottom: 0.25 };
-
-/** Credits sit this far from the poster edge (share of width and of height). */
-const ATTRIBUTION_MARGIN = 0.032;
 
 /** Length of the short divider line under a left/right-aligned title. */
 const SIDE_DIVIDER_LENGTH = 0.175;
@@ -116,21 +134,37 @@ function columns(
 /** Builds the full text layout from the user's position and alignment. */
 export function buildPosterLayout(
   options: Partial<PosterLayoutOptions> = {},
+  /** Poster width ÷ height, to turn shorter-side sizes into width/height shares. */
+  aspect: number = DEFAULT_ASPECT,
 ): PosterStyleTemplate {
-  const { textPosition, textAlign } = { ...DEFAULT_POSTER_LAYOUT, ...options };
+  const { textPosition, textAlign, border } = { ...DEFAULT_POSTER_LAYOUT, ...options };
+  const safeAspect = Number.isFinite(aspect) && aspect > 0 ? aspect : DEFAULT_ASPECT;
+  // Shorter side as a share of the width and of the height.
+  const shortOfWidth = Math.min(1, 1 / safeAspect);
+  const shortOfHeight = Math.min(1, safeAspect);
+  const creditInset = POSTER_BORDER_INSET + BORDER_CREDIT_GAP;
+  const marginX = border ? creditInset * shortOfWidth : ATTRIBUTION_MARGIN;
+  const marginY = border ? creditInset * shortOfHeight : ATTRIBUTION_MARGIN;
+  const rows = ROWS[textPosition];
+  const lift = border && textPosition === "bottom" ? BORDER_TEXT_LIFT : 0;
   return {
     fade: FADE,
-    frame: { type: "none", inset: 0, alpha: 0 },
+    frame: border
+      ? { type: "mat", inset: POSTER_BORDER_INSET, alpha: 0.85 }
+      : { type: "none", inset: 0, alpha: 0 },
     text: {
       align: textAlign,
-      ...columns(textAlign, ATTRIBUTION_MARGIN),
-      ...ROWS[textPosition],
+      ...columns(textAlign, marginX),
+      cityY: rows.cityY - lift,
+      dividerY: (rows.dividerY ?? rows.cityY) - lift,
+      countryY: rows.countryY - lift,
+      coordsY: rows.coordsY - lift,
       cityScale: 0.94,
       countryScale: 0.88,
       coordsScale: 0.85,
       letterSpacedCity: true,
       showDivider: true,
     },
-    attribution: { margin: ATTRIBUTION_MARGIN, side: "split" },
+    attribution: { margin: marginX, marginY, side: "split" },
   };
 }

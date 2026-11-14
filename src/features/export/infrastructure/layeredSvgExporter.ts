@@ -103,7 +103,7 @@ export async function createLayeredSvgBlobFromMap({
   routes = [],
 }: LayeredSvgOptions): Promise<Blob> {
   await waitForMapIdle(map);
-  const template = buildPosterLayout(posterLayout);
+  const template = buildPosterLayout(posterLayout, exportWidth / exportHeight);
 
   const {
     center: mapCenter,
@@ -261,7 +261,14 @@ export async function createLayeredSvgBlobFromMap({
       overlayLayers.push({
         id: "frame",
         dataUrl: canvasToDataUrl(exportWidth, exportHeight, (ctx) => {
-          drawTemplateFrame(ctx, exportWidth, exportHeight, theme.ui.text, template);
+          drawTemplateFrame(
+            ctx,
+            exportWidth,
+            exportHeight,
+            theme.ui.text,
+            theme.ui.bg,
+            template,
+          );
         }),
       });
     }

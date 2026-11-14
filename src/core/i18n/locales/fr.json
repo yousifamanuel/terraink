@@ -347,7 +347,8 @@
         "left": "Gauche",
         "center": "Centre",
         "right": "Droite"
-      }
+      },
+      "border": "Bordure"
     }
   },
   "theme": {

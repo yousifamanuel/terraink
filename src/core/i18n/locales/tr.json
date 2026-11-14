@@ -345,7 +345,8 @@
         "left": "Sol",
         "center": "Orta",
         "right": "Sağ"
-      }
+      },
+      "border": "Çerçeve"
     }
   },
   "theme": {

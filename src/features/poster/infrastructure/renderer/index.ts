@@ -44,7 +44,7 @@ export async function compositeExport(
 
   const width = mapCanvas.width;
   const height = mapCanvas.height;
-  const template = buildPosterLayout(posterLayout);
+  const template = buildPosterLayout(posterLayout, width / height);
 
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -103,7 +103,7 @@ export async function compositeExport(
   }
 
   // 6. Template frame
-  drawTemplateFrame(ctx, width, height, theme.ui.text, template);
+  drawTemplateFrame(ctx, width, height, theme.ui.text, theme.ui.bg, template);
 
   // 7. Poster text
   drawPosterText(

@@ -74,6 +74,18 @@ export default function TypographySection({
           }))}
           onChange={(value) => setField("textAlign", value)}
         />
+        <label className="toggle-field">
+          <span>{t("poster.typography.border")}</span>
+          <span className="theme-switch">
+            <input
+              type="checkbox"
+              name="showBorder"
+              checked={Boolean(form.showBorder)}
+              onChange={onChange}
+            />
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
+        </label>
 
         <label className="toggle-field">
           <span>{t("poster.typography.posterText")}</span>

@@ -343,7 +343,8 @@
         "left": "左",
         "center": "中央",
         "right": "右"
-      }
+      },
+      "border": "枠"
     }
   },
   "theme": {
