@@ -332,7 +332,18 @@
       "coordinates": "座標",
       "separator": "区切り文字",
       "separatorNone": "区切りなし",
-      "separatorCustom": "独自の区切り文字（3文字まで）"
+      "separatorCustom": "独自の区切り文字（3文字まで）",
+      "textPosition": "文字の位置",
+      "position": {
+        "top": "上",
+        "bottom": "下"
+      },
+      "textAlign": "配置",
+      "align": {
+        "left": "左",
+        "center": "中央",
+        "right": "右"
+      }
     }
   },
   "theme": {

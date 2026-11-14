@@ -16,8 +16,8 @@ import {
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
 import {
-  getPosterStyleTemplate,
-  type PosterStyleTemplateId,
+  buildPosterLayout,
+  type PosterLayoutOptions,
 } from "@/features/poster/domain/posterStyleTemplates";
 import {
   waitForMapIdle,
@@ -39,7 +39,8 @@ interface LayeredSvgOptions {
   coordinateText?: string;
   showOverlay: boolean;
   includeCredits: boolean;
-  posterStyleTemplate?: PosterStyleTemplateId;
+  /** Text position and alignment on the poster. */
+  posterLayout?: Partial<PosterLayoutOptions>;
   markers: MarkerItem[];
   markerIcons: MarkerIconDefinition[];
   routes?: Route[];
@@ -96,13 +97,13 @@ export async function createLayeredSvgBlobFromMap({
   coordinateText,
   showOverlay,
   includeCredits,
-  posterStyleTemplate,
+  posterLayout,
   markers,
   markerIcons,
   routes = [],
 }: LayeredSvgOptions): Promise<Blob> {
   await waitForMapIdle(map);
-  const template = getPosterStyleTemplate(posterStyleTemplate);
+  const template = buildPosterLayout(posterLayout);
 
   const {
     center: mapCenter,
@@ -280,7 +281,7 @@ export async function createLayeredSvgBlobFromMap({
           showPosterText,
           showOverlay,
           includeCredits,
-          template.id,
+          template,
           coordinateText,
         );
       }),

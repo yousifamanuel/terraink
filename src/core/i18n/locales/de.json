@@ -334,7 +334,18 @@
       "coordinates": "Koordinaten",
       "separator": "Trennzeichen",
       "separatorNone": "Kein Trennzeichen",
-      "separatorCustom": "Eigenes Trennzeichen (bis 3 Zeichen)"
+      "separatorCustom": "Eigenes Trennzeichen (bis 3 Zeichen)",
+      "textPosition": "Textposition",
+      "position": {
+        "top": "Oben",
+        "bottom": "Unten"
+      },
+      "textAlign": "Ausrichtung",
+      "align": {
+        "left": "Links",
+        "center": "Mitte",
+        "right": "Rechts"
+      }
     }
   },
   "theme": {

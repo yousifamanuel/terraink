@@ -332,7 +332,18 @@
       "coordinates": "坐标",
       "separator": "分隔符",
       "separatorNone": "无分隔符",
-      "separatorCustom": "自定义分隔符（最多 3 个字符）"
+      "separatorCustom": "自定义分隔符（最多 3 个字符）",
+      "textPosition": "文字位置",
+      "position": {
+        "top": "顶部",
+        "bottom": "底部"
+      },
+      "textAlign": "对齐",
+      "align": {
+        "left": "左",
+        "center": "居中",
+        "right": "右"
+      }
     }
   },
   "theme": {

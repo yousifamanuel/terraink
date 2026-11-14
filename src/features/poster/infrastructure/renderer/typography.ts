@@ -14,9 +14,8 @@ import {
   computeAttributionColor,
 } from "@/features/poster/domain/textLayout";
 import {
-  DEFAULT_POSTER_STYLE_TEMPLATE_ID,
-  getPosterStyleTemplate,
-  type PosterStyleTemplateId,
+  buildPosterLayout,
+  type PosterStyleTemplate,
 } from "@/features/poster/domain/posterStyleTemplates";
 
 export function drawPosterText(
@@ -31,11 +30,10 @@ export function drawPosterText(
   showPosterText: boolean,
   showOverlay: boolean,
   includeCredits: boolean = true,
-  templateId: PosterStyleTemplateId = DEFAULT_POSTER_STYLE_TEMPLATE_ID,
+  template: PosterStyleTemplate = buildPosterLayout(),
   /** Pre-formatted coordinates; "" hides them. */
   coordinateText: string = formatCoordinates(center.lat, center.lon),
 ): void {
-  const template = getPosterStyleTemplate(templateId);
   const text = template.text;
   const textColor = theme.ui?.text || "#111111";
   const landColor = theme.map?.land || "#808080";

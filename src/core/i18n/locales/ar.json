@@ -342,7 +342,18 @@
       "coordinates": "الإحداثيات",
       "separator": "الفاصل",
       "separatorNone": "بدون فاصل",
-      "separatorCustom": "فاصل خاص (حتى 3 أحرف)"
+      "separatorCustom": "فاصل خاص (حتى 3 أحرف)",
+      "textPosition": "موضع النص",
+      "position": {
+        "top": "أعلى",
+        "bottom": "أسفل"
+      },
+      "textAlign": "المحاذاة",
+      "align": {
+        "left": "يسار",
+        "center": "وسط",
+        "right": "يمين"
+      }
     }
   },
   "theme": {

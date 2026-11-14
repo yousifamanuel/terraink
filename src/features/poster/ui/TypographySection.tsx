@@ -10,26 +10,29 @@ import {
   PLACEHOLDER_EXAMPLE_COUNTRY,
 } from "@/features/location/ui/constants";
 import {
-  POSTER_STYLE_TEMPLATES,
-  type PosterStyleTemplateId,
+  POSTER_TEXT_ALIGNS,
+  POSTER_TEXT_POSITIONS,
 } from "@/features/poster/domain/posterStyleTemplates";
+import SegmentedControl from "@/shared/ui/SegmentedControl";
+import { usePosterContext } from "./PosterContext";
 
 interface TypographySectionProps {
   form: PosterForm;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
-  onPosterStyleTemplateChange: (templateId: PosterStyleTemplateId) => void;
   fontOptions: FontOption[];
 }
 
 export default function TypographySection({
   form,
   onChange,
-  onPosterStyleTemplateChange,
   fontOptions,
 }: TypographySectionProps) {
   const { t } = useTranslation();
+  const { dispatch } = usePosterContext();
+  const setField = (name: string, value: string) =>
+    dispatch({ type: "SET_FIELD", name, value });
   const previewsRequested = useRef(false);
   const exampleLat = Number(form.latitude) || 0;
   const exampleLon = Number(form.longitude) || 0;
@@ -53,37 +56,24 @@ export default function TypographySection({
     <>
       <section className="panel-block">
         <p className="section-summary-label">{t("poster.typography.style")}</p>
-        <div className="poster-style-template-grid" role="list">
-          {POSTER_STYLE_TEMPLATES.map((template) => {
-            const isSelected = form.posterStyleTemplate === template.id;
-            return (
-              <button
-                key={template.id}
-                type="button"
-                className={`poster-style-template-card poster-style-template-card--${template.id}${isSelected ? " is-selected" : ""}`}
-                onClick={() => onPosterStyleTemplateChange(template.id)}
-                aria-pressed={isSelected}
-              >
-                <span className="poster-style-template-preview" aria-hidden="true">
-                  <span className="poster-style-template-map" />
-                  <span className="poster-style-template-frame" />
-                  <span className="poster-style-template-panel" />
-                  <span className="poster-style-template-title" />
-                  <span className="poster-style-template-line" />
-                  <span className="poster-style-template-meta" />
-                </span>
-                <span className="poster-style-template-copy">
-                  <span className="poster-style-template-name">
-                    {template.name}
-                  </span>
-                  <span className="poster-style-template-description">
-                    {template.description}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        <SegmentedControl
+          label={t("poster.typography.textPosition")}
+          value={form.textPosition}
+          options={POSTER_TEXT_POSITIONS.map((position) => ({
+            value: position,
+            label: t(`poster.typography.position.${position}`),
+          }))}
+          onChange={(value) => setField("textPosition", value)}
+        />
+        <SegmentedControl
+          label={t("poster.typography.textAlign")}
+          value={form.textAlign}
+          options={POSTER_TEXT_ALIGNS.map((align) => ({
+            value: align,
+            label: t(`poster.typography.align.${align}`),
+          }))}
+          onChange={(value) => setField("textAlign", value)}
+        />
 
         <label className="toggle-field">
           <span>{t("poster.typography.posterText")}</span>

@@ -35,7 +35,7 @@ import {
   saveUserDefaults,
 } from "@/features/settings/infrastructure/userDefaultsStorage";
 import type { UserDefaults } from "@/features/settings/domain/types";
-import { DEFAULT_POSTER_STYLE_TEMPLATE_ID } from "@/features/poster/domain/posterStyleTemplates";
+import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -76,7 +76,8 @@ export const DEFAULT_FORM: PosterForm = {
   displayCountry: "Germany",
   displayContinent: "Europe",
   fontFamily: "",
-  posterStyleTemplate: DEFAULT_POSTER_STYLE_TEMPLATE_ID,
+  textPosition: DEFAULT_POSTER_LAYOUT.textPosition,
+  textAlign: DEFAULT_POSTER_LAYOUT.textAlign,
   showPosterText: true,
   coordinateFormat: "nsew",
   showCoordinates: true,

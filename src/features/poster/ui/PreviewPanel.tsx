@@ -45,7 +45,7 @@ import {
   formatLayoutDimensions,
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
-import { getPosterStyleTemplate } from "@/features/poster/domain/posterStyleTemplates";
+import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
 
 const COUNTRY_VIEW_ZOOM_LEVEL = 10;
 const CONTINENT_VIEW_ZOOM_LEVEL = 6;
@@ -172,7 +172,10 @@ export default function PreviewPanel() {
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
   const aspect = widthCm / heightCm;
-  const posterStyleTemplate = getPosterStyleTemplate(form.posterStyleTemplate);
+  const posterLayout = buildPosterLayout({
+    textPosition: form.textPosition,
+    textAlign: form.textAlign,
+  });
   const formLat = Number(form.latitude) || 0;
   const formLon = Number(form.longitude) || 0;
   const layoutOption =
@@ -437,7 +440,7 @@ export default function PreviewPanel() {
           {form.showMarkers ? (
             <GradientFades
               color={effectiveTheme.ui.bg}
-              template={posterStyleTemplate}
+              template={posterLayout}
             />
           ) : null}
           <RouteOverlay
@@ -485,7 +488,7 @@ export default function PreviewPanel() {
             }
             includeCredits={form.includeCredits}
             showOverlay={form.showMarkers}
-            template={posterStyleTemplate}
+            template={posterLayout}
           />
 
           <div className="map-controls" aria-label={t("poster.controls.mapControls")}>

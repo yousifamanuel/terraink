@@ -334,7 +334,18 @@
       "coordinates": "Koordinatlar",
       "separator": "Ayırıcı",
       "separatorNone": "Ayırıcı yok",
-      "separatorCustom": "Özel ayırıcı (en fazla 3 karakter)"
+      "separatorCustom": "Özel ayırıcı (en fazla 3 karakter)",
+      "textPosition": "Metin konumu",
+      "position": {
+        "top": "Üst",
+        "bottom": "Alt"
+      },
+      "textAlign": "Hizalama",
+      "align": {
+        "left": "Sol",
+        "center": "Orta",
+        "right": "Sağ"
+      }
     }
   },
   "theme": {

@@ -336,7 +336,18 @@
       "coordinates": "Coordonnées",
       "separator": "Séparateur",
       "separatorNone": "Aucun séparateur",
-      "separatorCustom": "Séparateur personnalisé (3 caractères max.)"
+      "separatorCustom": "Séparateur personnalisé (3 caractères max.)",
+      "textPosition": "Position du texte",
+      "position": {
+        "top": "Haut",
+        "bottom": "Bas"
+      },
+      "textAlign": "Alignement",
+      "align": {
+        "left": "Gauche",
+        "center": "Centre",
+        "right": "Droite"
+      }
     }
   },
   "theme": {

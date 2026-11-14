@@ -338,7 +338,18 @@
       "coordinates": "Współrzędne",
       "separator": "Separator",
       "separatorNone": "Bez separatora",
-      "separatorCustom": "Własny separator (do 3 znaków)"
+      "separatorCustom": "Własny separator (do 3 znaków)",
+      "textPosition": "Pozycja tekstu",
+      "position": {
+        "top": "Góra",
+        "bottom": "Dół"
+      },
+      "textAlign": "Wyrównanie",
+      "align": {
+        "left": "Lewo",
+        "center": "Środek",
+        "right": "Prawo"
+      }
     }
   },
   "theme": {

@@ -334,7 +334,18 @@
       "coordinates": "Coördinaten",
       "separator": "Scheidingsteken",
       "separatorNone": "Geen scheidingsteken",
-      "separatorCustom": "Eigen scheidingsteken (max. 3 tekens)"
+      "separatorCustom": "Eigen scheidingsteken (max. 3 tekens)",
+      "textPosition": "Tekstpositie",
+      "position": {
+        "top": "Boven",
+        "bottom": "Onder"
+      },
+      "textAlign": "Uitlijning",
+      "align": {
+        "left": "Links",
+        "center": "Midden",
+        "right": "Rechts"
+      }
     }
   },
   "theme": {

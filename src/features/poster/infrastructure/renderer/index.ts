@@ -5,7 +5,7 @@ import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering
 import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
-import { getPosterStyleTemplate } from "@/features/poster/domain/posterStyleTemplates";
+import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
 
 /**
  * Composites a final poster from a MapLibre snapshot canvas.
@@ -31,7 +31,7 @@ export async function compositeExport(
     showPosterText = true,
     coordinateText,
     showOverlay = true,
-    posterStyleTemplate,
+    posterLayout,
     includeCredits = true,
     markers = [],
     markerIcons = [],
@@ -44,7 +44,7 @@ export async function compositeExport(
 
   const width = mapCanvas.width;
   const height = mapCanvas.height;
-  const template = getPosterStyleTemplate(posterStyleTemplate);
+  const template = buildPosterLayout(posterLayout);
 
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -118,7 +118,7 @@ export async function compositeExport(
     showPosterText,
     showOverlay,
     includeCredits,
-    posterStyleTemplate,
+    template,
     coordinateText,
   );
 
