@@ -329,7 +329,10 @@
       "displayCountry": "国を表示",
       "font": "フォント",
       "defaultFont": "標準（Space Grotesk）",
-      "coordinates": "座標"
+      "coordinates": "座標",
+      "separator": "区切り文字",
+      "separatorNone": "区切りなし",
+      "separatorCustom": "独自の区切り文字（3文字まで）"
     }
   },
   "theme": {

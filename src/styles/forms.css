@@ -3770,3 +3770,55 @@ button.settings-reset-btn:disabled {
 .form-control-tall.is-invalid:focus {
   border-color: rgba(240, 128, 128, 0.85);
 }
+
+/* Coordinate separator picker (Style section): 4 buttons per row,
+   the last cell of row 2 is a small field for the user's own. */
+.separator-picker {
+  display: grid;
+  gap: 6px;
+}
+
+.separator-picker-label {
+  font-size: 0.8rem;
+  color: #9bb3c5;
+}
+
+.separator-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+button.separator-picker-btn,
+.separator-picker-custom {
+  min-height: 36px;
+  margin: 0;
+  border: 1px solid rgba(146, 176, 200, 0.25);
+  border-radius: 8px;
+  background: rgba(10, 20, 31, 0.78);
+  color: #e7f2fb;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+button.separator-picker-btn {
+  cursor: pointer;
+}
+
+.separator-picker-custom {
+  width: 100%;
+  min-width: 0;
+  padding: 0 6px;
+}
+
+button.separator-picker-btn:hover,
+button.separator-picker-btn:focus-visible {
+  border-color: rgba(94, 174, 212, 0.55);
+}
+
+button.separator-picker-btn.is-active,
+.separator-picker-custom.is-active {
+  border-color: rgba(143, 215, 175, 0.8);
+  background: rgba(28, 64, 50, 0.9);
+}

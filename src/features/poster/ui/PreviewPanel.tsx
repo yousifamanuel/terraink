@@ -470,9 +470,14 @@ export default function PreviewPanel() {
             textColor={effectiveTheme.ui.text}
             landColor={effectiveTheme.map.land}
             showPosterText={form.showPosterText}
-            coordinateText={formatCoordinates(formLat, formLon, {
-              format: form.coordinateFormat,
-            })}
+            coordinateText={
+              form.showCoordinates
+                ? formatCoordinates(formLat, formLon, {
+                    format: form.coordinateFormat,
+                    separator: form.coordinateSeparator,
+                  })
+                : ""
+            }
             includeCredits={form.includeCredits}
             showOverlay={form.showMarkers}
           />

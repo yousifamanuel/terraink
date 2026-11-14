@@ -40,6 +40,9 @@ export interface PosterForm {
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;
+  showCoordinates: boolean;
+  /** Text between latitude and longitude; "" = none (just a space). */
+  coordinateSeparator: string;
   includeCredits: boolean;
   includeLandcover: boolean;
   includeBuildings: boolean;

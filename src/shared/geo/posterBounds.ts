@@ -3,6 +3,12 @@ export type CoordinateFormat = "nsew" | "signed" | "dms";
 
 export const COORDINATE_FORMATS: CoordinateFormat[] = ["nsew", "signed", "dms"];
 
+/** Ready-made separators, in button order; "" = none. */
+export const COORDINATE_SEPARATORS = ["/", "–", ",", ";", "·", "|", ""];
+
+/** Longest separator a user can type. */
+export const MAX_COORDINATE_SEPARATOR_LENGTH = 3;
+
 export interface CoordinateTextOptions {
   format?: CoordinateFormat;
   /** Text between latitude and longitude; "" = just a space. */

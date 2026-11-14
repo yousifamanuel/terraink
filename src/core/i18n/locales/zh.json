@@ -329,7 +329,10 @@
       "displayCountry": "显示国家/地区",
       "font": "字体",
       "defaultFont": "默认 (Space Grotesk)",
-      "coordinates": "坐标"
+      "coordinates": "坐标",
+      "separator": "分隔符",
+      "separatorNone": "无分隔符",
+      "separatorCustom": "自定义分隔符（最多 3 个字符）"
     }
   },
   "theme": {

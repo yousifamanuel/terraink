@@ -4,6 +4,7 @@ import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
 import { COORDINATE_FORMATS, formatCoordinates } from "@/shared/geo/posterBounds";
+import CoordinateSeparatorPicker from "./CoordinateSeparatorPicker";
 import {
   PLACEHOLDER_EXAMPLE_CITY,
   PLACEHOLDER_EXAMPLE_COUNTRY,
@@ -120,22 +121,40 @@ export default function TypographySection({
             ))}
           </select>
         </label>
-        <label>
-          {t("poster.typography.coordinates")}
-          <select
-            className="form-control-tall"
-            name="coordinateFormat"
-            value={form.coordinateFormat}
-            onChange={onChange}
-          >
-            {COORDINATE_FORMATS.map((format) => (
-              <option key={format} value={format}>
-                {/* The example is the label: same in every language. */}
-                {formatCoordinates(exampleLat, exampleLon, { format })}
-              </option>
-            ))}
-          </select>
+        <label className="toggle-field">
+          <span>{t("poster.typography.coordinates")}</span>
+          <span className="theme-switch">
+            <input
+              type="checkbox"
+              name="showCoordinates"
+              checked={Boolean(form.showCoordinates)}
+              onChange={onChange}
+            />
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
         </label>
+        {form.showCoordinates ? (
+          <>
+            <select
+              className="form-control-tall"
+              name="coordinateFormat"
+              value={form.coordinateFormat}
+              onChange={onChange}
+              aria-label={t("poster.typography.coordinates")}
+            >
+              {COORDINATE_FORMATS.map((format) => (
+                <option key={format} value={format}>
+                  {/* The example is the label: same in every language. */}
+                  {formatCoordinates(exampleLat, exampleLon, {
+                    format,
+                    separator: form.coordinateSeparator,
+                  })}
+                </option>
+              ))}
+            </select>
+            <CoordinateSeparatorPicker value={form.coordinateSeparator} />
+          </>
+        ) : null}
 
       </section>
     </>

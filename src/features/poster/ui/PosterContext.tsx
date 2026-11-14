@@ -77,6 +77,8 @@ export const DEFAULT_FORM: PosterForm = {
   fontFamily: "",
   showPosterText: true,
   coordinateFormat: "nsew",
+  showCoordinates: true,
+  coordinateSeparator: "/",
   includeCredits: true,
   includeLandcover: true,
   includeBuildings: false,

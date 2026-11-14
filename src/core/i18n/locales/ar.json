@@ -339,7 +339,10 @@
       "displayCountry": "عرض الدولة",
       "font": "الخط",
       "defaultFont": "الافتراضي (Space Grotesk)",
-      "coordinates": "الإحداثيات"
+      "coordinates": "الإحداثيات",
+      "separator": "الفاصل",
+      "separatorNone": "بدون فاصل",
+      "separatorCustom": "فاصل خاص (حتى 3 أحرف)"
     }
   },
   "theme": {

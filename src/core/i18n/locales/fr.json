@@ -333,7 +333,10 @@
       "displayCountry": "Afficher le pays",
       "font": "Police",
       "defaultFont": "Par défaut (Space Grotesk)",
-      "coordinates": "Coordonnées"
+      "coordinates": "Coordonnées",
+      "separator": "Séparateur",
+      "separatorNone": "Aucun séparateur",
+      "separatorCustom": "Séparateur personnalisé (3 caractères max.)"
     }
   },
   "theme": {

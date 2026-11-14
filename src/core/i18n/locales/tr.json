@@ -331,7 +331,10 @@
       "displayCountry": "Ülke göster",
       "font": "Yazı tipi",
       "defaultFont": "Varsayılan (Space Grotesk)",
-      "coordinates": "Koordinatlar"
+      "coordinates": "Koordinatlar",
+      "separator": "Ayırıcı",
+      "separatorNone": "Ayırıcı yok",
+      "separatorCustom": "Özel ayırıcı (en fazla 3 karakter)"
     }
   },
   "theme": {

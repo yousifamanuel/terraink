@@ -172,9 +172,12 @@ export function useExport() {
 
         const lat = Number(form.latitude) || 0;
         const lon = Number(form.longitude) || 0;
-        const coordinateText = formatCoordinates(lat, lon, {
-          format: form.coordinateFormat,
-        });
+        const coordinateText = form.showCoordinates
+          ? formatCoordinates(lat, lon, {
+              format: form.coordinateFormat,
+              separator: form.coordinateSeparator,
+            })
+          : "";
 
         if (format === "svg") {
           const svgBlob = await createLayeredSvgBlobFromMap({

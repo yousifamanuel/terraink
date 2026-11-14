@@ -331,7 +331,10 @@
       "displayCountry": "Display country",
       "font": "Font",
       "defaultFont": "Default (Space Grotesk)",
-      "coordinates": "Coordinates"
+      "coordinates": "Coordinates",
+      "separator": "Separator",
+      "separatorNone": "No separator",
+      "separatorCustom": "Own separator (up to 3 characters)"
     }
   },
   "theme": {

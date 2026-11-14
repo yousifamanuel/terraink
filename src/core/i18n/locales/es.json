@@ -333,7 +333,10 @@
       "displayCountry": "País",
       "font": "Fuente",
       "defaultFont": "Por defecto (Space Grotesk)",
-      "coordinates": "Coordenadas"
+      "coordinates": "Coordenadas",
+      "separator": "Separador",
+      "separatorNone": "Sin separador",
+      "separatorCustom": "Separador propio (hasta 3 caracteres)"
     }
   },
   "theme": {

@@ -331,7 +331,10 @@
       "displayCountry": "Land",
       "font": "Schriftart",
       "defaultFont": "Standard (Space Grotesk)",
-      "coordinates": "Koordinaten"
+      "coordinates": "Koordinaten",
+      "separator": "Trennzeichen",
+      "separatorNone": "Kein Trennzeichen",
+      "separatorCustom": "Eigenes Trennzeichen (bis 3 Zeichen)"
     }
   },
   "theme": {
