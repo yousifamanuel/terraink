@@ -1,5 +1,6 @@
 import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
+import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import ThemeCard from "./ThemeCard";
 import { EditIcon } from "@/shared/ui/Icons";
 import {
@@ -46,7 +47,7 @@ export default function ThemeSummarySection({
 }: ThemeSummarySectionProps) {
   const { t } = useTranslation();
   const description =
-    selectedThemeOption.description?.trim() || t("theme.summary.noDescription");
+    getThemeDescription(selectedThemeOption) || t("theme.summary.noDescription");
 
   return (
     <div className="theme-summary-view">

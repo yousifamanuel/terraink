@@ -6,6 +6,7 @@ import {
   type ThemeColorKey,
   type ThemeOption,
 } from "@/features/theme/domain/types";
+import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import { getPaletteColorLabel } from "@/features/theme/application/paletteColorLabel";
 import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 import { normalizeHexColor } from "@/shared/utils/color";
@@ -550,7 +551,7 @@ export default function MapSettingsSection({
       {isSaveModalOpen ? (
         <SaveThemeModal
           suggestedName={buildSuggestedThemeName()}
-          suggestedDescription={selectedThemeOption.description ?? ""}
+          suggestedDescription={getThemeDescription(selectedThemeOption)}
           existingNames={savedThemes.map((t) => t.name)}
           onConfirm={handleConfirmSave}
           onCancel={handleCancelSave}
