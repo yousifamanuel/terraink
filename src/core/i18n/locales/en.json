@@ -572,6 +572,9 @@
       "group": "Selected marker size",
       "label": "Marker Size",
       "doneEditing": "Done Editing"
+    },
+    "donate": {
+      "intro": "Support Terraink and the open projects it runs on. Links open in a new tab."
     }
   },
   "updates": {

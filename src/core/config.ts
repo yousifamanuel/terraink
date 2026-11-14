@@ -65,6 +65,42 @@ export const SOCIAL_REDDIT = import.meta.env.VITE_SOCIAL_REDDIT ?? "";
 export const SOCIAL_THREADS = import.meta.env.VITE_SOCIAL_THREADS ?? "";
 export const SOCIAL_YOUTUBE = import.meta.env.VITE_SOCIAL_YOUTUBE ?? "";
 export const KOFI_URL = import.meta.env.VITE_KOFI_URL ?? "";
+
+export interface DonationLink {
+  name: string;
+  url: string;
+}
+
+/**
+ * Donation targets from VITE_DONATION_LINKS, a JSON array of {name, url}.
+ * Falls back to VITE_KOFI_URL as a single "Ko-fi" link. Invalid entries are
+ * skipped; no links hides the donate buttons.
+ */
+function parseDonationLinks(raw: unknown, kofiUrl: string): DonationLink[] {
+  const text = String(raw ?? "").trim();
+  if (text) {
+    try {
+      const parsed: unknown = JSON.parse(text);
+      if (Array.isArray(parsed)) {
+        return parsed
+          .map((item) => ({
+            name: String(item?.name ?? "").trim(),
+            url: String(item?.url ?? "").trim(),
+          }))
+          .filter((l) => l.name && /^https?:\/\//i.test(l.url));
+      }
+    } catch {
+      console.warn("VITE_DONATION_LINKS is not valid JSON; ignoring it.");
+    }
+  }
+  const kofi = kofiUrl.trim();
+  return /^https?:\/\//i.test(kofi) ? [{ name: "Ko-fi", url: kofi }] : [];
+}
+
+export const DONATION_LINKS: DonationLink[] = parseDonationLinks(
+  import.meta.env.VITE_DONATION_LINKS,
+  KOFI_URL,
+);
 export const DEVELOPER_NAME = import.meta.env.VITE_DEVELOPER_NAME ?? "";
 export const DEVELOPER_PROFILE_URL =
   import.meta.env.VITE_DEVELOPER_PROFILE_URL ?? "";

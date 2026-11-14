@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import DonateLink from "@/shared/ui/DonateLink";
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
 import { trackEvent } from "@/shared/utils/analytics";
 import {
@@ -10,7 +11,6 @@ import {
   SOCIAL_REDDIT,
   SOCIAL_THREADS,
   SOCIAL_YOUTUBE,
-  KOFI_URL,
 } from "@/core/config";
 import {
   GitHubIcon,
@@ -68,7 +68,6 @@ function HelpUsGrowSection({
       label: "YouTube",
     },
   ];
-  const kofiUrl = String(KOFI_URL ?? "").trim();
 
   return (
     <section className="info-panel-section">
@@ -120,23 +119,16 @@ function HelpUsGrowSection({
                 <span>{t("shell.info.star")}</span>
               </span>
             )}
-            {kofiUrl ? (
-              <a
-                className="github-badge"
-                href={kofiUrl}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={t("shell.info.donateLabel")}
-                title={t("shell.info.donateLabel")}
-                onClick={() => trackEvent("donate_click")}
-              >
-                <span>{t("shell.info.donate")}</span>
-              </a>
-            ) : (
-              <span className="github-badge" style={{ opacity: 0.45 }}>
-                <span>{t("shell.info.donate")}</span>
-              </span>
-            )}
+            <DonateLink
+              className="github-badge"
+              fallback={
+                <span className="github-badge" style={{ opacity: 0.45 }}>
+                  <span>{t("shell.info.donate")}</span>
+                </span>
+              }
+            >
+              <span>{t("shell.info.donate")}</span>
+            </DonateLink>
           </div>
         </div>
 

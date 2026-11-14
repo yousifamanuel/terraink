@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { KOFI_URL, REPO_API_URL, REPO_URL, SOCIAL_INSTAGRAM } from "@/core/config";
+import { REPO_API_URL, REPO_URL, SOCIAL_INSTAGRAM } from "@/core/config";
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
 import { GitHubIcon, InstagramIcon, DonateIcon, StarIcon } from "@/shared/ui/Icons";
 import { trackEvent } from "@/shared/utils/analytics";
 import LanguageMenu from "@/shared/ui/LanguageMenu";
+import DonateLink from "@/shared/ui/DonateLink";
 
 interface SocialLinkGroupProps {
   variant: "header" | "mobile-export";
@@ -14,7 +15,6 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
   const repoUrl = String(REPO_URL ?? "").trim();
   const repoApiUrl = String(REPO_API_URL ?? "").trim();
   const instagramUrl = String(SOCIAL_INSTAGRAM ?? "").trim();
-  const kofiUrl = String(KOFI_URL ?? "").trim();
   const { repoStars, repoStarsLoading } = useRepoStars(repoApiUrl);
   const starsText = repoStarsLoading ? "..." : repoStars?.toLocaleString() ?? t("shell.info.star");
 
@@ -54,22 +54,12 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
         </a>
       ) : null}
       {variant === "header" ? <LanguageMenu /> : null}
-      {kofiUrl ? (
-        <a
-          className="general-header-text-btn"
-          href={kofiUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={t("shell.info.donateLabel")}
-          title={t("shell.info.donateLabel")}
-          onClick={() => trackEvent("donate_click")}
-        >
-          <span className="general-header-btn-label">{t("shell.info.donate")}</span>
-          <span className="general-header-btn-icon" aria-hidden="true">
-            <DonateIcon />
-          </span>
-        </a>
-      ) : null}
+      <DonateLink className="general-header-text-btn">
+        <span className="general-header-btn-label">{t("shell.info.donate")}</span>
+        <span className="general-header-btn-icon" aria-hidden="true">
+          <DonateIcon />
+        </span>
+      </DonateLink>
     </div>
   );
 }
