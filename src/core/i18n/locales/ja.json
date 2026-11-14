@@ -1,0 +1,618 @@
+{
+  "markers": {
+    "defaultLabel": "マーカー",
+    "common": {
+      "done": "完了"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "ピン",
+      "heart": "ハート",
+      "home": "ホーム",
+      "star": "星",
+      "circle": "丸",
+      "square": "四角",
+      "x": "X",
+      "target": "ターゲット",
+      "sun": "太陽",
+      "moon": "月",
+      "building": "ビル",
+      "send": "送信",
+      "snowflake": "雪の結晶",
+      "shop": "お店",
+      "camera": "カメラ",
+      "flower": "花",
+      "tree": "木",
+      "flag": "旗"
+    },
+    "deleteAll": {
+      "title": "すべてのマーカーを削除しますか？",
+      "text_other": "マップから{{count}}個のマーカーが削除されます。",
+      "keep": "マーカーを残す",
+      "confirm": "すべてのマーカーを削除"
+    },
+    "help": {
+      "mobile": "アイコンをタップすると、現在のマップ位置にマーカーを置けます。マーカー設定はすべてのマーカーに適用され、マップ上で直接動かせます。マーカー編集モードでは、ドラッグで移動し、位置情報欄の下にあるマーカーサイズのスライダーでサイズを変更できます。",
+      "desktop": "アイコンをクリックすると、現在のマップ位置にマーカーを置けます。マーカー設定はすべてのマーカーに適用され、マップ上で直接動かせます。マーカー編集モードでは、ドラッグで移動、矢印キーで微調整、2本指のピンチまたはマウスホイールでサイズ変更、スクロールまたは +/- ボタンでマップのズームができます。"
+    },
+    "section": {
+      "title": "マーカー",
+      "doneSettings": "マーカー設定を閉じる",
+      "openSettings": "マーカー設定を開く",
+      "doneEditing": "マーカーの編集を終了",
+      "editMarkers": "マーカーを編集",
+      "editMarkersButton": "マーカー編集",
+      "pickerHelp": "マーカー選択のヘルプ"
+    },
+    "settings": {
+      "title": "マーカー設定",
+      "note": "マーカー設定はすべてのマーカーに適用されます。個別に編集するには、マーカーのロックを解除してください。",
+      "defaultSize": "標準サイズ",
+      "defaultColor": "標準の色"
+    },
+    "editColor": {
+      "title": "マーカーの色を編集"
+    },
+    "list": {
+      "deleteMarker": "マーカーを削除",
+      "deleteNamed": "{{label}}を削除",
+      "editNamed": "{{label}}を編集",
+      "finishEditing": "マーカーの編集を終了",
+      "editMarker": "マーカーを編集",
+      "edit": "編集"
+    },
+    "editor": {
+      "latitude": "緯度",
+      "longitude": "経度",
+      "size": "サイズ",
+      "color": "色",
+      "empty": "マーカーを1つ以上追加し、ロックを解除して編集してください。",
+      "hintMobile": "マーカーの行をスワイプして選び、タップして編集します。マップ上でドラッグして移動し、位置情報欄の下にあるマーカーサイズのスライダーでサイズを変更できます。",
+      "hintDesktop": "マーカーのカードをクリックして編集します。選択したマーカーをマップ上でドラッグして移動し、矢印キーで微調整、エディタでサイズと色を調整できます。"
+    },
+    "actions": {
+      "resetAll": "すべてのマーカーをリセット",
+      "resetMarkers": "マーカーをリセット",
+      "deleteAllTitle": "すべてのマーカーを削除",
+      "deleteAllMarkers": "すべてのマーカーを削除"
+    },
+    "picker": {
+      "invalidFile": "画像またはSVGファイルをアップロードしてください。",
+      "uploadFailed": "マーカーをアップロードできませんでした。",
+      "iconsTitle": "マーカーアイコン",
+      "showList": "アイコン一覧を表示",
+      "showMore": "アイコンをもっと表示",
+      "showLess": "表示を減らす",
+      "moreIcons": "その他のアイコン",
+      "uploadedTitle": "アップロード済みマーカー",
+      "removeNamed": "アップロード済みアイコン {{label}} を削除",
+      "removeUploaded": "アップロード済みアイコンを削除",
+      "uploadTitle": "マーカーをアップロード",
+      "uploadButton": "マーカーをアップロード",
+      "clearUploaded": "アップロード済みアイコンをストレージから削除"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "アップロードに失敗しました。",
+      "notGpx": ".gpxファイルをアップロードしてください。",
+      "tooLarge": "GPXファイルが大きすぎます（最大10 MB）。",
+      "tooFar": "このルートは既存のルートから離れすぎています。先に既存のルートを削除または置き換えてください。",
+      "invalidXml": "GPXファイルを読み込めませんでした。XMLが無効です。",
+      "noPoints": "GPXファイルにトラックポイントが見つかりません。",
+      "readFailed": "GPXファイルを読み込めませんでした。"
+    },
+    "boundsWarning": {
+      "title": "このルートは現在のエリアから離れています",
+      "text": "追加すると、すべてが収まるようにポスターが縮小表示されます。既存のルートをこのルートに置き換えて、表示範囲を保つこともできます。",
+      "cancel": "キャンセル",
+      "replace": "既存を置き換え",
+      "addAnyway": "そのまま追加"
+    },
+    "section": {
+      "title": "ルート",
+      "hideRoutes": "ルートを非表示",
+      "showRoutes": "ルートを表示",
+      "hideAll": "すべて非表示",
+      "showAll": "すべて表示",
+      "uploadTitle": "GPXファイルをアップロード",
+      "uploading": "アップロード中…",
+      "uploadGpx": "GPXをアップロード",
+      "empty": "<code>.gpx</code>ファイルをアップロードすると、ポスターにルートを描けます。手描きのルートは近日公開予定です。"
+    },
+    "card": {
+      "removeRoute": "ルートを削除",
+      "removeNamed": "{{label}}を削除",
+      "finishEndpoint": "端点の編集を終了",
+      "done": "完了",
+      "doneEditing": "ルートの編集を終了",
+      "editStart": "出発点を編集",
+      "editFinish": "到着点を編集",
+      "icon": "アイコン",
+      "closeIconPicker": "アイコン選択を閉じる",
+      "changeIcon": "アイコンを変更",
+      "color": "色",
+      "closeColorPicker": "カラーピッカーを閉じる",
+      "openColorPicker": "カラーピッカーを開く",
+      "size": "サイズ",
+      "showEndpoints": "端点を表示",
+      "start": "出発",
+      "finish": "到着",
+      "editStartMarker": "出発マーカーを編集",
+      "editFinishMarker": "到着マーカーを編集",
+      "width": "太さ",
+      "opacity": "不透明度",
+      "style": "スタイル",
+      "solid": "実線",
+      "dashed": "破線",
+      "removeRouteButton": "ルートを削除"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "Terrainkをインストールすると、すばやく快適に使えます。",
+      "addToHomeScreen": "ホーム画面に追加",
+      "maybeLater": "あとで",
+      "diagnostics": "診断",
+      "iosHint": "<share/>をタップして<strong>ホーム画面に追加</strong>を選ぶと、すばやく快適に使えます。",
+      "androidHint": "すばやく快適に使うには、ブラウザのメニューからTerrainkをインストールしてください：<strong>アプリをインストール</strong>または<strong>ホーム画面に追加</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "インストール診断",
+      "title": "インストール診断",
+      "close": "閉じる"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "{{name}}の比率アイコン"
+    },
+    "groups": {
+      "print": "印刷",
+      "social_media": "SNS",
+      "wallpaper": "壁紙",
+      "web": "Web"
+    },
+    "descriptions": {
+      "print_a3_portrait": "ISO A3 縦向き。",
+      "print_a4_portrait": "A4縦向きを基にした標準の印刷比率。",
+      "print_a5_portrait": "ISO A5 縦向き。",
+      "print_letter_us_portrait": "USレター縦向き。",
+      "social_instagram_square": "Instagramフィード用の1:1投稿。",
+      "social_instagram_portrait": "Instagram用の4:5縦向き投稿。",
+      "social_instagram_story_tiktok": "9:16の縦型ショート動画向け。",
+      "social_linkedin_post": "LinkedIn投稿の標準画像サイズ。",
+      "social_linkedin_cover": "LinkedInのプロフィールまたは企業カバー用。",
+      "social_pinterest_pin": "Pinterestピン用の2:3縦型。",
+      "social_reddit_post_16_9": "Reddit投稿用のワイド画面サイズ。",
+      "social_reddit_banner": "サブレディットのヘッダー用の超ワイドサイズ。",
+      "social_twitter_header": "Twitter/Xのプロフィールヘッダー用。",
+      "social_youtube_thumbnail": "YouTube動画用の16:9サムネイル。",
+      "wallpaper_desktop_full_hd": "標準モニター向け16:9のデスクトップ壁紙。",
+      "wallpaper_desktop_4k": "16:9の4K UHD壁紙。",
+      "wallpaper_ultrawide": "21:9モニター向けのウルトラワイド壁紙。",
+      "wallpaper_iphone_15_pro": "iPhone 15 Pro向けの縦型壁紙。",
+      "wallpaper_iphone_15_pro_max": "iPhone 15 Pro Max向けの縦型壁紙。",
+      "wallpaper_samsung_galaxy_s24_ultra": "Samsung Galaxy S24 Ultra向けの縦型壁紙。",
+      "wallpaper_ipad_pro_11": "iPad Pro 11インチ画面向けの壁紙。",
+      "wallpaper_ipad_pro_12_9": "iPad Pro 12.9インチ画面向けの壁紙。",
+      "wallpaper_xteink_x4": "Xteink X4のネイティブサイズ（480x800）。300 DPIならこの解像度ちょうどで書き出せます。",
+      "web_hero_banner": "最近のランディングページ向けのワイドなヒーロー比率。",
+      "web_blog_featured": "一般的なOpen Graph/ブログのカバー用サイズ。",
+      "web_dashboard_card": "アプリのダッシュボード画像に便利なバランスの良い4:3。",
+      "print_poster_20x30": "定番の縦型ポスターサイズ（2:3）。"
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "レイアウトを選択"
+    },
+    "layers": {
+      "title": "レイヤー",
+      "mapDetails": "マップの詳細",
+      "showLandcover": "土地被覆を表示",
+      "showBuildings": "建物を表示",
+      "showWater": "水域を表示",
+      "showParks": "公園を表示",
+      "showRoads": "道路を表示",
+      "showRail": "鉄道を表示",
+      "showAeroway": "空港を表示"
+    },
+    "dimensions": {
+      "widthCm": "幅（cm）",
+      "heightCm": "高さ（cm）",
+      "distanceM": "距離（m）",
+      "distanceAria": "距離（メートル）"
+    },
+    "settings": {
+      "customLayoutDescription": "あなたのカスタムレイアウト。",
+      "noDescription": "説明はありません。",
+      "colorFallback": "色",
+      "theme": "テーマ",
+      "themeFallbackName": "テーマ",
+      "colorEditor": "カラーエディタ",
+      "editing": "編集中：{{label}}",
+      "done": "完了",
+      "deleteThemeTitle": "保存したテーマを削除",
+      "deleteThemeMessage": "「{{name}}」を削除しますか？この操作は取り消せません。",
+      "thisTheme": "このテーマ",
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "layout": "レイアウト",
+      "layoutLabel": "レイアウト：",
+      "doneEditingLayout": "レイアウトの編集を終了",
+      "customizeLayoutSize": "レイアウトサイズを変更"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "その場所を特定できませんでした。別の名前をお試しください。",
+      "title": "場所を選択",
+      "placeholder": "都市や場所を入力",
+      "locating": "取得中...",
+      "getMyLocation": "現在地を取得",
+      "ok": "OK"
+    },
+    "dropdown": {
+      "searching": "検索中...",
+      "removeAria": "{{label}}を履歴から削除",
+      "removeTitle": "履歴から削除",
+      "showLess": "表示を減らす",
+      "showMore": "もっと見る",
+      "clearHistory": "履歴を消去"
+    },
+    "section": {
+      "title": "場所",
+      "label": "場所",
+      "searchPlaceholder": "都市や場所を入力",
+      "clearAria": "場所をクリア",
+      "useCurrentAria": "現在地を使う",
+      "latitude": "緯度（任意）",
+      "longitude": "経度（任意）"
+    },
+    "geo": {
+      "deniedNative": "位置情報へのアクセスがブロックされています。端末の設定でTerrainkの位置情報を許可してから、もう一度お試しください。",
+      "deniedBrowser": "位置情報へのアクセスがブロックされています。ブラウザの設定で位置情報を許可してから、もう一度お試しください。",
+      "unsupported": "このブラウザは位置情報に対応していません。",
+      "insecure": "位置情報の利用には安全な接続（HTTPS）が必要です。",
+      "generic": "現在地を取得できませんでした。位置情報サービスを確認して、もう一度お試しください。",
+      "manualFallback": "場所は手入力もできます。"
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "場所",
+      "theme": "テーマ",
+      "layout": "レイアウト",
+      "layers": "レイヤー",
+      "markers": "マーカー",
+      "routes": "ルート",
+      "style": "スタイル"
+    },
+    "info": {
+      "ariaLabel": "現在の設定",
+      "title": "現在の設定",
+      "location": "場所",
+      "theme": "テーマ",
+      "layout": "レイアウト",
+      "posterSize": "ポスターサイズ",
+      "markers": "マーカー",
+      "coordinates": "座標",
+      "markerCount_other": "マーカー{{count}}個"
+    },
+    "controls": {
+      "mapControls": "マップ操作",
+      "recenter": "中心に戻す",
+      "recenterHint": "マップを現在の場所に戻します",
+      "lockTitle": "マップ編集をロック",
+      "lockMap": "マップをロック",
+      "editMap": "マップを編集",
+      "lockedHint": "意図しない移動を防ぐため、マップはロックされています。",
+      "unlockHint": "クリックしてマップ編集のロックを解除します。",
+      "disableRotation": "回転を無効にする",
+      "enableRotation": "回転を有効にする",
+      "disableRotationLabel": "回転を無効にする",
+      "enableRotationLabel": "回転を有効にする",
+      "zoomOut": "ズームアウト",
+      "zoomIn": "ズームイン",
+      "zoomLevel": "ズームレベル",
+      "rotateLeft": "左に15度回転",
+      "rotateRight": "右に15度回転",
+      "rotationAngle": "回転角度"
+    },
+    "typography": {
+      "style": "スタイル",
+      "posterText": "ポスターの文字",
+      "overlayLayer": "オーバーレイ",
+      "displayCity": "都市を表示",
+      "displayCountry": "国を表示",
+      "font": "フォント",
+      "defaultFont": "標準（Space Grotesk）"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "説明はありません。",
+      "themeLabel": "テーマ：",
+      "customizeAria": "{{name}}の色をカスタマイズ",
+      "savedThemes": "保存したテーマ",
+      "savedEmpty": "テーマをカスタマイズして保存すると、ここに表示されます。",
+      "savedThemesAria": "保存したテーマ",
+      "deleteSavedAria": "保存したテーマ{{name}}を削除",
+      "builtInThemes": "標準テーマ",
+      "themeOptionsAria": "テーマのオプション",
+      "savedThemeDescription": "保存したテーマ"
+    },
+    "card": {
+      "deleteAria": "{{name}}を削除"
+    },
+    "editor": {
+      "title": "カラーエディタ",
+      "editing": "編集中：{{label}}",
+      "save": "保存",
+      "resetAll": "すべてリセット",
+      "done": "完了"
+    },
+    "saveModal": {
+      "title": "テーマを保存",
+      "cancel": "キャンセル",
+      "name": "名前",
+      "description": "説明",
+      "hint": "あとで見つけやすいよう、他と重ならない名前を付けてください。",
+      "duplicate": "この名前のテーマはすでに保存されています。",
+      "confirm": "確定"
+    },
+    "choiceModal": {
+      "title": "変更を保存",
+      "cancel": "キャンセル",
+      "message": "<strong>「{{themeName}}」</strong>を編集内容で更新しますか？元のテーマを残して、この配色を新しいテーマとして保存することもできます。",
+      "saveAsCopy": "コピーとして保存",
+      "save": "保存"
+    },
+    "colorPicker": {
+      "less": "少なく",
+      "more": "もっと",
+      "resetColor": "色をリセット",
+      "hex": "16進数"
+    },
+    "colors": {
+      "ui": {
+        "bg": "オーバーレイ",
+        "text": "文字"
+      },
+      "map": {
+        "land": "陸地",
+        "landcover": "土地被覆",
+        "water": "水域",
+        "waterway": "河川",
+        "parks": "公園",
+        "buildings": "建物",
+        "aeroway": "空港",
+        "rail": "鉄道",
+        "roads": {
+          "major": "主要道路",
+          "minor_high": "細道路（上）",
+          "minor_mid": "細道路（中）",
+          "minor_low": "細道路（下）",
+          "path": "小道",
+          "outline": "道路の輪郭"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "白い大理石、淡い石にやわらかな炭色の筋",
+      "blush": "温かみのある白にくすんだローズ",
+      "sandstone": "暖かなベージュに落ち着いた茶色の線",
+      "heatwave": "焦げた暗色の地に、輝くオレンジの道と陽光のハイライト",
+      "ruby": "ガーネット色の赤が、深いプラムの街区に映える",
+      "sage": "落ち着いた植物の色合い、涼しげな緑の道とやさしいコントラスト",
+      "rustic": "紙のような大地の色に、木と粘土色の道",
+      "midnight_blue": "深いネイビーに金と銅の道、高級アトラスの雰囲気",
+      "neon": "マゼンタとシアンが光る、ネオンのハイコントラスト",
+      "terracotta": "地中海の温もり、クリーム地に焦げたオレンジと粘土色",
+      "blueprint": "定番の建築ブループリント、製図の雰囲気",
+      "contrast_zones": "都市の密度を強いコントラストで表現、中心は濃く外側は淡く",
+      "copper_patina": "酸化した銅の雰囲気、青緑の緑青に銅のアクセント",
+      "emerald": "濃く豊かな緑にミントのアクセント",
+      "forest": "深い緑とセージ色、自然な植物の雰囲気",
+      "japanese_ink": "伝統的な水墨画風、控えめな赤のアクセントのミニマル",
+      "noir": "真っ黒な背景に白とグレーの道、モダンなギャラリー風",
+      "ocean": "さまざまな青とティール、海辺の街にぴったり",
+      "pastel_dream": "くすんだブルーとモーブの淡いパステル、夢のようなアート風",
+      "coral": "やわらかなアイボリーに温かなコーラルの道、くすんだピンクとブルー",
+      "copper": "酸化したクリームと銅の色合い、温かな金属調の道",
+      "old_navy": "深いネイビーの地図に、金色の文字と道",
+      "gradient_roads": "濃い中心から淡い外側へなめらかなグラデーション、控えめな表現",
+      "monochrome_blue": "彩度を変えた単一の青系統、すっきりまとまった印象",
+      "sunset": "やわらかなピーチに暖かなオレンジとピンク、夢のようなゴールデンアワー",
+      "autumn": "焦げたオレンジ、深い赤、黄金色、季節の温もり",
+      "warm_beige": "土っぽい暖色のニュートラルとセピア、ヴィンテージ地図風"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "ポスターを書き出す",
+      "download": "ダウンロード",
+      "downloadPoster": "ポスターをダウンロード",
+      "closeOptions": "書き出しオプションを閉じる",
+      "supportProject": "プロジェクトを応援"
+    },
+    "flyout": {
+      "download": "ダウンロード"
+    },
+    "support": {
+      "close": "閉じる",
+      "headline": "✨ ポスターができました！",
+      "text": "InstagramでTerrainkをフォローして、マップのアイデアやデザインのコツ、最新機能をチェックしましょう。作ったポスターもぜひ見せてください。",
+      "followUs": "フォローする"
+    },
+    "errors": {
+      "mapNotReady": "マップの準備ができていません。",
+      "exportFailed": "書き出しに失敗しました。",
+      "tilesTimeout": "マップタイルの描画待ちがタイムアウトしました。",
+      "canvasUnavailable": "キャンバスの描画を利用できません。",
+      "exportContext": "書き出し用キャンバスの2Dコンテキストを作成できませんでした",
+      "svgLayerContext": "SVGレイヤー書き出し用の2Dコンテキストを作成できませんでした。",
+      "svgOverlayContext": "SVGオーバーレイ書き出し用の2Dコンテキストを作成できませんでした。",
+      "pngBlob": "キャンバスからPNG Blobを作成できませんでした。"
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "設定",
+      "language": "言語",
+      "note": "アプリの起動時に使われる値です。<strong>設定を保存</strong>をタップすると、現在のポスター設定（テーマ、レイアウト、フォント）が標準として保存されます。この端末内に保存されます。",
+      "defaultFont": "標準（Space Grotesk）",
+      "savedThemeLabel": "{{name}}（保存済み）",
+      "summaryTheme": "テーマ",
+      "summaryLayout": "レイアウト",
+      "summaryFont": "フォント",
+      "defaultTheme": "標準のテーマ",
+      "defaultLayout": "標準のレイアウト",
+      "defaultFontLabel": "標準のフォント",
+      "defaultLocation": "標準の場所",
+      "defaultDistance": "標準の距離",
+      "defaultUnit": "標準の単位",
+      "appTheme": "アプリのテーマ",
+      "comingSoon": "近日公開",
+      "centimeters": "センチメートル",
+      "dark": "ダーク",
+      "saveButton": "設定を保存",
+      "resetButton": "リセット",
+      "cancel": "キャンセル",
+      "saveModalTitle": "設定を保存",
+      "saveModalIntro": "現在の設定を標準として保存しますか？",
+      "saveModalOutro": "次回アプリを開いたときにこの値が使われます。",
+      "resetModalTitle": "設定をリセット",
+      "resetModalMessage": "保存した標準設定を消去しますか？次回からは組み込みの標準設定が使われます。"
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "閉じる"
+    },
+    "footer": {
+      "imprint": "運営者情報",
+      "privacy": "プライバシー",
+      "cookieSettings": "Cookie設定",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | ドイツ・ハノーファーで <heart>❤︎</heart> を込めて制作",
+      "mapData": "地図データ © <link>OpenStreetMap contributors</link>",
+      "moreAttribution": "その他の地図クレジット"
+    },
+    "attribution": {
+      "title": "地図クレジット",
+      "mapDataLine": "地図データ © <link>OpenStreetMap contributors</link>。",
+      "tiles": "タイル ©",
+      "poweredBy": "提供：",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "場所をクリア",
+      "useCurrent": "現在地を使う",
+      "toggleCoords": "座標欄を切り替え",
+      "toggleCoordsTitle": "緯度・経度を表示/非表示",
+      "latitude": "緯度",
+      "longitude": "経度"
+    },
+    "confirm": {
+      "confirm": "確定",
+      "cancel": "キャンセル"
+    },
+    "picker": {
+      "done": "完了",
+      "close": "{{title}}を閉じる"
+    },
+    "ad": {
+      "label": "広告でTerrainkは無料です"
+    },
+    "about": {
+      "dialog": "Terrainkについて"
+    },
+    "info": {
+      "helpTitle": "開発を応援",
+      "helpCopy": "Terrainkは完全にクライアント側で動くオープンソースです。ロードマップに参加して、マップアートの未来をいっしょに作りましょう！",
+      "supportProject": "プロジェクトを応援",
+      "spreadWord": "シェアする",
+      "supportMission": "活動を応援",
+      "githubRepo": "GitHubリポジトリ",
+      "openRepo": "GitHubでTerrainkのリポジトリを開く",
+      "starRepo": "GitHubでTerrainkにスターを付ける",
+      "star": "スター",
+      "donate": "寄付",
+      "donateLabel": "Terrainkを無料で続けるために寄付で応援",
+      "follow": "{{network}}でTerrainkをフォロー",
+      "credits": "クレジットを入れて、このツールを広めましょう"
+    },
+    "social": {
+      "projectLinks": "プロジェクトのリンク",
+      "githubRepository": "GitHubリポジトリ"
+    },
+    "header": {
+      "logoAlt": "Terrainkのロゴ",
+      "tagline": "無料のマップポスター・壁紙メーカー",
+      "about": "概要"
+    },
+    "nav": {
+      "location": "場所",
+      "theme": "テーマ",
+      "layout": "レイアウト",
+      "style": "スタイル",
+      "layers": "レイヤー",
+      "markers": "マーカー",
+      "routes": "ルート",
+      "settings": "設定",
+      "mobileNav": "モバイルナビゲーション",
+      "sections": "設定セクション",
+      "hideLocation": "場所の行を隠す",
+      "showLocation": "場所の行を表示"
+    },
+    "markerSize": {
+      "group": "選択中のマーカーサイズ",
+      "label": "マーカーサイズ",
+      "doneEditing": "編集を終了"
+    },
+    "donate": {
+      "intro": "Terraink と、それを支えるオープンなプロジェクトを応援できます。リンクは新しいタブで開きます。"
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "新機能",
+      "fixed": "修正",
+      "improved": "改善",
+      "info": "お知らせ",
+      "community": "コミュニティ",
+      "docs": "ドキュメント",
+      "roadmap": "ロードマップ",
+      "removed": "削除",
+      "security": "セキュリティ",
+      "breaking": "互換性なし",
+      "major": "大型更新",
+      "perf": "パフォーマンス",
+      "core": "コア"
+    },
+    "quickHighlights": "主なポイント",
+    "whatIsNew": "新着情報",
+    "updateDetails": "更新の詳細",
+    "close": "お知らせを閉じる",
+    "version": "バージョン{{version}}",
+    "releasedOn": "{{date}}リリース",
+    "previewAlt": "{{title}}のプレビュー",
+    "back": "戻る",
+    "next": "次へ",
+    "finish": "完了",
+    "showAll": "詳細をすべて表示",
+    "okay": "わかりました"
+  },
+  "legal": {
+    "privacy": "プライバシーポリシー",
+    "imprint": "運営者情報",
+    "close": "閉じる",
+    "loading": "読み込み中…",
+    "error": "このドキュメントを読み込めませんでした。しばらくしてからもう一度お試しください。"
+  },
+  "meta": {
+    "title": "Terraink: 無料の地図ポスター・壁紙作成ツール",
+    "description": "無料のオンライン地図ポスター・壁紙ジェネレーター。好きな都市や場所の印刷に対応したオリジナル地図アートをデザインし、PNG、PDF、SVGで書き出せます。登録不要。"
+  }
+}
