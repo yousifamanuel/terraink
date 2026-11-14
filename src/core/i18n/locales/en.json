@@ -433,6 +433,7 @@
   "settings": {
     "section": {
       "title": "Settings",
+      "language": "Language",
       "note": "These are the values used when the app loads. Tap <strong>Save Settings</strong> to capture your current poster setup (theme, layout, font) as your defaults. Saved locally on this device.",
       "defaultFont": "Default (Space Grotesk)",
       "savedThemeLabel": "{{name}} (saved)",

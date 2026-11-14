@@ -8,8 +8,9 @@ import { themeOptions } from "@/features/theme/infrastructure/themeRepository";
 import { layoutOptions } from "@/features/layout/infrastructure/layoutRepository";
 import { FONT_OPTIONS } from "@/core/config";
 import ConfirmModal from "@/shared/ui/ConfirmModal";
-import i18n from "@/core/i18n";
+import i18n, { changeLanguage } from "@/core/i18n";
 import { Trans, useTranslation } from "react-i18next";
+import { SUPPORTED_LANGUAGES } from "@/core/i18n/languages";
 
 function findFontLabel(fontFamily: string | undefined): string {
   if (!fontFamily) return i18n.t("settings.section.defaultFont");
@@ -18,7 +19,7 @@ function findFontLabel(fontFamily: string | undefined): string {
 }
 
 export default function SettingsSection() {
-  const { t } = useTranslation();
+  const { t, i18n: i18nInstance } = useTranslation();
   const { state } = usePosterContext();
   const { handleSaveCurrentAsDefaults, handleResetUserDefaults } =
     useFormHandlers();
@@ -96,6 +97,22 @@ export default function SettingsSection() {
       </p>
 
       <div className="settings-defaults-list">
+        <label className="settings-default-row">
+          <span className="settings-default-label">
+            {t("settings.section.language")}
+          </span>
+          <select
+            className="settings-language-select"
+            value={i18nInstance.language ?? "en"}
+            onChange={(e) => void changeLanguage(e.target.value)}
+          >
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+        </label>
         <div className="settings-default-row">
           <span className="settings-default-label">{t("settings.section.defaultTheme")}</span>
           <span className="settings-default-value">{themeLabel}</span>
