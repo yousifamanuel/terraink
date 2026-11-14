@@ -1,0 +1,620 @@
+{
+  "markers": {
+    "defaultLabel": "Marker",
+    "common": {
+      "done": "Klaar"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "Pin",
+      "heart": "Hart",
+      "home": "Huis",
+      "star": "Ster",
+      "circle": "Cirkel",
+      "square": "Vierkant",
+      "x": "X",
+      "target": "Doelwit",
+      "sun": "Zon",
+      "moon": "Maan",
+      "building": "Gebouw",
+      "send": "Verzenden",
+      "snowflake": "Sneeuwvlok",
+      "shop": "Winkel",
+      "camera": "Camera",
+      "flower": "Bloem",
+      "tree": "Boom",
+      "flag": "Vlag"
+    },
+    "deleteAll": {
+      "title": "Alle markers wissen?",
+      "text_one": "{{count}} marker wordt van de kaart verwijderd.",
+      "text_other": "{{count}} markers worden van de kaart verwijderd.",
+      "keep": "Behouden",
+      "confirm": "Alles wissen"
+    },
+    "help": {
+      "mobile": "Tik op een icoon om een marker op de huidige kaartlocatie te plaatsen. Markerinstellingen gelden voor alle markers en je kunt ze direct op de kaart verplaatsen. Sleep in de bewerkmodus om markers te verplaatsen en gebruik de schuifregelaar onder de locatierij om het formaat aan te passen.",
+      "desktop": "Klik op een icoon om een marker op de huidige kaartlocatie te plaatsen. Markerinstellingen gelden voor alle markers en je kunt ze direct op de kaart verplaatsen. Sleep in de bewerkmodus om te verplaatsen, gebruik de pijltjestoetsen voor fijn bijstellen, knijp met twee vingers of gebruik het muiswiel om het formaat te wijzigen, en scroll of gebruik de +/- kaartknoppen om te zoomen."
+    },
+    "section": {
+      "title": "MARKERS",
+      "doneSettings": "Klaar",
+      "openSettings": "Markerinstellingen",
+      "doneEditing": "Klaar met bewerken",
+      "editMarkers": "Markers bewerken",
+      "editMarkersButton": "Bewerken",
+      "pickerHelp": "Hulp bij markers"
+    },
+    "settings": {
+      "title": "Instellingen",
+      "note": "Markerinstellingen gelden voor alle markers. Ontgrendel markers om ze afzonderlijk te bewerken.",
+      "defaultSize": "Standaardgrootte",
+      "defaultColor": "Standaardkleur"
+    },
+    "editColor": {
+      "title": "Markerkleur"
+    },
+    "list": {
+      "deleteMarker": "Marker wissen",
+      "deleteNamed": "{{label}} wissen",
+      "editNamed": "{{label}} bewerken",
+      "finishEditing": "Klaar met bewerken",
+      "editMarker": "Marker bewerken",
+      "edit": "Bewerken"
+    },
+    "editor": {
+      "latitude": "Breedte",
+      "longitude": "Lengtegraad",
+      "size": "Grootte",
+      "color": "Kleur",
+      "empty": "Voeg minstens één marker toe en ontgrendel markers daarna om te bewerken.",
+      "hintMobile": "Veeg door de markerrij om er een te kiezen en tik erop om te bewerken. Sleep hem op de kaart om te verplaatsen en gebruik de schuifregelaar onder de locatierij om het formaat aan te passen.",
+      "hintDesktop": "Klik op een markerkaart om te bewerken. Sleep de geselecteerde marker op de kaart om te verplaatsen, gebruik de pijltjestoetsen voor fijn bijstellen en pas daarna formaat en kleur aan in de editor."
+    },
+    "actions": {
+      "resetAll": "Alles resetten",
+      "resetMarkers": "Resetten",
+      "deleteAllTitle": "Alles wissen",
+      "deleteAllMarkers": "Alles wissen"
+    },
+    "picker": {
+      "invalidFile": "Upload een afbeelding of SVG.",
+      "uploadFailed": "Uploaden mislukt.",
+      "iconsTitle": "Pictogrammen",
+      "showList": "Lijst tonen",
+      "showMore": "Meer tonen",
+      "showLess": "Minder tonen",
+      "moreIcons": "Meer iconen",
+      "uploadedTitle": "Geüpload",
+      "removeNamed": "{{label}} verwijderen",
+      "removeUploaded": "Geüpload icoon verwijderen",
+      "uploadTitle": "Uploaden",
+      "uploadButton": "Uploaden",
+      "clearUploaded": "Geüploade iconen wissen"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "Uploaden mislukt.",
+      "notGpx": "Upload een .gpx-bestand.",
+      "tooLarge": "GPX-bestand is te groot (max 10 MB).",
+      "tooFar": "Deze route ligt te ver van je bestaande routes. Verwijder of vervang die eerst.",
+      "invalidXml": "GPX-bestand onleesbaar: ongeldige XML.",
+      "noPoints": "Geen trackpunten in GPX-bestand.",
+      "readFailed": "Kan GPX-bestand niet lezen."
+    },
+    "boundsWarning": {
+      "title": "Deze route ligt ver van je gebied",
+      "text": "Als je hem toevoegt, wordt de poster uitgezoomd zodat alles past. Je kunt ook je bestaande routes door deze vervangen voor een strakkere weergave.",
+      "cancel": "Annuleren",
+      "replace": "Vervangen",
+      "addAnyway": "Toch toevoegen"
+    },
+    "section": {
+      "title": "ROUTES",
+      "hideRoutes": "Routes verbergen",
+      "showRoutes": "Routes tonen",
+      "hideAll": "Verberg alles",
+      "showAll": "Toon alles",
+      "uploadTitle": "GPX uploaden",
+      "uploading": "Uploaden…",
+      "uploadGpx": "GPX uploaden",
+      "empty": "Upload een <code>.gpx</code>-bestand om een route op de poster te tekenen. Routes handmatig tekenen komt binnenkort."
+    },
+    "card": {
+      "removeRoute": "Route wissen",
+      "removeNamed": "{{label}} wissen",
+      "finishEndpoint": "Klaar",
+      "done": "Klaar",
+      "doneEditing": "Klaar met bewerken",
+      "editStart": "Start",
+      "editFinish": "Finish",
+      "icon": "Icoon",
+      "closeIconPicker": "Sluiten",
+      "changeIcon": "Icoon wijzigen",
+      "color": "Kleur",
+      "closeColorPicker": "Sluiten",
+      "openColorPicker": "Kleur kiezen",
+      "size": "Grootte",
+      "showEndpoints": "Eindpunten",
+      "start": "Start",
+      "finish": "Finish",
+      "editStartMarker": "Startmarker bewerken",
+      "editFinishMarker": "Finishmarker bewerken",
+      "width": "Breedte",
+      "opacity": "Dekking",
+      "style": "Stijl",
+      "solid": "Vast",
+      "dashed": "Streep",
+      "removeRouteButton": "Route wissen"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "Installeer Terraink voor snellere toegang.",
+      "addToHomeScreen": "Zet op beginscherm",
+      "maybeLater": "Later",
+      "diagnostics": "Diagnose",
+      "iosHint": "Tik op <share/> en dan op <strong>Zet op beginscherm</strong> voor snellere toegang en een betere ervaring.",
+      "androidHint": "Voor snellere toegang en een betere ervaring installeer je Terraink via het browsermenu: <strong>App installeren</strong> of <strong>Toevoegen aan startscherm</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "Installatiediagnose",
+      "title": "Installatiediagnose",
+      "close": "Sluiten"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "Verhouding {{name}}"
+    },
+    "groups": {
+      "print": "Print",
+      "social_media": "Social media",
+      "wallpaper": "Achtergrond",
+      "web": "Web"
+    },
+    "descriptions": {
+      "print_a3_portrait": "ISO A3 staand formaat.",
+      "print_a4_portrait": "Standaard printverhouding, A4 staand.",
+      "print_a5_portrait": "ISO A5 staand formaat.",
+      "print_letter_us_portrait": "US Letter staand formaat.",
+      "social_instagram_square": "1:1 formaat voor Instagram-feed.",
+      "social_instagram_portrait": "4:5 staand formaat voor Instagram.",
+      "social_instagram_story_tiktok": "9:16 verticaal korte-videoformaat.",
+      "social_linkedin_post": "Standaardafbeelding voor LinkedIn-berichten.",
+      "social_linkedin_cover": "Omslag voor LinkedIn-profiel of -bedrijf.",
+      "social_pinterest_pin": "2:3 verticaal formaat voor Pinterest.",
+      "social_reddit_post_16_9": "Breedbeeld voor Reddit-berichten.",
+      "social_reddit_banner": "Extra brede subreddit-header.",
+      "social_twitter_header": "Profielheader voor Twitter/X.",
+      "social_youtube_thumbnail": "16:9 miniatuur voor YouTube.",
+      "wallpaper_desktop_full_hd": "16:9 bureaubladachtergrond.",
+      "wallpaper_desktop_4k": "4K UHD-achtergrond, 16:9.",
+      "wallpaper_ultrawide": "Ultrabrede achtergrond voor 21:9-monitors.",
+      "wallpaper_iphone_15_pro": "Verticale achtergrond voor iPhone 15 Pro.",
+      "wallpaper_iphone_15_pro_max": "Verticale achtergrond voor iPhone 15 Pro Max.",
+      "wallpaper_samsung_galaxy_s24_ultra": "Verticale achtergrond voor Galaxy S24 Ultra.",
+      "wallpaper_ipad_pro_11": "Achtergrond voor iPad Pro 11 inch.",
+      "wallpaper_ipad_pro_12_9": "Achtergrond voor iPad Pro 12,9 inch.",
+      "wallpaper_xteink_x4": "Oorspronkelijk Xteink X4-formaat (480x800). Exporteert exact in deze resolutie bij 300 DPI.",
+      "web_hero_banner": "Brede hero voor moderne landingspagina's.",
+      "web_blog_featured": "Gangbaar Open Graph-/blogomslagformaat.",
+      "web_dashboard_card": "Evenwichtig 4:3-kader, handig voor dashboardbeelden.",
+      "print_poster_20x30": "Klassiek staand poster (2:3)."
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "Kies lay-out"
+    },
+    "layers": {
+      "title": "LAGEN",
+      "mapDetails": "Kaartdetails",
+      "showLandcover": "Landgebruik",
+      "showBuildings": "Gebouwen tonen",
+      "showWater": "Water tonen",
+      "showParks": "Parken tonen",
+      "showRoads": "Wegen tonen",
+      "showRail": "Spoor tonen",
+      "showAeroway": "Luchthaven"
+    },
+    "dimensions": {
+      "widthCm": "Breedte (cm)",
+      "heightCm": "Hoogte (cm)",
+      "distanceM": "Afstand (m)",
+      "distanceAria": "Afstand in meters"
+    },
+    "settings": {
+      "customLayoutDescription": "Je eigen lay-out.",
+      "noDescription": "Geen beschrijving.",
+      "colorFallback": "Kleur",
+      "theme": "Thema",
+      "themeFallbackName": "Thema",
+      "colorEditor": "Kleureditor",
+      "editing": "Bewerken: {{label}}",
+      "done": "Klaar",
+      "deleteThemeTitle": "Thema wissen",
+      "deleteThemeMessage": "\"{{name}}\" wissen? Dit kan niet ongedaan worden.",
+      "thisTheme": "dit thema",
+      "delete": "Wissen",
+      "cancel": "Annuleren",
+      "layout": "Lay-out",
+      "layoutLabel": "LAY-OUT:",
+      "doneEditingLayout": "Klaar",
+      "customizeLayoutSize": "Formaat aanpassen"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "Locatie niet gevonden. Probeer een andere naam.",
+      "title": "Kies locatie",
+      "placeholder": "Stad of plaats",
+      "locating": "Zoeken...",
+      "getMyLocation": "Mijn locatie",
+      "ok": "OK"
+    },
+    "dropdown": {
+      "searching": "Zoeken...",
+      "removeAria": "{{label}} uit geschiedenis halen",
+      "removeTitle": "Uit geschiedenis halen",
+      "showLess": "Minder",
+      "showMore": "Meer tonen",
+      "clearHistory": "Wis geschiedenis"
+    },
+    "section": {
+      "title": "Locatie",
+      "label": "Locatie",
+      "searchPlaceholder": "Stad of plaats",
+      "clearAria": "Locatie wissen",
+      "useCurrentAria": "Huidige locatie",
+      "latitude": "Breedte (optioneel)",
+      "longitude": "Lengte (optioneel)"
+    },
+    "geo": {
+      "deniedNative": "Locatietoegang is geblokkeerd. Schakel locatie voor Terraink in via de instellingen van je apparaat en probeer het opnieuw.",
+      "deniedBrowser": "Locatietoegang is geblokkeerd. Schakel locatietoestemming in via je browserinstellingen en probeer het opnieuw.",
+      "unsupported": "Locatie wordt niet ondersteund door deze browser.",
+      "insecure": "Locatie vereist HTTPS.",
+      "generic": "Je locatie kan nu niet worden opgehaald. Controleer de locatievoorzieningen en probeer het opnieuw.",
+      "manualFallback": "Typ een locatie handmatig."
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "Locatie",
+      "theme": "Thema",
+      "layout": "Lay-out",
+      "layers": "Lagen",
+      "markers": "Markers",
+      "routes": "Routes",
+      "style": "Stijl"
+    },
+    "info": {
+      "ariaLabel": "Instellingen",
+      "title": "Instellingen",
+      "location": "Locatie",
+      "theme": "Thema",
+      "layout": "Lay-out",
+      "posterSize": "Formaat",
+      "markers": "Markers",
+      "coordinates": "Coördinaten",
+      "markerCount_one": "{{count}} marker",
+      "markerCount_other": "{{count}} markers"
+    },
+    "controls": {
+      "mapControls": "Kaartopties",
+      "recenter": "Centreren",
+      "recenterHint": "Kaart centreren",
+      "lockTitle": "Kaart vergrendelen",
+      "lockMap": "Vergrendel",
+      "editMap": "Bewerken",
+      "lockedHint": "Kaart vergrendeld tegen onbedoeld verschuiven.",
+      "unlockHint": "Klik om de kaart te ontgrendelen.",
+      "disableRotation": "Rotatie uit",
+      "enableRotation": "Rotatie aan",
+      "disableRotationLabel": "Rotatie uit",
+      "enableRotationLabel": "Rotatie aan",
+      "zoomOut": "Uitzoomen",
+      "zoomIn": "Inzoomen",
+      "zoomLevel": "Zoomniveau",
+      "rotateLeft": "15° naar links",
+      "rotateRight": "15° naar rechts",
+      "rotationAngle": "Rotatiehoek"
+    },
+    "typography": {
+      "style": "STIJL",
+      "posterText": "Postertekst",
+      "overlayLayer": "Overlaylaag",
+      "displayCity": "Stad tonen",
+      "displayCountry": "Land tonen",
+      "font": "Lettertype",
+      "defaultFont": "Standaard (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "Geen beschrijving.",
+      "themeLabel": "Thema:",
+      "customizeAria": "Kleuren van {{name}} aanpassen",
+      "savedThemes": "Opgeslagen",
+      "savedEmpty": "Pas een thema aan en sla het op.",
+      "savedThemesAria": "Opgeslagen thema's",
+      "deleteSavedAria": "Thema {{name}} wissen",
+      "builtInThemes": "Ingebouwd",
+      "themeOptionsAria": "Themaopties",
+      "savedThemeDescription": "Opgeslagen thema"
+    },
+    "card": {
+      "deleteAria": "{{name}} wissen"
+    },
+    "editor": {
+      "title": "Kleureditor",
+      "editing": "Bewerken: {{label}}",
+      "save": "Opslaan",
+      "resetAll": "Alles resetten",
+      "done": "Klaar"
+    },
+    "saveModal": {
+      "title": "Thema opslaan",
+      "cancel": "Annuleren",
+      "name": "Naam",
+      "description": "Beschrijving",
+      "hint": "Kies een unieke naam.",
+      "duplicate": "Deze naam bestaat al.",
+      "confirm": "OK"
+    },
+    "choiceModal": {
+      "title": "Wijzigingen opslaan",
+      "cancel": "Annuleren",
+      "message": "<strong>“{{themeName}}”</strong> bijwerken met je wijzigingen, of het origineel behouden en deze kleuren als nieuw thema opslaan?",
+      "saveAsCopy": "Als kopie",
+      "save": "Opslaan"
+    },
+    "colorPicker": {
+      "less": "Minder",
+      "more": "Meer",
+      "resetColor": "Reset",
+      "hex": "Hex"
+    },
+    "colors": {
+      "ui": {
+        "bg": "Overlay",
+        "text": "Tekst"
+      },
+      "map": {
+        "land": "Land",
+        "landcover": "Landgebruik",
+        "water": "Water",
+        "waterway": "Waterwegen",
+        "parks": "Parken",
+        "buildings": "Gebouwen",
+        "aeroway": "Luchthaven",
+        "rail": "Spoor",
+        "roads": {
+          "major": "Hoofdwegen",
+          "minor_high": "Kleine wegen +",
+          "minor_mid": "Kleine wegen",
+          "minor_low": "Kleine wegen -",
+          "path": "Paden",
+          "outline": "Wegcontour"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "Wit marmer: bleke steen met zachte antracieten aders",
+      "blush": "Stoffig roze op warm wit",
+      "sandstone": "Warm beige met gedempte bruine lijnen",
+      "heatwave": "Verkoold donker met gloeiend oranje wegen en zonnige accenten",
+      "ruby": "Granaatrood palet met rijk rood boven donkerpaarse bouwblokken",
+      "sage": "Gedempte plantentinten met koelgroene wegen en zacht contrast",
+      "rustic": "Aardse, papierachtige basis met hout- en kleikleurige wegen",
+      "midnight_blue": "Diepblauwe achtergrond met goud- en koperkleurige wegen, luxe atlasstijl",
+      "neon": "Neonfel palet met hoog contrast en magenta en cyaan accenten",
+      "terracotta": "Mediterrane warmte: gebrand oranje en kleitinten op crème",
+      "blueprint": "Klassieke bouwtekening, technische tekenstijl",
+      "contrast_zones": "Sterk contrast toont stedelijke dichtheid: donkerder in het midden, lichter aan de randen",
+      "copper_patina": "Geoxideerd koper: blauwgroene patina met koperen accenten",
+      "emerald": "Weelderig donkergroen met muntgroene accenten",
+      "forest": "Diepe groentinten en saliegroen, organische plantenstijl",
+      "japanese_ink": "Geïnspireerd op traditionele inktwas: minimalistisch met subtiel rood accent",
+      "noir": "Zuiver zwarte achtergrond met witte en grijze wegen, moderne galeriestijl",
+      "ocean": "Diverse blauw- en turquoisetinten, perfect voor kuststeden",
+      "pastel_dream": "Zachte pasteltinten met stoffig blauw en mauve, dromerige kunststijl",
+      "coral": "Zachte ivoren basis met warmkoralen wegen en gedempt roze en blauw",
+      "copper": "Geoxideerd crème en koper met warme metaalkleurige wegaccenten",
+      "old_navy": "Diepblauwe kaartvlakken met gouden letters en wegen",
+      "gradient_roads": "Zachte kleurverloop van donker midden naar lichte randen met subtiele details",
+      "monochrome_blue": "Eén blauwe kleurfamilie met wisselende verzadiging, strak en samenhangend",
+      "sunset": "Warm oranje en roze op zacht perzik, dromerige gouden uurstijl",
+      "autumn": "Gebrand oranje, dieprood en goudgeel: seizoenswarmte",
+      "warm_beige": "Aardse warme neutrale tinten met sepia, vintage kaartstijl"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "Exporteren",
+      "download": "Downloaden",
+      "downloadPoster": "Downloaden",
+      "closeOptions": "Exportopties sluiten",
+      "supportProject": "Steun het project"
+    },
+    "flyout": {
+      "download": "Downloaden"
+    },
+    "support": {
+      "close": "Sluiten",
+      "headline": "✨ Je poster is klaar!",
+      "text": "Volg Terraink op Instagram voor frisse kaartideeën, ontwerptips en de nieuwste functies — en laat de posters zien die je maakt.",
+      "followUs": "Volg ons"
+    },
+    "errors": {
+      "mapNotReady": "De kaart is nog niet klaar.",
+      "exportFailed": "Exporteren mislukt.",
+      "tilesTimeout": "Time-out bij het laden van kaarttegels.",
+      "canvasUnavailable": "Canvas niet beschikbaar.",
+      "exportContext": "Geen 2D-context voor exportcanvas",
+      "svgLayerContext": "Kan geen 2D-context maken voor SVG-laagexport.",
+      "svgOverlayContext": "Kan geen 2D-context maken voor SVG-overlayexport.",
+      "pngBlob": "PNG-blob maken van canvas mislukt."
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "Instellingen",
+      "language": "Taal",
+      "note": "Dit zijn de waarden die bij het laden van de app worden gebruikt. Tik op <strong>Instellingen opslaan</strong> om je huidige posteropzet (thema, lay-out, lettertype) als standaard vast te leggen. Lokaal opgeslagen op dit apparaat.",
+      "defaultFont": "Standaard (Space Grotesk)",
+      "savedThemeLabel": "{{name}} (opgeslagen)",
+      "summaryTheme": "Thema",
+      "summaryLayout": "Lay-out",
+      "summaryFont": "Lettertype",
+      "defaultTheme": "Standaardthema",
+      "defaultLayout": "Standaardlay-out",
+      "defaultFontLabel": "Standaardlettertype",
+      "defaultLocation": "Standaardlocatie",
+      "defaultDistance": "Standaardafstand",
+      "defaultUnit": "Eenheid",
+      "appTheme": "App-thema",
+      "comingSoon": "Binnenkort",
+      "centimeters": "Centimeters",
+      "dark": "Donker",
+      "saveButton": "Opslaan",
+      "resetButton": "Reset",
+      "cancel": "Annuleren",
+      "saveModalTitle": "Instellingen opslaan",
+      "saveModalIntro": "Huidige instellingen als standaard opslaan?",
+      "saveModalOutro": "Gebruikt bij de volgende start van de app.",
+      "resetModalTitle": "Instellingen resetten",
+      "resetModalMessage": "Je opgeslagen standaarden wissen? De app gebruikt bij het volgende bezoek de ingebouwde standaarden."
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "Sluiten"
+    },
+    "footer": {
+      "imprint": "Colofon",
+      "privacy": "Privacy",
+      "cookieSettings": "Cookies",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | Gemaakt met <heart>❤︎</heart> in Hannover, Duitsland",
+      "mapData": "Kaartgegevens © <link>OpenStreetMap contributors</link>",
+      "moreAttribution": "Meer vermeldingen"
+    },
+    "attribution": {
+      "title": "Kaartvermelding",
+      "mapDataLine": "Kaartgegevens © <link>OpenStreetMap contributors</link>.",
+      "tiles": "Tegels ©",
+      "poweredBy": "Mogelijk gemaakt door",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "Locatie wissen",
+      "useCurrent": "Huidige locatie",
+      "toggleCoords": "Coördinaten tonen/verbergen",
+      "toggleCoordsTitle": "Breedte/lengte tonen/verbergen",
+      "latitude": "Breedte",
+      "longitude": "Lengtegraad"
+    },
+    "confirm": {
+      "confirm": "Bevestigen",
+      "cancel": "Annuleren"
+    },
+    "picker": {
+      "done": "Klaar",
+      "close": "{{title}} sluiten"
+    },
+    "ad": {
+      "label": "Advertenties houden Terraink gratis"
+    },
+    "about": {
+      "dialog": "Over Terraink"
+    },
+    "info": {
+      "helpTitle": "Help ons groeien",
+      "helpCopy": "Terraink draait 100% in je browser en is open source. Help mee de toekomst van kaartkunst te bouwen door bij te dragen aan onze roadmap!",
+      "supportProject": "Steun het project",
+      "spreadWord": "Vertel het door",
+      "supportMission": "Steun de missie",
+      "githubRepo": "GitHub-repo",
+      "openRepo": "Terraink-repo op GitHub openen",
+      "starRepo": "Ster Terraink op GitHub",
+      "star": "Ster",
+      "donate": "Doneren",
+      "donateLabel": "Doneer om Terraink gratis te houden",
+      "follow": "Volg Terraink op {{network}}",
+      "credits": "Vermeld de bron zodat anderen de tool ontdekken"
+    },
+    "social": {
+      "projectLinks": "Projectlinks",
+      "githubRepository": "GitHub-repository"
+    },
+    "header": {
+      "logoAlt": "Terraink-logo",
+      "tagline": "Gratis kaartposters en achtergronden",
+      "about": "Over"
+    },
+    "nav": {
+      "location": "Locatie",
+      "theme": "Thema",
+      "layout": "Lay-out",
+      "style": "Stijl",
+      "layers": "Lagen",
+      "markers": "Markers",
+      "routes": "Routes",
+      "settings": "Instellingen",
+      "mobileNav": "Mobiele navigatie",
+      "sections": "Secties",
+      "hideLocation": "Locatie verbergen",
+      "showLocation": "Locatierij tonen"
+    },
+    "markerSize": {
+      "group": "Markergrootte",
+      "label": "Grootte",
+      "doneEditing": "Klaar"
+    },
+    "donate": {
+      "intro": "Steun Terraink en de open projecten waarop het draait. Links openen in een nieuw tabblad."
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "Nieuw",
+      "fixed": "Opgelost",
+      "improved": "Verbeterd",
+      "info": "Info",
+      "community": "Community",
+      "docs": "Docs",
+      "roadmap": "Roadmap",
+      "removed": "Verwijderd",
+      "security": "Beveiliging",
+      "breaking": "Ingrijpend",
+      "major": "Groot",
+      "perf": "Prestaties",
+      "core": "Kern"
+    },
+    "quickHighlights": "Highlights",
+    "whatIsNew": "Wat is nieuw",
+    "updateDetails": "Updatedetails",
+    "close": "Sluiten",
+    "version": "Versie {{version}}",
+    "releasedOn": "Uitgebracht op {{date}}",
+    "previewAlt": "Voorbeeld van {{title}}",
+    "back": "Terug",
+    "next": "Volgende",
+    "finish": "Afronden",
+    "showAll": "Alles tonen",
+    "okay": "Oké, begrepen"
+  },
+  "legal": {
+    "privacy": "Privacybeleid",
+    "imprint": "Colofon",
+    "close": "Sluiten",
+    "loading": "Laden…",
+    "error": "Dit document kon niet worden geladen — probeer het later opnieuw."
+  },
+  "meta": {
+    "title": "Terraink: gratis maker van kaartposters en wallpapers",
+    "description": "Gratis online generator voor kaartposters en wallpapers. Ontwerp eigen, drukklare kaartkunst van elke stad of locatie en exporteer als PNG, PDF of SVG. Geen account nodig."
+  }
+}
