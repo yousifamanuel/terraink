@@ -217,7 +217,8 @@
       "showParks": "Show parks",
       "showRoads": "Show roads",
       "showRail": "Show rail",
-      "showAeroway": "Show aeroway"
+      "showAeroway": "Show aeroway",
+      "showBorders": "Show borders"
     },
     "dimensions": {
       "widthCm": "Width (cm)",

@@ -218,7 +218,8 @@
       "showParks": "Parchi",
       "showRoads": "Strade",
       "showRail": "Ferrovie",
-      "showAeroway": "Aeroporti"
+      "showAeroway": "Aeroporti",
+      "showBorders": "Confini"
     },
     "dimensions": {
       "widthCm": "Larghezza (cm)",

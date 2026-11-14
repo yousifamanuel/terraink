@@ -122,7 +122,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show countries</span>
+        <span>{t("map.layers.showBorders")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"

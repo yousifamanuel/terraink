@@ -217,7 +217,8 @@
       "showParks": "Parklar",
       "showRoads": "Yollar",
       "showRail": "Demiryolu",
-      "showAeroway": "Havayolu"
+      "showAeroway": "Havayolu",
+      "showBorders": "Sınırlar"
     },
     "dimensions": {
       "widthCm": "Genişlik (cm)",

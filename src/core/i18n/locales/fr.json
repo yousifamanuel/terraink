@@ -218,7 +218,8 @@
       "showParks": "Parcs",
       "showRoads": "Routes",
       "showRail": "Voies ferrées",
-      "showAeroway": "Aéroports"
+      "showAeroway": "Aéroports",
+      "showBorders": "Frontières"
     },
     "dimensions": {
       "widthCm": "Largeur (cm)",

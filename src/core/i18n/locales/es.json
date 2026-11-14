@@ -218,7 +218,8 @@
       "showParks": "Parques",
       "showRoads": "Carreteras",
       "showRail": "Tren",
-      "showAeroway": "Aeropuertos"
+      "showAeroway": "Aeropuertos",
+      "showBorders": "Fronteras"
     },
     "dimensions": {
       "widthCm": "Ancho (cm)",

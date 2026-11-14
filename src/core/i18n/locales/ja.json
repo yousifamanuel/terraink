@@ -216,7 +216,8 @@
       "showParks": "公園を表示",
       "showRoads": "道路を表示",
       "showRail": "鉄道を表示",
-      "showAeroway": "空港を表示"
+      "showAeroway": "空港を表示",
+      "showBorders": "国境を表示"
     },
     "dimensions": {
       "widthCm": "幅（cm）",

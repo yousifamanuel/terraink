@@ -217,7 +217,8 @@
       "showParks": "Parken tonen",
       "showRoads": "Wegen tonen",
       "showRail": "Spoor tonen",
-      "showAeroway": "Luchthaven"
+      "showAeroway": "Luchthaven",
+      "showBorders": "Grenzen tonen"
     },
     "dimensions": {
       "widthCm": "Breedte (cm)",

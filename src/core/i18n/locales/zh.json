@@ -216,7 +216,8 @@
       "showParks": "显示公园",
       "showRoads": "显示道路",
       "showRail": "显示铁路",
-      "showAeroway": "显示航空设施"
+      "showAeroway": "显示航空设施",
+      "showBorders": "显示国界"
     },
     "dimensions": {
       "widthCm": "宽度 (cm)",

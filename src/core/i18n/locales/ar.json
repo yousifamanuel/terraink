@@ -221,7 +221,8 @@
       "showParks": "عرض الحدائق",
       "showRoads": "عرض الطرق",
       "showRail": "عرض السكك الحديدية",
-      "showAeroway": "عرض مسارات الطيران"
+      "showAeroway": "عرض مسارات الطيران",
+      "showBorders": "عرض الحدود"
     },
     "dimensions": {
       "widthCm": "العرض (cm)",
