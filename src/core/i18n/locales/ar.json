@@ -1,0 +1,628 @@
+{
+  "markers": {
+    "defaultLabel": "علامة",
+    "common": {
+      "done": "تم"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "دبوس",
+      "heart": "قلب",
+      "home": "منزل",
+      "star": "نجمة",
+      "circle": "دائرة",
+      "square": "مربع",
+      "x": "X",
+      "target": "هدف",
+      "sun": "شمس",
+      "moon": "قمر",
+      "building": "مبنى",
+      "send": "إرسال",
+      "snowflake": "ندفة ثلج",
+      "shop": "متجر",
+      "camera": "كاميرا",
+      "flower": "زهرة",
+      "tree": "شجرة",
+      "flag": "علم"
+    },
+    "deleteAll": {
+      "title": "حذف كل العلامات؟",
+      "text_zero": "سيؤدي هذا إلى إزالة {{count}} علامة من الخريطة.",
+      "text_one": "سيؤدي هذا إلى إزالة {{count}} علامة من الخريطة.",
+      "text_two": "سيؤدي هذا إلى إزالة {{count}} علامتين من الخريطة.",
+      "text_few": "سيؤدي هذا إلى إزالة {{count}} علامات من الخريطة.",
+      "text_many": "سيؤدي هذا إلى إزالة {{count}} علامة من الخريطة.",
+      "text_other": "سيؤدي هذا إلى إزالة {{count}} علامة من الخريطة.",
+      "keep": "الإبقاء على العلامات",
+      "confirm": "حذف كل العلامات"
+    },
+    "help": {
+      "mobile": "اضغط على أيقونة لوضع علامة في موقع الخريطة الحالي. تنطبق إعدادات العلامات على جميعها، ويمكن تحريكها مباشرة على الخريطة. في وضع تحرير العلامات، اسحب لتحريكها واستخدم شريط حجم العلامة أسفل صف الموقع لتغيير الحجم.",
+      "desktop": "اضغط على أيقونة لوضع علامة في موقع الخريطة الحالي. تنطبق إعدادات العلامات على جميعها، ويمكن تحريكها مباشرة على الخريطة. في وضع تحرير العلامات، اسحب للتحريك، واستخدم مفاتيح الأسهم للتعديل الدقيق، واستخدم القرص بإصبعين أو عجلة الفأرة لتغيير الحجم، واستخدم التمرير أو أزرار +/- للتكبير والتصغير."
+    },
+    "section": {
+      "title": "العلامات",
+      "doneSettings": "إنهاء إعدادات العلامات",
+      "openSettings": "فتح إعدادات العلامات",
+      "doneEditing": "إنهاء تحرير العلامات",
+      "editMarkers": "تحرير العلامات",
+      "editMarkersButton": "تحرير العلامات",
+      "pickerHelp": "مساعدة اختيار العلامات"
+    },
+    "settings": {
+      "title": "إعدادات العلامات",
+      "note": "تنطبق إعدادات العلامات على جميعها. افتح قفل العلامات لتحرير كل علامة على حدة.",
+      "defaultSize": "الحجم الافتراضي",
+      "defaultColor": "اللون الافتراضي"
+    },
+    "editColor": {
+      "title": "تحرير لون العلامة"
+    },
+    "list": {
+      "deleteMarker": "حذف العلامة",
+      "deleteNamed": "حذف {{label}}",
+      "editNamed": "تحرير {{label}}",
+      "finishEditing": "إنهاء تحرير العلامة",
+      "editMarker": "تحرير العلامة",
+      "edit": "تحرير"
+    },
+    "editor": {
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "size": "الحجم",
+      "color": "اللون",
+      "empty": "أضف علامة واحدة على الأقل، ثم افتح القفل للتحرير.",
+      "hintMobile": "مرّر على صف العلامات لاختيار علامة، ثم اضغط عليها لتحريرها. اسحبها على الخريطة لتحريكها، واستخدم شريط حجم العلامة أسفل صف الموقع لتغيير الحجم.",
+      "hintDesktop": "اضغط على بطاقة علامة لتحريرها. اسحب العلامة المحددة على الخريطة لتحريكها، واستخدم مفاتيح الأسهم للتعديل الدقيق، ثم عدّل الحجم واللون في المحرر."
+    },
+    "actions": {
+      "resetAll": "إعادة ضبط كل العلامات",
+      "resetMarkers": "إعادة ضبط العلامات",
+      "deleteAllTitle": "حذف كل العلامات",
+      "deleteAllMarkers": "حذف كل العلامات"
+    },
+    "picker": {
+      "invalidFile": "ارفع صورة أو ملف SVG.",
+      "uploadFailed": "تعذر رفع العلامة.",
+      "iconsTitle": "أيقونات العلامات",
+      "showList": "عرض قائمة الأيقونات",
+      "showMore": "عرض المزيد من الأيقونات",
+      "showLess": "عرض أقل",
+      "moreIcons": "المزيد من الأيقونات",
+      "uploadedTitle": "العلامات المرفوعة",
+      "removeNamed": "إزالة الأيقونة المرفوعة {{label}}",
+      "removeUploaded": "إزالة الأيقونة المرفوعة",
+      "uploadTitle": "رفع علامة",
+      "uploadButton": "رفع علامة",
+      "clearUploaded": "إزالة الأيقونات المرفوعة من التخزين"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "فشل الرفع.",
+      "notGpx": "يرجى رفع ملف بصيغة .gpx.",
+      "tooLarge": "ملف GPX كبير جدًا (الحد الأقصى 10 MB).",
+      "tooFar": "هذا المسار بعيد جدًا عن مساراتك الحالية. أزلها أو استبدلها أولًا.",
+      "invalidXml": "تعذرت قراءة ملف GPX — ملف XML غير صالح.",
+      "noPoints": "لم يُعثر على نقاط مسار في ملف GPX.",
+      "readFailed": "تعذرت قراءة ملف GPX."
+    },
+    "boundsWarning": {
+      "title": "هذا المسار بعيد عن منطقتك الحالية",
+      "text": "ستؤدي إضافته إلى تصغير الملصق ليتسع لكل شيء. يمكنك أيضًا استبدال مساراتك الحالية به للحفاظ على عرض أقرب.",
+      "cancel": "إلغاء",
+      "replace": "استبدال الحالية",
+      "addAnyway": "إضافة على أي حال"
+    },
+    "section": {
+      "title": "المسارات",
+      "hideRoutes": "إخفاء المسارات",
+      "showRoutes": "عرض المسارات",
+      "hideAll": "إخفاء الكل",
+      "showAll": "عرض الكل",
+      "uploadTitle": "رفع ملف GPX",
+      "uploading": "جارٍ الرفع…",
+      "uploadGpx": "رفع GPX",
+      "empty": "ارفع ملف <code>.gpx</code> لرسم مسار على الملصق. رسم المسارات يدويًا قادم قريبًا."
+    },
+    "card": {
+      "removeRoute": "إزالة المسار",
+      "removeNamed": "إزالة {{label}}",
+      "finishEndpoint": "إنهاء النقطة",
+      "done": "تم",
+      "doneEditing": "إنهاء تحرير المسار",
+      "editStart": "تحرير البداية",
+      "editFinish": "تحرير النهاية",
+      "icon": "الأيقونة",
+      "closeIconPicker": "إغلاق منتقي الأيقونات",
+      "changeIcon": "تغيير الأيقونة",
+      "color": "اللون",
+      "closeColorPicker": "إغلاق منتقي الألوان",
+      "openColorPicker": "فتح منتقي الألوان",
+      "size": "الحجم",
+      "showEndpoints": "عرض نقطتي البداية والنهاية",
+      "start": "البداية",
+      "finish": "النهاية",
+      "editStartMarker": "تحرير علامة البداية",
+      "editFinishMarker": "تحرير علامة النهاية",
+      "width": "السماكة",
+      "opacity": "الشفافية",
+      "style": "النمط",
+      "solid": "متصل",
+      "dashed": "متقطع",
+      "removeRouteButton": "إزالة المسار"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "ثبّت Terraink للوصول الأسرع وتجربة أفضل.",
+      "addToHomeScreen": "إضافة إلى الشاشة الرئيسية",
+      "maybeLater": "ربما لاحقًا",
+      "diagnostics": "التشخيص",
+      "iosHint": "اضغط <share/> ثم <strong>إضافة إلى الشاشة الرئيسية</strong> للوصول الأسرع وتجربة أفضل.",
+      "androidHint": "للوصول الأسرع وتجربة أفضل، ثبّت Terraink من قائمة المتصفح: <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "تشخيص التثبيت",
+      "title": "تشخيص التثبيت",
+      "close": "إغلاق"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "رمز نسبة {{name}}"
+    },
+    "groups": {
+      "print": "طباعة",
+      "social_media": "التواصل الاجتماعي",
+      "wallpaper": "خلفيات",
+      "web": "ويب"
+    },
+    "descriptions": {
+      "print_a3_portrait": "قياس ISO A3 عمودي.",
+      "print_a4_portrait": "نسبة الطباعة الافتراضية بحسب A4 عمودي.",
+      "print_a5_portrait": "قياس ISO A5 عمودي.",
+      "print_letter_us_portrait": "قياس US Letter عمودي.",
+      "social_instagram_square": "منشور 1:1 لموجز Instagram.",
+      "social_instagram_portrait": "منشور عمودي 4:5 لـ Instagram.",
+      "social_instagram_story_tiktok": "قياس عمودي 9:16 للفيديوهات القصيرة.",
+      "social_linkedin_post": "قياس صورة منشور LinkedIn القياسي.",
+      "social_linkedin_cover": "قياس غلاف ملف LinkedIn الشخصي أو صفحة الشركة.",
+      "social_pinterest_pin": "قياس عمودي 2:3 لدبابيس Pinterest.",
+      "social_reddit_post_16_9": "قياس عريض لمنشورات Reddit.",
+      "social_reddit_banner": "قياس فائق العرض لترويسة المجتمع.",
+      "social_twitter_header": "قياس ترويسة الملف الشخصي في Twitter/X.",
+      "social_youtube_thumbnail": "قياس 16:9 للصور المصغرة لفيديوهات YouTube.",
+      "wallpaper_desktop_full_hd": "خلفية سطح مكتب 16:9 للشاشات القياسية.",
+      "wallpaper_desktop_4k": "خلفية 4K UHD بنسبة 16:9.",
+      "wallpaper_ultrawide": "خلفية فائقة العرض لشاشات 21:9.",
+      "wallpaper_iphone_15_pro": "قياس خلفية عمودي لـ iPhone 15 Pro.",
+      "wallpaper_iphone_15_pro_max": "قياس خلفية عمودي لـ iPhone 15 Pro Max.",
+      "wallpaper_samsung_galaxy_s24_ultra": "قياس خلفية عمودي لـ Samsung Galaxy S24 Ultra.",
+      "wallpaper_ipad_pro_11": "قياس خلفية لشاشة iPad Pro مقاس 11 بوصة.",
+      "wallpaper_ipad_pro_12_9": "قياس خلفية لشاشة iPad Pro مقاس 12.9 بوصة.",
+      "wallpaper_xteink_x4": "القياس الأصلي لـ Xteink X4 (480x800). يُصدَّر بهذه الدقة تمامًا عند استخدام 300 DPI.",
+      "web_hero_banner": "نسبة قسم رئيسي عريض لصفحات الهبوط الحديثة.",
+      "web_blog_featured": "قياس بطاقة Open Graph/غلاف المدونة المعتاد.",
+      "web_dashboard_card": "إطار متوازن 4:3 مناسب لمرئيات لوحات التحكم.",
+      "print_poster_20x30": "قياس ملصق عمودي كلاسيكي (نسبة 2:3)."
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "اختيار التخطيط"
+    },
+    "layers": {
+      "title": "الطبقات",
+      "mapDetails": "تفاصيل الخريطة",
+      "showLandcover": "عرض الغطاء الأرضي",
+      "showBuildings": "عرض المباني",
+      "showWater": "عرض المياه",
+      "showParks": "عرض الحدائق",
+      "showRoads": "عرض الطرق",
+      "showRail": "عرض السكك الحديدية",
+      "showAeroway": "عرض مسارات الطيران"
+    },
+    "dimensions": {
+      "widthCm": "العرض (cm)",
+      "heightCm": "الارتفاع (cm)",
+      "distanceM": "المسافة (m)",
+      "distanceAria": "المسافة بالأمتار"
+    },
+    "settings": {
+      "customLayoutDescription": "تخطيطك المخصص.",
+      "noDescription": "لا يوجد وصف.",
+      "colorFallback": "اللون",
+      "theme": "الألوان",
+      "themeFallbackName": "الألوان",
+      "colorEditor": "محرر الألوان",
+      "editing": "تحرير: {{label}}",
+      "done": "تم",
+      "deleteThemeTitle": "حذف الألوان المحفوظة",
+      "deleteThemeMessage": "حذف \"{{name}}\"؟ لا يمكن التراجع عن ذلك.",
+      "thisTheme": "هذه الألوان",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "layout": "التخطيط",
+      "layoutLabel": "التخطيط:",
+      "doneEditingLayout": "إنهاء تحرير التخطيط",
+      "customizeLayoutSize": "تخصيص حجم التخطيط"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "تعذر تحديد هذا الموقع. جرّب اسمًا آخر.",
+      "title": "اختيار الموقع",
+      "placeholder": "اكتب اسم مدينة أو مكان",
+      "locating": "جارٍ تحديد الموقع...",
+      "getMyLocation": "تحديد موقعي",
+      "ok": "موافق"
+    },
+    "dropdown": {
+      "searching": "جارٍ البحث...",
+      "removeAria": "إزالة {{label}} من السجل",
+      "removeTitle": "إزالة من السجل",
+      "showLess": "عرض أقل",
+      "showMore": "عرض المزيد",
+      "clearHistory": "مسح السجل"
+    },
+    "section": {
+      "title": "الموقع",
+      "label": "الموقع",
+      "searchPlaceholder": "ابدأ بكتابة اسم مدينة أو مكان",
+      "clearAria": "مسح الموقع",
+      "useCurrentAria": "استخدام الموقع الحالي",
+      "latitude": "خط العرض (اختياري)",
+      "longitude": "خط الطول (اختياري)"
+    },
+    "geo": {
+      "deniedNative": "الوصول إلى الموقع محظور. فعّل الموقع لـ Terraink من إعدادات جهازك، ثم حاول مرة أخرى.",
+      "deniedBrowser": "الوصول إلى الموقع محظور. فعّل إذن الموقع من إعدادات المتصفح، ثم حاول مرة أخرى.",
+      "unsupported": "الموقع غير مدعوم في هذا المتصفح.",
+      "insecure": "يتطلب الموقع اتصالًا آمنًا (HTTPS).",
+      "generic": "تعذر الحصول على موقعك الآن. تحقق من خدمات الموقع وحاول مرة أخرى.",
+      "manualFallback": "يمكنك كتابة الموقع يدويًا."
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "الموقع",
+      "theme": "الألوان",
+      "layout": "التخطيط",
+      "layers": "الطبقات",
+      "markers": "العلامات",
+      "routes": "المسارات",
+      "style": "النمط"
+    },
+    "info": {
+      "ariaLabel": "الإعدادات الحالية",
+      "title": "الإعدادات الحالية",
+      "location": "الموقع",
+      "theme": "الألوان",
+      "layout": "التخطيط",
+      "posterSize": "حجم الملصق",
+      "markers": "العلامات",
+      "coordinates": "الإحداثيات",
+      "markerCount_zero": "{{count}} علامة",
+      "markerCount_one": "{{count}} علامة",
+      "markerCount_two": "{{count}} علامتان",
+      "markerCount_few": "{{count}} علامات",
+      "markerCount_many": "{{count}} علامة",
+      "markerCount_other": "{{count}} علامة"
+    },
+    "controls": {
+      "mapControls": "عناصر تحكم الخريطة",
+      "recenter": "إعادة التمركز",
+      "recenterHint": "إعادة تمركز الخريطة على الموقع الحالي",
+      "lockTitle": "قفل تحرير الخريطة",
+      "lockMap": "قفل الخريطة",
+      "editMap": "تحرير الخريطة",
+      "lockedHint": "الخريطة مقفلة لمنع تحريكها دون قصد.",
+      "unlockHint": "اضغط لفتح قفل تحرير الخريطة.",
+      "disableRotation": "تعطيل التدوير",
+      "enableRotation": "تفعيل التدوير",
+      "disableRotationLabel": "تعطيل التدوير",
+      "enableRotationLabel": "تفعيل التدوير",
+      "zoomOut": "تصغير",
+      "zoomIn": "تكبير",
+      "zoomLevel": "مستوى التكبير",
+      "rotateLeft": "تدوير 15 درجة لليسار",
+      "rotateRight": "تدوير 15 درجة لليمين",
+      "rotationAngle": "زاوية التدوير"
+    },
+    "typography": {
+      "style": "النمط",
+      "posterText": "نص الملصق",
+      "overlayLayer": "طبقة التراكب",
+      "displayCity": "عرض المدينة",
+      "displayCountry": "عرض الدولة",
+      "font": "الخط",
+      "defaultFont": "الافتراضي (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "لا يوجد وصف.",
+      "themeLabel": "الألوان:",
+      "customizeAria": "تخصيص ألوان {{name}}",
+      "savedThemes": "الألوان المحفوظة",
+      "savedEmpty": "خصّص الألوان واحفظها لتظهر هنا.",
+      "savedThemesAria": "الألوان المحفوظة",
+      "deleteSavedAria": "حذف الألوان المحفوظة {{name}}",
+      "builtInThemes": "الألوان المضمنة",
+      "themeOptionsAria": "خيارات الألوان",
+      "savedThemeDescription": "ألوان محفوظة"
+    },
+    "card": {
+      "deleteAria": "حذف {{name}}"
+    },
+    "editor": {
+      "title": "محرر الألوان",
+      "editing": "تحرير: {{label}}",
+      "save": "حفظ",
+      "resetAll": "إعادة ضبط الكل",
+      "done": "تم"
+    },
+    "saveModal": {
+      "title": "حفظ الألوان",
+      "cancel": "إلغاء",
+      "name": "الاسم",
+      "description": "الوصف",
+      "hint": "اختر اسمًا فريدًا لتجد ألوانك لاحقًا.",
+      "duplicate": "توجد ألوان محفوظة بهذا الاسم بالفعل.",
+      "confirm": "تأكيد"
+    },
+    "choiceModal": {
+      "title": "حفظ التغييرات",
+      "cancel": "إلغاء",
+      "message": "هل تريد تحديث <strong>“{{themeName}}”</strong> بتعديلاتك، أم الإبقاء على الأصل وحفظ هذه الألوان كمجموعة جديدة؟",
+      "saveAsCopy": "حفظ كنسخة",
+      "save": "حفظ"
+    },
+    "colorPicker": {
+      "less": "أقل",
+      "more": "أكثر",
+      "resetColor": "إعادة ضبط اللون",
+      "hex": "Hex"
+    },
+    "colors": {
+      "ui": {
+        "bg": "التراكب",
+        "text": "النص"
+      },
+      "map": {
+        "land": "اليابسة",
+        "landcover": "الغطاء الأرضي",
+        "water": "المياه",
+        "waterway": "المجاري المائية",
+        "parks": "الحدائق",
+        "buildings": "المباني",
+        "aeroway": "مسارات الطيران",
+        "rail": "السكك الحديدية",
+        "roads": {
+          "major": "الطرق الرئيسية",
+          "minor_high": "الطرق الفرعية العليا",
+          "minor_mid": "الطرق الفرعية المتوسطة",
+          "minor_low": "الطرق الفرعية الدنيا",
+          "path": "الممرات",
+          "outline": "حدود الطرق"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "رخام أبيض — حجر شاحب بعروق فحمية ناعمة",
+      "blush": "وردي باهت على أبيض دافئ",
+      "sandstone": "بيج دافئ بخطوط بنية هادئة",
+      "heatwave": "قاعدة داكنة محروقة وطرق برتقالية متوهجة ولمسات مشمسة",
+      "ruby": "ألوان مستوحاة من العقيق الأحمر: أحمر غني فوق كتل مدينة بلون البرقوق الداكن",
+      "sage": "درجات نباتية هادئة وطرق خضراء باردة وتباين لطيف",
+      "rustic": "خلفية ترابية تشبه الورق مع طرق بدرجات الخشب والطين",
+      "midnight_blue": "أزرق كحلي داكن وطرق ذهبية نحاسية — طابع أطلس فاخر",
+      "neon": "ألوان نيون شديدة التباين مع لمسات ماجنتا وسماوي",
+      "terracotta": "دفء متوسطي — برتقالي محروق وطين على كريمي",
+      "blueprint": "مخطط معماري كلاسيكي — طابع الرسم الهندسي",
+      "contrast_zones": "تباين قوي يُظهر كثافة المدينة — أغمق في الوسط وأفتح عند الأطراف",
+      "copper_patina": "طابع النحاس المتأكسد — زنجار أخضر مزرق مع لمسات نحاسية",
+      "emerald": "أخضر داكن غني مع لمسات نعناعية",
+      "forest": "أخضر عميق ودرجات المريمية — طابع نباتي عضوي",
+      "japanese_ink": "مستوحى من حبر اليابان التقليدي — بسيط مع لمسة حمراء خفيفة",
+      "noir": "خلفية سوداء نقية وطرق بيضاء ورمادية — طابع معرض فني عصري",
+      "ocean": "درجات متنوعة من الأزرق والفيروزي — مثالي لمدن السواحل",
+      "pastel_dream": "ألوان باستيل هادئة مع أزرق باهت وأرجواني فاتح — طابع فني حالم",
+      "coral": "قاعدة عاجية ناعمة وطرق مرجانية دافئة مع عناصر وردية زرقاء هادئة",
+      "copper": "كريمي ونحاسي متأكسد مع طرق بلمسات معدنية دافئة",
+      "old_navy": "حقول خريطة كحلية داكنة مع نصوص وطرق بلمسات ذهبية",
+      "gradient_roads": "تدرج ناعم من وسط داكن إلى أطراف فاتحة مع عناصر خفيفة",
+      "monochrome_blue": "عائلة لون أزرق واحدة بدرجات تشبع متفاوتة — نظيف ومتناسق",
+      "sunset": "برتقالي ووردي دافئ على خوخي ناعم — طابع الساعة الذهبية الحالم",
+      "autumn": "برتقالي محروق وأحمر داكن وأصفر ذهبي — دفء الخريف",
+      "warm_beige": "محايدات ترابية دافئة بدرجات السيبيا — طابع الخرائط القديمة"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "تصدير الملصق",
+      "download": "تنزيل",
+      "downloadPoster": "تنزيل الملصق",
+      "closeOptions": "إغلاق خيارات التصدير",
+      "supportProject": "ادعم المشروع"
+    },
+    "flyout": {
+      "download": "تنزيل"
+    },
+    "support": {
+      "close": "إغلاق",
+      "headline": "✨ ملصقك جاهز!",
+      "text": "تابع Terraink على Instagram لأفكار خرائط جديدة ونصائح تصميم وآخر الميزات، وشاركنا الملصقات التي تصنعها.",
+      "followUs": "تابعنا"
+    },
+    "errors": {
+      "mapNotReady": "الخريطة غير جاهزة.",
+      "exportFailed": "فشل التصدير.",
+      "tilesTimeout": "انتهت المهلة أثناء انتظار تحميل مربعات الخريطة.",
+      "canvasUnavailable": "عرض Canvas غير متاح.",
+      "exportContext": "تعذر إنشاء سياق 2D للوحة التصدير",
+      "svgLayerContext": "تعذر إنشاء سياق 2D لتصدير طبقة SVG.",
+      "svgOverlayContext": "تعذر إنشاء سياق 2D لتصدير تراكب SVG.",
+      "pngBlob": "تعذر إنشاء ملف PNG من اللوحة."
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "الإعدادات",
+      "language": "اللغة",
+      "note": "هذه هي القيم المستخدمة عند تشغيل التطبيق. اضغط <strong>حفظ الإعدادات</strong> لاعتماد إعداد ملصقك الحالي (الألوان والتخطيط والخط) كقيم افتراضية. تُحفظ محليًا على هذا الجهاز.",
+      "defaultFont": "الافتراضي (Space Grotesk)",
+      "savedThemeLabel": "{{name}} (محفوظة)",
+      "summaryTheme": "الألوان",
+      "summaryLayout": "التخطيط",
+      "summaryFont": "الخط",
+      "defaultTheme": "الألوان الافتراضية",
+      "defaultLayout": "التخطيط الافتراضي",
+      "defaultFontLabel": "الخط الافتراضي",
+      "defaultLocation": "الموقع الافتراضي",
+      "defaultDistance": "المسافة الافتراضية",
+      "defaultUnit": "الوحدة الافتراضية",
+      "appTheme": "مظهر التطبيق",
+      "comingSoon": "قريبًا",
+      "centimeters": "سنتيمتر",
+      "dark": "داكن",
+      "saveButton": "حفظ الإعدادات",
+      "resetButton": "إعادة ضبط",
+      "cancel": "إلغاء",
+      "saveModalTitle": "حفظ الإعدادات",
+      "saveModalIntro": "هل تريد حفظ إعداداتك الحالية كقيم افتراضية؟",
+      "saveModalOutro": "ستُستخدم هذه القيم في المرة القادمة التي تفتح فيها التطبيق.",
+      "resetModalTitle": "إعادة ضبط الإعدادات",
+      "resetModalMessage": "مسح قيمك الافتراضية المحفوظة؟ سيستخدم التطبيق القيم المضمنة في الزيارة القادمة."
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "إغلاق"
+    },
+    "footer": {
+      "imprint": "بيانات الناشر",
+      "privacy": "خصوصية البيانات",
+      "cookieSettings": "إعدادات الكوكيز",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | صُنع في هانوفر، ألمانيا <heart>❤︎</heart>‏",
+      "mapData": "بيانات الخريطة © <link>OpenStreetMap contributors</link>",
+      "moreAttribution": "المزيد من نسب الخريطة"
+    },
+    "attribution": {
+      "title": "نسب الخريطة",
+      "mapDataLine": "بيانات الخريطة © <link>OpenStreetMap contributors</link>.",
+      "tiles": "المربعات ©",
+      "poweredBy": "مدعوم من",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "مسح الموقع",
+      "useCurrent": "استخدام الموقع الحالي",
+      "toggleCoords": "تبديل حقلي الإحداثيات",
+      "toggleCoordsTitle": "إظهار/إخفاء خطي العرض والطول",
+      "latitude": "خط العرض",
+      "longitude": "خط الطول"
+    },
+    "confirm": {
+      "confirm": "تأكيد",
+      "cancel": "إلغاء"
+    },
+    "picker": {
+      "done": "تم",
+      "close": "إغلاق {{title}}"
+    },
+    "ad": {
+      "label": "الإعلانات تُبقي Terraink مجانيًا"
+    },
+    "about": {
+      "dialog": "حول Terraink"
+    },
+    "info": {
+      "helpTitle": "ساعدنا على النمو",
+      "helpCopy": "Terraink يعمل بالكامل في متصفحك ومفتوح المصدر. ساعدنا في بناء مستقبل فن الخرائط بالمساهمة في خارطة طريقنا!",
+      "supportProject": "ادعم المشروع",
+      "spreadWord": "انشر الكلمة",
+      "supportMission": "ادعم رسالتنا",
+      "githubRepo": "مستودع GitHub",
+      "openRepo": "فتح مستودع Terraink على GitHub",
+      "starRepo": "ضع نجمة لـ Terraink على GitHub",
+      "star": "نجمة",
+      "donate": "تبرّع",
+      "donateLabel": "ادعم Terraink وتبرّع لإبقائه مجانيًا",
+      "follow": "تابع Terraink على {{network}}",
+      "credits": "اذكر المصدر ليكتشف الآخرون الأداة"
+    },
+    "social": {
+      "projectLinks": "روابط المشروع",
+      "githubRepository": "مستودع GitHub"
+    },
+    "header": {
+      "logoAlt": "شعار Terraink",
+      "tagline": "صانع ملصقات وخلفيات الخرائط المجاني",
+      "about": "حول"
+    },
+    "nav": {
+      "location": "الموقع",
+      "theme": "الألوان",
+      "layout": "التخطيط",
+      "style": "النمط",
+      "layers": "الطبقات",
+      "markers": "العلامات",
+      "routes": "المسارات",
+      "settings": "الإعدادات",
+      "mobileNav": "التنقل على الجوال",
+      "sections": "أقسام الإعدادات",
+      "hideLocation": "إخفاء صف الموقع",
+      "showLocation": "إظهار صف الموقع"
+    },
+    "markerSize": {
+      "group": "حجم العلامة المحددة",
+      "label": "حجم العلامة",
+      "doneEditing": "إنهاء التحرير"
+    },
+    "donate": {
+      "intro": "ادعم Terraink والمشاريع المفتوحة التي يعتمد عليها. تُفتح الروابط في علامة تبويب جديدة."
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "جديد",
+      "fixed": "تم الإصلاح",
+      "improved": "تحسين",
+      "info": "معلومة",
+      "community": "المجتمع",
+      "docs": "التوثيق",
+      "roadmap": "خارطة الطريق",
+      "removed": "تمت الإزالة",
+      "security": "الأمان",
+      "breaking": "تغيير جذري",
+      "major": "رئيسي",
+      "perf": "الأداء",
+      "core": "الأساس"
+    },
+    "quickHighlights": "أبرز النقاط",
+    "whatIsNew": "ما الجديد",
+    "updateDetails": "تفاصيل التحديث",
+    "close": "إغلاق الإعلانات",
+    "version": "الإصدار {{version}}",
+    "releasedOn": "صدر في {{date}}",
+    "previewAlt": "معاينة {{title}}",
+    "back": "رجوع",
+    "next": "التالي",
+    "finish": "إنهاء",
+    "showAll": "عرض كل التفاصيل",
+    "okay": "حسنًا، فهمت"
+  },
+  "legal": {
+    "privacy": "سياسة الخصوصية",
+    "imprint": "بيانات الناشر",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل…",
+    "error": "تعذر تحميل هذا المستند — يرجى المحاولة لاحقًا."
+  },
+  "meta": {
+    "title": "Terraink: أنشئ ملصقات خرائط وخلفيات مجانًا",
+    "description": "منشئ مجاني عبر الإنترنت لملصقات الخرائط والخلفيات. صمّم فن خرائط مخصصًا وجاهزًا للطباعة لأي مدينة أو موقع، ثم صدّره بصيغة PNG أو PDF أو SVG. لا حاجة إلى التسجيل."
+  }
+}
