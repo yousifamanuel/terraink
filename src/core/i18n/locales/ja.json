@@ -344,7 +344,8 @@
         "center": "中央",
         "right": "右"
       },
-      "border": "枠"
+      "border": "枠",
+      "borderWidth": "枠の幅"
     }
   },
   "theme": {

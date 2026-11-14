@@ -348,7 +348,8 @@
         "center": "Centro",
         "right": "Direita"
       },
-      "border": "Borda"
+      "border": "Borda",
+      "borderWidth": "Largura da borda"
     }
   },
   "theme": {

@@ -10,27 +10,30 @@ export function applyFades(
 ): void {
   const { fade } = template;
 
+  const offset = height * (fade.offsetY ?? 0);
+
   if (fade.top) {
     const topHeight = height * fade.top;
-    const topGradient = ctx.createLinearGradient(0, 0, 0, topHeight);
+    const topGradient = ctx.createLinearGradient(0, offset, 0, offset + topHeight);
     topGradient.addColorStop(0, withAlpha(color, 1));
     topGradient.addColorStop(1, withAlpha(color, 0));
     ctx.fillStyle = topGradient;
-    ctx.fillRect(0, 0, width, topHeight);
+    ctx.fillRect(0, offset, width, topHeight);
   }
 
   if (fade.bottom) {
     const bottomHeight = height * fade.bottom;
+    const bottomEdge = height - offset;
     const bottomGradient = ctx.createLinearGradient(
       0,
-      height,
+      bottomEdge,
       0,
-      height - bottomHeight,
+      bottomEdge - bottomHeight,
     );
     bottomGradient.addColorStop(0, withAlpha(color, 1));
     bottomGradient.addColorStop(1, withAlpha(color, 0));
     ctx.fillStyle = bottomGradient;
-    ctx.fillRect(0, height - bottomHeight, width, bottomHeight);
+    ctx.fillRect(0, bottomEdge - bottomHeight, width, bottomHeight);
   }
 
   if (fade.left) {

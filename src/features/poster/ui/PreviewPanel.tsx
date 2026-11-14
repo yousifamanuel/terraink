@@ -46,6 +46,7 @@ import {
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
 import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
+import { getPosterLayoutOptions } from "@/features/poster/application/posterLayoutOptions";
 
 const COUNTRY_VIEW_ZOOM_LEVEL = 10;
 const CONTINENT_VIEW_ZOOM_LEVEL = 6;
@@ -172,14 +173,7 @@ export default function PreviewPanel() {
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
   const aspect = widthCm / heightCm;
-  const posterLayout = buildPosterLayout(
-    {
-      textPosition: form.textPosition,
-      textAlign: form.textAlign,
-      border: form.showBorder,
-    },
-    aspect,
-  );
+  const posterLayout = buildPosterLayout(getPosterLayoutOptions(form), aspect);
   const formLat = Number(form.latitude) || 0;
   const formLon = Number(form.longitude) || 0;
   const layoutOption =

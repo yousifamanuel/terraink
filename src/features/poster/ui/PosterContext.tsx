@@ -79,6 +79,7 @@ export const DEFAULT_FORM: PosterForm = {
   textPosition: DEFAULT_POSTER_LAYOUT.textPosition,
   textAlign: DEFAULT_POSTER_LAYOUT.textAlign,
   showBorder: DEFAULT_POSTER_LAYOUT.border,
+  borderWidth: String(DEFAULT_POSTER_LAYOUT.borderWidth),
   showPosterText: true,
   coordinateFormat: "nsew",
   showCoordinates: true,

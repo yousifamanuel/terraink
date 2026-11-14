@@ -348,7 +348,8 @@
         "center": "Centre",
         "right": "Droite"
       },
-      "border": "Bordure"
+      "border": "Bordure",
+      "borderWidth": "Largeur de la bordure"
     }
   },
   "theme": {

@@ -354,7 +354,8 @@
         "center": "وسط",
         "right": "يمين"
       },
-      "border": "إطار"
+      "border": "إطار",
+      "borderWidth": "عرض الإطار"
     }
   },
   "theme": {

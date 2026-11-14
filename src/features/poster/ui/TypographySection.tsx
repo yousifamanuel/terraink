@@ -10,9 +10,12 @@ import {
   PLACEHOLDER_EXAMPLE_COUNTRY,
 } from "@/features/location/ui/constants";
 import {
+  BORDER_WIDTH_MAX,
+  BORDER_WIDTH_MIN,
   POSTER_TEXT_ALIGNS,
   POSTER_TEXT_POSITIONS,
 } from "@/features/poster/domain/posterStyleTemplates";
+import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
 import { usePosterContext } from "./PosterContext";
 
@@ -86,6 +89,19 @@ export default function TypographySection({
             <span className="theme-switch-track" aria-hidden="true" />
           </span>
         </label>
+        {form.showBorder ? (
+          <div className="toggle-subsettings">
+            <SliderField
+              label={t("poster.typography.borderWidth")}
+              value={Number(form.borderWidth)}
+              min={BORDER_WIDTH_MIN}
+              max={BORDER_WIDTH_MAX}
+              step={0.5}
+              unit="%"
+              onChange={(value) => setField("borderWidth", String(value))}
+            />
+          </div>
+        ) : null}
 
         <label className="toggle-field">
           <span>{t("poster.typography.posterText")}</span>

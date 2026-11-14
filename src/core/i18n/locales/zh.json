@@ -344,7 +344,8 @@
         "center": "居中",
         "right": "右"
       },
-      "border": "边框"
+      "border": "边框",
+      "borderWidth": "边框宽度"
     }
   },
   "theme": {

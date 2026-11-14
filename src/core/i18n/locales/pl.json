@@ -350,7 +350,8 @@
         "center": "Środek",
         "right": "Prawo"
       },
-      "border": "Ramka"
+      "border": "Ramka",
+      "borderWidth": "Szerokość ramki"
     }
   },
   "theme": {

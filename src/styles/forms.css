@@ -3860,3 +3860,35 @@ button.segmented-control-btn.is-active {
   border-color: rgba(143, 215, 175, 0.8);
   background: rgba(28, 64, 50, 0.9);
 }
+
+/* Labelled slider with its value (e.g. border width). */
+.slider-field {
+  display: grid;
+  gap: 4px;
+}
+
+.slider-field-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.8rem;
+  color: #9bb3c5;
+}
+
+.slider-field-value {
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.75rem;
+  color: #e7f2fb;
+}
+
+.slider-field-input {
+  width: 100%;
+  margin: 0;
+}
+
+/* Settings that belong to the toggle right above them (e.g. border). */
+.toggle-subsettings {
+  display: grid;
+  gap: 10px;
+  padding: 0 0 4px;
+}

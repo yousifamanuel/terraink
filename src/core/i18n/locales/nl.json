@@ -346,7 +346,8 @@
         "center": "Midden",
         "right": "Rechts"
       },
-      "border": "Rand"
+      "border": "Rand",
+      "borderWidth": "Randbreedte"
     }
   },
   "theme": {

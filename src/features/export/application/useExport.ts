@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { getPosterLayoutOptions } from "@/features/poster/application/posterLayoutOptions";
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import i18n from "@/core/i18n";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
@@ -193,11 +194,7 @@ export function useExport() {
             coordinateText,
             showOverlay: form.showMarkers,
             includeCredits: form.includeCredits,
-            posterLayout: {
-            textPosition: form.textPosition,
-            textAlign: form.textAlign,
-            border: form.showBorder,
-          },
+            posterLayout: getPosterLayoutOptions(form),
             markers: hasVisibleMarkers ? state.markers : [],
             markerIcons: hasVisibleOverlays
               ? getAllMarkerIcons(state.customMarkerIcons)
@@ -238,11 +235,7 @@ export function useExport() {
           coordinateText,
           showOverlay: form.showMarkers,
           includeCredits: form.includeCredits,
-          posterLayout: {
-            textPosition: form.textPosition,
-            textAlign: form.textAlign,
-            border: form.showBorder,
-          },
+          posterLayout: getPosterLayoutOptions(form),
           markers: hasVisibleMarkers ? state.markers : [],
           markerIcons: hasVisibleOverlays
             ? getAllMarkerIcons(state.customMarkerIcons)

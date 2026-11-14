@@ -45,6 +45,8 @@ export interface PosterForm {
   textPosition: PosterTextPosition;
   textAlign: PosterTextAlign;
   showBorder: boolean;
+  /** Border width in % of the shorter side (string while editing the slider). */
+  borderWidth: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

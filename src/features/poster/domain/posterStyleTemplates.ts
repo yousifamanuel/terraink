@@ -3,6 +3,8 @@ export type PosterTextAlign = "left" | "center" | "right";
 export interface PosterFadeSpec {
   top?: number;
   bottom?: number;
+  /** Top/bottom fades start this far in from the edge (share of height), e.g. at a border. */
+  offsetY?: number;
   left?: number;
   right?: number;
 }
@@ -65,25 +67,26 @@ export interface PosterLayoutOptions {
   textAlign: PosterTextAlign;
   /** Plain band around the map with a thin line, like a framed print. */
   border: boolean;
+  /** Border width in % of the poster's shorter side. */
+  borderWidth: number;
 }
 
 export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
   textPosition: "bottom",
   textAlign: "center",
   border: false,
+  borderWidth: 4,
 };
 
-/** Border width as a share of the poster's shorter side (same on all sides). */
-export const POSTER_BORDER_INSET = 0.04;
+/** Border width range, in % of the poster's shorter side (same on all sides). */
+export const BORDER_WIDTH_MIN = 1;
+export const BORDER_WIDTH_MAX = 20;
 
 /** Credits sit this far from the poster edge (share of width and of height). */
 const ATTRIBUTION_MARGIN = 0.032;
 
 /** With a border, credits sit just inside the line (share of the shorter side). */
 const BORDER_CREDIT_GAP = 0.022;
-
-/** With a border, the bottom text block moves up a bit to clear the credits. */
-const BORDER_TEXT_LIFT = 0.025;
 
 /** Typical poster (A-series portrait) when the real aspect isn't known. */
 const DEFAULT_ASPECT = 1 / Math.SQRT2;
@@ -131,37 +134,64 @@ function columns(
   return { x: 0.5, width: 0.86, dividerStart: 0.44, dividerEnd: 0.56 };
 }
 
+/** Border width (%) → share of the shorter side, kept inside the allowed range. */
+function borderInset(widthPercent: number): number {
+  const value = Number.isFinite(widthPercent) ? widthPercent : DEFAULT_POSTER_LAYOUT.borderWidth;
+  return Math.min(BORDER_WIDTH_MAX, Math.max(BORDER_WIDTH_MIN, value)) / 100;
+}
+
 /** Builds the full text layout from the user's position and alignment. */
 export function buildPosterLayout(
   options: Partial<PosterLayoutOptions> = {},
   /** Poster width ÷ height, to turn shorter-side sizes into width/height shares. */
   aspect: number = DEFAULT_ASPECT,
 ): PosterStyleTemplate {
-  const { textPosition, textAlign, border } = { ...DEFAULT_POSTER_LAYOUT, ...options };
+  const { textPosition, textAlign, border, borderWidth } = {
+    ...DEFAULT_POSTER_LAYOUT,
+    ...options,
+  };
   const safeAspect = Number.isFinite(aspect) && aspect > 0 ? aspect : DEFAULT_ASPECT;
   // Shorter side as a share of the width and of the height.
   const shortOfWidth = Math.min(1, 1 / safeAspect);
   const shortOfHeight = Math.min(1, safeAspect);
-  const creditInset = POSTER_BORDER_INSET + BORDER_CREDIT_GAP;
+  const inset = border ? borderInset(borderWidth) : 0;
+  const creditInset = inset + BORDER_CREDIT_GAP;
   const marginX = border ? creditInset * shortOfWidth : ATTRIBUTION_MARGIN;
   const marginY = border ? creditInset * shortOfHeight : ATTRIBUTION_MARGIN;
+
+  // With a border the text block is laid out inside the frame: rows are
+  // squeezed into the inner area and the text shrinks with it, so a wider
+  // border means proportionally smaller text (default width = normal size).
+  const insetY = inset * shortOfHeight;
+  const defaultInsetY = borderInset(DEFAULT_POSTER_LAYOUT.borderWidth) * shortOfHeight;
+  const inner = (y: number) => insetY + y * (1 - 2 * insetY);
+  const textScale = border ? (1 - 2 * insetY) / (1 - 2 * defaultInsetY) : 1;
   const rows = ROWS[textPosition];
-  const lift = border && textPosition === "bottom" ? BORDER_TEXT_LIFT : 0;
+  // The overlay follows the border: it starts at the frame and its size is
+  // a share of the area inside it, so it looks the same at any border width.
+  const bandY = inset * shortOfHeight;
+  const fade: PosterFadeSpec = border
+    ? {
+        top: (FADE.top ?? 0) * (1 - 2 * bandY),
+        bottom: (FADE.bottom ?? 0) * (1 - 2 * bandY),
+        offsetY: bandY,
+      }
+    : FADE;
   return {
-    fade: FADE,
+    fade,
     frame: border
-      ? { type: "mat", inset: POSTER_BORDER_INSET, alpha: 0.85 }
+      ? { type: "mat", inset, alpha: 0.85 }
       : { type: "none", inset: 0, alpha: 0 },
     text: {
       align: textAlign,
       ...columns(textAlign, marginX),
-      cityY: rows.cityY - lift,
-      dividerY: (rows.dividerY ?? rows.cityY) - lift,
-      countryY: rows.countryY - lift,
-      coordsY: rows.coordsY - lift,
-      cityScale: 0.94,
-      countryScale: 0.88,
-      coordsScale: 0.85,
+      cityY: inner(rows.cityY),
+      dividerY: inner(rows.dividerY ?? rows.cityY),
+      countryY: inner(rows.countryY),
+      coordsY: inner(rows.coordsY),
+      cityScale: 0.94 * textScale,
+      countryScale: 0.88 * textScale,
+      coordsScale: 0.85 * textScale,
       letterSpacedCity: true,
       showDivider: true,
     },

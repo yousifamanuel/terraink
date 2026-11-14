@@ -21,6 +21,7 @@ export default function GradientFades({ color, template }: GradientFadesProps) {
         <div
           className="poster-fade poster-fade--top"
           style={{
+            top: `${(fade.offsetY ?? 0) * 100}%`,
             height: `${fade.top * 100}%`,
             background: `linear-gradient(to bottom, ${solid}, ${transparent})`,
           }}
@@ -30,6 +31,7 @@ export default function GradientFades({ color, template }: GradientFadesProps) {
         <div
           className="poster-fade poster-fade--bottom"
           style={{
+            bottom: `${(fade.offsetY ?? 0) * 100}%`,
             height: `${fade.bottom * 100}%`,
             background: `linear-gradient(to top, ${solid}, ${transparent})`,
           }}
