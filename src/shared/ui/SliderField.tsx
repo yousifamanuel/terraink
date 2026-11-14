@@ -1,3 +1,5 @@
+import type React from "react";
+
 interface SliderFieldProps {
   label: string;
   value: number;
@@ -20,6 +22,7 @@ export default function SliderField({
   onChange,
 }: SliderFieldProps) {
   const decimals = String(step).split(".")[1]?.length ?? 0;
+  const fill = max > min ? ((value - min) / (max - min)) * 100 : 0;
   return (
     <label className="slider-field">
       <span className="slider-field-head">
@@ -30,12 +33,13 @@ export default function SliderField({
         </span>
       </span>
       <input
-        className="slider-field-input"
+        className="distance-slider slider-field-input"
         type="range"
         min={min}
         max={max}
         step={step}
         value={value}
+        style={{ "--slider-fill": `${fill}%` } as React.CSSProperties}
         onChange={(event) => onChange(Number(event.target.value))}
       />
     </label>

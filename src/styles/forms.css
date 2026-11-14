@@ -101,56 +101,61 @@ label {
   cursor: pointer;
 }
 
-.distance-slider::-webkit-slider-runnable-track {
-  height: 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: linear-gradient(
-    180deg,
-    rgba(28, 51, 69, 0.95),
-    rgba(17, 34, 47, 0.95)
-  );
-  box-sizing: border-box;
+/* Thin blue track: filled up to the thumb via --slider-fill. */
+.distance-slider {
+  --slider-track: rgba(146, 176, 200, 0.22);
+  --slider-blue: #3d9cc4;
 }
 
+.distance-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--slider-blue) var(--slider-fill, 0%),
+    var(--slider-track) var(--slider-fill, 0%)
+  );
+}
+
+/* Ring thumb: dark blue dot with a light blue ring. */
 .distance-slider::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  margin-top: -5px;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
   border-radius: 999px;
-  border: 2px solid #e8f3fb;
-  background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
-  box-shadow:
-    0 0 0 2px rgba(5, 13, 20, 0.45),
-    0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 3px solid #8fd3ee;
+  background: #1f6f8f;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
   cursor: grab;
 }
 
 .distance-slider::-moz-range-track {
-  height: 10px;
+  height: 4px;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: linear-gradient(
-    180deg,
-    rgba(28, 51, 69, 0.95),
-    rgba(17, 34, 47, 0.95)
-  );
-  box-sizing: border-box;
+  background: var(--slider-track);
+}
+
+.distance-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--slider-blue);
 }
 
 .distance-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 999px;
-  border: 2px solid #e8f3fb;
-  background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
-  box-shadow:
-    0 0 0 2px rgba(5, 13, 20, 0.45),
-    0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 3px solid #8fd3ee;
+  background: #1f6f8f;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
+}
+
+.distance-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
 }
 
 .distance-slider-meta {
@@ -502,6 +507,17 @@ input:not([type="checkbox"]):not([type="radio"]):focus,
 select:focus {
   border-color: rgba(102, 174, 209, 0.82);
   box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.24);
+}
+
+/* Sliders draw their own track: no text-field box around them. */
+input.distance-slider[type="range"],
+input.distance-slider[type="range"]:focus {
+  margin-top: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .location-autocomplete {
@@ -3891,4 +3907,17 @@ button.segmented-control-btn.is-active {
   display: grid;
   gap: 10px;
   padding: 0 0 4px;
+}
+
+/* Same rhythm as toggles: one gap below each control in a panel. */
+.panel-block > .segmented-control,
+.panel-block > .slider-field,
+.panel-block > .separator-picker,
+.panel-block > .toggle-subsettings {
+  margin-bottom: 14px;
+}
+
+/* Inside a sub-settings group the grid gap does the spacing. */
+.toggle-subsettings > .toggle-field {
+  margin-bottom: 0;
 }
