@@ -7,6 +7,7 @@ bun install          # install dependencies
 bun run dev          # start dev server (http://localhost:5173)
 bun run build        # production build
 bun run typecheck    # type-check without emitting
+bun run i18n:check   # check translation files against en.json
 ```
 
 ## Architecture: Feature-based + Hexagonal/Clean
@@ -75,6 +76,16 @@ Never call `fetch()`, `localStorage`, or external APIs directly — always go th
 - Use `@/` alias for all cross-feature imports — never `../../` across feature boundaries
 - Port interfaces go in `domain/ports.ts` or `core/*/ports.ts` with an `I` prefix (`ICache`, `IHttp`)
 
+## Translations (i18n)
+
+- All on-screen text goes through i18next: `t("key")` from `useTranslation()` in components,
+  `<Trans>` for text with markup, `i18n.t()` (from `@/core/i18n`) outside React. No hard-coded English in UI.
+- New text: add the English to `src/core/i18n/locales/en.json` and the same key to every other
+  language file (translate it, don't copy English). Then run `bun run i18n:check`.
+- Keys are nested by feature (`markers.section.title`). Keep translations short — tiny labels ≤ 10 chars.
+- Don't translate brand names, place names, theme names, or text printed on the poster.
+- Arabic keeps the left-to-right layout; only `<html lang>` changes (see `src/styles/arabic.css`).
+
 ## Environment Variables
 
 All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read `import.meta.env.*` anywhere else. Env vars are optional for local development — never assume they are present for core functionality. See `.env.example` for the full list.
@@ -119,6 +130,7 @@ workflow — it is not a cue for Claude to auto-branch.
 - Duplicate utilities — check `shared/utils/` and `shared/geo/` before creating new ones
 - Call `fetch()`, `localStorage`, or `new URL()` inside components or hooks — use `core/services.ts`
 - Add a CSS class without a matching rule in `src/styles/`
+- Hard-code user-facing text — put it in `en.json` and every language file
 - Prop-drill state more than one level — use `usePosterContext()`
 - Read any file's exports from memory — always verify the actual source first
 - Edit `bun.lock` manually — run `bun install`
