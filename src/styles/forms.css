@@ -3921,3 +3921,70 @@ button.segmented-control-btn.is-active {
 .toggle-subsettings > .toggle-field {
   margin-bottom: 0;
 }
+
+/* Section title row with a reset button on the right (e.g. Style). */
+.section-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.section-summary-head .section-summary-label {
+  margin-bottom: 10px;
+}
+
+button.section-reset-btn,
+button.slider-field-reset {
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(146, 176, 200, 0.25);
+  border-radius: 7px;
+  background: transparent;
+  color: #9bb3c5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button.section-reset-btn {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+}
+
+button.slider-field-reset {
+  width: 20px;
+  height: 20px;
+}
+
+button.section-reset-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+button.slider-field-reset svg {
+  width: 11px;
+  height: 11px;
+}
+
+button.section-reset-btn:hover,
+button.slider-field-reset:hover,
+button.section-reset-btn:focus-visible,
+button.slider-field-reset:focus-visible {
+  color: #e7f2fb;
+  border-color: rgba(94, 174, 212, 0.55);
+}
+
+/* Slider with its reset button on the right. */
+.slider-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slider-field-row > .slider-field-input {
+  flex: 1;
+  min-width: 0;
+}

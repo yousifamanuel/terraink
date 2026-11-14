@@ -371,7 +371,8 @@
         "dashed": "Tirets",
         "dotted": "Pointillé"
       },
-      "dividerThickness": "Épaisseur du trait"
+      "dividerThickness": "Épaisseur du trait",
+      "resetStyle": "Réinitialiser tout le style"
     }
   },
   "theme": {
@@ -533,7 +534,8 @@
   },
   "shell": {
     "common": {
-      "close": "Fermer"
+      "close": "Fermer",
+      "resetDefault": "Rétablir la valeur par défaut"
     },
     "footer": {
       "imprint": "Mentions légales",

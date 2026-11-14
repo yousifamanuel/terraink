@@ -371,7 +371,8 @@
         "dashed": "Tratteggiata",
         "dotted": "Punteggiata"
       },
-      "dividerThickness": "Spessore linea"
+      "dividerThickness": "Spessore linea",
+      "resetStyle": "Reimposta tutto lo stile"
     }
   },
   "theme": {
@@ -533,7 +534,8 @@
   },
   "shell": {
     "common": {
-      "close": "Chiudi"
+      "close": "Chiudi",
+      "resetDefault": "Ripristina predefinito"
     },
     "footer": {
       "imprint": "Note legali",

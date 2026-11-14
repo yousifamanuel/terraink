@@ -369,7 +369,8 @@
         "dashed": "Gestrichelt",
         "dotted": "Gepunktet"
       },
-      "dividerThickness": "Linienstärke"
+      "dividerThickness": "Linienstärke",
+      "resetStyle": "Alle Stil-Einstellungen zurücksetzen"
     }
   },
   "theme": {
@@ -531,7 +532,8 @@
   },
   "shell": {
     "common": {
-      "close": "Schließen"
+      "close": "Schließen",
+      "resetDefault": "Auf Standard zurücksetzen"
     },
     "footer": {
       "imprint": "Impressum",

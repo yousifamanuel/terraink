@@ -373,7 +373,8 @@
         "dashed": "Kreskowana",
         "dotted": "Kropkowana"
       },
-      "dividerThickness": "Grubość linii"
+      "dividerThickness": "Grubość linii",
+      "resetStyle": "Resetuj wszystkie ustawienia stylu"
     }
   },
   "theme": {
@@ -535,7 +536,8 @@
   },
   "shell": {
     "common": {
-      "close": "Zamknij"
+      "close": "Zamknij",
+      "resetDefault": "Przywróć domyślne"
     },
     "footer": {
       "imprint": "Nota prawna",

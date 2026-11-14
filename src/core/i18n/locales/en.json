@@ -369,7 +369,8 @@
         "dashed": "Dashed",
         "dotted": "Dotted"
       },
-      "dividerThickness": "Divider thickness"
+      "dividerThickness": "Divider thickness",
+      "resetStyle": "Reset all style settings"
     }
   },
   "theme": {
@@ -531,7 +532,8 @@
   },
   "shell": {
     "common": {
-      "close": "Close"
+      "close": "Close",
+      "resetDefault": "Reset to default"
     },
     "footer": {
       "imprint": "Imprint",

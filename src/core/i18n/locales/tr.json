@@ -369,7 +369,8 @@
         "dashed": "Kesik",
         "dotted": "Noktalı"
       },
-      "dividerThickness": "Çizgi kalınlığı"
+      "dividerThickness": "Çizgi kalınlığı",
+      "resetStyle": "Tüm stil ayarlarını sıfırla"
     }
   },
   "theme": {
@@ -531,7 +532,8 @@
   },
   "shell": {
     "common": {
-      "close": "Kapat"
+      "close": "Kapat",
+      "resetDefault": "Varsayılana döndür"
     },
     "footer": {
       "imprint": "Künye",

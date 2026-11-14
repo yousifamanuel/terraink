@@ -39,4 +39,5 @@ export { FiX as CloseIcon } from "react-icons/fi";
 export { FiSearch as SearchIcon } from "react-icons/fi";
 export { FiGlobe as LanguageIcon } from "react-icons/fi";
 export { FiExternalLink as ExternalLinkIcon } from "react-icons/fi";
+export { FiRotateCcw as ResetIcon } from "react-icons/fi";
 export { FiClock as HistoryIcon } from "react-icons/fi";

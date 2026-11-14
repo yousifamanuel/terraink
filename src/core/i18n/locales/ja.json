@@ -367,7 +367,8 @@
         "dashed": "破線",
         "dotted": "点線"
       },
-      "dividerThickness": "線の太さ"
+      "dividerThickness": "線の太さ",
+      "resetStyle": "スタイル設定をすべてリセット"
     }
   },
   "theme": {
@@ -529,7 +530,8 @@
   },
   "shell": {
     "common": {
-      "close": "閉じる"
+      "close": "閉じる",
+      "resetDefault": "初期値に戻す"
     },
     "footer": {
       "imprint": "運営者情報",

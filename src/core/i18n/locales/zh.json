@@ -367,7 +367,8 @@
         "dashed": "虚线",
         "dotted": "点线"
       },
-      "dividerThickness": "线条粗细"
+      "dividerThickness": "线条粗细",
+      "resetStyle": "重置所有样式设置"
     }
   },
   "theme": {
@@ -529,7 +530,8 @@
   },
   "shell": {
     "common": {
-      "close": "关闭"
+      "close": "关闭",
+      "resetDefault": "恢复默认"
     },
     "footer": {
       "imprint": "法律声明",

@@ -369,7 +369,8 @@
         "dashed": "Gestreept",
         "dotted": "Gestippeld"
       },
-      "dividerThickness": "Lijndikte"
+      "dividerThickness": "Lijndikte",
+      "resetStyle": "Alle stijlinstellingen herstellen"
     }
   },
   "theme": {
@@ -531,7 +532,8 @@
   },
   "shell": {
     "common": {
-      "close": "Sluiten"
+      "close": "Sluiten",
+      "resetDefault": "Standaard herstellen"
     },
     "footer": {
       "imprint": "Colofon",

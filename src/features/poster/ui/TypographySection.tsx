@@ -27,7 +27,8 @@ import {
 } from "@/features/poster/domain/posterStyleTemplates";
 import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
-import { usePosterContext } from "./PosterContext";
+import { DEFAULT_FORM, usePosterContext } from "./PosterContext";
+import { ResetIcon } from "@/shared/ui/Icons";
 
 interface TypographySectionProps {
   form: PosterForm;
@@ -46,6 +47,31 @@ export default function TypographySection({
   const { dispatch } = usePosterContext();
   const setField = (name: string, value: string) =>
     dispatch({ type: "SET_FIELD", name, value });
+  /** Every Style setting back to default; title/subtitle text stays (it comes from the location). */
+  const styleDefaults = () => {
+    const keys = [
+      "textPosition",
+      "textAlign",
+      "showBorder",
+      "borderWidth",
+      "borderLine",
+      "borderDash",
+      "borderThickness",
+      "showMarkers",
+      "showPosterText",
+      "titleSize",
+      "subtitleSize",
+      "textOffset",
+      "showDivider",
+      "dividerStyle",
+      "dividerThickness",
+      "fontFamily",
+      "showCoordinates",
+      "coordinateFormat",
+      "coordinateSeparator",
+    ] as const;
+    return Object.fromEntries(keys.map((key) => [key, DEFAULT_FORM[key]]));
+  };
   const previewsRequested = useRef(false);
   const exampleLat = Number(form.latitude) || 0;
   const exampleLon = Number(form.longitude) || 0;
@@ -68,7 +94,18 @@ export default function TypographySection({
   return (
     <>
       <section className="panel-block">
-        <p className="section-summary-label">{t("poster.typography.style")}</p>
+        <div className="section-summary-head">
+          <p className="section-summary-label">{t("poster.typography.style")}</p>
+          <button
+            type="button"
+            className="section-reset-btn"
+            title={t("poster.typography.resetStyle")}
+            aria-label={t("poster.typography.resetStyle")}
+            onClick={() => dispatch({ type: "SET_FORM_FIELDS", fields: styleDefaults() })}
+          >
+            <ResetIcon aria-hidden="true" />
+          </button>
+        </div>
         <SegmentedControl
           label={t("poster.typography.textPosition")}
           value={form.textPosition}
@@ -108,6 +145,7 @@ export default function TypographySection({
               max={BORDER_WIDTH_MAX}
               step={0.5}
               unit="%"
+              defaultValue={Number(DEFAULT_FORM.borderWidth)}
               onChange={(value) => setField("borderWidth", String(value))}
             />
             <SegmentedControl
@@ -135,6 +173,7 @@ export default function TypographySection({
               max={BORDER_THICKNESS_MAX}
               step={0.05}
               unit="%"
+              defaultValue={Number(DEFAULT_FORM.borderThickness)}
               onChange={(value) => setField("borderThickness", String(value))}
             />
           </div>
@@ -195,6 +234,7 @@ export default function TypographySection({
               max={TEXT_SIZE_MAX}
               step={5}
               unit="%"
+              defaultValue={Number(DEFAULT_FORM.titleSize)}
               onChange={(value) => setField("titleSize", String(value))}
             />
             <SliderField
@@ -204,6 +244,7 @@ export default function TypographySection({
               max={TEXT_SIZE_MAX}
               step={5}
               unit="%"
+              defaultValue={Number(DEFAULT_FORM.subtitleSize)}
               onChange={(value) => setField("subtitleSize", String(value))}
             />
             <SliderField
@@ -213,6 +254,7 @@ export default function TypographySection({
               max={TEXT_OFFSET_MAX}
               step={0.5}
               unit="%"
+              defaultValue={Number(DEFAULT_FORM.textOffset)}
               onChange={(value) => setField("textOffset", String(value))}
             />
             <label className="toggle-field">
@@ -245,6 +287,7 @@ export default function TypographySection({
                   max={DIVIDER_THICKNESS_MAX}
                   step={10}
                   unit="%"
+                  defaultValue={Number(DEFAULT_FORM.dividerThickness)}
                   onChange={(value) => setField("dividerThickness", String(value))}
                 />
               </>

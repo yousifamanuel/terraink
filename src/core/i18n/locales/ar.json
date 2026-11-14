@@ -377,7 +377,8 @@
         "dashed": "متقطع",
         "dotted": "منقط"
       },
-      "dividerThickness": "سُمك الخط"
+      "dividerThickness": "سُمك الخط",
+      "resetStyle": "إعادة ضبط كل إعدادات النمط"
     }
   },
   "theme": {
@@ -539,7 +540,8 @@
   },
   "shell": {
     "common": {
-      "close": "إغلاق"
+      "close": "إغلاق",
+      "resetDefault": "استعادة الافتراضي"
     },
     "footer": {
       "imprint": "بيانات الناشر",

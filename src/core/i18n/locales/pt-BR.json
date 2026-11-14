@@ -371,7 +371,8 @@
         "dashed": "Tracejada",
         "dotted": "Pontilhada"
       },
-      "dividerThickness": "Espessura da linha"
+      "dividerThickness": "Espessura da linha",
+      "resetStyle": "Redefinir todo o estilo"
     }
   },
   "theme": {
@@ -533,7 +534,8 @@
   },
   "shell": {
     "common": {
-      "close": "Fechar"
+      "close": "Fechar",
+      "resetDefault": "Voltar ao padrão"
     },
     "footer": {
       "imprint": "Aviso legal",
