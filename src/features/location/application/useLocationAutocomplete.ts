@@ -9,7 +9,8 @@ interface UseLocationAutocompleteReturn {
   searchNow: (query: string) => Promise<void>;
 }
 
-const DEBOUNCE_DELAY_MS = 450;
+// Suggestions after 1 s without typing; Enter searches right away (searchNow).
+const DEBOUNCE_DELAY_MS = 1000;
 
 export function useLocationAutocomplete(
   locationInput: string,
