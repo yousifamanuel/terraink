@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import type { Coordinate } from "@/shared/geo/types";
 import type { IGpxParserPort } from "../domain/ports";
 import type { ParsedGpx, RouteBounds } from "../domain/types";
@@ -54,12 +55,12 @@ export const gpxParser: IGpxParserPort = {
   parse(xml, fallbackLabel = "Track") {
     const doc = new DOMParser().parseFromString(xml, "application/xml");
     if (doc.getElementsByTagName("parsererror").length > 0) {
-      throw new Error("Could not read GPX file — the XML is invalid.");
+      throw new Error(i18n.t("routes.errors.invalidXml"));
     }
 
     const segments = parseSegments(doc);
     if (segments.length === 0) {
-      throw new Error("No track points found in GPX file.");
+      throw new Error(i18n.t("routes.errors.noPoints"));
     }
 
     const pointCount = segments.reduce((sum, seg) => sum + seg.length, 0);

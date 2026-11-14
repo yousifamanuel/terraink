@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { Layout } from "../domain/types";
 import { formatLayoutDimensions } from "../infrastructure/layoutRepository";
 
@@ -29,6 +30,7 @@ export default function LayoutCard({
   onClick,
   isSelected = false,
 }: LayoutCardProps) {
+  const { t } = useTranslation();
   if (!layoutOption) {
     return null;
   }
@@ -53,7 +55,7 @@ export default function LayoutCard({
         <img
           className="layout-card-symbol"
           src={symbolDataUri}
-          alt={`${layoutOption.name} ratio symbol`}
+          alt={t("layout.card.ratioSymbolAlt", { name: layoutOption.name })}
         />
       ) : null}
     </button>

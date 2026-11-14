@@ -5,6 +5,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { usePosterContext } from "./PosterContext";
 import AdUnit from "@/shared/ui/AdUnit";
 import { AD_SLOT_SIDEBAR, ADS_SIDEBAR_ENABLED } from "@/core/config";
@@ -44,17 +45,17 @@ import {
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
 
-const LOCKED_HINT = "Map is locked to prevent unintended movement.";
-const UNLOCK_HINT = `${LOCKED_HINT}\nClick to unlock map editing.`;
-const RECENTER_HINT = "Recenter map to the current location";
 const COUNTRY_VIEW_ZOOM_LEVEL = 10;
 const CONTINENT_VIEW_ZOOM_LEVEL = 6;
 const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
 
 export default function PreviewPanel() {
+  const { t } = useTranslation();
   const { state, dispatch, effectiveTheme, mapStyle, mapRef } =
     usePosterContext();
+  const UNLOCK_HINT = `${t("poster.controls.lockedHint")}\n${t("poster.controls.unlockHint")}`;
+  const RECENTER_HINT = t("poster.controls.recenterHint");
   const {
     form,
     selectedLocation,
@@ -180,7 +181,7 @@ export default function PreviewPanel() {
     DEFAULT_LOCATION_LABEL;
   const infoLayoutLabel = layoutOption.name;
   const markerCount = state.markers.length;
-  const markersLabel = `${markerCount} marker${markerCount === 1 ? "" : "s"}`;
+  const markersLabel = t("poster.info.markerCount", { count: markerCount });
   const coordinatesLabel = `${formLat.toFixed(4)}, ${formLon.toFixed(4)}`;
   const isCityCountryView = mapZoom >= COUNTRY_VIEW_ZOOM_LEVEL;
   const isCountryContinentView =
@@ -455,7 +456,7 @@ export default function PreviewPanel() {
             showOverlay={form.showMarkers}
           />
 
-          <div className="map-controls" aria-label="Map controls">
+          <div className="map-controls" aria-label={t("poster.controls.mapControls")}>
             {!isEditing ? (
               <>
                 <div className="map-control-group">
@@ -489,15 +490,15 @@ export default function PreviewPanel() {
                       onClick={handleToggleRotation}
                       title={
                         isRotationEnabled
-                          ? "Disable rotation"
-                          : "Enable rotation"
+                          ? t("poster.controls.disableRotation")
+                          : t("poster.controls.enableRotation")
                       }
                     >
                       <RotateIcon />
                       <span>
                         {isRotationEnabled
-                          ? "Disable Rotation"
-                          : "Enable Rotation"}
+                          ? t("poster.controls.disableRotationLabel")
+                          : t("poster.controls.enableRotationLabel")}
                       </span>
                     </button>
                   ) : null}
@@ -510,15 +511,15 @@ export default function PreviewPanel() {
                       onClick={handleToggleRotation}
                       title={
                         isRotationEnabled
-                          ? "Disable rotation"
-                          : "Enable rotation"
+                          ? t("poster.controls.disableRotation")
+                          : t("poster.controls.enableRotation")
                       }
                     >
                       <RotateIcon />
                       <span>
                         {isRotationEnabled
-                          ? "Disable Rotation"
-                          : "Enable Rotation"}
+                          ? t("poster.controls.disableRotationLabel")
+                          : t("poster.controls.enableRotationLabel")}
                       </span>
                     </button>
                   </div>
@@ -529,7 +530,7 @@ export default function PreviewPanel() {
                       type="button"
                       className="map-control-btn"
                       onClick={handleZoomOut}
-                      title="Zoom out"
+                      title={t("poster.controls.zoomOut")}
                     >
                       <MinusIcon />
                     </button>
@@ -541,13 +542,13 @@ export default function PreviewPanel() {
                       step={0.1}
                       value={mapZoom}
                       onChange={handleZoomSliderChange}
-                      aria-label="Zoom level"
+                      aria-label={t("poster.controls.zoomLevel")}
                     />
                     <button
                       type="button"
                       className="map-control-btn"
                       onClick={handleZoomIn}
-                      title="Zoom in"
+                      title={t("poster.controls.zoomIn")}
                     >
                       <PlusIcon />
                     </button>
@@ -559,7 +560,7 @@ export default function PreviewPanel() {
                       type="button"
                       className="map-control-btn"
                       onClick={() => handleRotateBy(-15)}
-                      title="Rotate left 15 degrees"
+                      title={t("poster.controls.rotateLeft")}
                     >
                       <RotateLeftIcon />
                     </button>
@@ -571,13 +572,13 @@ export default function PreviewPanel() {
                       step={15}
                       value={Math.round(mapBearing / 15) * 15}
                       onChange={handleRotationSliderChange}
-                      aria-label="Rotation angle"
+                      aria-label={t("poster.controls.rotationAngle")}
                     />
                     <button
                       type="button"
                       className="map-control-btn"
                       onClick={() => handleRotateBy(15)}
-                      title="Rotate right 15 degrees"
+                      title={t("poster.controls.rotateRight")}
                     >
                       <RotateRightIcon />
                     </button>

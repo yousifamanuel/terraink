@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import LayoutCard from "@/features/layout/ui/LayoutCard";
 import PickerModal from "@/shared/ui/PickerModal";
 import type { LayoutGroup } from "@/features/layout/domain/types";
@@ -17,11 +18,12 @@ export default function MapSettingsPickers({
   selectedLayoutId,
   onLayoutSelect,
 }: MapSettingsPickersProps) {
+  const { t } = useTranslation();
   return (
     <>
       <PickerModal
         open={activePicker === "layout"}
-        title="Choose Layout"
+        title={t("map.pickers.chooseLayout")}
         titleId="layout-picker-title"
         onClose={onClosePicker}
       >
@@ -30,9 +32,9 @@ export default function MapSettingsPickers({
             <section
               key={group.id}
               className="layout-picker-group"
-              aria-label={group.name}
+              aria-label={t(`layout.groups.${group.id}`, { defaultValue: group.name })}
             >
-              <h4>{group.name}</h4>
+              <h4>{t(`layout.groups.${group.id}`, { defaultValue: group.name })}</h4>
               <div className="picker-option-list card-scroll-list">
                 {group.options.map((layoutOption) => (
                   <LayoutCard

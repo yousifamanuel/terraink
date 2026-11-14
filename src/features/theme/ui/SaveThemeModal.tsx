@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { CloseIcon } from "@/shared/ui/Icons";
 
 interface SaveThemeModalProps {
@@ -17,6 +18,7 @@ export default function SaveThemeModal({
   onConfirm,
   onCancel,
 }: SaveThemeModalProps) {
+  const { t } = useTranslation();
   const [name, setName] = useState(suggestedName);
   const [description, setDescription] = useState(suggestedDescription);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -67,12 +69,12 @@ export default function SaveThemeModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="picker-modal-header">
-          <h3 id="save-theme-modal-title">Save Theme</h3>
+          <h3 id="save-theme-modal-title">{t("theme.saveModal.title")}</h3>
           <button
             type="button"
             className="picker-modal-close"
             onClick={onCancel}
-            aria-label="Cancel"
+            aria-label={t("theme.saveModal.cancel")}
           >
             <CloseIcon />
           </button>
@@ -80,7 +82,7 @@ export default function SaveThemeModal({
 
         <form className="save-theme-modal-body" onSubmit={handleSubmit}>
           <label className="save-theme-field">
-            <span className="save-theme-field-label">Name</span>
+            <span className="save-theme-field-label">{t("theme.saveModal.name")}</span>
             <input
               ref={inputRef}
               type="text"
@@ -92,7 +94,7 @@ export default function SaveThemeModal({
           </label>
 
           <label className="save-theme-field">
-            <span className="save-theme-field-label">Description</span>
+            <span className="save-theme-field-label">{t("theme.saveModal.description")}</span>
             <textarea
               className="save-theme-description-input"
               value={description}
@@ -103,11 +105,11 @@ export default function SaveThemeModal({
           </label>
 
           <p className="save-theme-hint">
-            Pick a unique name to find the theme later.
+            {t("theme.saveModal.hint")}
           </p>
           {isDuplicate ? (
             <p className="save-theme-error" role="alert">
-              A saved theme with this name already exists.
+              {t("theme.saveModal.duplicate")}
             </p>
           ) : null}
 
@@ -117,14 +119,14 @@ export default function SaveThemeModal({
               className="save-theme-cancel"
               onClick={onCancel}
             >
-              Cancel
+              {t("theme.saveModal.cancel")}
             </button>
             <button
               type="submit"
               className="save-theme-confirm"
               disabled={isInvalid}
             >
-              Confirm
+              {t("theme.saveModal.confirm")}
             </button>
           </div>
         </form>

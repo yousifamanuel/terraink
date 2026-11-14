@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { LockIcon, RecenterIcon, UnlockIcon } from "@/shared/ui/Icons";
 
 interface MapPrimaryControlsProps {
@@ -19,6 +20,7 @@ export default function MapPrimaryControls({
   onStartEditing,
   onFinishEditing,
 }: MapPrimaryControlsProps) {
+  const { t } = useTranslation();
   return (
     <>
       {!isMapEditing ? (
@@ -29,7 +31,7 @@ export default function MapPrimaryControls({
           title={recenterHint}
         >
           <RecenterIcon />
-          <span>Recenter</span>
+          <span>{t("poster.controls.recenter")}</span>
         </button>
       ) : null}
       {isMapEditing ? (
@@ -37,10 +39,10 @@ export default function MapPrimaryControls({
           type="button"
           className="map-control-btn map-control-btn--primary map-control-btn--mode"
           onClick={onFinishEditing}
-          title="Lock map editing"
+          title={t("poster.controls.lockTitle")}
         >
           <LockIcon />
-          <span>Lock Map</span>
+          <span>{t("poster.controls.lockMap")}</span>
         </button>
       ) : (
         <button
@@ -51,7 +53,7 @@ export default function MapPrimaryControls({
           disabled={isMarkerEditorActive}
         >
           <UnlockIcon />
-          <span>Edit Map</span>
+          <span>{t("poster.controls.editMap")}</span>
         </button>
       )}
     </>

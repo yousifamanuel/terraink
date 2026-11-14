@@ -1,4 +1,5 @@
 import type { RefObject } from "react";
+import { useTranslation } from "react-i18next";
 import ThemeCard from "./ThemeCard";
 import { EditIcon } from "@/shared/ui/Icons";
 import {
@@ -43,15 +44,16 @@ export default function ThemeSummarySection({
   onApplySavedTheme,
   onDeleteSavedTheme,
 }: ThemeSummarySectionProps) {
+  const { t } = useTranslation();
   const description =
-    selectedThemeOption.description?.trim() || "No description available.";
+    selectedThemeOption.description?.trim() || t("theme.summary.noDescription");
 
   return (
     <div className="theme-summary-view">
       <div className="theme-summary-head">
         <div className="theme-summary-copy">
           <p className="theme-summary-label">
-            Theme: <span className="theme-summary-label-name">{selectedThemeOption.name}</span>
+            {t("theme.summary.themeLabel")} <span className="theme-summary-label-name">{selectedThemeOption.name}</span>
           </p>
           <p className="theme-card-description">{description}</p>
         </div>
@@ -59,7 +61,7 @@ export default function ThemeSummarySection({
           type="button"
           className="theme-customize-btn"
           onClick={onCustomize}
-          aria-label={`Customize ${selectedThemeOption.name} colors`}
+          aria-label={t("theme.summary.customizeAria", { name: selectedThemeOption.name })}
         >
           <span className="theme-customize-icon" aria-hidden="true">
             <EditIcon />
@@ -68,18 +70,18 @@ export default function ThemeSummarySection({
       </div>
 
       <section className="theme-section theme-section--saved">
-        <h3 className="theme-section-heading">Saved Themes</h3>
+        <h3 className="theme-section-heading">{t("theme.summary.savedThemes")}</h3>
         {savedThemes.length === 0 ? (
           <div className="saved-themes-empty" role="status">
             <p className="saved-themes-empty-text">
-              Customize and save a theme to see it here.
+              {t("theme.summary.savedEmpty")}
             </p>
           </div>
         ) : (
           <div
             className="theme-card-list card-scroll-list saved-themes-list"
             role="list"
-            aria-label="Saved themes"
+            aria-label={t("theme.summary.savedThemesAria")}
           >
             {savedThemes.map((saved) => (
               <ThemeCard
@@ -88,7 +90,7 @@ export default function ThemeSummarySection({
                 isSelected={saved.id === selectedThemeId}
                 onClick={() => onApplySavedTheme(saved.id)}
                 onDelete={() => onDeleteSavedTheme(saved.id)}
-                deleteAriaLabel={`Delete saved theme ${saved.name}`}
+                deleteAriaLabel={t("theme.summary.deleteSavedAria", { name: saved.name })}
               />
             ))}
           </div>
@@ -96,11 +98,11 @@ export default function ThemeSummarySection({
       </section>
 
       <section className="theme-section theme-section--builtin">
-        <h3 className="theme-section-heading">Built-in Themes</h3>
+        <h3 className="theme-section-heading">{t("theme.summary.builtInThemes")}</h3>
         <div
           className="theme-card-list card-scroll-list"
           role="list"
-          aria-label="Theme options"
+          aria-label={t("theme.summary.themeOptionsAria")}
           ref={listRef}
         >
           {themeOptions.map((themeOption) => (

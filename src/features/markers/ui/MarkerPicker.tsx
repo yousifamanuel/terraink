@@ -6,12 +6,14 @@ import {
   type ChangeEvent,
   type ReactNode,
 } from "react";
+import { useTranslation } from "react-i18next";
 import type { MarkerIconDefinition } from "@/features/markers/domain/types";
 import {
   featuredMarkerIcons,
   predefinedMarkerIcons,
 } from "@/features/markers/infrastructure/iconRegistry";
 import MarkerVisual from "./MarkerVisual";
+import { getMarkerIconLabel } from "./markerIconLabel";
 
 interface MarkerPickerProps {
   selectedIconId?: string;
@@ -34,6 +36,7 @@ const MarkerPicker = memo(function MarkerPicker({
   onClearUploadedIcons,
   actionSlot,
 }: MarkerPickerProps) {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -56,7 +59,7 @@ const MarkerPicker = memo(function MarkerPicker({
       !file.type.startsWith("image/") &&
       !file.name.toLowerCase().endsWith(".svg")
     ) {
-      setUploadError("Upload an image or SVG file.");
+      setUploadError(t("markers.picker.invalidFile"));
       return;
     }
 
@@ -66,13 +69,13 @@ const MarkerPicker = memo(function MarkerPicker({
     try {
       await onUploadIcon(file);
     } catch {
-      setUploadError("Could not upload marker.");
+      setUploadError(t("markers.picker.uploadFailed"));
     }
   };
 
   return (
     <div className="marker-picker">
-      <p className="marker-picker__section-title">Marker Icons</p>
+      <p className="marker-picker__section-title">{t("markers.picker.iconsTitle")}</p>
       <div className="marker-picker__grid">
         {visibleAppIcons.map((icon) => (
           <button
@@ -82,10 +85,12 @@ const MarkerPicker = memo(function MarkerPicker({
               selectedIconId === icon.id ? " is-selected" : ""
             }`}
             onClick={() => onIconClick(icon.id)}
-            title={icon.label}
+            title={getMarkerIconLabel(t, icon)}
           >
             <MarkerVisual icon={icon} size={30} color={markerColor} />
-            <span className="marker-picker__label">{icon.label}</span>
+            <span className="marker-picker__label">
+              {getMarkerIconLabel(t, icon)}
+            </span>
           </button>
         ))}
         {appIcons.length > featuredMarkerIcons.length ? (
@@ -93,19 +98,25 @@ const MarkerPicker = memo(function MarkerPicker({
             type="button"
             className="marker-picker__option marker-picker__option--toggle"
             onClick={() => setIsExpanded((prev) => !prev)}
-            aria-label={shouldShowAllIcons ? "Show icon list" : "Show more icons"}
+            aria-label={
+              shouldShowAllIcons
+                ? t("markers.picker.showList")
+                : t("markers.picker.showMore")
+            }
           >
             <span className="marker-picker__toggle-sign" aria-hidden="true">
               {shouldShowAllIcons ? "-" : "+"}
             </span>
             <span className="marker-picker__label">
-              {shouldShowAllIcons ? "Show less" : "More Icons"}
+              {shouldShowAllIcons
+                ? t("markers.picker.showLess")
+                : t("markers.picker.moreIcons")}
             </span>
           </button>
         ) : null}
       </div>
 
-      <p className="marker-picker__section-title">Uploaded Markers</p>
+      <p className="marker-picker__section-title">{t("markers.picker.uploadedTitle")}</p>
       <div className="marker-picker__grid marker-picker__grid--uploaded">
         {customIcons.map((icon) => (
           <button
@@ -133,8 +144,10 @@ const MarkerPicker = memo(function MarkerPicker({
                     onRemoveUploadedIcon(icon.id);
                   }
                 }}
-                aria-label={`Remove uploaded icon ${icon.label}`}
-                title="Remove uploaded icon"
+                aria-label={t("markers.picker.removeNamed", {
+                  label: icon.label,
+                })}
+                title={t("markers.picker.removeUploaded")}
               >
                 x
               </span>
@@ -150,12 +163,12 @@ const MarkerPicker = memo(function MarkerPicker({
               type="button"
               className="marker-picker__option marker-picker__option--upload-tile"
               onClick={() => inputRef.current?.click()}
-              title="Upload marker"
+              title={t("markers.picker.uploadTitle")}
             >
               <span className="marker-picker__upload-plus" aria-hidden="true">
                 +
               </span>
-              <span className="marker-picker__label">Upload Marker</span>
+              <span className="marker-picker__label">{t("markers.picker.uploadButton")}</span>
             </button>
             <input
               ref={inputRef}
@@ -175,7 +188,7 @@ const MarkerPicker = memo(function MarkerPicker({
             className="marker-picker__upload marker-picker__clear-uploaded"
             onClick={onClearUploadedIcons}
           >
-            Remove uploaded icons from storage
+            {t("markers.picker.clearUploaded")}
           </button>
         ) : null}
       </div>

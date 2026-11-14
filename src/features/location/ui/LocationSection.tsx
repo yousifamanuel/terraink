@@ -1,9 +1,9 @@
+import { useTranslation } from "react-i18next";
 import type { SearchResult } from "../domain/types";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import { useRecentLocations } from "../application/useRecentLocations";
 import LocationSuggestionsDropdown from "./LocationSuggestionsDropdown";
 import {
-  PLACEHOLDER_LOCATION_SEARCH,
   PLACEHOLDER_EXAMPLE_LATITUDE,
   PLACEHOLDER_EXAMPLE_LONGITUDE,
 } from "./constants";
@@ -40,14 +40,15 @@ export default function LocationSection({
   isLocatingUser,
   locationPermissionMessage,
 }: LocationSectionProps) {
+  const { t } = useTranslation();
   const { recent, removeRecent, clearRecent } = useRecentLocations();
   const hasLocationValue = form.location.trim().length > 0;
 
   return (
     <section className="panel-block">
-      <h2>Location</h2>
+      <h2>{t("location.section.title")}</h2>
       <label>
-        Location
+        {t("location.section.label")}
         <div className="location-autocomplete">
           <div className="location-search-row">
             <div className="location-input-wrap">
@@ -59,14 +60,14 @@ export default function LocationSection({
                 onFocus={onLocationFocus}
                 onBlur={onLocationBlur}
                 onKeyDown={(e) => { if (e.key === "Enter") void searchNow(e.currentTarget.value); }}
-                placeholder={PLACEHOLDER_LOCATION_SEARCH}
+                placeholder={t("location.section.searchPlaceholder")}
                 autoComplete="off"
               />
               {hasLocationValue ? (
                 <button
                   type="button"
                   className="location-clear-btn"
-                  aria-label="Clear location"
+                  aria-label={t("location.section.clearAria")}
                   onMouseDown={(event) => event.preventDefault()}
                   onClick={onClearLocation}
                 >
@@ -80,8 +81,8 @@ export default function LocationSection({
               onMouseDown={(event) => event.preventDefault()}
               onClick={onUseCurrentLocation}
               disabled={isLocatingUser}
-              aria-label="Use current location"
-              title="Use current location"
+              aria-label={t("location.section.useCurrentAria")}
+              title={t("location.section.useCurrentAria")}
             >
               <MyLocationIcon />
             </button>
@@ -106,7 +107,7 @@ export default function LocationSection({
       </label>
       <div className="field-grid keep-two-mobile">
         <label>
-          Latitude (optional)
+          {t("location.section.latitude")}
           <input
             className="form-control-tall"
             name="latitude"
@@ -116,7 +117,7 @@ export default function LocationSection({
           />
         </label>
         <label>
-          Longitude (optional)
+          {t("location.section.longitude")}
           <input
             className="form-control-tall"
             name="longitude"

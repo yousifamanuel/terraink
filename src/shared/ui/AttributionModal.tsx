@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { Trans, useTranslation } from "react-i18next";
 import { CloseIcon } from "./Icons";
 import MapAttributionLinks from "./MapAttributionLinks";
 
@@ -9,6 +10,7 @@ interface AttributionModalProps {
 
 /** Desktop map-attribution dialog, opened from the footer ⓘ button. */
 export default function AttributionModal({ onClose }: AttributionModalProps) {
+  const { t } = useTranslation();
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -34,24 +36,27 @@ export default function AttributionModal({ onClose }: AttributionModalProps) {
           type="button"
           className="about-modal-close"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={t("shell.common.close")}
         >
           <CloseIcon />
         </button>
         <h2 className="attribution-modal-title" id="attribution-modal-title">
-          Map attribution
+          {t("shell.attribution.title")}
         </h2>
         <p className="attribution-modal-line">
-          Map data &copy;{" "}
-          <a
-            className="source-link"
-            href="https://www.openstreetmap.org/copyright"
-            target="_blank"
-            rel="noreferrer"
-          >
-            OpenStreetMap contributors
-          </a>
-          .
+          <Trans
+            i18nKey="shell.attribution.mapDataLine"
+            components={{
+              link: (
+                <a
+                  className="source-link"
+                  href="https://www.openstreetmap.org/copyright"
+                  target="_blank"
+                  rel="noreferrer"
+                />
+              ),
+            }}
+          />
         </p>
         <p className="attribution-modal-line">
           <MapAttributionLinks />

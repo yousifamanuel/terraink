@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import { applyFades } from "./layers";
 import { drawPosterText } from "./typography";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
@@ -46,7 +47,7 @@ export async function compositeExport(
   canvas.height = height;
 
   const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas rendering is not available.");
+  if (!ctx) throw new Error(i18n.t("export.errors.canvasUnavailable"));
 
   // 1. Draw map snapshot
   ctx.drawImage(mapCanvas, 0, 0);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useExport } from "@/features/export/application/useExport";
 import type { ExportFormat } from "@/features/export/domain/types";
+import { useTranslation } from "react-i18next";
 import { DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
 
 const FLYOUT_FORMATS: { format: ExportFormat; label: string }[] = [
@@ -9,6 +10,7 @@ const FLYOUT_FORMATS: { format: ExportFormat; label: string }[] = [
 ];
 
 export default function DesktopExportFlyout() {
+  const { t } = useTranslation();
   const { isExporting, exportPoster } = useExport();
   const [activeFormat, setActiveFormat] = useState<ExportFormat | null>(null);
 
@@ -49,7 +51,7 @@ export default function DesktopExportFlyout() {
         {isExporting && activeFormat === "png"
           ? <LoaderIcon className="desktop-export-btn-icon is-spinning" />
           : <DownloadIcon className="desktop-export-btn-icon" />}
-        <span className="desktop-export-label-default">Download</span>
+        <span className="desktop-export-label-default">{t("export.flyout.download")}</span>
         <span className="desktop-export-label-hover">PNG</span>
       </button>
     </div>

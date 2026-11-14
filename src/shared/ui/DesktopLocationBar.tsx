@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
@@ -7,7 +8,6 @@ import { useRecentLocations } from "@/features/location/application/useRecentLoc
 import LocationSuggestionsDropdown from "@/features/location/ui/LocationSuggestionsDropdown";
 import { useMapSync } from "@/features/map/application/useMapSync";
 import {
-  PLACEHOLDER_LOCATION_SEARCH,
   PLACEHOLDER_EXAMPLE_LATITUDE,
   PLACEHOLDER_EXAMPLE_LONGITUDE,
 } from "@/features/location/ui/constants";
@@ -21,6 +21,7 @@ import { MyLocationIcon, LocationIcon, SearchIcon } from "@/shared/ui/Icons";
  * Clicking the pin icon shows/hides the lat/lon coordinate fields.
  */
 export default function DesktopLocationBar() {
+  const { t } = useTranslation();
   const { state, dispatch, mapRef } = usePosterContext();
   const {
     handleChange,
@@ -64,14 +65,14 @@ export default function DesktopLocationBar() {
                   onFocus={() => setLocationFocused(true)}
                   onBlur={() => setLocationFocused(false)}
                   onKeyDown={(e) => { if (e.key === "Enter") void searchNow(e.currentTarget.value); }}
-                  placeholder={PLACEHOLDER_LOCATION_SEARCH}
+                  placeholder={t("location.section.searchPlaceholder")}
                   autoComplete="off"
                 />
                 {hasLocationValue ? (
                   <button
                     type="button"
                     className="location-clear-btn"
-                    aria-label="Clear location"
+                    aria-label={t("shell.locationBar.clear")}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={handleClearLocation}
                   >
@@ -88,8 +89,8 @@ export default function DesktopLocationBar() {
               onMouseDown={(e) => e.preventDefault()}
               onClick={handleUseCurrentLocation}
               disabled={isLocatingUser}
-              aria-label="Use current location"
-              title="Use current location"
+              aria-label={t("shell.locationBar.useCurrent")}
+              title={t("shell.locationBar.useCurrent")}
             >
               <MyLocationIcon className="location-current-icon" />
             </button>
@@ -98,8 +99,8 @@ export default function DesktopLocationBar() {
               className={`icon-only-btn location-row-icon-btn${showCoords ? " is-active" : ""}`}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => setShowCoords((v) => !v)}
-              aria-label="Toggle coordinate fields"
-              title="Show/hide lat & lon"
+              aria-label={t("shell.locationBar.toggleCoords")}
+              title={t("shell.locationBar.toggleCoordsTitle")}
             >
               <LocationIcon />
             </button>
@@ -125,7 +126,7 @@ export default function DesktopLocationBar() {
 
         <div className="dsk-loc-coords">
           <label>
-            Latitude
+            {t("shell.locationBar.latitude")}
             <input
               className="form-control-tall"
               name="latitude"
@@ -135,7 +136,7 @@ export default function DesktopLocationBar() {
             />
           </label>
           <label>
-            Longitude
+            {t("shell.locationBar.longitude")}
             <input
               className="form-control-tall"
               name="longitude"

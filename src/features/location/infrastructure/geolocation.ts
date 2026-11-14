@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import { isNativePlatform } from "@/core/platform";
 
 export type GeolocationFailureReason =
@@ -150,17 +151,17 @@ export function getGeolocationFailureMessage(
   const baseMessage =
     reason === "denied"
       ? isNativePlatform()
-        ? "Location access is blocked. Enable location for Terraink in your device Settings, then try again."
-        : "Location access is blocked. Enable location permission in your browser settings, then try again."
+        ? i18n.t("location.geo.deniedNative")
+        : i18n.t("location.geo.deniedBrowser")
       : reason === "unsupported"
-        ? "Location is not supported in this browser."
+        ? i18n.t("location.geo.unsupported")
         : reason === "insecure"
-          ? "Location requires a secure connection (HTTPS)."
-          : "Could not get your location right now. Check location services and try again.";
+          ? i18n.t("location.geo.insecure")
+          : i18n.t("location.geo.generic");
 
   if (!includeManualFallback) {
     return baseMessage;
   }
 
-  return `${baseMessage} You can type a location manually.`;
+  return `${baseMessage} ${i18n.t("location.geo.manualFallback")}`;
 }

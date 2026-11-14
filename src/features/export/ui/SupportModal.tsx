@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { SOCIAL_INSTAGRAM } from "@/core/config";
 import { CloseIcon, InstagramIcon } from "@/shared/ui/Icons";
 import { trackEvent } from "@/shared/utils/analytics";
@@ -14,6 +15,7 @@ export default function SupportModal({
   onClose,
   titleId = "export-support-modal-title",
 }: SupportModalProps) {
+  const { t } = useTranslation();
   const instagramUrl = String(SOCIAL_INSTAGRAM ?? "").trim();
 
   return createPortal(
@@ -33,17 +35,16 @@ export default function SupportModal({
           type="button"
           className="support-modal__close"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={t("export.support.close")}
         >
           <CloseIcon />
         </button>
         <div className="support-modal__body">
           <p className="support-modal__headline" id={titleId}>
-            ✨ Your poster is ready!
+            {t("export.support.headline")}
           </p>
           <p className="support-modal__text">
-            Follow Terraink on Instagram for fresh map ideas, design tips, and the
-            latest features — and show off the posters you make.
+            {t("export.support.text")}
           </p>
           <div className="support-modal__actions">
             {instagramUrl ? (
@@ -54,7 +55,7 @@ export default function SupportModal({
                 rel="noreferrer"
                 onClick={() => trackEvent("follow_click")}
               >
-                <InstagramIcon /> Follow us
+                <InstagramIcon /> {t("export.support.followUs")}
               </a>
             ) : (
               <button
@@ -62,7 +63,7 @@ export default function SupportModal({
                 className="support-modal__dismiss"
                 onClick={onClose}
               >
-                Close
+                {t("export.support.close")}
               </button>
             )}
           </div>

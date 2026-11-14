@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useExport } from "@/features/export/application/useExport";
 import type { ExportFormat } from "@/features/export/domain/types";
 import { CloseIcon, DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
+import { useTranslation } from "react-i18next";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
 const FORMAT_OPTIONS: { format: ExportFormat; label: string }[] = [
@@ -15,6 +16,7 @@ interface ExportFabProps {
 }
 
 export default function ExportFab({ isMobile }: ExportFabProps) {
+  const { t } = useTranslation();
   const { isExporting, exportPoster } = useExport();
   const [isOpen, setIsOpen] = useState(false);
   const [activeFormat, setActiveFormat] = useState<ExportFormat | null>(null);
@@ -63,14 +65,14 @@ export default function ExportFab({ isMobile }: ExportFabProps) {
       <button
         type="button"
         className={triggerClass}
-        aria-label="Export poster"
-        title="Export poster"
+        aria-label={t("export.fab.exportPoster")}
+        title={t("export.fab.exportPoster")}
         onClick={() => setIsOpen(true)}
         tabIndex={isMobile && !isTriggerVisible ? -1 : 0}
         aria-hidden={isMobile && !isTriggerVisible}
       >
         <DownloadIcon />
-        {!isMobile && <span>Download</span>}
+        {!isMobile && <span>{t("export.fab.download")}</span>}
       </button>
 
       {isOpen ? (
@@ -87,12 +89,12 @@ export default function ExportFab({ isMobile }: ExportFabProps) {
             onClick={(event) => event.stopPropagation()}
           >
             <div className="export-modal-header">
-              <h3 id="export-modal-title">Download Poster</h3>
+              <h3 id="export-modal-title">{t("export.fab.downloadPoster")}</h3>
               <button
                 type="button"
                 className="export-modal-close"
                 onClick={() => !isExporting && setIsOpen(false)}
-                aria-label="Close export options"
+                aria-label={t("export.fab.closeOptions")}
               >
                 <CloseIcon />
               </button>
@@ -116,7 +118,7 @@ export default function ExportFab({ isMobile }: ExportFabProps) {
               ))}
             </div>
             <p className="export-modal-support-label">
-              Support the project <span className="heart">❤︎</span>
+              {t("export.fab.supportProject")} <span className="heart">❤︎</span>
             </p>
             <SocialLinkGroup variant="mobile-export" />
           </div>

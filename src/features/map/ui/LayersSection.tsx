@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import MapDimensionFields from "./MapDimensionFields";
 
 interface LayerForm {
@@ -31,11 +32,12 @@ export default function LayersSection({
   maxPosterCm,
   onNumericFieldBlur,
 }: LayersSectionProps) {
+  const { t } = useTranslation();
   return (
     <section className="panel-block">
-      <p className="section-summary-label">LAYERS</p>
+      <p className="section-summary-label">{t("map.layers.title")}</p>
       <label className="toggle-field">
-        <span>Show landcover</span>
+        <span>{t("map.layers.showLandcover")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -47,7 +49,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show buildings</span>
+        <span>{t("map.layers.showBuildings")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -59,7 +61,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show water</span>
+        <span>{t("map.layers.showWater")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -71,7 +73,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show parks</span>
+        <span>{t("map.layers.showParks")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -83,7 +85,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show roads</span>
+        <span>{t("map.layers.showRoads")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -95,7 +97,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show rail</span>
+        <span>{t("map.layers.showRail")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -107,7 +109,7 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>Show aeroway</span>
+        <span>{t("map.layers.showAeroway")}</span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -120,7 +122,7 @@ export default function LayersSection({
       </label>
 
       <div className="map-details-section">
-        <h3 className="map-details-subtitle">Map Details</h3>
+        <h3 className="map-details-subtitle">{t("map.layers.mapDetails")}</h3>
         <div className="map-details-card">
           <MapDimensionFields
             form={form}

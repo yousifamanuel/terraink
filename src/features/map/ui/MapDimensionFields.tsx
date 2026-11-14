@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { MIN_DISTANCE_METERS, MAX_DISTANCE_METERS } from "@/core/config";
 
 interface MapDimensionForm {
@@ -25,6 +26,7 @@ export default function MapDimensionFields({
   showSizeFields = true,
   showDistanceField = true,
 }: MapDimensionFieldsProps) {
+  const { t } = useTranslation();
   const SLIDER_MIN = 0;
   const SLIDER_MAX = 1000;
 
@@ -115,7 +117,7 @@ export default function MapDimensionFields({
       {showSizeFields ? (
         <div className="map-size-fields-row">
           <label>
-            Width (cm)
+            {t("map.dimensions.widthCm")}
             <input
               className="form-control-tall"
               name="width"
@@ -129,7 +131,7 @@ export default function MapDimensionFields({
             />
           </label>
           <label>
-            Height (cm)
+            {t("map.dimensions.heightCm")}
             <input
               className="form-control-tall"
               name="height"
@@ -148,7 +150,7 @@ export default function MapDimensionFields({
       {showDistanceField ? (
         <label className="distance-slider-field">
           <span>
-            <span>Distance (m)</span>
+            <span>{t("map.dimensions.distanceM")}</span>
             <input
               className="distance-slider-input"
               name="distance"
@@ -159,7 +161,7 @@ export default function MapDimensionFields({
               value={form.distance}
               onChange={onChange}
               onBlur={onNumericFieldBlur}
-              aria-label="Distance in meters"
+              aria-label={t("map.dimensions.distanceAria")}
             />
           </span>
           <input
@@ -175,7 +177,7 @@ export default function MapDimensionFields({
                 sliderValueToDistance(Number(event.target.value)),
               )
             }
-            aria-label="Distance in meters"
+            aria-label={t("map.dimensions.distanceAria")}
           />
           <span className="distance-slider-meta">
             {sliderMetaMarks.map((mark, index) => {

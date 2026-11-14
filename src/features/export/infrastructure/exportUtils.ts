@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import maplibregl, {
   type Map as MaplibreMap,
   type StyleSpecification,
@@ -17,7 +18,7 @@ export function waitForMapIdle(map: MaplibreMap): Promise<void> {
     const timeout = window.setTimeout(() => {
       if (settled) return;
       settled = true;
-      reject(new Error("Timed out while waiting for map tiles to render."));
+      reject(new Error(i18n.t("export.errors.tilesTimeout")));
     }, EXPORT_MAP_TIMEOUT_MS);
 
     const finish = () => {

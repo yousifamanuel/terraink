@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createCustomLayoutOption } from "@/features/layout/infrastructure/layoutRepository";
 import {
   DISPLAY_PALETTE_KEYS,
-  PALETTE_COLOR_LABELS,
   type ThemeColorKey,
   type ThemeOption,
 } from "@/features/theme/domain/types";
+import { getPaletteColorLabel } from "@/features/theme/application/paletteColorLabel";
 import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 import { normalizeHexColor } from "@/shared/utils/color";
 import {
@@ -94,6 +95,7 @@ export default function MapSettingsSection({
   onRemoveSavedTheme,
   onSetCustomColors,
 }: MapSettingsSectionProps) {
+  const { t } = useTranslation();
   const [isThemeEditing, setIsThemeEditing] = useState(false);
   const [isLayoutEditing, setIsLayoutEditing] = useState(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
@@ -182,12 +184,12 @@ export default function MapSettingsSection({
         const currentColor = customColors[key] ?? baseColor;
         return {
           key,
-          label: PALETTE_COLOR_LABELS[key] ?? key,
+          label: getPaletteColorLabel(key),
           color: currentColor,
           isActive: activeColorKey === key,
         };
       }),
-    [activeColorKey, customColors, selectedTheme],
+    [activeColorKey, customColors, selectedTheme, t],
   );
 
   const layoutOptions = useMemo(
@@ -202,8 +204,12 @@ export default function MapSettingsSection({
   }, [form.height, form.layout, form.width, layoutOptions]);
   const selectedLayoutDescription =
     selectedLayoutOption.id === "custom"
-      ? "Your custom layout."
-      : selectedLayoutOption.description?.trim() || "No description available.";
+      ? t("map.settings.customLayoutDescription")
+      : t(`layout.descriptions.${selectedLayoutOption.id}`, {
+          defaultValue:
+            selectedLayoutOption.description?.trim() ||
+            t("map.settings.noDescription"),
+        });
 
   function clearColorPickerState() {
     setActiveColorKey(null);
@@ -313,7 +319,7 @@ export default function MapSettingsSection({
   }
 
   function buildSuggestedThemeName(): string {
-    const baseName = (selectedThemeOption.name || selectedTheme.name || "Theme").trim();
+    const baseName = (selectedThemeOption.name || selectedTheme.name || t("map.settings.themeFallbackName")).trim();
     const now = new Date();
     const pad = (n: number, width = 2) => String(n).padStart(width, "0");
     const stamp =
@@ -412,8 +418,8 @@ export default function MapSettingsSection({
     [customColors, selectedTheme],
   );
   const activeColorLabel = activeColorKey
-    ? (PALETTE_COLOR_LABELS[activeColorKey] ?? "Color")
-    : "Color";
+    ? getPaletteColorLabel(activeColorKey)
+    : t("map.settings.colorFallback");
 
   useEffect(() => {
     onColorEditorActiveChange?.(false);
@@ -478,21 +484,21 @@ export default function MapSettingsSection({
   return (
     <section className="panel-block">
       <div className="map-settings-theme-part">
-        <h2>Theme</h2>
+        <h2>{t("map.settings.theme")}</h2>
 
         {isThemeEditing ? (
           activeColorKey ? (
             <section className="panel-block color-editor-screen">
-              <h2>Color Editor</h2>
+              <h2>{t("map.settings.colorEditor")}</h2>
               <div className="color-editor-header">
-                <p className="theme-active-label">Editing: {activeColorLabel}</p>
+                <p className="theme-active-label">{t("map.settings.editing", { label: activeColorLabel })}</p>
                 <div className="theme-edit-actions">
                   <button
                     type="button"
                     className="theme-edit-done-btn"
                     onClick={clearColorPickerState}
                   >
-                    Done
+                    {t("map.settings.done")}
                   </button>
                 </div>
               </div>
@@ -553,13 +559,14 @@ export default function MapSettingsSection({
 
       {pendingDeleteThemeId ? (
         <ConfirmModal
-          title="Delete saved theme"
-          message={`Delete "${
-            savedThemes.find((t) => t.id === pendingDeleteThemeId)?.name ??
-            "this theme"
-          }"? This cannot be undone.`}
-          confirmLabel="Delete"
-          cancelLabel="Cancel"
+          title={t("map.settings.deleteThemeTitle")}
+          message={t("map.settings.deleteThemeMessage", {
+            name:
+              savedThemes.find((th) => th.id === pendingDeleteThemeId)?.name ??
+              t("map.settings.thisTheme"),
+          })}
+          confirmLabel={t("map.settings.delete")}
+          cancelLabel={t("map.settings.cancel")}
           destructive
           onConfirm={handleConfirmDeleteSavedTheme}
           onCancel={handleCancelDeleteSavedTheme}
@@ -567,11 +574,11 @@ export default function MapSettingsSection({
       ) : null}
 
       <div className="map-settings-layout-part">
-        <h2>Layout</h2>
+        <h2>{t("map.settings.layout")}</h2>
         <div className="layout-summary-head">
           <div className="layout-summary-copy">
             <p className="layout-summary-label">
-              LAYOUT:{" "}
+              {t("map.settings.layoutLabel")}{" "}
               <span className="layout-summary-label-name">
                 {selectedLayoutOption.name}
               </span>
@@ -585,7 +592,7 @@ export default function MapSettingsSection({
               type="button"
               className="theme-customize-btn"
               onClick={handleDoneLayoutEditor}
-              aria-label="Done editing layout"
+              aria-label={t("map.settings.doneEditingLayout")}
             >
               <span className="theme-customize-icon" aria-hidden="true">
                 <CheckIcon />
@@ -596,7 +603,7 @@ export default function MapSettingsSection({
               type="button"
               className="theme-customize-btn"
               onClick={handleOpenLayoutEditor}
-              aria-label="Customize layout size"
+              aria-label={t("map.settings.customizeLayoutSize")}
             >
               <span className="theme-customize-icon" aria-hidden="true">
                 <EditIcon />
@@ -620,7 +627,7 @@ export default function MapSettingsSection({
           <div className="layout-inline-groups" ref={layoutGroupsRef}>
             {layoutGroups.map((group) => (
               <section key={group.id} className="layout-inline-group">
-                <h3>{group.name}</h3>
+                <h3>{t(`layout.groups.${group.id}`, { defaultValue: group.name })}</h3>
                 <div className="layout-inline-list card-scroll-list">
                   {group.options.map((layoutOption) => (
                     <LayoutCard

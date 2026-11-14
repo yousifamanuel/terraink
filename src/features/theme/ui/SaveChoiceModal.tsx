@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { Trans, useTranslation } from "react-i18next";
 import { CloseIcon } from "@/shared/ui/Icons";
 
 interface SaveChoiceModalProps {
@@ -15,6 +16,7 @@ export default function SaveChoiceModal({
   onSaveAsCopy,
   onCancel,
 }: SaveChoiceModalProps) {
+  const { t } = useTranslation();
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") onCancel();
@@ -37,20 +39,23 @@ export default function SaveChoiceModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="picker-modal-header">
-          <h3 id="save-choice-modal-title">Save changes</h3>
+          <h3 id="save-choice-modal-title">{t("theme.choiceModal.title")}</h3>
           <button
             type="button"
             className="picker-modal-close"
             onClick={onCancel}
-            aria-label="Cancel"
+            aria-label={t("theme.choiceModal.cancel")}
           >
             <CloseIcon />
           </button>
         </div>
 
         <p className="save-choice-message">
-          Update <strong>“{themeName}”</strong> with your edits, or keep the
-          original and save these colors as a new theme?
+          <Trans
+            i18nKey="theme.choiceModal.message"
+            values={{ themeName }}
+            components={{ strong: <strong /> }}
+          />
         </p>
 
         <div className="save-choice-actions">
@@ -59,14 +64,14 @@ export default function SaveChoiceModal({
             className="save-theme-cancel"
             onClick={onSaveAsCopy}
           >
-            Save as Copy
+            {t("theme.choiceModal.saveAsCopy")}
           </button>
           <button
             type="button"
             className="save-theme-confirm"
             onClick={onSave}
           >
-            Save
+            {t("theme.choiceModal.save")}
           </button>
         </div>
       </div>

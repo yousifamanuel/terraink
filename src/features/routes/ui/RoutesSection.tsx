@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { createPortal } from "react-dom";
+import { Trans, useTranslation } from "react-i18next";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useGpxUpload } from "@/features/routes/application/useGpxUpload";
 import type {
@@ -32,6 +33,7 @@ import {
   findMarkerIcon,
   predefinedMarkerIcons,
 } from "@/features/markers/infrastructure/iconRegistry";
+import { getMarkerIconLabel } from "@/features/markers/ui/markerIconLabel";
 
 type RouteEndpointKind = "start" | "finish";
 
@@ -61,6 +63,7 @@ function RouteBoundsWarningModal({
   onContinue: () => void;
   onReplace: () => void;
 }) {
+  const { t } = useTranslation();
   return createPortal(
     <div
       className="picker-modal-backdrop"
@@ -79,11 +82,10 @@ function RouteBoundsWarningModal({
             className="marker-delete-modal__headline"
             id="route-bounds-modal-title"
           >
-            This route is far from your current area
+            {t("routes.boundsWarning.title")}
           </p>
           <p className="marker-delete-modal__text">
-            Adding it will zoom the poster out to fit everything. You can also
-            replace your existing routes with this one to keep a tighter view.
+            {t("routes.boundsWarning.text")}
           </p>
           <div className="marker-delete-modal__actions">
             <button
@@ -91,21 +93,21 @@ function RouteBoundsWarningModal({
               className="marker-delete-modal__cancel"
               onClick={onCancel}
             >
-              Cancel
+              {t("routes.boundsWarning.cancel")}
             </button>
             <button
               type="button"
               className="marker-delete-modal__cancel"
               onClick={onReplace}
             >
-              Replace existing
+              {t("routes.boundsWarning.replace")}
             </button>
             <button
               type="button"
               className="marker-delete-modal__confirm"
               onClick={onContinue}
             >
-              Add anyway
+              {t("routes.boundsWarning.addAnyway")}
             </button>
           </div>
         </div>
@@ -116,6 +118,7 @@ function RouteBoundsWarningModal({
 }
 
 export default function RoutesSection() {
+  const { t } = useTranslation();
   const { state, dispatch, effectiveTheme } = usePosterContext();
   const { form, routes, customMarkerIcons } = state;
   const { uploadGpxFile, confirmAddRoute, confirmReplaceRoutes } =
@@ -164,12 +167,12 @@ export default function RoutesSection() {
           });
         }
       } catch (err) {
-        setUploadError(err instanceof Error ? err.message : "Upload failed.");
+        setUploadError(err instanceof Error ? err.message : t("routes.errors.uploadFailed"));
       } finally {
         setIsUploading(false);
       }
     },
-    [uploadGpxFile],
+    [uploadGpxFile, t],
   );
 
   const updateRoute = useCallback(
@@ -278,28 +281,36 @@ export default function RoutesSection() {
       ) : null}
 
       <div className="markers-section-head">
-        <p className="section-summary-label">ROUTES</p>
+        <p className="section-summary-label">{t("routes.section.title")}</p>
         <div className="markers-section-head-actions">
           <button
             type="button"
             className="marker-row__icon-btn marker-header-action-btn"
             onClick={toggleShowAll}
-            title={form.showRoutes ? "Hide routes" : "Show routes"}
+            title={
+              form.showRoutes
+                ? t("routes.section.hideRoutes")
+                : t("routes.section.showRoutes")
+            }
             disabled={routes.length === 0}
           >
             <span className="marker-row__icon-btn-label">
-              {form.showRoutes ? "Hide All" : "Show All"}
+              {form.showRoutes
+                ? t("routes.section.hideAll")
+                : t("routes.section.showAll")}
             </span>
           </button>
           <button
             type="button"
             className="marker-row__icon-btn marker-header-action-btn"
             onClick={handleUploadClick}
-            title="Upload GPX file"
+            title={t("routes.section.uploadTitle")}
             disabled={isUploading}
           >
             <span className="marker-row__icon-btn-label">
-              {isUploading ? "Uploading…" : "Upload GPX"}
+              {isUploading
+                ? t("routes.section.uploading")
+                : t("routes.section.uploadGpx")}
             </span>
           </button>
         </div>
@@ -322,8 +333,10 @@ export default function RoutesSection() {
       <div className="routes-section__content">
         {routes.length === 0 ? (
           <p className="routes-section__empty">
-            Upload a <code>.gpx</code> file to draw a route on the poster.
-            Drawing routes manually is coming soon.
+            <Trans
+              i18nKey="routes.section.empty"
+              components={{ code: <code /> }}
+            />
           </p>
         ) : null}
 
@@ -346,8 +359,10 @@ export default function RoutesSection() {
                   type="button"
                   className="route-card__delete"
                   onClick={() => removeRoute(route.id)}
-                  title="Remove route"
-                  aria-label={`Remove ${route.label}`}
+                  title={t("routes.card.removeRoute")}
+                  aria-label={t("routes.card.removeNamed", {
+                    label: route.label,
+                  })}
                 >
                   <CloseIcon />
                 </button>
@@ -358,9 +373,15 @@ export default function RoutesSection() {
                   onClick={
                     isEditingEndpoint ? closeEndpointEditor : closeCard
                   }
-                  title={isEditingEndpoint ? "Finish endpoint" : "Done"}
+                  title={
+                    isEditingEndpoint
+                      ? t("routes.card.finishEndpoint")
+                      : t("routes.card.done")
+                  }
                   aria-label={
-                    isEditingEndpoint ? "Finish endpoint" : "Done editing route"
+                    isEditingEndpoint
+                      ? t("routes.card.finishEndpoint")
+                      : t("routes.card.doneEditing")
                   }
                 >
                   <CheckIcon />
@@ -385,7 +406,9 @@ export default function RoutesSection() {
                 <span className="route-card__meta">
                   <span className="route-card__label">
                     {isEditingEndpoint
-                      ? `Edit ${endpointKind === "start" ? "Start" : "Finish"}`
+                      ? endpointKind === "start"
+                        ? t("routes.card.editStart")
+                        : t("routes.card.editFinish")
                       : route.label}
                   </span>
                   <span className="route-card__distance">
@@ -408,7 +431,7 @@ export default function RoutesSection() {
                   <div className="route-card__body">
                     <div className="route-card__field">
                       <label>
-                        <span>Icon</span>
+                        <span>{t("routes.card.icon")}</span>
                         <button
                           type="button"
                           className="route-card__endpoint-toggle"
@@ -418,8 +441,8 @@ export default function RoutesSection() {
                           aria-expanded={isEndpointIconOpen}
                           aria-label={
                             isEndpointIconOpen
-                              ? "Close icon picker"
-                              : "Change icon"
+                              ? t("routes.card.closeIconPicker")
+                              : t("routes.card.changeIcon")
                           }
                         >
                           {icon ? (
@@ -447,8 +470,8 @@ export default function RoutesSection() {
                                   iconId: option.id,
                                 })
                               }
-                              title={option.label}
-                              aria-label={option.label}
+                              title={getMarkerIconLabel(t, option)}
+                              aria-label={getMarkerIconLabel(t, option)}
                             >
                               <MarkerVisual
                                 icon={option}
@@ -463,7 +486,7 @@ export default function RoutesSection() {
 
                     <div className="route-card__field">
                       <label>
-                        <span>Color</span>
+                        <span>{t("routes.card.color")}</span>
                         <button
                           type="button"
                           className="route-card__color-toggle"
@@ -473,8 +496,8 @@ export default function RoutesSection() {
                           }
                           aria-label={
                             isEndpointColorOpen
-                              ? "Close color picker"
-                              : "Open color picker"
+                              ? t("routes.card.closeColorPicker")
+                              : t("routes.card.openColorPicker")
                           }
                         >
                           {isEndpointColorOpen ? <CloseIcon /> : null}
@@ -501,7 +524,7 @@ export default function RoutesSection() {
                       <label
                         htmlFor={`route-${route.id}-${endpointKind}-size`}
                       >
-                        <span>Size</span>
+                        <span>{t("routes.card.size")}</span>
                         <span className="route-card__value">
                           {endpoint.size}px
                         </span>
@@ -527,7 +550,7 @@ export default function RoutesSection() {
               {isOpen && !isEditingEndpoint ? (
                 <div className="route-card__body">
                   <label className="toggle-field">
-                    <span>Show endpoints</span>
+                    <span>{t("routes.card.showEndpoints")}</span>
                     <span className="theme-switch">
                       <input
                         type="checkbox"
@@ -553,14 +576,21 @@ export default function RoutesSection() {
                           endpoint.iconId,
                           customMarkerIcons,
                         );
-                        const label = kind === "start" ? "Start" : "Finish";
+                        const label =
+                          kind === "start"
+                            ? t("routes.card.start")
+                            : t("routes.card.finish");
                         return (
                           <button
                             key={kind}
                             type="button"
                             className="route-card__endpoint-row"
                             onClick={() => openEndpointEditor(route.id, kind)}
-                            aria-label={`Edit ${label.toLowerCase()} marker`}
+                            aria-label={t(
+                              kind === "start"
+                                ? "routes.card.editStartMarker"
+                                : "routes.card.editFinishMarker",
+                            )}
                           >
                             <span className="route-card__endpoint-row-icon">
                               {icon ? (
@@ -582,7 +612,7 @@ export default function RoutesSection() {
 
                   <div className="route-card__field">
                     <label>
-                      <span>Color</span>
+                      <span>{t("routes.card.color")}</span>
                       <button
                         type="button"
                         className="route-card__color-toggle"
@@ -591,7 +621,9 @@ export default function RoutesSection() {
                           setOpenColorPickerId(isColorOpen ? null : route.id)
                         }
                         aria-label={
-                          isColorOpen ? "Close color picker" : "Open color picker"
+                          isColorOpen
+                            ? t("routes.card.closeColorPicker")
+                            : t("routes.card.openColorPicker")
                         }
                       >
                         {isColorOpen ? <CloseIcon /> : null}
@@ -614,7 +646,7 @@ export default function RoutesSection() {
 
                   <div className="route-card__field">
                     <label htmlFor={`route-width-${route.id}`}>
-                      <span>Width</span>
+                      <span>{t("routes.card.width")}</span>
                       <span className="route-card__value">
                         {route.strokeWidth}px
                       </span>
@@ -636,7 +668,7 @@ export default function RoutesSection() {
 
                   <div className="route-card__field">
                     <label htmlFor={`route-opacity-${route.id}`}>
-                      <span>Opacity</span>
+                      <span>{t("routes.card.opacity")}</span>
                       <span className="route-card__value">
                         {Math.round(route.opacity * 100)}%
                       </span>
@@ -658,7 +690,7 @@ export default function RoutesSection() {
 
                   <div className="route-card__field">
                     <label>
-                      <span>Style</span>
+                      <span>{t("routes.card.style")}</span>
                     </label>
                     <div className="route-card__style-toggle">
                       {ROUTE_LINE_STYLES.map((style) => (
@@ -670,7 +702,9 @@ export default function RoutesSection() {
                             updateRoute(route.id, { lineStyle: style })
                           }
                         >
-                          <span>{style === "solid" ? "Solid" : "Dashed"}</span>
+                          <span>{style === "solid"
+                              ? t("routes.card.solid")
+                              : t("routes.card.dashed")}</span>
                           <svg
                             className="route-card__style-preview"
                             width="28"
@@ -699,11 +733,11 @@ export default function RoutesSection() {
                       type="button"
                       className="marker-row__icon-btn marker-row__icon-btn--danger"
                       onClick={() => removeRoute(route.id)}
-                      title="Remove route"
+                      title={t("routes.card.removeRoute")}
                     >
                       <TrashIcon />
                       <span className="marker-row__icon-btn-label">
-                        Remove Route
+                        {t("routes.card.removeRouteButton")}
                       </span>
                     </button>
                   </div>

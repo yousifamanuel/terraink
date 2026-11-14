@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import i18n from "@/core/i18n";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { localStorageCache } from "@/core/cache/localStorageCache";
 import type { ExportFormat } from "@/features/export/domain/types";
@@ -126,7 +127,7 @@ export function useExport() {
     async (format: ExportFormat) => {
       const map = mapRef.current;
       if (!map) {
-        dispatch({ type: "SET_ERROR", error: "Map is not ready." });
+        dispatch({ type: "SET_ERROR", error: i18n.t("export.errors.mapNotReady") });
         return;
       }
 
@@ -256,7 +257,7 @@ export function useExport() {
         registerSuccessfulExport(nextCount);
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Export failed.";
+        const message = err instanceof Error ? err.message : i18n.t("export.errors.exportFailed");
         trackEvent("export_failed", { format, reason: message });
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false, error: message });
       }

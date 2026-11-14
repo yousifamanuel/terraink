@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   LocationIcon,
   ThemeIcon,
@@ -12,15 +13,15 @@ import type { MobileTab } from "./MobileNavBar";
 
 const tabs: {
   id: MobileTab;
-  label: string;
+  labelKey: string;
   Icon: React.ComponentType<{ className?: string }>;
 }[] = [
-  { id: "theme", label: "Theme", Icon: ThemeIcon },
-  { id: "layout", label: "Layout", Icon: LayoutIcon },
-  { id: "style", label: "Style", Icon: StyleIcon },
-  { id: "layers", label: "Layers", Icon: LayersIcon },
-  { id: "markers", label: "Markers", Icon: MarkersIcon },
-  { id: "routes", label: "Routes", Icon: RouteIcon },
+  { id: "theme", labelKey: "shell.nav.theme", Icon: ThemeIcon },
+  { id: "layout", labelKey: "shell.nav.layout", Icon: LayoutIcon },
+  { id: "style", labelKey: "shell.nav.style", Icon: StyleIcon },
+  { id: "layers", labelKey: "shell.nav.layers", Icon: LayersIcon },
+  { id: "markers", labelKey: "shell.nav.markers", Icon: MarkersIcon },
+  { id: "routes", labelKey: "shell.nav.routes", Icon: RouteIcon },
 ];
 
 interface DesktopNavBarProps {
@@ -38,32 +39,36 @@ export default function DesktopNavBar({
   isLocationVisible,
   onLocationToggle,
 }: DesktopNavBarProps) {
+  const { t } = useTranslation();
+  const locationToggleLabel = isLocationVisible
+    ? t("shell.nav.hideLocation")
+    : t("shell.nav.showLocation");
   return (
-    <nav className="desktop-nav-bar" aria-label="Settings sections">
+    <nav className="desktop-nav-bar" aria-label={t("shell.nav.sections")}>
       <button
         type="button"
         className={`desktop-nav-tab${isLocationVisible ? " is-active" : ""}`}
         onClick={onLocationToggle}
-        title={isLocationVisible ? "Hide location row" : "Show location row"}
-        aria-label={isLocationVisible ? "Hide location row" : "Show location row"}
+        title={locationToggleLabel}
+        aria-label={locationToggleLabel}
         aria-pressed={isLocationVisible}
       >
         <LocationIcon className="desktop-nav-icon" />
-        <span className="desktop-nav-label">Location</span>
+        <span className="desktop-nav-label">{t("shell.nav.location")}</span>
       </button>
 
-      {tabs.map(({ id, label, Icon }) => (
+      {tabs.map(({ id, labelKey, Icon }) => (
         <button
           key={id}
           type="button"
           className={`desktop-nav-tab${panelOpen && activeTab === id ? " is-active" : ""}`}
           onClick={() => onTabChange(id)}
-          title={label}
-          aria-label={label}
+          title={t(labelKey)}
+          aria-label={t(labelKey)}
           aria-current={panelOpen && activeTab === id ? "page" : undefined}
         >
           <Icon className="desktop-nav-icon" />
-          <span className="desktop-nav-label">{label}</span>
+          <span className="desktop-nav-label">{t(labelKey)}</span>
         </button>
       ))}
 
@@ -72,15 +77,15 @@ export default function DesktopNavBar({
         className={`desktop-nav-tab desktop-nav-tab--settings${
           panelOpen && activeTab === "settings" ? " is-active" : ""
         }`}
-        title="Settings"
-        aria-label="Settings"
+        title={t("shell.nav.settings")}
+        aria-label={t("shell.nav.settings")}
         aria-current={
           panelOpen && activeTab === "settings" ? "page" : undefined
         }
         onClick={() => onTabChange("settings")}
       >
         <SettingsIcon className="desktop-nav-icon" />
-        <span className="desktop-nav-label">Settings</span>
+        <span className="desktop-nav-label">{t("shell.nav.settings")}</span>
       </button>
     </nav>
   );
