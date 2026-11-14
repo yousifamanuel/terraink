@@ -21,6 +21,7 @@ import {
 } from "@/features/routes/domain/constants";
 import type { SavedTheme } from "@/features/theme/domain/types";
 import type { UserDefaults } from "@/features/settings/domain/types";
+import type { PosterStyleTemplateId } from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Form state ────── */
 
@@ -37,6 +38,7 @@ export interface PosterForm {
   displayCountry: string;
   displayContinent: string;
   fontFamily: string;
+  posterStyleTemplate: PosterStyleTemplateId;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

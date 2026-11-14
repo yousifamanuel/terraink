@@ -87,6 +87,23 @@
   bottom: 0;
 }
 
+.poster-fade--left,
+.poster-fade--right {
+  top: 0;
+  bottom: 0;
+  height: auto;
+}
+
+.poster-fade--left {
+  left: 0;
+  right: auto;
+}
+
+.poster-fade--right {
+  left: auto;
+  right: 0;
+}
+
 /* ── Text overlay ── */
 
 .poster-text-overlay {
@@ -150,17 +167,36 @@
   box-shadow: 0 0 0 1px rgba(7, 16, 24, 0.68);
 }
 
+.poster-template-frame {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  border: 1px solid currentcolor;
+}
+
+.poster-template-frame--mat {
+  border-width: max(2px, 0.45cqmin);
+  box-shadow: inset 0 0 0 max(1px, 0.12cqmin) rgba(255, 255, 255, 0.18);
+}
+
+.poster-template-panel {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  border: 1px solid currentcolor;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
 .poster-city {
   position: absolute;
-  left: 0;
-  right: 0;
+  right: auto;
   margin: 0;
   font-weight: 700;
   text-transform: uppercase;
-  text-align: center;
   line-height: 1.1;
   transform: translateY(-50%);
   white-space: pre-wrap;
+  z-index: 2;
 }
 
 .poster-divider {
@@ -176,28 +212,26 @@
 
 .poster-country {
   position: absolute;
-  left: 0;
-  right: 0;
+  right: auto;
   margin: 0;
   font-weight: 300;
   font-size: 2.6cqh;
   text-transform: uppercase;
-  text-align: center;
   line-height: 1.2;
   transform: translateY(-50%);
+  z-index: 2;
 }
 
 .poster-coords {
   position: absolute;
-  left: 0;
-  right: 0;
+  right: auto;
   margin: 0;
   font-family: "Spline Sans Mono", monospace;
   font-weight: 400;
   font-size: 1.6cqh;
-  text-align: center;
   opacity: 0.75;
   transform: translateY(-50%);
+  z-index: 2;
 }
 
 .poster-attribution {

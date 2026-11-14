@@ -9,19 +9,24 @@ import {
   PLACEHOLDER_EXAMPLE_CITY,
   PLACEHOLDER_EXAMPLE_COUNTRY,
 } from "@/features/location/ui/constants";
+import {
+  POSTER_STYLE_TEMPLATES,
+  type PosterStyleTemplateId,
+} from "@/features/poster/domain/posterStyleTemplates";
 
 interface TypographySectionProps {
   form: PosterForm;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
+  onPosterStyleTemplateChange: (templateId: PosterStyleTemplateId) => void;
   fontOptions: FontOption[];
 }
-
 
 export default function TypographySection({
   form,
   onChange,
+  onPosterStyleTemplateChange,
   fontOptions,
 }: TypographySectionProps) {
   const { t } = useTranslation();
@@ -48,6 +53,38 @@ export default function TypographySection({
     <>
       <section className="panel-block">
         <p className="section-summary-label">{t("poster.typography.style")}</p>
+        <div className="poster-style-template-grid" role="list">
+          {POSTER_STYLE_TEMPLATES.map((template) => {
+            const isSelected = form.posterStyleTemplate === template.id;
+            return (
+              <button
+                key={template.id}
+                type="button"
+                className={`poster-style-template-card poster-style-template-card--${template.id}${isSelected ? " is-selected" : ""}`}
+                onClick={() => onPosterStyleTemplateChange(template.id)}
+                aria-pressed={isSelected}
+              >
+                <span className="poster-style-template-preview" aria-hidden="true">
+                  <span className="poster-style-template-map" />
+                  <span className="poster-style-template-frame" />
+                  <span className="poster-style-template-panel" />
+                  <span className="poster-style-template-title" />
+                  <span className="poster-style-template-line" />
+                  <span className="poster-style-template-meta" />
+                </span>
+                <span className="poster-style-template-copy">
+                  <span className="poster-style-template-name">
+                    {template.name}
+                  </span>
+                  <span className="poster-style-template-description">
+                    {template.description}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         <label className="toggle-field">
           <span>{t("poster.typography.posterText")}</span>
           <span className="theme-switch">

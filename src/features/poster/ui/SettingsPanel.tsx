@@ -82,6 +82,7 @@ export default function SettingsPanel({
     handleClearLocation,
     setLocationFocused,
     handleCreditsChange,
+    handlePosterStyleTemplateChange,
   } = useFormHandlers();
   const { locationSuggestions, isLocationSearching, searchNow } = useLocationAutocomplete(
     state.form.location,
@@ -329,6 +330,7 @@ export default function SettingsPanel({
               <TypographySection
                 form={state.form}
                 onChange={handleChange}
+                onPosterStyleTemplateChange={handlePosterStyleTemplateChange}
                 fontOptions={FONT_OPTIONS}
               />
             ) : null}

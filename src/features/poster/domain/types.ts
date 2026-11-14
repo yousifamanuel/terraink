@@ -5,6 +5,7 @@ import type {
   MarkerProjectionInput,
 } from "@/features/markers/domain/types";
 import type { Route } from "@/features/routes/domain/types";
+import type { PosterStyleTemplateId } from "./posterStyleTemplates";
 
 export interface CanvasSize {
   width: number;
@@ -28,6 +29,7 @@ export interface ExportOptions {
   /** Pre-formatted coordinates for the poster; "" hides them. */
   coordinateText?: string;
   showOverlay?: boolean;
+  posterStyleTemplate?: PosterStyleTemplateId;
   includeCredits?: boolean;
   markers?: MarkerItem[];
   markerIcons?: MarkerIconDefinition[];
@@ -44,5 +46,6 @@ export interface Typography {
   displayContinent?: string;
   fontFamily: string;
   showPosterText: boolean;
+  posterStyleTemplate?: PosterStyleTemplateId;
   includeCredits?: boolean;
 }
