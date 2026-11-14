@@ -3,6 +3,7 @@ import { KOFI_URL, REPO_API_URL, REPO_URL, SOCIAL_INSTAGRAM } from "@/core/confi
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
 import { GitHubIcon, InstagramIcon, DonateIcon, StarIcon } from "@/shared/ui/Icons";
 import { trackEvent } from "@/shared/utils/analytics";
+import LanguageMenu from "@/shared/ui/LanguageMenu";
 
 interface SocialLinkGroupProps {
   variant: "header" | "mobile-export";
@@ -52,6 +53,7 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
           <InstagramIcon />
         </a>
       ) : null}
+      {variant === "header" ? <LanguageMenu /> : null}
       {kofiUrl ? (
         <a
           className="general-header-text-btn"
