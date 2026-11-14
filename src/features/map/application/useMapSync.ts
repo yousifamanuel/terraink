@@ -100,17 +100,31 @@ type MapSyncDispatch = (
 /** Wait this long after the map stops before asking for the place name. */
 const MAP_REST_LOOKUP_MS = 2000;
 
+/*
+ * One place-name lookup state for the whole app. useMapSync runs in several
+ * components (preview, location bar, settings); per-instance refs let a late
+ * answer from one overwrite a name another had just set.
+ */
+const nameLookup = {
+  timer: undefined as number | undefined,
+  /** Bumped to discard answers that are still on their way. */
+  seq: 0,
+  /** Where the current name was found (or set by a search/recenter). */
+  coords: null as [number, number] | null,
+  /** Coordinates set by the map or the app itself, not typed by the user. */
+  knownKey: "",
+  /** Last typed coordinates already looked up. */
+  typedKey: "",
+};
+
+const coordinateKey = (lat: number, lon: number) => `${lat.toFixed(6)},${lon.toFixed(6)}`;
+
 export function useMapSync(
   state: MapSyncState,
   dispatch: MapSyncDispatch,
   mapRef: MapInstanceRef,
 ) {
   const { form } = state;
-  const pendingLookupTimerRef = useRef<number | undefined>(undefined);
-  const lastLookupCoordsRef = useRef<[number, number] | null>(null);
-  const latestLocationLookupSeqRef = useRef(0);
-  const skippedCoordinateLookupRef = useRef<string>("");
-  const lastManualCoordinateLookupRef = useRef<string>("");
   // Read selectedLocation without adding it to the coordinate effect's deps.
   // The effect should only re-run when lat/lon change (user typed coordinates),
   // not when selectedLocation changes (e.g. CLEAR_LOCATION) — otherwise clearing
@@ -172,7 +186,7 @@ export function useMapSync(
 
   const lookupLocationName = useCallback(
     (lat: number, lon: number) => {
-      const previous = lastLookupCoordsRef.current;
+      const previous = nameLookup.coords;
       const movedEnough =
         !previous ||
         Math.abs(previous[0] - lat) >= 0.002 ||
@@ -182,12 +196,12 @@ export function useMapSync(
         return;
       }
 
-      lastLookupCoordsRef.current = [lat, lon];
-      const lookupSeq = ++latestLocationLookupSeqRef.current;
+      nameLookup.coords = [lat, lon];
+      const lookupSeq = ++nameLookup.seq;
 
       void reverseGeocodeCoordinates(lat, lon)
         .then((nearest) => {
-          if (lookupSeq !== latestLocationLookupSeqRef.current) {
+          if (lookupSeq !== nameLookup.seq) {
             return;
           }
           const fallbackLabel = String(nearest.label ?? "").trim();
@@ -219,7 +233,7 @@ export function useMapSync(
           // Ignore lookup failures; coordinates stay authoritative.
         })
         .finally(() => {
-          if (lookupSeq === latestLocationLookupSeqRef.current) {
+          if (lookupSeq === nameLookup.seq) {
             dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
           }
         });
@@ -231,17 +245,31 @@ export function useMapSync(
   // so panning around doesn't send a request per stop.
   const updateLocationFromCoordinates = useCallback(
     (lat: number, lon: number, delayMs = MAP_REST_LOOKUP_MS) => {
-      window.clearTimeout(pendingLookupTimerRef.current);
+      window.clearTimeout(nameLookup.timer);
       dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: true });
-      pendingLookupTimerRef.current = window.setTimeout(() => {
-        pendingLookupTimerRef.current = undefined;
+      nameLookup.timer = window.setTimeout(() => {
+        nameLookup.timer = undefined;
         lookupLocationName(lat, lon);
       }, delayMs);
     },
     [dispatch, lookupLocationName],
   );
 
-  useEffect(() => () => window.clearTimeout(pendingLookupTimerRef.current), []);
+  /**
+   * The name for (lat, lon) is already known (search pick, recenter): cancel
+   * any waiting lookup and ignore answers still on their way.
+   */
+  const settleLocationName = useCallback(
+    (lat: number, lon: number) => {
+      window.clearTimeout(nameLookup.timer);
+      nameLookup.timer = undefined;
+      nameLookup.seq++;
+      nameLookup.coords = [lat, lon];
+      nameLookup.knownKey = coordinateKey(lat, lon);
+      dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
+    },
+    [dispatch],
+  );
 
   const handleMove = useCallback(
     (_center: [number, number]) => {
@@ -256,7 +284,7 @@ export function useMapSync(
       const bounds = resolveZoomBounds(lat, effectiveContainerPx);
       const boundedZoom = clamp(zoom, bounds.minZoom, bounds.maxZoom);
       const distance = zoomToDistance(boundedZoom, lat, effectiveContainerPx);
-      skippedCoordinateLookupRef.current = `${lat.toFixed(6)},${lon.toFixed(6)}`;
+      nameLookup.knownKey = coordinateKey(lat, lon);
 
       dispatch({
         type: "SET_FORM_FIELDS",
@@ -285,17 +313,15 @@ export function useMapSync(
       return;
     }
 
-    const coordinateKey = `${lat.toFixed(6)},${lon.toFixed(6)}`;
-    if (skippedCoordinateLookupRef.current === coordinateKey) {
-      skippedCoordinateLookupRef.current = "";
-      return;
-    }
-    if (lastManualCoordinateLookupRef.current === coordinateKey) {
+    // Only coordinates the user typed; every copy of this hook sees the change.
+    const key = coordinateKey(lat, lon);
+    if (key === nameLookup.knownKey || key === nameLookup.typedKey) {
       return;
     }
 
     const timeoutId = window.setTimeout(() => {
-      lastManualCoordinateLookupRef.current = coordinateKey;
+      if (nameLookup.typedKey === key) return;
+      nameLookup.typedKey = key;
       updateLocationFromCoordinates(lat, lon, 1000);
     }, 350);
 
@@ -308,6 +334,7 @@ export function useMapSync(
     (lat: number, lon: number, keepCurrentZoom = false) => {
       const map = mapRef.current;
       if (!map) return;
+      settleLocationName(lat, lon);
 
       const bounds = resolveZoomBounds(lat, effectiveContainerPx);
       const zoom = keepCurrentZoom
@@ -324,7 +351,7 @@ export function useMapSync(
         duration: FLY_TO_DURATION_MS,
       });
     },
-    [mapRef, formDistance, effectiveContainerPx],
+    [mapRef, formDistance, effectiveContainerPx, settleLocationName],
   );
 
   return {
@@ -335,6 +362,7 @@ export function useMapSync(
     handleMove,
     handleMoveEnd,
     flyToLocation,
+    settleLocationName,
     setContainerWidth,
     overzoomScale,
   };

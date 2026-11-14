@@ -71,6 +71,7 @@ export default function PreviewPanel() {
     mapMaxZoom,
     handleMove,
     handleMoveEnd,
+    settleLocationName,
     setContainerWidth,
     overzoomScale,
   } = useMapSync(state, dispatch, mapRef);
@@ -318,6 +319,10 @@ export default function PreviewPanel() {
       pitch: 0,
     });
     setMapBearing(0);
+    // After the jump (it counts as a map move and schedules a lookup for the
+    // old spot): drop every pending or in-flight lookup, so no late answer
+    // overwrites the name we restore.
+    settleLocationName(target.lat, target.lon);
 
     if (city && country) {
       // All display names known — single dispatch with coordinates + correct names.
@@ -347,7 +352,7 @@ export default function PreviewPanel() {
       .catch(() => {
         // fallback names already applied above — nothing more to do.
       });
-  }, [mapRef, selectedLocation, userLocation, dispatch]);
+  }, [mapRef, selectedLocation, userLocation, dispatch, settleLocationName]);
 
   const handleMarkerPositionChange = useCallback(
     (markerId: string, lat: number, lon: number) => {
