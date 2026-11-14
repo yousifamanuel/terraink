@@ -338,7 +338,8 @@
       "displayCity": "عرض المدينة",
       "displayCountry": "عرض الدولة",
       "font": "الخط",
-      "defaultFont": "الافتراضي (Space Grotesk)"
+      "defaultFont": "الافتراضي (Space Grotesk)",
+      "coordinates": "الإحداثيات"
     }
   },
   "theme": {

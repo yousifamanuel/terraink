@@ -330,7 +330,8 @@
       "displayCity": "Stad tonen",
       "displayCountry": "Land tonen",
       "font": "Lettertype",
-      "defaultFont": "Standaard (Space Grotesk)"
+      "defaultFont": "Standaard (Space Grotesk)",
+      "coordinates": "Coördinaten"
     }
   },
   "theme": {

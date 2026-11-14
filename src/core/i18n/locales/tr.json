@@ -330,7 +330,8 @@
       "displayCity": "Şehri göster",
       "displayCountry": "Ülke göster",
       "font": "Yazı tipi",
-      "defaultFont": "Varsayılan (Space Grotesk)"
+      "defaultFont": "Varsayılan (Space Grotesk)",
+      "coordinates": "Koordinatlar"
     }
   },
   "theme": {

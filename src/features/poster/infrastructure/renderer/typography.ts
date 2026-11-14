@@ -30,6 +30,8 @@ export function drawPosterText(
   showPosterText: boolean,
   showOverlay: boolean,
   includeCredits: boolean = true,
+  /** Pre-formatted coordinates; "" hides them. */
+  coordinateText: string = formatCoordinates(center.lat, center.lon),
 ): void {
   const textColor = theme.ui?.text || "#111111";
   const landColor = theme.map?.land || "#808080";
@@ -75,14 +77,12 @@ export function drawPosterText(
     ctx.font = `300 ${countryFontSize}px ${titleFontFamily}`;
     ctx.fillText(country.toUpperCase(), width * 0.5, countryY);
 
-    ctx.globalAlpha = 0.75;
-    ctx.font = `400 ${coordinateFontSize}px ${bodyFontFamily}`;
-    ctx.fillText(
-      formatCoordinates(center.lat, center.lon),
-      width * 0.5,
-      coordinatesY,
-    );
-    ctx.globalAlpha = 1;
+    if (coordinateText) {
+      ctx.globalAlpha = 0.75;
+      ctx.font = `400 ${coordinateFontSize}px ${bodyFontFamily}`;
+      ctx.fillText(coordinateText, width * 0.5, coordinatesY);
+      ctx.globalAlpha = 1;
+    }
   }
 
   ctx.fillStyle = attributionColor;

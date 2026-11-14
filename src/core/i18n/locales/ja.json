@@ -328,7 +328,8 @@
       "displayCity": "都市を表示",
       "displayCountry": "国を表示",
       "font": "フォント",
-      "defaultFont": "標準（Space Grotesk）"
+      "defaultFont": "標準（Space Grotesk）",
+      "coordinates": "座標"
     }
   },
   "theme": {

@@ -1,4 +1,5 @@
 import type { SearchResult } from "@/features/location/domain/types";
+import type { CoordinateFormat } from "@/shared/geo/posterBounds";
 import type {
   MarkerDefaults,
   MarkerIconDefinition,
@@ -37,6 +38,8 @@ export interface PosterForm {
   displayContinent: string;
   fontFamily: string;
   showPosterText: boolean;
+  /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
+  coordinateFormat: CoordinateFormat;
   includeCredits: boolean;
   includeLandcover: boolean;
   includeBuildings: boolean;

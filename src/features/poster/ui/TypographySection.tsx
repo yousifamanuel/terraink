@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
+import { COORDINATE_FORMATS, formatCoordinates } from "@/shared/geo/posterBounds";
 import {
   PLACEHOLDER_EXAMPLE_CITY,
   PLACEHOLDER_EXAMPLE_COUNTRY,
@@ -24,6 +25,8 @@ export default function TypographySection({
 }: TypographySectionProps) {
   const { t } = useTranslation();
   const previewsRequested = useRef(false);
+  const exampleLat = Number(form.latitude) || 0;
+  const exampleLon = Number(form.longitude) || 0;
 
   // Each <option> previews itself in its own typeface, which means every family
   // has to be loaded for the dropdown to look right. That is a lot of bytes for
@@ -113,6 +116,22 @@ export default function TypographySection({
                 }}
               >
                 {fontOption.value ? fontOption.label : t("poster.typography.defaultFont")}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t("poster.typography.coordinates")}
+          <select
+            className="form-control-tall"
+            name="coordinateFormat"
+            value={form.coordinateFormat}
+            onChange={onChange}
+          >
+            {COORDINATE_FORMATS.map((format) => (
+              <option key={format} value={format}>
+                {/* The example is the label: same in every language. */}
+                {formatCoordinates(exampleLat, exampleLon, { format })}
               </option>
             ))}
           </select>

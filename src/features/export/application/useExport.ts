@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { formatCoordinates } from "@/shared/geo/posterBounds";
 import i18n from "@/core/i18n";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { localStorageCache } from "@/core/cache/localStorageCache";
@@ -171,6 +172,9 @@ export function useExport() {
 
         const lat = Number(form.latitude) || 0;
         const lon = Number(form.longitude) || 0;
+        const coordinateText = formatCoordinates(lat, lon, {
+          format: form.coordinateFormat,
+        });
 
         if (format === "svg") {
           const svgBlob = await createLayeredSvgBlobFromMap({
@@ -183,6 +187,7 @@ export function useExport() {
             displayCountry: form.displayCountry || "",
             fontFamily: form.fontFamily.trim(),
             showPosterText: form.showPosterText,
+            coordinateText,
             showOverlay: form.showMarkers,
             includeCredits: form.includeCredits,
             markers: hasVisibleMarkers ? state.markers : [],
@@ -222,6 +227,7 @@ export function useExport() {
           displayCountry: form.displayCountry || "",
           fontFamily: form.fontFamily.trim(),
           showPosterText: form.showPosterText,
+          coordinateText,
           showOverlay: form.showMarkers,
           includeCredits: form.includeCredits,
           markers: hasVisibleMarkers ? state.markers : [],

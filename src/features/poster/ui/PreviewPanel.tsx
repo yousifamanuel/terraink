@@ -6,6 +6,7 @@ import {
   type CSSProperties,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { formatCoordinates } from "@/shared/geo/posterBounds";
 import { usePosterContext } from "./PosterContext";
 import AdUnit from "@/shared/ui/AdUnit";
 import { AD_SLOT_SIDEBAR, ADS_SIDEBAR_ENABLED } from "@/core/config";
@@ -469,6 +470,9 @@ export default function PreviewPanel() {
             textColor={effectiveTheme.ui.text}
             landColor={effectiveTheme.map.land}
             showPosterText={form.showPosterText}
+            coordinateText={formatCoordinates(formLat, formLon, {
+              format: form.coordinateFormat,
+            })}
             includeCredits={form.includeCredits}
             showOverlay={form.showMarkers}
           />

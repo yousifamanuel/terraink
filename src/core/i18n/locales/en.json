@@ -330,7 +330,8 @@
       "displayCity": "Display city",
       "displayCountry": "Display country",
       "font": "Font",
-      "defaultFont": "Default (Space Grotesk)"
+      "defaultFont": "Default (Space Grotesk)",
+      "coordinates": "Coordinates"
     }
   },
   "theme": {

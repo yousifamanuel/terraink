@@ -25,6 +25,8 @@ export interface ExportOptions {
   displayContinent?: string;
   fontFamily: string;
   showPosterText: boolean;
+  /** Pre-formatted coordinates for the poster; "" hides them. */
+  coordinateText?: string;
   showOverlay?: boolean;
   includeCredits?: boolean;
   markers?: MarkerItem[];

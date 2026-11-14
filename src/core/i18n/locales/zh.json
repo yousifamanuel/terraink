@@ -328,7 +328,8 @@
       "displayCity": "显示城市",
       "displayCountry": "显示国家/地区",
       "font": "字体",
-      "defaultFont": "默认 (Space Grotesk)"
+      "defaultFont": "默认 (Space Grotesk)",
+      "coordinates": "坐标"
     }
   },
   "theme": {

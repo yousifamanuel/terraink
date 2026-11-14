@@ -334,7 +334,8 @@
       "displayCity": "Pokaż miasto",
       "displayCountry": "Pokaż kraj",
       "font": "Czcionka",
-      "defaultFont": "Domyślna (Space Grotesk)"
+      "defaultFont": "Domyślna (Space Grotesk)",
+      "coordinates": "Współrzędne"
     }
   },
   "theme": {

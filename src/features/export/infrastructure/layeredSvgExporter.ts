@@ -28,6 +28,8 @@ interface LayeredSvgOptions {
   displayCountry: string;
   fontFamily?: string;
   showPosterText: boolean;
+  /** Pre-formatted coordinates for the poster; "" hides them. */
+  coordinateText?: string;
   showOverlay: boolean;
   includeCredits: boolean;
   markers: MarkerItem[];
@@ -83,6 +85,7 @@ export async function createLayeredSvgBlobFromMap({
   displayCountry,
   fontFamily,
   showPosterText,
+  coordinateText,
   showOverlay,
   includeCredits,
   markers,
@@ -258,6 +261,7 @@ export async function createLayeredSvgBlobFromMap({
           showPosterText,
           showOverlay,
           includeCredits,
+          coordinateText,
         );
       }),
     });

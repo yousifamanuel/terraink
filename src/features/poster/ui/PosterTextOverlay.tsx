@@ -25,6 +25,8 @@ interface PosterTextOverlayProps {
   textColor: string;
   landColor: string;
   showPosterText: boolean;
+  /** Pre-formatted coordinates; "" hides them. */
+  coordinateText?: string;
   includeCredits: boolean;
   showOverlay: boolean;
 }
@@ -43,6 +45,7 @@ export default function PosterTextOverlay({
   textColor,
   landColor,
   showPosterText,
+  coordinateText,
   includeCredits,
   showOverlay,
 }: PosterTextOverlayProps) {
@@ -94,16 +97,18 @@ export default function PosterTextOverlay({
           >
             {country.toUpperCase()}
           </p>
-          <p
-            className="poster-coords"
-            style={{
-              fontFamily: bodyFont,
-              top: `${TEXT_COORDS_Y_RATIO * 100}%`,
-              fontSize: coordsFontSize,
-            }}
-          >
-            {formatCoordinates(lat, lon)}
-          </p>
+          {coordinateText !== "" ? (
+            <p
+              className="poster-coords"
+              style={{
+                fontFamily: bodyFont,
+                top: `${TEXT_COORDS_Y_RATIO * 100}%`,
+                fontSize: coordsFontSize,
+              }}
+            >
+              {coordinateText ?? formatCoordinates(lat, lon)}
+            </p>
+          ) : null}
         </>
       )}
 

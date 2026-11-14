@@ -76,6 +76,7 @@ export const DEFAULT_FORM: PosterForm = {
   displayContinent: "Europe",
   fontFamily: "",
   showPosterText: true,
+  coordinateFormat: "nsew",
   includeCredits: true,
   includeLandcover: true,
   includeBuildings: false,
