@@ -283,6 +283,13 @@ export default function PreviewPanel() {
         lat: DEFAULT_LAT,
         lon: DEFAULT_LON,
       };
+    // Recenter moves the map back; poster names the user typed stay.
+    const overrides = state.displayNameOverrides;
+    const posterNames = (city: string, country: string) => ({
+      ...(!overrides.city ? { displayCity: city } : {}),
+      ...(!overrides.country ? { displayCountry: country } : {}),
+    });
+
     const applyTarget = (
       city: string,
       country: string,
@@ -292,7 +299,6 @@ export default function PreviewPanel() {
     ) => {
       dispatch({
         type: "SET_FORM_FIELDS",
-        resetDisplayNameOverrides: true,
         fields: {
           ...(includeCoordinates
             ? {
@@ -302,8 +308,7 @@ export default function PreviewPanel() {
                 distance: String(DEFAULT_DISTANCE_METERS),
               }
             : { location: label }),
-          displayCity: city,
-          displayCountry: country,
+          ...posterNames(city, country),
           displayContinent: continent,
         },
       });
@@ -339,11 +344,11 @@ export default function PreviewPanel() {
         dispatch({ type: "SET_USER_LOCATION", location: resolved });
         dispatch({
           type: "SET_FORM_FIELDS",
-          resetDisplayNameOverrides: true,
           fields: {
-            displayCity: String(resolved.city ?? "").trim() || DEFAULT_CITY,
-            displayCountry:
+            ...posterNames(
+              String(resolved.city ?? "").trim() || DEFAULT_CITY,
               String(resolved.country ?? "").trim() || DEFAULT_COUNTRY,
+            ),
             displayContinent:
               String(resolved.continent ?? "").trim() || "Europe",
           },
@@ -352,7 +357,14 @@ export default function PreviewPanel() {
       .catch(() => {
         // fallback names already applied above — nothing more to do.
       });
-  }, [mapRef, selectedLocation, userLocation, dispatch, settleLocationName]);
+  }, [
+    mapRef,
+    selectedLocation,
+    userLocation,
+    dispatch,
+    settleLocationName,
+    state.displayNameOverrides,
+  ]);
 
   const handleMarkerPositionChange = useCallback(
     (markerId: string, lat: number, lon: number) => {
