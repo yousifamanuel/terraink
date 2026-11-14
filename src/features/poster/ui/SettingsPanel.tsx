@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
@@ -44,16 +45,16 @@ type SectionId =
 
 const accordionSections: {
   id: SectionId;
-  label: string;
+  labelKey: string;
   Icon: React.ComponentType<{ className?: string }>;
 }[] = [
-  { id: "location", label: "Location", Icon: LocationIcon },
-  { id: "theme", label: "Theme", Icon: ThemeIcon },
-  { id: "layout", label: "Layout", Icon: LayoutIcon },
-  { id: "layers", label: "Layers", Icon: LayersIcon },
-  { id: "markers", label: "Markers", Icon: MarkersIcon },
-  { id: "routes", label: "Routes", Icon: RouteIcon },
-  { id: "style", label: "Style", Icon: StyleIcon },
+  { id: "location", labelKey: "poster.sections.location", Icon: LocationIcon },
+  { id: "theme", labelKey: "poster.sections.theme", Icon: ThemeIcon },
+  { id: "layout", labelKey: "poster.sections.layout", Icon: LayoutIcon },
+  { id: "layers", labelKey: "poster.sections.layers", Icon: LayersIcon },
+  { id: "markers", labelKey: "poster.sections.markers", Icon: MarkersIcon },
+  { id: "routes", labelKey: "poster.sections.routes", Icon: RouteIcon },
+  { id: "style", labelKey: "poster.sections.style", Icon: StyleIcon },
 ];
 
 export default function SettingsPanel({
@@ -63,6 +64,7 @@ export default function SettingsPanel({
   mobileTab?: MobileTab;
   activeTab?: MobileTab;
 }) {
+  const { t } = useTranslation();
   const { state, dispatch, mapRef, selectedTheme, effectiveTheme } =
     usePosterContext();
   const {
@@ -128,7 +130,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="location"
-          label={accordionSections[0].label}
+          label={t(accordionSections[0].labelKey)}
           Icon={accordionSections[0].Icon}
           isOpen={openSections.has("location")}
           onToggle={toggleSection}
@@ -163,7 +165,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="theme"
-          label={accordionSections[1].label}
+          label={t(accordionSections[1].labelKey)}
           Icon={accordionSections[1].Icon}
           isOpen={openSections.has("theme")}
           onToggle={toggleSection}
@@ -206,7 +208,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="layout"
-          label={accordionSections[2].label}
+          label={t(accordionSections[2].labelKey)}
           Icon={accordionSections[2].Icon}
           isOpen={openSections.has("layout")}
           onToggle={toggleSection}
@@ -249,7 +251,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="layers"
-          label={accordionSections[3].label}
+          label={t(accordionSections[3].labelKey)}
           Icon={accordionSections[3].Icon}
           isOpen={openSections.has("layers")}
           onToggle={toggleSection}
@@ -276,7 +278,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="markers"
-          label={accordionSections[4].label}
+          label={t(accordionSections[4].labelKey)}
           Icon={accordionSections[4].Icon}
           isOpen={openSections.has("markers")}
           onToggle={toggleSection}
@@ -295,7 +297,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="routes"
-          label={accordionSections[5].label}
+          label={t(accordionSections[5].labelKey)}
           Icon={accordionSections[5].Icon}
           isOpen={openSections.has("routes")}
           onToggle={toggleSection}
@@ -314,7 +316,7 @@ export default function SettingsPanel({
       >
         <AccordionHeader
           sectionId="style"
-          label={accordionSections[6].label}
+          label={t(accordionSections[6].labelKey)}
           Icon={accordionSections[6].Icon}
           isOpen={openSections.has("style")}
           onToggle={toggleSection}

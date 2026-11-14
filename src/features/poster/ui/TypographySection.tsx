@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
@@ -21,6 +22,7 @@ export default function TypographySection({
   onChange,
   fontOptions,
 }: TypographySectionProps) {
+  const { t } = useTranslation();
   const previewsRequested = useRef(false);
 
   // Each <option> previews itself in its own typeface, which means every family
@@ -41,9 +43,9 @@ export default function TypographySection({
   return (
     <>
       <section className="panel-block">
-        <p className="section-summary-label">STYLE</p>
+        <p className="section-summary-label">{t("poster.typography.style")}</p>
         <label className="toggle-field">
-          <span>Poster text</span>
+          <span>{t("poster.typography.posterText")}</span>
           <span className="theme-switch">
             <input
               type="checkbox"
@@ -55,7 +57,7 @@ export default function TypographySection({
           </span>
         </label>
         <label className="toggle-field">
-          <span>Overlay layer</span>
+          <span>{t("poster.typography.overlayLayer")}</span>
           <span className="theme-switch">
             <input
               type="checkbox"
@@ -69,7 +71,7 @@ export default function TypographySection({
 
         <div className="field-grid keep-two-mobile">
           <label>
-            Display city
+            {t("poster.typography.displayCity")}
             <input
               className="form-control-tall"
               name="displayCity"
@@ -79,7 +81,7 @@ export default function TypographySection({
             />
           </label>
           <label>
-            Display country
+            {t("poster.typography.displayCountry")}
             <input
               className="form-control-tall"
               name="displayCountry"
@@ -90,7 +92,7 @@ export default function TypographySection({
           </label>
         </div>
         <label>
-          Font
+          {t("poster.typography.font")}
           <select
             className="form-control-tall"
             name="fontFamily"
@@ -110,7 +112,7 @@ export default function TypographySection({
                     : `"Space Grotesk", sans-serif`,
                 }}
               >
-                {fontOption.label}
+                {fontOption.value ? fontOption.label : t("poster.typography.defaultFont")}
               </option>
             ))}
           </select>

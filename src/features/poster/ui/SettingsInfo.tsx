@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface SettingsInfoProps {
   location: string;
   theme: string;
@@ -15,18 +17,19 @@ export default function SettingsInfo({
   markers,
   coordinates,
 }: SettingsInfoProps) {
+  const { t } = useTranslation();
   const rows = [
-    { label: "Location", value: location },
-    { label: "Theme", value: theme },
-    { label: "Layout", value: layout },
-    { label: "Poster Size", value: posterSize },
-    { label: "Markers", value: markers },
-    { label: "Coordinates", value: coordinates },
+    { label: t("poster.info.location"), value: location },
+    { label: t("poster.info.theme"), value: theme },
+    { label: t("poster.info.layout"), value: layout },
+    { label: t("poster.info.posterSize"), value: posterSize },
+    { label: t("poster.info.markers"), value: markers },
+    { label: t("poster.info.coordinates"), value: coordinates },
   ];
 
   return (
-    <section className="settings-info-card" aria-label="Current settings">
-      <h3 className="settings-info-title">Current Settings</h3>
+    <section className="settings-info-card" aria-label={t("poster.info.ariaLabel")}>
+      <h3 className="settings-info-title">{t("poster.info.title")}</h3>
       <dl className="settings-info-list">
         {rows.map((row) => (
           <div key={row.label} className="settings-info-row">

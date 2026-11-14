@@ -1,11 +1,14 @@
+import { useTranslation } from "react-i18next";
+
 /**
  * The tiles/data attribution links, shared by the inline mobile footer and the
  * desktop attribution modal so the text lives in one place.
  */
 export default function MapAttributionLinks() {
+  const { t } = useTranslation();
   return (
     <>
-      Tiles &copy;{" "}
+      {t("shell.attribution.tiles")}{" "}
       <a
         className="source-link"
         href="https://openmaptiles.org/"
@@ -14,7 +17,7 @@ export default function MapAttributionLinks() {
       >
         OpenMapTiles
       </a>
-      {" | "}Powered by{" "}
+      {" | "}{t("shell.attribution.poweredBy")}{" "}
       <a
         className="source-link"
         href="https://openfreemap.org/"
@@ -32,7 +35,7 @@ export default function MapAttributionLinks() {
       >
         Nominatim
       </a>
-      {" & "}
+      {" "}{t("shell.attribution.and")}{" "}
       <a
         className="source-link"
         href="https://maplibre.org/"

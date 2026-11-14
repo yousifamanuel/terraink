@@ -84,22 +84,29 @@ interface MapSyncState {
   selectedLocation: { label?: string; city?: string; country?: string; continent?: string } | null;
 }
 
-type MapSyncDispatch = (action: {
-  type: "SET_FORM_FIELDS";
-  fields: Partial<Record<string, string>>;
-  resetDisplayNameOverrides?: boolean;
-}) => void;
+type MapSyncDispatch = (
+  action:
+    | {
+        type: "SET_FORM_FIELDS";
+        fields: Partial<Record<string, string>>;
+        resetDisplayNameOverrides?: boolean;
+      }
+    | { type: "SET_LOCATION_LOOKUP_PENDING"; pending: boolean },
+) => void;
 
 /**
  * Bidirectional synchronization between form fields and MapLibre view.
  */
+/** Wait this long after the map stops before asking for the place name. */
+const MAP_REST_LOOKUP_MS = 2000;
+
 export function useMapSync(
   state: MapSyncState,
   dispatch: MapSyncDispatch,
   mapRef: MapInstanceRef,
 ) {
   const { form } = state;
-  const lastLocationLookupAtRef = useRef(0);
+  const pendingLookupTimerRef = useRef<number | undefined>(undefined);
   const lastLookupCoordsRef = useRef<[number, number] | null>(null);
   const latestLocationLookupSeqRef = useRef(0);
   const skippedCoordinateLookupRef = useRef<string>("");
@@ -163,21 +170,19 @@ export function useMapSync(
     [formDistance, formLat, effectiveContainerPx, mapZoomBounds],
   );
 
-  const updateLocationFromCoordinates = useCallback(
+  const lookupLocationName = useCallback(
     (lat: number, lon: number) => {
-      const now = Date.now();
       const previous = lastLookupCoordsRef.current;
       const movedEnough =
         !previous ||
         Math.abs(previous[0] - lat) >= 0.002 ||
         Math.abs(previous[1] - lon) >= 0.002;
-      const canLookup = now - lastLocationLookupAtRef.current >= 2000;
-      if (!movedEnough || !canLookup) {
+      if (!movedEnough) {
+        dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
         return;
       }
 
       lastLookupCoordsRef.current = [lat, lon];
-      lastLocationLookupAtRef.current = now;
       const lookupSeq = ++latestLocationLookupSeqRef.current;
 
       void reverseGeocodeCoordinates(lat, lon)
@@ -212,10 +217,31 @@ export function useMapSync(
         })
         .catch(() => {
           // Ignore lookup failures; coordinates stay authoritative.
+        })
+        .finally(() => {
+          if (lookupSeq === latestLocationLookupSeqRef.current) {
+            dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
+          }
         });
     },
     [dispatch],
   );
+
+  // Look up the place name only once the map has rested for this long,
+  // so panning around doesn't send a request per stop.
+  const updateLocationFromCoordinates = useCallback(
+    (lat: number, lon: number, delayMs = MAP_REST_LOOKUP_MS) => {
+      window.clearTimeout(pendingLookupTimerRef.current);
+      dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: true });
+      pendingLookupTimerRef.current = window.setTimeout(() => {
+        pendingLookupTimerRef.current = undefined;
+        lookupLocationName(lat, lon);
+      }, delayMs);
+    },
+    [dispatch, lookupLocationName],
+  );
+
+  useEffect(() => () => window.clearTimeout(pendingLookupTimerRef.current), []);
 
   const handleMove = useCallback(
     (_center: [number, number]) => {
@@ -270,7 +296,7 @@ export function useMapSync(
 
     const timeoutId = window.setTimeout(() => {
       lastManualCoordinateLookupRef.current = coordinateKey;
-      updateLocationFromCoordinates(lat, lon);
+      updateLocationFromCoordinates(lat, lon, 1000);
     }, 350);
 
     return () => {

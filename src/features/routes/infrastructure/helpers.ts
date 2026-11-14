@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import { haversineMeters } from "@/shared/geo/math";
 import type { Coordinate } from "@/shared/geo/types";
 import type { MarkerItem } from "@/features/markers/domain/types";
@@ -205,7 +206,7 @@ export function readFileAsText(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result ?? ""));
-    reader.onerror = () => reject(new Error("Could not read GPX file."));
+    reader.onerror = () => reject(new Error(i18n.t("routes.errors.readFailed")));
     reader.readAsText(file);
   });
 }

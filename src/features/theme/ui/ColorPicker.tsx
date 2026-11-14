@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { HexColorPicker } from "react-colorful";
 import { normalizeHexColor, toUniqueHexColors } from "@/shared/utils/color";
 
@@ -19,6 +20,7 @@ export default function ColorPicker({
   onResetColor,
   canResetColor = true,
 }: ColorPickerProps) {
+  const { t } = useTranslation();
   const suggestionList = useMemo(
     () => toUniqueHexColors(suggestedColors).slice(0, 10),
     [suggestedColors],
@@ -108,7 +110,7 @@ export default function ColorPicker({
           onClick={() => setShowMoreColors((prev) => !prev)}
           disabled={additionalList.length === 0}
         >
-          {showMoreColors ? "Less" : "More"}
+          {showMoreColors ? t("theme.colorPicker.less") : t("theme.colorPicker.more")}
         </button>
         <button
           type="button"
@@ -116,7 +118,7 @@ export default function ColorPicker({
           onClick={onResetColor}
           disabled={!canResetColor}
         >
-          Reset Color
+          {t("theme.colorPicker.resetColor")}
         </button>
       </div>
 
@@ -126,7 +128,7 @@ export default function ColorPicker({
         </div>
 
         <label className="color-field-label color-hex-only-field">
-          Hex
+          {t("theme.colorPicker.hex")}
           <input
             type="text"
             className="color-hex-input"

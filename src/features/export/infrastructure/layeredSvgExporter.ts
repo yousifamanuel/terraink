@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import maplibregl from "maplibre-gl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type {
@@ -44,7 +45,7 @@ function renderMapCanvasToDataUrl(
   layerCanvas.height = exportHeight;
   const ctx = layerCanvas.getContext("2d");
   if (!ctx) {
-    throw new Error("Could not create 2D context for SVG layer export.");
+    throw new Error(i18n.t("export.errors.svgLayerContext"));
   }
   ctx.clearRect(0, 0, exportWidth, exportHeight);
   ctx.drawImage(mapCanvas, 0, 0, exportWidth, exportHeight);
@@ -61,7 +62,7 @@ function canvasToDataUrl(
   canvas.height = height;
   const ctx = canvas.getContext("2d");
   if (!ctx) {
-    throw new Error("Could not create 2D context for SVG overlay export.");
+    throw new Error(i18n.t("export.errors.svgOverlayContext"));
   }
   ctx.clearRect(0, 0, width, height);
   draw(ctx);

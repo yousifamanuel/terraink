@@ -1,0 +1,620 @@
+{
+  "markers": {
+    "defaultLabel": "İşaretçi",
+    "common": {
+      "done": "Bitti"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "Raptiye",
+      "heart": "Kalp",
+      "home": "Ev",
+      "star": "Yıldız",
+      "circle": "Daire",
+      "square": "Kare",
+      "x": "X",
+      "target": "Hedef",
+      "sun": "Güneş",
+      "moon": "Ay",
+      "building": "Bina",
+      "send": "Gönder",
+      "snowflake": "Kar tanesi",
+      "shop": "Dükkan",
+      "camera": "Kamera",
+      "flower": "Çiçek",
+      "tree": "Ağaç",
+      "flag": "Bayrak"
+    },
+    "deleteAll": {
+      "title": "Tüm işaretçiler silinsin mi?",
+      "text_one": "Bu işlem {{count}} işaretçiyi haritadan kaldırır.",
+      "text_other": "Bu işlem {{count}} işaretçiyi haritadan kaldırır.",
+      "keep": "Koru",
+      "confirm": "Tümünü sil"
+    },
+    "help": {
+      "mobile": "Bir simgeye dokunarak haritadaki mevcut konuma işaretçi bırakın. İşaretçi ayarları tüm işaretçilere uygulanır ve işaretçiler doğrudan harita üzerinde taşınabilir. İşaretçi düzenleme modunda sürükleyerek taşıyın, boyutu değiştirmek için konum satırının altındaki işaretçi boyutu kaydırıcısını kullanın.",
+      "desktop": "Bir simgeye tıklayarak haritadaki mevcut konuma işaretçi bırakın. İşaretçi ayarları tüm işaretçilere uygulanır ve işaretçiler doğrudan harita üzerinde taşınabilir. İşaretçi düzenleme modunda sürükleyerek taşıyın, ince ayar için ok tuşlarını, boyutlandırmak için iki parmakla kıstırmayı veya fare tekerleğini, yakınlaştırmak için kaydırmayı veya +/- harita denetimlerini kullanın."
+    },
+    "section": {
+      "title": "İŞARETÇİLER",
+      "doneSettings": "Ayarlar bitti",
+      "openSettings": "Ayarları aç",
+      "doneEditing": "Düzenleme bitti",
+      "editMarkers": "Düzenle",
+      "editMarkersButton": "Düzenle",
+      "pickerHelp": "Seçici yardımı"
+    },
+    "settings": {
+      "title": "Ayarlar",
+      "note": "İşaretçi ayarları tüm işaretçilere uygulanır. Her işaretçiyi doğrudan düzenlemek için işaretçilerin kilidini açın.",
+      "defaultSize": "Boyut",
+      "defaultColor": "Renk"
+    },
+    "editColor": {
+      "title": "Rengi düzenle"
+    },
+    "list": {
+      "deleteMarker": "Sil",
+      "deleteNamed": "{{label}} öğesini sil",
+      "editNamed": "{{label}} öğesini düzenle",
+      "finishEditing": "Düzenleme bitti",
+      "editMarker": "Düzenle",
+      "edit": "Düzenle"
+    },
+    "editor": {
+      "latitude": "Enlem",
+      "longitude": "Boylam",
+      "size": "Boyut",
+      "color": "Renk",
+      "empty": "En az bir işaretçi ekleyin, ardından düzenlemek için işaretçilerin kilidini açın.",
+      "hintMobile": "Bir işaretçi seçmek için işaretçi satırını kaydırın, düzenlemek için dokunun. Taşımak için haritada sürükleyin, boyutu değiştirmek için konum satırının altındaki işaretçi boyutu kaydırıcısını kullanın.",
+      "hintDesktop": "Düzenlemek için bir işaretçi kartına tıklayın. Seçili işaretçiyi taşımak için haritada sürükleyin, ince ayar için ok tuşlarını kullanın, ardından boyut ve rengi düzenleyicide ayarlayın."
+    },
+    "actions": {
+      "resetAll": "Tümünü sıfırla",
+      "resetMarkers": "Sıfırla",
+      "deleteAllTitle": "Tümünü sil",
+      "deleteAllMarkers": "Tümünü sil"
+    },
+    "picker": {
+      "invalidFile": "Bir görsel veya SVG dosyası yükleyin.",
+      "uploadFailed": "İşaretçi yüklenemedi.",
+      "iconsTitle": "Simgeler",
+      "showList": "Listeyi göster",
+      "showMore": "Daha fazla simge",
+      "showLess": "Daha az göster",
+      "moreIcons": "Daha fazla",
+      "uploadedTitle": "Yüklenenler",
+      "removeNamed": "{{label}} simgesini kaldır",
+      "removeUploaded": "Simgeyi kaldır",
+      "uploadTitle": "Yükle",
+      "uploadButton": "Yükle",
+      "clearUploaded": "Yüklenenleri sil"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "Yükleme başarısız.",
+      "notGpx": "Lütfen bir .gpx dosyası yükleyin.",
+      "tooLarge": "GPX dosyası çok büyük (en fazla 10 MB).",
+      "tooFar": "Bu rota mevcut rotalarınızdan çok uzakta. Önce onları kaldırın veya değiştirin.",
+      "invalidXml": "GPX dosyası okunamadı — XML geçersiz.",
+      "noPoints": "GPX dosyasında iz noktası bulunamadı.",
+      "readFailed": "GPX dosyası okunamadı."
+    },
+    "boundsWarning": {
+      "title": "Bu rota mevcut alanınızdan uzak",
+      "text": "Eklerseniz poster her şeyi sığdırmak için uzaklaşır. Daha yakın bir görünüm için mevcut rotalarınızı bununla da değiştirebilirsiniz.",
+      "cancel": "İptal",
+      "replace": "Değiştir",
+      "addAnyway": "Yine de ekle"
+    },
+    "section": {
+      "title": "ROTALAR",
+      "hideRoutes": "Gizle",
+      "showRoutes": "Göster",
+      "hideAll": "Gizle",
+      "showAll": "Göster",
+      "uploadTitle": "GPX yükle",
+      "uploading": "Yükleniyor…",
+      "uploadGpx": "GPX yükle",
+      "empty": "Posterde rota çizmek için bir <code>.gpx</code> dosyası yükleyin. Elle rota çizme yakında geliyor."
+    },
+    "card": {
+      "removeRoute": "Kaldır",
+      "removeNamed": "{{label}} öğesini kaldır",
+      "finishEndpoint": "Bitişi seç",
+      "done": "Bitti",
+      "doneEditing": "Düzenleme bitti",
+      "editStart": "Başlangıç",
+      "editFinish": "Bitiş",
+      "icon": "Simge",
+      "closeIconPicker": "Simge seçiciyi kapat",
+      "changeIcon": "Simge değiştir",
+      "color": "Renk",
+      "closeColorPicker": "Renk seçiciyi kapat",
+      "openColorPicker": "Renk seçiciyi aç",
+      "size": "Boyut",
+      "showEndpoints": "Uç noktalar",
+      "start": "Başlangıç",
+      "finish": "Bitiş",
+      "editStartMarker": "Başlangıcı düzenle",
+      "editFinishMarker": "Bitişi düzenle",
+      "width": "Kalınlık",
+      "opacity": "Opaklık",
+      "style": "Stil",
+      "solid": "Düz",
+      "dashed": "Kesik",
+      "removeRouteButton": "Kaldır"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "Daha hızlı erişim ve daha iyi bir deneyim için Terraink'i yükleyin.",
+      "addToHomeScreen": "Ana ekrana ekle",
+      "maybeLater": "Belki sonra",
+      "diagnostics": "Tanılama",
+      "iosHint": "Daha hızlı erişim ve daha iyi bir deneyim için <share/> simgesine, ardından <strong>Ana Ekrana Ekle</strong> seçeneğine dokunun.",
+      "androidHint": "Daha hızlı erişim ve daha iyi bir deneyim için Terraink'i tarayıcı menünüzden yükleyin: <strong>Uygulamayı yükle</strong> veya <strong>Ana ekrana ekle</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "Tanılama",
+      "title": "Tanılama",
+      "close": "Kapat"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "{{name}} oran simgesi"
+    },
+    "groups": {
+      "print": "Baskı",
+      "social_media": "Sosyal medya",
+      "wallpaper": "Duvar kâğıdı",
+      "web": "Web"
+    },
+    "descriptions": {
+      "print_a3_portrait": "ISO A3 dikey biçim.",
+      "print_a4_portrait": "A4 dikeyi temel alan varsayılan baskı oranı.",
+      "print_a5_portrait": "ISO A5 dikey biçim.",
+      "print_letter_us_portrait": "US Letter dikey biçim.",
+      "social_instagram_square": "Instagram akışı için 1:1 gönderi biçimi.",
+      "social_instagram_portrait": "Instagram için 4:5 dikey gönderi biçimi.",
+      "social_instagram_story_tiktok": "9:16 dikey kısa video biçimi.",
+      "social_linkedin_post": "Standart LinkedIn gönderi görseli biçimi.",
+      "social_linkedin_cover": "LinkedIn profil veya şirket kapak biçimi.",
+      "social_pinterest_pin": "Pinterest pinleri için 2:3 dikey biçim.",
+      "social_reddit_post_16_9": "Reddit gönderileri için geniş ekran biçimi.",
+      "social_reddit_banner": "Ultra geniş subreddit üst görseli biçimi.",
+      "social_twitter_header": "Twitter/X profil üst görseli biçimi.",
+      "social_youtube_thumbnail": "YouTube videoları için 16:9 küçük resim biçimi.",
+      "wallpaper_desktop_full_hd": "Standart monitörler için 16:9 masaüstü duvar kâğıdı.",
+      "wallpaper_desktop_4k": "16:9 oranlı 4K UHD duvar kâğıdı.",
+      "wallpaper_ultrawide": "21:9 tarzı monitörler için ultra geniş duvar kâğıdı.",
+      "wallpaper_iphone_15_pro": "iPhone 15 Pro için dikey duvar kâğıdı biçimi.",
+      "wallpaper_iphone_15_pro_max": "iPhone 15 Pro Max için dikey duvar kâğıdı biçimi.",
+      "wallpaper_samsung_galaxy_s24_ultra": "Samsung Galaxy S24 Ultra için dikey duvar kâğıdı biçimi.",
+      "wallpaper_ipad_pro_11": "iPad Pro 11 inç ekran için duvar kâğıdı biçimi.",
+      "wallpaper_ipad_pro_12_9": "iPad Pro 12.9 inç ekran için duvar kâğıdı biçimi.",
+      "wallpaper_xteink_x4": "Yerel Xteink X4 biçimi (480x800). 300 DPI ile tam bu çözünürlükte dışa aktarır.",
+      "web_hero_banner": "Modern açılış sayfaları için geniş hero bölümü oranı.",
+      "web_blog_featured": "Tipik Open Graph/blog kapak kartı biçimi.",
+      "web_dashboard_card": "Uygulama panosu görselleri için dengeli 4:3 çerçeve.",
+      "print_poster_20x30": "Klasik dikey poster boyutu (2:3 oran)."
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "Düzen seç"
+    },
+    "layers": {
+      "title": "KATMAN",
+      "mapDetails": "Ayrıntılar",
+      "showLandcover": "Arazi örtüsü",
+      "showBuildings": "Binalar",
+      "showWater": "Suyu göster",
+      "showParks": "Parklar",
+      "showRoads": "Yollar",
+      "showRail": "Demiryolu",
+      "showAeroway": "Havayolu"
+    },
+    "dimensions": {
+      "widthCm": "Genişlik (cm)",
+      "heightCm": "Yükseklik (cm)",
+      "distanceM": "Mesafe (m)",
+      "distanceAria": "Metre cinsinden mesafe"
+    },
+    "settings": {
+      "customLayoutDescription": "Özel düzeniniz.",
+      "noDescription": "Açıklama yok.",
+      "colorFallback": "Renk",
+      "theme": "Tema",
+      "themeFallbackName": "Tema",
+      "colorEditor": "Renkler",
+      "editing": "Düzenlenen: {{label}}",
+      "done": "Bitti",
+      "deleteThemeTitle": "Kayıtlı temayı sil",
+      "deleteThemeMessage": "\"{{name}}\" silinsin mi? Bu işlem geri alınamaz.",
+      "thisTheme": "bu tema",
+      "delete": "Sil",
+      "cancel": "İptal",
+      "layout": "Düzen",
+      "layoutLabel": "DÜZEN:",
+      "doneEditingLayout": "Düzenleme bitti",
+      "customizeLayoutSize": "Boyutu özelleştir"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "Bu konum bulunamadı. Başka bir ad deneyin.",
+      "title": "Konum seç",
+      "placeholder": "Bir şehir veya yer yazın",
+      "locating": "Konum bulunuyor...",
+      "getMyLocation": "Konumumu al",
+      "ok": "Tamam"
+    },
+    "dropdown": {
+      "searching": "Aranıyor...",
+      "removeAria": "{{label}} öğesini geçmişten kaldır",
+      "removeTitle": "Kaldır",
+      "showLess": "Daha az",
+      "showMore": "Daha fazla",
+      "clearHistory": "Geçmişi temizle"
+    },
+    "section": {
+      "title": "Konum",
+      "label": "Konum",
+      "searchPlaceholder": "Bir şehir veya yer yazmaya başlayın",
+      "clearAria": "Konumu temizle",
+      "useCurrentAria": "Mevcut konumu kullan",
+      "latitude": "Enlem (isteğe bağlı)",
+      "longitude": "Boylam (isteğe bağlı)"
+    },
+    "geo": {
+      "deniedNative": "Konum erişimi engellendi. Cihaz Ayarları'ndan Terraink için konumu açın, sonra tekrar deneyin.",
+      "deniedBrowser": "Konum erişimi engellendi. Tarayıcı ayarlarından konum iznini açın, sonra tekrar deneyin.",
+      "unsupported": "Bu tarayıcı konumu desteklemiyor.",
+      "insecure": "Konum için güvenli bağlantı (HTTPS) gerekir.",
+      "generic": "Konumunuz şu anda alınamadı. Konum hizmetlerini kontrol edip tekrar deneyin.",
+      "manualFallback": "Konumu elle yazabilirsiniz."
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "Konum",
+      "theme": "Tema",
+      "layout": "Düzen",
+      "layers": "Katmanlar",
+      "markers": "İşaretçiler",
+      "routes": "Rotalar",
+      "style": "Stil"
+    },
+    "info": {
+      "ariaLabel": "Geçerli ayarlar",
+      "title": "Ayarlar",
+      "location": "Konum",
+      "theme": "Tema",
+      "layout": "Düzen",
+      "posterSize": "Boyut",
+      "markers": "İşaretçi",
+      "coordinates": "Koordinatlar",
+      "markerCount_one": "{{count}} işaretçi",
+      "markerCount_other": "{{count}} işaretçi"
+    },
+    "controls": {
+      "mapControls": "Harita denetimleri",
+      "recenter": "Ortala",
+      "recenterHint": "Haritayı mevcut konuma ortala",
+      "lockTitle": "Harita düzenlemeyi kilitle",
+      "lockMap": "Kilitle",
+      "editMap": "Düzenle",
+      "lockedHint": "Harita, istemsiz hareketi önlemek için kilitli.",
+      "unlockHint": "Harita düzenlemenin kilidini açmak için tıklayın.",
+      "disableRotation": "Döndürmeyi kapat",
+      "enableRotation": "Döndürmeyi aç",
+      "disableRotationLabel": "Döndürme kapalı",
+      "enableRotationLabel": "Döndürme açık",
+      "zoomOut": "Uzaklaştır",
+      "zoomIn": "Yakınlaştır",
+      "zoomLevel": "Yakınlaştırma düzeyi",
+      "rotateLeft": "15 derece sola döndür",
+      "rotateRight": "15 derece sağa döndür",
+      "rotationAngle": "Dönüş açısı"
+    },
+    "typography": {
+      "style": "STİL",
+      "posterText": "Poster metni",
+      "overlayLayer": "Üst katman",
+      "displayCity": "Şehri göster",
+      "displayCountry": "Ülke göster",
+      "font": "Yazı tipi",
+      "defaultFont": "Varsayılan (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "Açıklama yok.",
+      "themeLabel": "Tema:",
+      "customizeAria": "{{name}} renklerini özelleştir",
+      "savedThemes": "Kayıtlı",
+      "savedEmpty": "Burada görmek için bir temayı özelleştirip kaydedin.",
+      "savedThemesAria": "Kayıtlı temalar",
+      "deleteSavedAria": "{{name}} kayıtlı temasını sil",
+      "builtInThemes": "Yerleşik",
+      "themeOptionsAria": "Tema seçenekleri",
+      "savedThemeDescription": "Kayıtlı tema"
+    },
+    "card": {
+      "deleteAria": "{{name}} öğesini sil"
+    },
+    "editor": {
+      "title": "Renkler",
+      "editing": "Düzenlenen: {{label}}",
+      "save": "Kaydet",
+      "resetAll": "Sıfırla",
+      "done": "Bitti"
+    },
+    "saveModal": {
+      "title": "Temayı kaydet",
+      "cancel": "İptal",
+      "name": "Ad",
+      "description": "Açıklama",
+      "hint": "Temayı sonra bulabilmek için benzersiz bir ad seçin.",
+      "duplicate": "Bu adla kayıtlı bir tema zaten var.",
+      "confirm": "Onayla"
+    },
+    "choiceModal": {
+      "title": "Değişiklikleri kaydet",
+      "cancel": "İptal",
+      "message": "<strong>“{{themeName}}”</strong> temasını düzenlemelerinizle güncelleyin ya da orijinali koruyup bu renkleri yeni bir tema olarak kaydedin?",
+      "saveAsCopy": "Kopya kaydet",
+      "save": "Kaydet"
+    },
+    "colorPicker": {
+      "less": "Daha az",
+      "more": "Daha fazla",
+      "resetColor": "Sıfırla",
+      "hex": "Hex"
+    },
+    "colors": {
+      "ui": {
+        "bg": "Kaplama",
+        "text": "Metin"
+      },
+      "map": {
+        "land": "Kara",
+        "landcover": "Arazi örtüsü",
+        "water": "Su",
+        "waterway": "Su yolları",
+        "parks": "Parklar",
+        "buildings": "Binalar",
+        "aeroway": "Hava yolu",
+        "rail": "Demiryolu",
+        "roads": {
+          "major": "Ana yollar",
+          "minor_high": "Küçük yol (üst)",
+          "minor_mid": "Küçük yol (orta)",
+          "minor_low": "Küçük yol (alt)",
+          "path": "Patikalar",
+          "outline": "Yol kenarı"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "Beyaz mermer — soluk taş, yumuşak kömür grisi damarlar",
+      "blush": "Sıcak beyaz üzerinde solgun gül",
+      "sandstone": "Sıcak bej, yumuşak kahverengi çizgiler",
+      "heatwave": "Kömürleşmiş koyu zemin, parlayan turuncu yollar ve güneşli vurgular.",
+      "ruby": "Mücevher kırmızısı tonlar, koyu erik rengi şehir blokları.",
+      "sage": "Sönük bitkisel tonlar, serin yeşil yollar ve yumuşak kontrast.",
+      "rustic": "Kâğıt gibi toprak rengi zemin, ahşap ve kil tonlu yollar.",
+      "midnight_blue": "Koyu lacivert zemin, altın/bakır yollar - lüks atlas havası",
+      "neon": "Yüksek kontrastlı neon palet, eflatun ve camgöbeği vurgular.",
+      "terracotta": "Akdeniz sıcaklığı - krem üzerinde yanık turuncu ve kil tonları",
+      "blueprint": "Klasik mimari mavi baskı - teknik çizim havası",
+      "contrast_zones": "Kent yoğunluğunu gösteren güçlü kontrast - merkez koyu, kenarlar açık",
+      "copper_patina": "Oksitlenmiş bakır havası - turkuaz yeşili patina, bakır vurgular",
+      "emerald": "Gür koyu yeşil, nane yeşili vurgular",
+      "forest": "Koyu yeşil ve adaçayı tonları - doğal bitkisel hava",
+      "japanese_ink": "Geleneksel mürekkep resminden ilhamlı - sade, ince kırmızı vurgu",
+      "noir": "Saf siyah zemin, beyaz/gri yollar - modern galeri havası",
+      "ocean": "Mavi ve petrol tonları - kıyı kentleri için ideal",
+      "pastel_dream": "Yumuşak pastel renkler, solgun mavi ve eflatun - düşsel sanatsal hava",
+      "coral": "Yumuşak fildişi zemin, sıcak mercan yollar, sönük pembe-mavi ayrıntılar.",
+      "copper": "Oksitlenmiş krem ve bakır tonları, sıcak metalik yol vurguları.",
+      "old_navy": "Koyu lacivert harita zemini, altın vurgulu yazılar ve yollar.",
+      "gradient_roads": "Koyu merkezden açık kenarlara yumuşak geçiş, ince ayrıntılar",
+      "monochrome_blue": "Tek mavi renk ailesi, değişen doygunluk - sade ve uyumlu",
+      "sunset": "Yumuşak şeftali üzerinde sıcak turuncu ve pembeler - altın saat havası",
+      "autumn": "Yanık turuncu, koyu kırmızı, altın sarısı - mevsimlik sıcaklık",
+      "warm_beige": "Toprak tonlu sıcak nötrler, sepya renkleri - nostaljik harita havası"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "Dışa aktar",
+      "download": "İndir",
+      "downloadPoster": "İndir",
+      "closeOptions": "Dışa aktarma seçeneklerini kapat",
+      "supportProject": "Destek ol"
+    },
+    "flyout": {
+      "download": "İndir"
+    },
+    "support": {
+      "close": "Kapat",
+      "headline": "✨ Posteriniz hazır!",
+      "text": "Yeni harita fikirleri, tasarım ipuçları ve en son özellikler için Terraink'i Instagram'da takip edin — yaptığınız posterleri de bizimle paylaşın.",
+      "followUs": "Bizi takip edin"
+    },
+    "errors": {
+      "mapNotReady": "Harita hazır değil.",
+      "exportFailed": "Dışa aktarma başarısız.",
+      "tilesTimeout": "Harita karolarının oluşması beklenirken zaman aşımı oldu.",
+      "canvasUnavailable": "Canvas oluşturma kullanılamıyor.",
+      "exportContext": "Dışa aktarma canvas'ı için 2D bağlam oluşturulamadı",
+      "svgLayerContext": "SVG katmanı dışa aktarma için 2D bağlam oluşturulamadı.",
+      "svgOverlayContext": "SVG kaplama dışa aktarma için 2D bağlam oluşturulamadı.",
+      "pngBlob": "Canvas'tan PNG blob oluşturulamadı."
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "Ayarlar",
+      "language": "Dil",
+      "note": "Bunlar uygulama açılırken kullanılan değerlerdir. Mevcut poster düzeninizi (tema, düzen, yazı tipi) varsayılan olarak almak için <strong>Ayarları kaydet</strong> düğmesine dokunun. Bu cihazda yerel olarak saklanır.",
+      "defaultFont": "Varsayılan (Space Grotesk)",
+      "savedThemeLabel": "{{name}} (kayıtlı)",
+      "summaryTheme": "Tema",
+      "summaryLayout": "Düzen",
+      "summaryFont": "Yazı tipi",
+      "defaultTheme": "Tema",
+      "defaultLayout": "Düzen",
+      "defaultFontLabel": "Yazı tipi",
+      "defaultLocation": "Konum",
+      "defaultDistance": "Mesafe",
+      "defaultUnit": "Birim",
+      "appTheme": "Görünüm",
+      "comingSoon": "Yakında",
+      "centimeters": "Santimetre",
+      "dark": "Koyu",
+      "saveButton": "Kaydet",
+      "resetButton": "Sıfırla",
+      "cancel": "İptal",
+      "saveModalTitle": "Ayarları kaydet",
+      "saveModalIntro": "Mevcut ayarlarınız varsayılan olarak kaydedilsin mi?",
+      "saveModalOutro": "Bu değerler uygulamayı bir sonraki açışınızda kullanılacak.",
+      "resetModalTitle": "Ayarları sıfırla",
+      "resetModalMessage": "Kayıtlı varsayılanlarınız temizlensin mi? Uygulama bir sonraki ziyarette yerleşik varsayılanları kullanır."
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "Kapat"
+    },
+    "footer": {
+      "imprint": "Künye",
+      "privacy": "Gizlilik",
+      "cookieSettings": "Çerezler",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | Hannover, Almanya'da <heart>❤︎</heart> ile yapıldı",
+      "mapData": "Harita verileri © <link>OpenStreetMap katkıda bulunanlar</link>",
+      "moreAttribution": "Daha fazla harita atfı"
+    },
+    "attribution": {
+      "title": "Harita atfı",
+      "mapDataLine": "Harita verileri © <link>OpenStreetMap katkıda bulunanlar</link>.",
+      "tiles": "Karolar ©",
+      "poweredBy": "Sağlayan:",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "Konumu temizle",
+      "useCurrent": "Mevcut konumu kullan",
+      "toggleCoords": "Koordinat alanlarını aç/kapat",
+      "toggleCoordsTitle": "Enlem ve boylamı göster/gizle",
+      "latitude": "Enlem",
+      "longitude": "Boylam"
+    },
+    "confirm": {
+      "confirm": "Onayla",
+      "cancel": "İptal"
+    },
+    "picker": {
+      "done": "Bitti",
+      "close": "{{title}} öğesini kapat"
+    },
+    "ad": {
+      "label": "Reklamlar Terraink'i ücretsiz tutar"
+    },
+    "about": {
+      "dialog": "Terraink hakkında"
+    },
+    "info": {
+      "helpTitle": "Büyümemize yardım edin",
+      "helpCopy": "Terraink %100 istemci tarafında çalışır ve açık kaynaktır. Yol haritamıza katkıda bulunarak harita sanatının geleceğini birlikte inşa edelim!",
+      "supportProject": "Destek ol",
+      "spreadWord": "Duyurun",
+      "supportMission": "Destek ol",
+      "githubRepo": "GitHub",
+      "openRepo": "Terraink deposunu GitHub'da aç",
+      "starRepo": "Terraink'i GitHub'da yıldızla",
+      "star": "Yıldızla",
+      "donate": "Bağış",
+      "donateLabel": "Terraink'i ücretsiz tutmak için destek olun ve bağış yapın",
+      "follow": "Terraink'i {{network}} üzerinde takip et",
+      "credits": "Aracı başkalarının keşfetmesi için kaynak göstermeyi unutmayın"
+    },
+    "social": {
+      "projectLinks": "Proje bağlantıları",
+      "githubRepository": "GitHub deposu"
+    },
+    "header": {
+      "logoAlt": "Terraink logosu",
+      "tagline": "Ücretsiz harita posteri ve duvar kâğıdı",
+      "about": "Hakkında"
+    },
+    "nav": {
+      "location": "Konum",
+      "theme": "Tema",
+      "layout": "Düzen",
+      "style": "Stil",
+      "layers": "Katmanlar",
+      "markers": "İşaretçiler",
+      "routes": "Rotalar",
+      "settings": "Ayarlar",
+      "mobileNav": "Mobil gezinme",
+      "sections": "Ayar bölümleri",
+      "hideLocation": "Konumu gizle",
+      "showLocation": "Konumu göster"
+    },
+    "markerSize": {
+      "group": "Seçili işaretçi boyutu",
+      "label": "Boyut",
+      "doneEditing": "Bitti"
+    },
+    "donate": {
+      "intro": "Terraink'i ve dayandığı açık projeleri destekle. Bağlantılar yeni sekmede açılır."
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "Yeni",
+      "fixed": "Düzeltildi",
+      "improved": "İyileştirildi",
+      "info": "Bilgi",
+      "community": "Topluluk",
+      "docs": "Belgeler",
+      "roadmap": "Yol haritası",
+      "removed": "Kaldırıldı",
+      "security": "Güvenlik",
+      "breaking": "Uyumsuz",
+      "major": "Büyük",
+      "perf": "Performans",
+      "core": "Çekirdek"
+    },
+    "quickHighlights": "Öne çıkanlar",
+    "whatIsNew": "Yenilikler",
+    "updateDetails": "Ayrıntılar",
+    "close": "Duyuruları kapat",
+    "version": "Sürüm {{version}}",
+    "releasedOn": "Yayın tarihi: {{date}}",
+    "previewAlt": "{{title}} önizlemesi",
+    "back": "Geri",
+    "next": "İleri",
+    "finish": "Bitir",
+    "showAll": "Tümünü göster",
+    "okay": "Tamam"
+  },
+  "legal": {
+    "privacy": "Gizlilik",
+    "imprint": "Künye",
+    "close": "Kapat",
+    "loading": "Yükleniyor…",
+    "error": "Bu belge yüklenemedi — lütfen daha sonra tekrar deneyin."
+  },
+  "meta": {
+    "title": "Terraink: Ücretsiz Harita Posteri ve Duvar Kâğıdı Oluşturucu",
+    "description": "Ücretsiz çevrimiçi harita posteri ve duvar kâğıdı oluşturucu. Her şehir veya konum için baskıya hazır özel harita sanatı tasarlayın — PNG, PDF veya SVG olarak dışa aktarın. Kayıt gerekmez."
+  }
+}

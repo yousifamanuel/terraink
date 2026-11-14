@@ -1,0 +1,620 @@
+{
+  "markers": {
+    "defaultLabel": "Marker",
+    "common": {
+      "done": "Done"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "Pin",
+      "heart": "Heart",
+      "home": "Home",
+      "star": "Star",
+      "circle": "Circle",
+      "square": "Square",
+      "x": "X",
+      "target": "Target",
+      "sun": "Sun",
+      "moon": "Moon",
+      "building": "Building",
+      "send": "Send",
+      "snowflake": "Snowflake",
+      "shop": "Shop",
+      "camera": "Camera",
+      "flower": "Flower",
+      "tree": "Tree",
+      "flag": "Flag"
+    },
+    "deleteAll": {
+      "title": "Delete all markers?",
+      "text_one": "This will remove {{count}} marker from the map.",
+      "text_other": "This will remove {{count}} markers from the map.",
+      "keep": "Keep markers",
+      "confirm": "Delete all markers"
+    },
+    "help": {
+      "mobile": "Click an icon to drop a marker on the current map location. Marker settings apply to all markers and can be moved directly on the map. In marker edit mode, drag to move markers and use the marker size slider below the location row to resize.",
+      "desktop": "Click an icon to drop a marker on the current map location. Marker settings apply to all markers and can be moved directly on the map. In marker edit mode, drag to move, use the arrow keys for fine nudging, use two-finger pinch or mouse wheel to resize, and use scroll or the +/- map controls to zoom."
+    },
+    "section": {
+      "title": "MARKERS",
+      "doneSettings": "Done with marker settings",
+      "openSettings": "Open marker settings",
+      "doneEditing": "Done editing markers",
+      "editMarkers": "Edit markers",
+      "editMarkersButton": "Edit Markers",
+      "pickerHelp": "Marker picker help"
+    },
+    "settings": {
+      "title": "Marker Settings",
+      "note": "Marker settings apply to all markers. Unlock markers to edit each marker directly.",
+      "defaultSize": "Default Size",
+      "defaultColor": "Default Color"
+    },
+    "editColor": {
+      "title": "Edit Marker Color"
+    },
+    "list": {
+      "deleteMarker": "Delete marker",
+      "deleteNamed": "Delete {{label}}",
+      "editNamed": "Edit {{label}}",
+      "finishEditing": "Finish marker editing",
+      "editMarker": "Edit marker",
+      "edit": "Edit"
+    },
+    "editor": {
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "size": "Size",
+      "color": "Color",
+      "empty": "Add at least one marker, then unlock markers to edit.",
+      "hintMobile": "Swipe the marker row to choose one, then tap it to edit. Drag it on the map to move it, and use the marker-size slider below the location row to resize.",
+      "hintDesktop": "Click a marker card to edit it. Drag the selected marker on the map to move it, use the arrow keys for fine nudging, then adjust size and color in the editor."
+    },
+    "actions": {
+      "resetAll": "Reset all markers",
+      "resetMarkers": "Reset Markers",
+      "deleteAllTitle": "Delete all markers",
+      "deleteAllMarkers": "Delete All Markers"
+    },
+    "picker": {
+      "invalidFile": "Upload an image or SVG file.",
+      "uploadFailed": "Could not upload marker.",
+      "iconsTitle": "Marker Icons",
+      "showList": "Show icon list",
+      "showMore": "Show more icons",
+      "showLess": "Show less",
+      "moreIcons": "More Icons",
+      "uploadedTitle": "Uploaded Markers",
+      "removeNamed": "Remove uploaded icon {{label}}",
+      "removeUploaded": "Remove uploaded icon",
+      "uploadTitle": "Upload marker",
+      "uploadButton": "Upload Marker",
+      "clearUploaded": "Remove uploaded icons from storage"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "Upload failed.",
+      "notGpx": "Please upload a .gpx file.",
+      "tooLarge": "GPX file is too large (max 10 MB).",
+      "tooFar": "This route is too far from your existing routes. Remove or replace them first.",
+      "invalidXml": "Could not read GPX file — the XML is invalid.",
+      "noPoints": "No track points found in GPX file.",
+      "readFailed": "Could not read GPX file."
+    },
+    "boundsWarning": {
+      "title": "This route is far from your current area",
+      "text": "Adding it will zoom the poster out to fit everything. You can also replace your existing routes with this one to keep a tighter view.",
+      "cancel": "Cancel",
+      "replace": "Replace existing",
+      "addAnyway": "Add anyway"
+    },
+    "section": {
+      "title": "ROUTES",
+      "hideRoutes": "Hide routes",
+      "showRoutes": "Show routes",
+      "hideAll": "Hide All",
+      "showAll": "Show All",
+      "uploadTitle": "Upload GPX file",
+      "uploading": "Uploading…",
+      "uploadGpx": "Upload GPX",
+      "empty": "Upload a <code>.gpx</code> file to draw a route on the poster. Drawing routes manually is coming soon."
+    },
+    "card": {
+      "removeRoute": "Remove route",
+      "removeNamed": "Remove {{label}}",
+      "finishEndpoint": "Finish endpoint",
+      "done": "Done",
+      "doneEditing": "Done editing route",
+      "editStart": "Edit Start",
+      "editFinish": "Edit Finish",
+      "icon": "Icon",
+      "closeIconPicker": "Close icon picker",
+      "changeIcon": "Change icon",
+      "color": "Color",
+      "closeColorPicker": "Close color picker",
+      "openColorPicker": "Open color picker",
+      "size": "Size",
+      "showEndpoints": "Show endpoints",
+      "start": "Start",
+      "finish": "Finish",
+      "editStartMarker": "Edit start marker",
+      "editFinishMarker": "Edit finish marker",
+      "width": "Width",
+      "opacity": "Opacity",
+      "style": "Style",
+      "solid": "Solid",
+      "dashed": "Dashed",
+      "removeRouteButton": "Remove Route"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "Install Terraink for faster access and a better experience.",
+      "addToHomeScreen": "Add to Home Screen",
+      "maybeLater": "Maybe later",
+      "diagnostics": "Diagnostics",
+      "iosHint": "Tap <share/> then <strong>Add to Home Screen</strong> for faster access and a better experience.",
+      "androidHint": "For faster access and a better experience, install Terraink from your browser menu: <strong>Install app</strong> or <strong>Add to Home screen</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "Install diagnostics",
+      "title": "Install Diagnostics",
+      "close": "Close"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "{{name}} ratio symbol"
+    },
+    "groups": {
+      "print": "Print",
+      "social_media": "Social Media",
+      "wallpaper": "Wallpaper",
+      "web": "Web"
+    },
+    "descriptions": {
+      "print_a3_portrait": "ISO A3 portrait format.",
+      "print_a4_portrait": "Default print ratio based on A4 portrait.",
+      "print_a5_portrait": "ISO A5 portrait format.",
+      "print_letter_us_portrait": "US Letter portrait format.",
+      "social_instagram_square": "1:1 post format for Instagram feed.",
+      "social_instagram_portrait": "4:5 portrait post format for Instagram.",
+      "social_instagram_story_tiktok": "9:16 vertical short-form format.",
+      "social_linkedin_post": "Standard LinkedIn post image format.",
+      "social_linkedin_cover": "LinkedIn profile or company cover format.",
+      "social_pinterest_pin": "2:3 vertical format for Pinterest pins.",
+      "social_reddit_post_16_9": "Widescreen format for Reddit posts.",
+      "social_reddit_banner": "Ultra-wide subreddit header format.",
+      "social_twitter_header": "Twitter/X profile header format.",
+      "social_youtube_thumbnail": "16:9 thumbnail format for YouTube videos.",
+      "wallpaper_desktop_full_hd": "16:9 desktop wallpaper for standard monitors.",
+      "wallpaper_desktop_4k": "4K UHD wallpaper with 16:9 ratio.",
+      "wallpaper_ultrawide": "Ultrawide wallpaper for 21:9 style monitors.",
+      "wallpaper_iphone_15_pro": "Vertical wallpaper format for iPhone 15 Pro.",
+      "wallpaper_iphone_15_pro_max": "Vertical wallpaper format for iPhone 15 Pro Max.",
+      "wallpaper_samsung_galaxy_s24_ultra": "Vertical wallpaper format for Samsung Galaxy S24 Ultra.",
+      "wallpaper_ipad_pro_11": "Wallpaper format for iPad Pro 11-inch display.",
+      "wallpaper_ipad_pro_12_9": "Wallpaper format for iPad Pro 12.9-inch display.",
+      "wallpaper_xteink_x4": "Native Xteink X4 format (480x800). Exports exactly at this resolution when using 300 DPI.",
+      "web_hero_banner": "Wide hero section ratio for modern landing pages.",
+      "web_blog_featured": "Typical Open Graph/blog cover card format.",
+      "web_dashboard_card": "Balanced 4:3 frame useful for app dashboard visuals.",
+      "print_poster_20x30": "Classic portrait poster size (2:3 ratio)."
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "Choose Layout"
+    },
+    "layers": {
+      "title": "LAYERS",
+      "mapDetails": "Map Details",
+      "showLandcover": "Show landcover",
+      "showBuildings": "Show buildings",
+      "showWater": "Show water",
+      "showParks": "Show parks",
+      "showRoads": "Show roads",
+      "showRail": "Show rail",
+      "showAeroway": "Show aeroway"
+    },
+    "dimensions": {
+      "widthCm": "Width (cm)",
+      "heightCm": "Height (cm)",
+      "distanceM": "Distance (m)",
+      "distanceAria": "Distance in meters"
+    },
+    "settings": {
+      "customLayoutDescription": "Your custom layout.",
+      "noDescription": "No description available.",
+      "colorFallback": "Color",
+      "theme": "Theme",
+      "themeFallbackName": "Theme",
+      "colorEditor": "Color Editor",
+      "editing": "Editing: {{label}}",
+      "done": "Done",
+      "deleteThemeTitle": "Delete saved theme",
+      "deleteThemeMessage": "Delete \"{{name}}\"? This cannot be undone.",
+      "thisTheme": "this theme",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "layout": "Layout",
+      "layoutLabel": "LAYOUT:",
+      "doneEditingLayout": "Done editing layout",
+      "customizeLayoutSize": "Customize layout size"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "Could not resolve that location. Try another name.",
+      "title": "Choose Location",
+      "placeholder": "Type a city or place",
+      "locating": "Locating...",
+      "getMyLocation": "Get my location",
+      "ok": "OK"
+    },
+    "dropdown": {
+      "searching": "Searching...",
+      "removeAria": "Remove {{label}} from history",
+      "removeTitle": "Remove from history",
+      "showLess": "Show less",
+      "showMore": "Show more",
+      "clearHistory": "Clear history"
+    },
+    "section": {
+      "title": "Location",
+      "label": "Location",
+      "searchPlaceholder": "Start typing a city or place",
+      "clearAria": "Clear location",
+      "useCurrentAria": "Use current location",
+      "latitude": "Latitude (optional)",
+      "longitude": "Longitude (optional)"
+    },
+    "geo": {
+      "deniedNative": "Location access is blocked. Enable location for Terraink in your device Settings, then try again.",
+      "deniedBrowser": "Location access is blocked. Enable location permission in your browser settings, then try again.",
+      "unsupported": "Location is not supported in this browser.",
+      "insecure": "Location requires a secure connection (HTTPS).",
+      "generic": "Could not get your location right now. Check location services and try again.",
+      "manualFallback": "You can type a location manually."
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "Location",
+      "theme": "Theme",
+      "layout": "Layout",
+      "layers": "Layers",
+      "markers": "Markers",
+      "routes": "Routes",
+      "style": "Style"
+    },
+    "info": {
+      "ariaLabel": "Current settings",
+      "title": "Current Settings",
+      "location": "Location",
+      "theme": "Theme",
+      "layout": "Layout",
+      "posterSize": "Poster Size",
+      "markers": "Markers",
+      "coordinates": "Coordinates",
+      "markerCount_one": "{{count}} marker",
+      "markerCount_other": "{{count}} markers"
+    },
+    "controls": {
+      "mapControls": "Map controls",
+      "recenter": "Recenter",
+      "recenterHint": "Recenter map to the current location",
+      "lockTitle": "Lock map editing",
+      "lockMap": "Lock Map",
+      "editMap": "Edit Map",
+      "lockedHint": "Map is locked to prevent unintended movement.",
+      "unlockHint": "Click to unlock map editing.",
+      "disableRotation": "Disable rotation",
+      "enableRotation": "Enable rotation",
+      "disableRotationLabel": "Disable Rotation",
+      "enableRotationLabel": "Enable Rotation",
+      "zoomOut": "Zoom out",
+      "zoomIn": "Zoom in",
+      "zoomLevel": "Zoom level",
+      "rotateLeft": "Rotate left 15 degrees",
+      "rotateRight": "Rotate right 15 degrees",
+      "rotationAngle": "Rotation angle"
+    },
+    "typography": {
+      "style": "STYLE",
+      "posterText": "Poster text",
+      "overlayLayer": "Overlay layer",
+      "displayCity": "Display city",
+      "displayCountry": "Display country",
+      "font": "Font",
+      "defaultFont": "Default (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "No description available.",
+      "themeLabel": "Theme:",
+      "customizeAria": "Customize {{name}} colors",
+      "savedThemes": "Saved Themes",
+      "savedEmpty": "Customize and save a theme to see it here.",
+      "savedThemesAria": "Saved themes",
+      "deleteSavedAria": "Delete saved theme {{name}}",
+      "builtInThemes": "Built-in Themes",
+      "themeOptionsAria": "Theme options",
+      "savedThemeDescription": "Saved theme"
+    },
+    "card": {
+      "deleteAria": "Delete {{name}}"
+    },
+    "editor": {
+      "title": "Color Editor",
+      "editing": "Editing: {{label}}",
+      "save": "Save",
+      "resetAll": "Reset All",
+      "done": "Done"
+    },
+    "saveModal": {
+      "title": "Save Theme",
+      "cancel": "Cancel",
+      "name": "Name",
+      "description": "Description",
+      "hint": "Pick a unique name to find the theme later.",
+      "duplicate": "A saved theme with this name already exists.",
+      "confirm": "Confirm"
+    },
+    "choiceModal": {
+      "title": "Save changes",
+      "cancel": "Cancel",
+      "message": "Update <strong>“{{themeName}}”</strong> with your edits, or keep the original and save these colors as a new theme?",
+      "saveAsCopy": "Save as Copy",
+      "save": "Save"
+    },
+    "colorPicker": {
+      "less": "Less",
+      "more": "More",
+      "resetColor": "Reset Color",
+      "hex": "Hex"
+    },
+    "colors": {
+      "ui": {
+        "bg": "Overlay",
+        "text": "Text"
+      },
+      "map": {
+        "land": "Land",
+        "landcover": "Landcover",
+        "water": "Water",
+        "waterway": "Waterways",
+        "parks": "Parks",
+        "buildings": "Buildings",
+        "aeroway": "Aeroway",
+        "rail": "Rail",
+        "roads": {
+          "major": "Roads Major",
+          "minor_high": "Roads Minor High",
+          "minor_mid": "Roads Minor Mid",
+          "minor_low": "Roads Minor Low",
+          "path": "Roads Path",
+          "outline": "Road Outline"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "White marble — pale stone with soft charcoal veining",
+      "blush": "Dusty rose on warm white",
+      "sandstone": "Warm beige with muted brown lines",
+      "heatwave": "Charred dark base with glowing orange roads and sunlit highlights.",
+      "ruby": "Garnet-inspired palette with rich reds over deep plum city blocks.",
+      "sage": "Muted botanical tones with cool green roads and gentle contrast.",
+      "rustic": "Earthy paper-like base with wood and clay road tones.",
+      "midnight_blue": "Deep navy background with gold/copper roads - luxury atlas aesthetic",
+      "neon": "Neon-drenched high-contrast palette with magenta and cyan accents.",
+      "terracotta": "Mediterranean warmth - burnt orange and clay tones on cream",
+      "blueprint": "Classic architectural blueprint - technical drawing aesthetic",
+      "contrast_zones": "Strong contrast showing urban density - darker in center, lighter at edges",
+      "copper_patina": "Oxidized copper aesthetic - teal-green patina with copper accents",
+      "emerald": "Lush dark green aesthetic with mint accents",
+      "forest": "Deep greens and sage tones - organic botanical aesthetic",
+      "japanese_ink": "Traditional ink wash inspired - minimalist with subtle red accent",
+      "noir": "Pure black background with white/gray roads - modern gallery aesthetic",
+      "ocean": "Various blues and teals - perfect for coastal cities",
+      "pastel_dream": "Soft muted pastels with dusty blues and mauves - dreamy artistic aesthetic",
+      "coral": "Soft ivory base with warm coral roads and muted pink-blue features.",
+      "copper": "Oxidized cream and copper tones with warm metallic road accents.",
+      "old_navy": "Deep navy map fields with gold-accented typography and roads.",
+      "gradient_roads": "Smooth gradient from dark center to light edges with subtle features",
+      "monochrome_blue": "Single blue color family with varying saturation - clean and cohesive",
+      "sunset": "Warm oranges and pinks on soft peach - dreamy golden hour aesthetic",
+      "autumn": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
+      "warm_beige": "Earthy warm neutrals with sepia tones - vintage map aesthetic"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "Export poster",
+      "download": "Download",
+      "downloadPoster": "Download Poster",
+      "closeOptions": "Close export options",
+      "supportProject": "Support the project"
+    },
+    "flyout": {
+      "download": "Download"
+    },
+    "support": {
+      "close": "Close",
+      "headline": "✨ Your poster is ready!",
+      "text": "Follow Terraink on Instagram for fresh map ideas, design tips, and the latest features — and show off the posters you make.",
+      "followUs": "Follow us"
+    },
+    "errors": {
+      "mapNotReady": "Map is not ready.",
+      "exportFailed": "Export failed.",
+      "tilesTimeout": "Timed out while waiting for map tiles to render.",
+      "canvasUnavailable": "Canvas rendering is not available.",
+      "exportContext": "Could not create 2D context for export canvas",
+      "svgLayerContext": "Could not create 2D context for SVG layer export.",
+      "svgOverlayContext": "Could not create 2D context for SVG overlay export.",
+      "pngBlob": "Failed to create PNG blob from canvas."
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "Settings",
+      "language": "Language",
+      "note": "These are the values used when the app loads. Tap <strong>Save Settings</strong> to capture your current poster setup (theme, layout, font) as your defaults. Saved locally on this device.",
+      "defaultFont": "Default (Space Grotesk)",
+      "savedThemeLabel": "{{name}} (saved)",
+      "summaryTheme": "Theme",
+      "summaryLayout": "Layout",
+      "summaryFont": "Font",
+      "defaultTheme": "Default theme",
+      "defaultLayout": "Default layout",
+      "defaultFontLabel": "Default font",
+      "defaultLocation": "Default location",
+      "defaultDistance": "Default distance",
+      "defaultUnit": "Default unit",
+      "appTheme": "App theme",
+      "comingSoon": "Coming soon",
+      "centimeters": "Centimeters",
+      "dark": "Dark",
+      "saveButton": "Save Settings",
+      "resetButton": "Reset",
+      "cancel": "Cancel",
+      "saveModalTitle": "Save settings",
+      "saveModalIntro": "Save your current settings as defaults?",
+      "saveModalOutro": "These values will be used the next time you open the app.",
+      "resetModalTitle": "Reset settings",
+      "resetModalMessage": "Clear your saved defaults? The app will use built-in defaults on next visit."
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "Close"
+    },
+    "footer": {
+      "imprint": "Imprint",
+      "privacy": "Data Privacy",
+      "cookieSettings": "Cookie Settings",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | Made with <heart>❤︎</heart> in Hannover, Germany",
+      "mapData": "Map data © <link>OpenStreetMap contributors</link>",
+      "moreAttribution": "More map attribution"
+    },
+    "attribution": {
+      "title": "Map attribution",
+      "mapDataLine": "Map data © <link>OpenStreetMap contributors</link>.",
+      "tiles": "Tiles ©",
+      "poweredBy": "Powered by",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "Clear location",
+      "useCurrent": "Use current location",
+      "toggleCoords": "Toggle coordinate fields",
+      "toggleCoordsTitle": "Show/hide lat & lon",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "confirm": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "picker": {
+      "done": "Done",
+      "close": "Close {{title}}"
+    },
+    "ad": {
+      "label": "Ads keep Terraink free"
+    },
+    "about": {
+      "dialog": "About Terraink"
+    },
+    "info": {
+      "helpTitle": "Help Us Grow",
+      "helpCopy": "Terraink is 100% client-side and open-source. Help us build the future of map art by contributing to our roadmap!",
+      "supportProject": "Support the project",
+      "spreadWord": "Spread the word",
+      "supportMission": "Support the mission",
+      "githubRepo": "GitHub Repo",
+      "openRepo": "Open Terraink repository on GitHub",
+      "starRepo": "Star Terraink on GitHub",
+      "star": "Star",
+      "donate": "Donate",
+      "donateLabel": "Support Terraink and donate to keep it free",
+      "follow": "Follow Terraink on {{network}}",
+      "credits": "Include credits to help others discover the tool"
+    },
+    "social": {
+      "projectLinks": "Project links",
+      "githubRepository": "GitHub repository"
+    },
+    "header": {
+      "logoAlt": "Terraink logo",
+      "tagline": "Free Map Poster & Wallpaper Creator",
+      "about": "About"
+    },
+    "nav": {
+      "location": "Location",
+      "theme": "Theme",
+      "layout": "Layout",
+      "style": "Style",
+      "layers": "Layers",
+      "markers": "Markers",
+      "routes": "Routes",
+      "settings": "Settings",
+      "mobileNav": "Mobile navigation",
+      "sections": "Settings sections",
+      "hideLocation": "Hide location row",
+      "showLocation": "Show location row"
+    },
+    "markerSize": {
+      "group": "Selected marker size",
+      "label": "Marker Size",
+      "doneEditing": "Done Editing"
+    },
+    "donate": {
+      "intro": "Support Terraink and the open projects it runs on. Links open in a new tab."
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "New",
+      "fixed": "Fixed",
+      "improved": "Improved",
+      "info": "Info",
+      "community": "Community",
+      "docs": "Docs",
+      "roadmap": "Roadmap",
+      "removed": "Removed",
+      "security": "Security",
+      "breaking": "Breaking",
+      "major": "Major",
+      "perf": "Performance",
+      "core": "Core"
+    },
+    "quickHighlights": "Quick Highlights",
+    "whatIsNew": "What is new",
+    "updateDetails": "Update Details",
+    "close": "Close announcements",
+    "version": "Version {{version}}",
+    "releasedOn": "Released on {{date}}",
+    "previewAlt": "{{title}} preview",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "showAll": "Show all details",
+    "okay": "Okay, got it"
+  },
+  "legal": {
+    "privacy": "Privacy Policy",
+    "imprint": "Imprint",
+    "close": "Close",
+    "loading": "Loading…",
+    "error": "Couldn't load this document — please try again later."
+  },
+  "meta": {
+    "title": "Terraink: Free Map Poster & Wallpaper Creator",
+    "description": "Free online map poster and wallpaper generator. Design custom, print-ready map art for any city or location — export as PNG, PDF, or SVG. No sign-up required."
+  }
+}

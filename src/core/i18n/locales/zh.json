@@ -1,0 +1,618 @@
+{
+  "markers": {
+    "defaultLabel": "标记",
+    "common": {
+      "done": "完成"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "图钉",
+      "heart": "爱心",
+      "home": "房子",
+      "star": "星星",
+      "circle": "圆形",
+      "square": "方形",
+      "x": "X",
+      "target": "靶心",
+      "sun": "太阳",
+      "moon": "月亮",
+      "building": "建筑",
+      "send": "纸飞机",
+      "snowflake": "雪花",
+      "shop": "商店",
+      "camera": "相机",
+      "flower": "花朵",
+      "tree": "树木",
+      "flag": "旗帜"
+    },
+    "deleteAll": {
+      "title": "删除所有标记？",
+      "text_other": "这将从地图上移除 {{count}} 个标记。",
+      "keep": "保留标记",
+      "confirm": "删除所有标记"
+    },
+    "help": {
+      "mobile": "点击图标，即可在当前地图位置放置标记。标记设置适用于所有标记，也可以直接在地图上移动。在标记编辑模式下，拖动即可移动标记，并可使用位置栏下方的标记大小滑块调整大小。",
+      "desktop": "点击图标，即可在当前地图位置放置标记。标记设置适用于所有标记，也可以直接在地图上移动。在标记编辑模式下，拖动即可移动，用方向键微调位置，用双指捏合或鼠标滚轮调整大小，并可滚动或使用 +/- 地图控件缩放。"
+    },
+    "section": {
+      "title": "标记",
+      "doneSettings": "完成标记设置",
+      "openSettings": "打开标记设置",
+      "doneEditing": "完成编辑标记",
+      "editMarkers": "编辑标记",
+      "editMarkersButton": "编辑标记",
+      "pickerHelp": "标记选择器帮助"
+    },
+    "settings": {
+      "title": "标记设置",
+      "note": "标记设置适用于所有标记。解锁标记后可单独编辑每个标记。",
+      "defaultSize": "默认大小",
+      "defaultColor": "默认颜色"
+    },
+    "editColor": {
+      "title": "编辑标记颜色"
+    },
+    "list": {
+      "deleteMarker": "删除标记",
+      "deleteNamed": "删除{{label}}",
+      "editNamed": "编辑{{label}}",
+      "finishEditing": "完成标记编辑",
+      "editMarker": "编辑标记",
+      "edit": "编辑"
+    },
+    "editor": {
+      "latitude": "纬度",
+      "longitude": "经度",
+      "size": "大小",
+      "color": "颜色",
+      "empty": "请先添加至少一个标记，再解锁标记进行编辑。",
+      "hintMobile": "左右滑动标记栏选择标记，然后点按进行编辑。在地图上拖动即可移动，并可使用位置栏下方的标记大小滑块调整大小。",
+      "hintDesktop": "点击标记卡片进行编辑。在地图上拖动所选标记即可移动，用方向键微调位置，然后在编辑器中调整大小和颜色。"
+    },
+    "actions": {
+      "resetAll": "重置所有标记",
+      "resetMarkers": "重置标记",
+      "deleteAllTitle": "删除所有标记",
+      "deleteAllMarkers": "删除所有标记"
+    },
+    "picker": {
+      "invalidFile": "请上传图片或 SVG 文件。",
+      "uploadFailed": "无法上传标记。",
+      "iconsTitle": "标记图标",
+      "showList": "显示图标列表",
+      "showMore": "显示更多图标",
+      "showLess": "收起",
+      "moreIcons": "更多图标",
+      "uploadedTitle": "已上传的标记",
+      "removeNamed": "移除已上传的图标{{label}}",
+      "removeUploaded": "移除已上传的图标",
+      "uploadTitle": "上传标记",
+      "uploadButton": "上传标记",
+      "clearUploaded": "从存储中移除已上传的图标"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "上传失败。",
+      "notGpx": "请上传 .gpx 文件。",
+      "tooLarge": "GPX 文件过大（最大 10 MB）。",
+      "tooFar": "此路线与你现有的路线相距太远。请先移除或替换现有路线。",
+      "invalidXml": "无法读取 GPX 文件，XML 无效。",
+      "noPoints": "GPX 文件中未找到轨迹点。",
+      "readFailed": "无法读取 GPX 文件。"
+    },
+    "boundsWarning": {
+      "title": "此路线距离当前区域较远",
+      "text": "添加后，海报会缩小以容纳所有内容。你也可以用这条路线替换现有路线，以保持更紧凑的视图。",
+      "cancel": "取消",
+      "replace": "替换现有路线",
+      "addAnyway": "仍然添加"
+    },
+    "section": {
+      "title": "路线",
+      "hideRoutes": "隐藏路线",
+      "showRoutes": "显示路线",
+      "hideAll": "全部隐藏",
+      "showAll": "全部显示",
+      "uploadTitle": "上传 GPX 文件",
+      "uploading": "上传中…",
+      "uploadGpx": "上传 GPX",
+      "empty": "上传 <code>.gpx</code> 文件，即可在海报上绘制路线。手动绘制路线功能即将推出。"
+    },
+    "card": {
+      "removeRoute": "移除路线",
+      "removeNamed": "移除{{label}}",
+      "finishEndpoint": "完成端点",
+      "done": "完成",
+      "doneEditing": "完成编辑路线",
+      "editStart": "编辑起点",
+      "editFinish": "编辑终点",
+      "icon": "图标",
+      "closeIconPicker": "关闭图标选择器",
+      "changeIcon": "更换图标",
+      "color": "颜色",
+      "closeColorPicker": "关闭颜色选择器",
+      "openColorPicker": "打开颜色选择器",
+      "size": "大小",
+      "showEndpoints": "显示端点",
+      "start": "起点",
+      "finish": "终点",
+      "editStartMarker": "编辑起点标记",
+      "editFinishMarker": "编辑终点标记",
+      "width": "宽度",
+      "opacity": "不透明度",
+      "style": "样式",
+      "solid": "实线",
+      "dashed": "虚线",
+      "removeRouteButton": "移除路线"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "安装 Terraink，访问更快，体验更好。",
+      "addToHomeScreen": "添加到主屏幕",
+      "maybeLater": "以后再说",
+      "diagnostics": "诊断",
+      "iosHint": "点按 <share/>，然后选择<strong>添加到主屏幕</strong>，访问更快，体验更好。",
+      "androidHint": "想要更快访问、更好体验，请从浏览器菜单安装 Terraink：<strong>安装应用</strong>或<strong>添加到主屏幕</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "安装诊断",
+      "title": "安装诊断",
+      "close": "关闭"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "{{name}}比例符号"
+    },
+    "groups": {
+      "print": "打印",
+      "social_media": "社交媒体",
+      "wallpaper": "壁纸",
+      "web": "网页"
+    },
+    "descriptions": {
+      "print_a3_portrait": "ISO A3 竖版格式。",
+      "print_a4_portrait": "默认打印比例，基于 A4 竖版。",
+      "print_a5_portrait": "ISO A5 竖版格式。",
+      "print_letter_us_portrait": "美国 Letter 竖版格式。",
+      "social_instagram_square": "适用于 Instagram 信息流的 1:1 帖子格式。",
+      "social_instagram_portrait": "适用于 Instagram 的 4:5 竖版帖子格式。",
+      "social_instagram_story_tiktok": "9:16 竖版短视频格式。",
+      "social_linkedin_post": "标准 LinkedIn 帖子图片格式。",
+      "social_linkedin_cover": "LinkedIn 个人或公司封面格式。",
+      "social_pinterest_pin": "适用于 Pinterest 图钉的 2:3 竖版格式。",
+      "social_reddit_post_16_9": "适用于 Reddit 帖子的宽屏格式。",
+      "social_reddit_banner": "超宽 subreddit 顶部横幅格式。",
+      "social_twitter_header": "Twitter/X 个人主页顶部横幅格式。",
+      "social_youtube_thumbnail": "适用于 YouTube 视频的 16:9 缩略图格式。",
+      "wallpaper_desktop_full_hd": "适用于标准显示器的 16:9 桌面壁纸。",
+      "wallpaper_desktop_4k": "16:9 比例的 4K UHD 壁纸。",
+      "wallpaper_ultrawide": "适用于 21:9 显示器的超宽壁纸。",
+      "wallpaper_iphone_15_pro": "适用于 iPhone 15 Pro 的竖版壁纸格式。",
+      "wallpaper_iphone_15_pro_max": "适用于 iPhone 15 Pro Max 的竖版壁纸格式。",
+      "wallpaper_samsung_galaxy_s24_ultra": "适用于 Samsung Galaxy S24 Ultra 的竖版壁纸格式。",
+      "wallpaper_ipad_pro_11": "适用于 iPad Pro 11 英寸屏幕的壁纸格式。",
+      "wallpaper_ipad_pro_12_9": "适用于 iPad Pro 12.9 英寸屏幕的壁纸格式。",
+      "wallpaper_xteink_x4": "Xteink X4 原生格式（480x800）。使用 300 DPI 时按此分辨率精确导出。",
+      "web_hero_banner": "适用于现代落地页的宽幅首屏比例。",
+      "web_blog_featured": "常见的 Open Graph/博客封面卡片格式。",
+      "web_dashboard_card": "均衡的 4:3 画面，适合应用仪表盘视觉效果。",
+      "print_poster_20x30": "经典竖版海报尺寸（2:3 比例）。"
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "选择布局"
+    },
+    "layers": {
+      "title": "图层",
+      "mapDetails": "地图细节",
+      "showLandcover": "显示地表覆盖",
+      "showBuildings": "显示建筑",
+      "showWater": "显示水域",
+      "showParks": "显示公园",
+      "showRoads": "显示道路",
+      "showRail": "显示铁路",
+      "showAeroway": "显示航空设施"
+    },
+    "dimensions": {
+      "widthCm": "宽度 (cm)",
+      "heightCm": "高度 (cm)",
+      "distanceM": "距离 (m)",
+      "distanceAria": "距离（米）"
+    },
+    "settings": {
+      "customLayoutDescription": "你的自定义布局。",
+      "noDescription": "暂无描述。",
+      "colorFallback": "颜色",
+      "theme": "主题",
+      "themeFallbackName": "主题",
+      "colorEditor": "颜色编辑器",
+      "editing": "正在编辑：{{label}}",
+      "done": "完成",
+      "deleteThemeTitle": "删除已保存的主题",
+      "deleteThemeMessage": "删除“{{name}}”？此操作无法撤销。",
+      "thisTheme": "此主题",
+      "delete": "删除",
+      "cancel": "取消",
+      "layout": "布局",
+      "layoutLabel": "布局：",
+      "doneEditingLayout": "完成编辑布局",
+      "customizeLayoutSize": "自定义布局大小"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "无法识别该位置，请换个名称试试。",
+      "title": "选择位置",
+      "placeholder": "输入城市或地点",
+      "locating": "定位中...",
+      "getMyLocation": "获取我的位置",
+      "ok": "确定"
+    },
+    "dropdown": {
+      "searching": "搜索中...",
+      "removeAria": "从历史记录中移除{{label}}",
+      "removeTitle": "从历史记录中移除",
+      "showLess": "收起",
+      "showMore": "展开更多",
+      "clearHistory": "清除历史记录"
+    },
+    "section": {
+      "title": "位置",
+      "label": "位置",
+      "searchPlaceholder": "开始输入城市或地点",
+      "clearAria": "清除位置",
+      "useCurrentAria": "使用当前位置",
+      "latitude": "纬度（可选）",
+      "longitude": "经度（可选）"
+    },
+    "geo": {
+      "deniedNative": "位置访问已被禁止。请在设备“设置”中为 Terraink 开启定位，然后重试。",
+      "deniedBrowser": "位置访问已被禁止。请在浏览器设置中开启定位权限，然后重试。",
+      "unsupported": "此浏览器不支持定位。",
+      "insecure": "定位需要安全连接 (HTTPS)。",
+      "generic": "暂时无法获取你的位置。请检查定位服务后重试。",
+      "manualFallback": "你可以手动输入位置。"
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "位置",
+      "theme": "主题",
+      "layout": "布局",
+      "layers": "图层",
+      "markers": "标记",
+      "routes": "路线",
+      "style": "样式"
+    },
+    "info": {
+      "ariaLabel": "当前设置",
+      "title": "当前设置",
+      "location": "位置",
+      "theme": "主题",
+      "layout": "布局",
+      "posterSize": "海报尺寸",
+      "markers": "标记",
+      "coordinates": "坐标",
+      "markerCount_other": "{{count}} 个标记"
+    },
+    "controls": {
+      "mapControls": "地图控件",
+      "recenter": "回到中心",
+      "recenterHint": "将地图重新居中到当前位置",
+      "lockTitle": "锁定地图编辑",
+      "lockMap": "锁定地图",
+      "editMap": "编辑地图",
+      "lockedHint": "地图已锁定，以防意外移动。",
+      "unlockHint": "点击解锁地图编辑。",
+      "disableRotation": "禁用旋转",
+      "enableRotation": "启用旋转",
+      "disableRotationLabel": "禁用旋转",
+      "enableRotationLabel": "启用旋转",
+      "zoomOut": "缩小",
+      "zoomIn": "放大",
+      "zoomLevel": "缩放级别",
+      "rotateLeft": "向左旋转 15 度",
+      "rotateRight": "向右旋转 15 度",
+      "rotationAngle": "旋转角度"
+    },
+    "typography": {
+      "style": "样式",
+      "posterText": "海报文字",
+      "overlayLayer": "叠加层",
+      "displayCity": "显示城市",
+      "displayCountry": "显示国家/地区",
+      "font": "字体",
+      "defaultFont": "默认 (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "暂无描述。",
+      "themeLabel": "主题：",
+      "customizeAria": "自定义{{name}}的颜色",
+      "savedThemes": "已保存的主题",
+      "savedEmpty": "自定义并保存主题后，会显示在这里。",
+      "savedThemesAria": "已保存的主题",
+      "deleteSavedAria": "删除已保存的主题{{name}}",
+      "builtInThemes": "内置主题",
+      "themeOptionsAria": "主题选项",
+      "savedThemeDescription": "已保存的主题"
+    },
+    "card": {
+      "deleteAria": "删除{{name}}"
+    },
+    "editor": {
+      "title": "颜色编辑器",
+      "editing": "正在编辑：{{label}}",
+      "save": "保存",
+      "resetAll": "全部重置",
+      "done": "完成"
+    },
+    "saveModal": {
+      "title": "保存主题",
+      "cancel": "取消",
+      "name": "名称",
+      "description": "描述",
+      "hint": "起一个独一无二的名称，方便以后找到这个主题。",
+      "duplicate": "已存在同名的主题。",
+      "confirm": "确认"
+    },
+    "choiceModal": {
+      "title": "保存更改",
+      "cancel": "取消",
+      "message": "要用你的修改更新<strong>“{{themeName}}”</strong>，还是保留原主题，将这些颜色另存为新主题？",
+      "saveAsCopy": "另存为副本",
+      "save": "保存"
+    },
+    "colorPicker": {
+      "less": "更少",
+      "more": "更多",
+      "resetColor": "重置颜色",
+      "hex": "十六进制"
+    },
+    "colors": {
+      "ui": {
+        "bg": "叠加层",
+        "text": "文字"
+      },
+      "map": {
+        "land": "陆地",
+        "landcover": "地表覆盖",
+        "water": "水域",
+        "waterway": "河道",
+        "parks": "公园",
+        "buildings": "建筑",
+        "aeroway": "航空设施",
+        "rail": "铁路",
+        "roads": {
+          "major": "主干道",
+          "minor_high": "次级道路（高）",
+          "minor_mid": "次级道路（中）",
+          "minor_low": "次级道路（低）",
+          "path": "小径",
+          "outline": "道路轮廓"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "白色大理石，浅色石面带柔和炭灰纹理",
+      "blush": "暖白底上的灰玫瑰色",
+      "sandstone": "暖米色搭配柔和的棕色线条",
+      "heatwave": "焦黑底色，道路炽橙发亮，阳光般的高光",
+      "ruby": "石榴石般的红色，深梅紫色街区",
+      "sage": "柔和的植物色调，冷绿色道路，对比温和",
+      "rustic": "泥土般的纸质底色，木色与陶土色道路",
+      "midnight_blue": "深海军蓝底色配金铜色道路，奢华地图集风格",
+      "neon": "霓虹高对比配色，洋红与青色点缀",
+      "terracotta": "地中海暖意，奶油底色上的焦橙与陶土色",
+      "blueprint": "经典建筑蓝图，技术制图风格",
+      "contrast_zones": "强烈对比呈现城市密度，中心深、边缘浅",
+      "copper_patina": "氧化铜质感，青绿铜锈配铜色点缀",
+      "emerald": "浓郁深绿，薄荷色点缀",
+      "forest": "深绿与鼠尾草绿，有机植物风格",
+      "japanese_ink": "传统水墨意境，极简风格，一抹淡红点缀",
+      "noir": "纯黑底色，白灰色道路，现代画廊风格",
+      "ocean": "多种蓝色与青色，适合海滨城市",
+      "pastel_dream": "柔和的淡雅粉彩，灰蓝与淡紫，梦幻艺术风格",
+      "coral": "柔和的象牙白底色，暖珊瑚色道路，淡粉蓝细节",
+      "copper": "氧化奶油色与铜色，暖金属质感的道路点缀",
+      "old_navy": "深海军蓝地图底色，金色点缀的文字与道路",
+      "gradient_roads": "从深色中心到浅色边缘的平滑渐变，细节含蓄",
+      "monochrome_blue": "单一蓝色系，饱和度深浅变化，简洁统一",
+      "sunset": "柔和蜜桃色上的暖橙与粉色，梦幻的黄金时刻风格",
+      "autumn": "焦橙、深红、金黄，季节的暖意",
+      "warm_beige": "泥土般的暖中性色与棕褐色调，复古地图风格"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "导出海报",
+      "download": "下载",
+      "downloadPoster": "下载海报",
+      "closeOptions": "关闭导出选项",
+      "supportProject": "支持本项目"
+    },
+    "flyout": {
+      "download": "下载"
+    },
+    "support": {
+      "close": "关闭",
+      "headline": "✨ 你的海报已就绪！",
+      "text": "在 Instagram 上关注 Terraink，获取新鲜的地图创意、设计技巧和最新功能，也欢迎展示你制作的海报。",
+      "followUs": "关注我们"
+    },
+    "errors": {
+      "mapNotReady": "地图尚未就绪。",
+      "exportFailed": "导出失败。",
+      "tilesTimeout": "等待地图瓦片渲染超时。",
+      "canvasUnavailable": "画布渲染不可用。",
+      "exportContext": "无法为导出画布创建 2D 上下文",
+      "svgLayerContext": "无法为 SVG 图层导出创建 2D 上下文。",
+      "svgOverlayContext": "无法为 SVG 叠加层导出创建 2D 上下文。",
+      "pngBlob": "无法从画布创建 PNG 数据。"
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "设置",
+      "language": "语言",
+      "note": "这些是应用启动时使用的值。点按<strong>保存设置</strong>，即可将当前海报设置（主题、布局、字体）保存为默认值。仅保存在此设备本地。",
+      "defaultFont": "默认 (Space Grotesk)",
+      "savedThemeLabel": "{{name}}（已保存）",
+      "summaryTheme": "主题",
+      "summaryLayout": "布局",
+      "summaryFont": "字体",
+      "defaultTheme": "默认主题",
+      "defaultLayout": "默认布局",
+      "defaultFontLabel": "默认字体",
+      "defaultLocation": "默认位置",
+      "defaultDistance": "默认距离",
+      "defaultUnit": "默认单位",
+      "appTheme": "应用主题",
+      "comingSoon": "即将推出",
+      "centimeters": "厘米",
+      "dark": "深色",
+      "saveButton": "保存设置",
+      "resetButton": "重置",
+      "cancel": "取消",
+      "saveModalTitle": "保存设置",
+      "saveModalIntro": "要将当前设置保存为默认值吗？",
+      "saveModalOutro": "下次打开应用时将使用这些值。",
+      "resetModalTitle": "重置设置",
+      "resetModalMessage": "清除已保存的默认值？下次访问时应用将使用内置默认值。"
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "关闭"
+    },
+    "footer": {
+      "imprint": "法律声明",
+      "privacy": "数据隐私",
+      "cookieSettings": "Cookie 设置",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | 用 <heart>❤︎</heart> 制作于德国汉诺威",
+      "mapData": "地图数据 © <link>OpenStreetMap 贡献者</link>",
+      "moreAttribution": "更多地图归属信息"
+    },
+    "attribution": {
+      "title": "地图归属信息",
+      "mapDataLine": "地图数据 © <link>OpenStreetMap 贡献者</link>。",
+      "tiles": "瓦片 ©",
+      "poweredBy": "技术支持：",
+      "and": "和"
+    },
+    "locationBar": {
+      "clear": "清除位置",
+      "useCurrent": "使用当前位置",
+      "toggleCoords": "切换坐标输入框",
+      "toggleCoordsTitle": "显示/隐藏经纬度",
+      "latitude": "纬度",
+      "longitude": "经度"
+    },
+    "confirm": {
+      "confirm": "确认",
+      "cancel": "取消"
+    },
+    "picker": {
+      "done": "完成",
+      "close": "关闭{{title}}"
+    },
+    "ad": {
+      "label": "广告让 Terraink 保持免费"
+    },
+    "about": {
+      "dialog": "关于 Terraink"
+    },
+    "info": {
+      "helpTitle": "助力我们成长",
+      "helpCopy": "Terraink 完全在客户端运行，并且开源。参与我们的路线图，一起打造地图艺术的未来！",
+      "supportProject": "支持本项目",
+      "spreadWord": "帮忙宣传",
+      "supportMission": "支持我们的使命",
+      "githubRepo": "GitHub 仓库",
+      "openRepo": "在 GitHub 上打开 Terraink 仓库",
+      "starRepo": "在 GitHub 上为 Terraink 点星",
+      "star": "点星",
+      "donate": "捐赠",
+      "donateLabel": "支持 Terraink，捐赠让它保持免费",
+      "follow": "在 {{network}} 上关注 Terraink",
+      "credits": "注明出处，帮助更多人发现这个工具"
+    },
+    "social": {
+      "projectLinks": "项目链接",
+      "githubRepository": "GitHub 仓库"
+    },
+    "header": {
+      "logoAlt": "Terraink 标志",
+      "tagline": "免费地图海报与壁纸制作工具",
+      "about": "关于"
+    },
+    "nav": {
+      "location": "位置",
+      "theme": "主题",
+      "layout": "布局",
+      "style": "样式",
+      "layers": "图层",
+      "markers": "标记",
+      "routes": "路线",
+      "settings": "设置",
+      "mobileNav": "移动端导航",
+      "sections": "设置分区",
+      "hideLocation": "隐藏位置栏",
+      "showLocation": "显示位置栏"
+    },
+    "markerSize": {
+      "group": "所选标记大小",
+      "label": "标记大小",
+      "doneEditing": "完成编辑"
+    },
+    "donate": {
+      "intro": "支持 Terraink 及其依托的开源项目。链接将在新标签页中打开。"
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "新增",
+      "fixed": "修复",
+      "improved": "改进",
+      "info": "信息",
+      "community": "社区",
+      "docs": "文档",
+      "roadmap": "路线图",
+      "removed": "移除",
+      "security": "安全",
+      "breaking": "重大变更",
+      "major": "重要",
+      "perf": "性能",
+      "core": "核心"
+    },
+    "quickHighlights": "快速亮点",
+    "whatIsNew": "新功能",
+    "updateDetails": "更新详情",
+    "close": "关闭公告",
+    "version": "版本 {{version}}",
+    "releasedOn": "发布于 {{date}}",
+    "previewAlt": "{{title}}预览",
+    "back": "返回",
+    "next": "下一步",
+    "finish": "完成",
+    "showAll": "显示全部详情",
+    "okay": "好的，知道了"
+  },
+  "legal": {
+    "privacy": "隐私政策",
+    "imprint": "法律声明",
+    "close": "关闭",
+    "loading": "加载中…",
+    "error": "无法加载此文档，请稍后再试。"
+  },
+  "meta": {
+    "title": "Terraink：免费地图海报与壁纸生成器",
+    "description": "免费在线地图海报和壁纸生成器。为任意城市或地点设计专属、可直接打印的地图艺术作品，支持导出 PNG、PDF 或 SVG。无需注册。"
+  }
+}

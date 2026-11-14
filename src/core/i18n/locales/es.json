@@ -1,0 +1,622 @@
+{
+  "markers": {
+    "defaultLabel": "Marcador",
+    "common": {
+      "done": "Listo"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "Pin",
+      "heart": "Corazón",
+      "home": "Casa",
+      "star": "Estrella",
+      "circle": "Círculo",
+      "square": "Cuadrado",
+      "x": "X",
+      "target": "Diana",
+      "sun": "Sol",
+      "moon": "Luna",
+      "building": "Edificio",
+      "send": "Enviar",
+      "snowflake": "Nieve",
+      "shop": "Tienda",
+      "camera": "Cámara",
+      "flower": "Flor",
+      "tree": "Árbol",
+      "flag": "Bandera"
+    },
+    "deleteAll": {
+      "title": "¿Eliminar todos?",
+      "text_one": "Se quitará {{count}} marcador del mapa.",
+      "text_many": "Se quitarán {{count}} de marcadores del mapa.",
+      "text_other": "Se quitarán {{count}} marcadores del mapa.",
+      "keep": "Conservar",
+      "confirm": "Eliminar todos"
+    },
+    "help": {
+      "mobile": "Toca un icono para colocar un marcador en la ubicación actual del mapa. Los ajustes de marcador se aplican a todos y puedes moverlos directamente en el mapa. En el modo de edición, arrastra para mover los marcadores y usa el control de tamaño bajo la fila de ubicación para cambiar su tamaño.",
+      "desktop": "Haz clic en un icono para colocar un marcador en la ubicación actual del mapa. Los ajustes de marcador se aplican a todos y puedes moverlos directamente en el mapa. En el modo de edición, arrastra para mover, usa las flechas del teclado para ajustes finos, pellizca con dos dedos o usa la rueda del ratón para cambiar el tamaño, y usa el scroll o los controles +/- del mapa para hacer zoom."
+    },
+    "section": {
+      "title": "MARCADORES",
+      "doneSettings": "Listo",
+      "openSettings": "Ajustes",
+      "doneEditing": "Listo",
+      "editMarkers": "Editar",
+      "editMarkersButton": "Editar",
+      "pickerHelp": "Ayuda"
+    },
+    "settings": {
+      "title": "Ajustes",
+      "note": "Los ajustes se aplican a todos los marcadores. Desbloquea los marcadores para editar cada uno directamente.",
+      "defaultSize": "Tamaño",
+      "defaultColor": "Color"
+    },
+    "editColor": {
+      "title": "Color del marcador"
+    },
+    "list": {
+      "deleteMarker": "Eliminar",
+      "deleteNamed": "Eliminar {{label}}",
+      "editNamed": "Editar {{label}}",
+      "finishEditing": "Listo",
+      "editMarker": "Editar",
+      "edit": "Editar"
+    },
+    "editor": {
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "size": "Tamaño",
+      "color": "Color",
+      "empty": "Añade al menos un marcador y luego desbloquea los marcadores para editar.",
+      "hintMobile": "Desliza la fila de marcadores para elegir uno y tócalo para editarlo. Arrástralo en el mapa para moverlo y usa el control de tamaño bajo la fila de ubicación para cambiar su tamaño.",
+      "hintDesktop": "Haz clic en la tarjeta de un marcador para editarlo. Arrastra el marcador seleccionado en el mapa para moverlo, usa las flechas del teclado para ajustes finos y luego cambia el tamaño y el color en el editor."
+    },
+    "actions": {
+      "resetAll": "Restablecer todo",
+      "resetMarkers": "Restablecer",
+      "deleteAllTitle": "Eliminar todos",
+      "deleteAllMarkers": "Eliminar todos"
+    },
+    "picker": {
+      "invalidFile": "Sube una imagen o un archivo SVG.",
+      "uploadFailed": "No se pudo subir el marcador.",
+      "iconsTitle": "Iconos",
+      "showList": "Ver lista",
+      "showMore": "Ver más",
+      "showLess": "Ver menos",
+      "moreIcons": "Más",
+      "uploadedTitle": "Subidos",
+      "removeNamed": "Quitar el icono subido {{label}}",
+      "removeUploaded": "Quitar icono",
+      "uploadTitle": "Subir",
+      "uploadButton": "Subir",
+      "clearUploaded": "Quitar los iconos subidos del almacenamiento"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "Error al subir.",
+      "notGpx": "Sube un archivo .gpx.",
+      "tooLarge": "El archivo GPX es demasiado grande (máx. 10 MB).",
+      "tooFar": "Esta ruta está demasiado lejos de tus rutas actuales. Quítalas o reemplázalas primero.",
+      "invalidXml": "No se pudo leer el archivo GPX: el XML no es válido.",
+      "noPoints": "No se encontraron puntos de track en el archivo GPX.",
+      "readFailed": "No se pudo leer el archivo GPX."
+    },
+    "boundsWarning": {
+      "title": "Esta ruta está lejos de tu zona actual",
+      "text": "Al añadirla, el póster se alejará para que quepa todo. También puedes reemplazar tus rutas actuales por esta para mantener una vista más cercana.",
+      "cancel": "Cancelar",
+      "replace": "Reemplazar existentes",
+      "addAnyway": "Añadir igualmente"
+    },
+    "section": {
+      "title": "RUTAS",
+      "hideRoutes": "Ocultar",
+      "showRoutes": "Mostrar",
+      "hideAll": "Ocultar todas",
+      "showAll": "Mostrar todas",
+      "uploadTitle": "Subir GPX",
+      "uploading": "Subiendo…",
+      "uploadGpx": "Subir GPX",
+      "empty": "Sube un archivo <code>.gpx</code> para dibujar una ruta en el póster. Dibujar rutas a mano llegará pronto."
+    },
+    "card": {
+      "removeRoute": "Quitar",
+      "removeNamed": "Quitar {{label}}",
+      "finishEndpoint": "Listo",
+      "done": "Listo",
+      "doneEditing": "Listo",
+      "editStart": "Editar inicio",
+      "editFinish": "Editar fin",
+      "icon": "Icono",
+      "closeIconPicker": "Cerrar",
+      "changeIcon": "Cambiar",
+      "color": "Color",
+      "closeColorPicker": "Cerrar",
+      "openColorPicker": "Elegir color",
+      "size": "Tamaño",
+      "showEndpoints": "Extremos",
+      "start": "Inicio",
+      "finish": "Fin",
+      "editStartMarker": "Marcador de inicio",
+      "editFinishMarker": "Marcador de fin",
+      "width": "Grosor",
+      "opacity": "Opacidad",
+      "style": "Estilo",
+      "solid": "Continua",
+      "dashed": "Discontinua",
+      "removeRouteButton": "Quitar"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "Instala Terraink para acceder más rápido y disfrutar de una mejor experiencia.",
+      "addToHomeScreen": "Añadir a inicio",
+      "maybeLater": "Luego",
+      "diagnostics": "Diagnóstico",
+      "iosHint": "Toca <share/> y luego <strong>Añadir a pantalla de inicio</strong> para acceder más rápido y disfrutar de una mejor experiencia.",
+      "androidHint": "Para acceder más rápido y disfrutar de una mejor experiencia, instala Terraink desde el menú del navegador: <strong>Instalar app</strong> o <strong>Añadir a pantalla de inicio</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "Diagnóstico de instalación",
+      "title": "Diagnóstico de instalación",
+      "close": "Cerrar"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "Símbolo de proporción de {{name}}"
+    },
+    "groups": {
+      "print": "Impresión",
+      "social_media": "Redes sociales",
+      "wallpaper": "Fondo de pantalla",
+      "web": "Web"
+    },
+    "descriptions": {
+      "print_a3_portrait": "Formato ISO A3 vertical.",
+      "print_a4_portrait": "Proporción de impresión predeterminada, basada en A4 vertical.",
+      "print_a5_portrait": "Formato ISO A5 vertical.",
+      "print_letter_us_portrait": "Formato US Letter vertical.",
+      "social_instagram_square": "Formato de publicación 1:1 para el feed de Instagram.",
+      "social_instagram_portrait": "Formato de publicación vertical 4:5 para Instagram.",
+      "social_instagram_story_tiktok": "Formato vertical 9:16 para vídeos cortos.",
+      "social_linkedin_post": "Formato estándar de imagen para publicaciones de LinkedIn.",
+      "social_linkedin_cover": "Formato de portada de perfil o empresa en LinkedIn.",
+      "social_pinterest_pin": "Formato vertical 2:3 para pines de Pinterest.",
+      "social_reddit_post_16_9": "Formato panorámico para publicaciones de Reddit.",
+      "social_reddit_banner": "Formato ultrapanorámico para la cabecera de un subreddit.",
+      "social_twitter_header": "Formato de cabecera de perfil de Twitter/X.",
+      "social_youtube_thumbnail": "Formato de miniatura 16:9 para vídeos de YouTube.",
+      "wallpaper_desktop_full_hd": "Fondo de escritorio 16:9 para monitores estándar.",
+      "wallpaper_desktop_4k": "Fondo 4K UHD con proporción 16:9.",
+      "wallpaper_ultrawide": "Fondo ultrapanorámico para monitores 21:9.",
+      "wallpaper_iphone_15_pro": "Formato de fondo vertical para iPhone 15 Pro.",
+      "wallpaper_iphone_15_pro_max": "Formato de fondo vertical para iPhone 15 Pro Max.",
+      "wallpaper_samsung_galaxy_s24_ultra": "Formato de fondo vertical para Samsung Galaxy S24 Ultra.",
+      "wallpaper_ipad_pro_11": "Formato de fondo para la pantalla del iPad Pro de 11 pulgadas.",
+      "wallpaper_ipad_pro_12_9": "Formato de fondo para la pantalla del iPad Pro de 12,9 pulgadas.",
+      "wallpaper_xteink_x4": "Formato nativo del Xteink X4 (480x800). Se exporta exactamente a esta resolución con 300 DPI.",
+      "web_hero_banner": "Proporción de sección principal ancha para páginas de inicio modernas.",
+      "web_blog_featured": "Formato típico de tarjeta Open Graph o portada de blog.",
+      "web_dashboard_card": "Marco 4:3 equilibrado, útil para visuales de paneles de apps.",
+      "print_poster_20x30": "Tamaño clásico de póster vertical (proporción 2:3)."
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "Elegir formato"
+    },
+    "layers": {
+      "title": "CAPAS",
+      "mapDetails": "Detalles",
+      "showLandcover": "Suelo",
+      "showBuildings": "Edificios",
+      "showWater": "Agua",
+      "showParks": "Parques",
+      "showRoads": "Carreteras",
+      "showRail": "Tren",
+      "showAeroway": "Aeropuertos"
+    },
+    "dimensions": {
+      "widthCm": "Ancho (cm)",
+      "heightCm": "Alto (cm)",
+      "distanceM": "Distancia (m)",
+      "distanceAria": "Distancia en metros"
+    },
+    "settings": {
+      "customLayoutDescription": "Tu formato personalizado.",
+      "noDescription": "Sin descripción.",
+      "colorFallback": "Color",
+      "theme": "Tema",
+      "themeFallbackName": "Tema",
+      "colorEditor": "Editor de color",
+      "editing": "Editando: {{label}}",
+      "done": "Listo",
+      "deleteThemeTitle": "Eliminar tema guardado",
+      "deleteThemeMessage": "¿Eliminar \"{{name}}\"? Esta acción no se puede deshacer.",
+      "thisTheme": "este tema",
+      "delete": "Eliminar",
+      "cancel": "Cancelar",
+      "layout": "Formato",
+      "layoutLabel": "FORMATO:",
+      "doneEditingLayout": "Listo",
+      "customizeLayoutSize": "Tamaño personalizado"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "No se pudo encontrar ese lugar. Prueba con otro nombre.",
+      "title": "Elegir ubicación",
+      "placeholder": "Ciudad o lugar",
+      "locating": "Localizando...",
+      "getMyLocation": "Mi ubicación",
+      "ok": "OK"
+    },
+    "dropdown": {
+      "searching": "Buscando...",
+      "removeAria": "Quitar {{label}} del historial",
+      "removeTitle": "Quitar del historial",
+      "showLess": "Mostrar menos",
+      "showMore": "Mostrar más",
+      "clearHistory": "Borrar historial"
+    },
+    "section": {
+      "title": "Ubicación",
+      "label": "Ubicación",
+      "searchPlaceholder": "Busca una ciudad o lugar",
+      "clearAria": "Borrar ubicación",
+      "useCurrentAria": "Usar ubicación actual",
+      "latitude": "Latitud (opcional)",
+      "longitude": "Longitud (opcional)"
+    },
+    "geo": {
+      "deniedNative": "El acceso a la ubicación está bloqueado. Activa la ubicación para Terraink en los Ajustes de tu dispositivo e inténtalo de nuevo.",
+      "deniedBrowser": "El acceso a la ubicación está bloqueado. Activa el permiso de ubicación en los ajustes de tu navegador e inténtalo de nuevo.",
+      "unsupported": "Este navegador no admite la ubicación.",
+      "insecure": "La ubicación requiere una conexión segura (HTTPS).",
+      "generic": "No se pudo obtener tu ubicación ahora mismo. Revisa los servicios de ubicación e inténtalo de nuevo.",
+      "manualFallback": "Puedes escribir una ubicación manualmente."
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "Ubicación",
+      "theme": "Tema",
+      "layout": "Formato",
+      "layers": "Capas",
+      "markers": "Marcadores",
+      "routes": "Rutas",
+      "style": "Estilo"
+    },
+    "info": {
+      "ariaLabel": "Ajustes",
+      "title": "Ajustes",
+      "location": "Ubicación",
+      "theme": "Tema",
+      "layout": "Formato",
+      "posterSize": "Tamaño",
+      "markers": "Marcadores",
+      "coordinates": "Coordenadas",
+      "markerCount_one": "{{count}} marcador",
+      "markerCount_many": "{{count}} de marcadores",
+      "markerCount_other": "{{count}} marcadores"
+    },
+    "controls": {
+      "mapControls": "Controles",
+      "recenter": "Recentrar",
+      "recenterHint": "Recentrar el mapa en la ubicación actual",
+      "lockTitle": "Bloquear mapa",
+      "lockMap": "Bloquear",
+      "editMap": "Editar",
+      "lockedHint": "El mapa está bloqueado para evitar movimientos accidentales.",
+      "unlockHint": "Haz clic para desbloquear la edición del mapa.",
+      "disableRotation": "Desactivar rotación",
+      "enableRotation": "Activar rotación",
+      "disableRotationLabel": "Desactivar rotación",
+      "enableRotationLabel": "Activar rotación",
+      "zoomOut": "Alejar",
+      "zoomIn": "Acercar",
+      "zoomLevel": "Nivel de zoom",
+      "rotateLeft": "Girar 15° a la izquierda",
+      "rotateRight": "Girar 15° a la derecha",
+      "rotationAngle": "Ángulo de rotación"
+    },
+    "typography": {
+      "style": "ESTILO",
+      "posterText": "Texto",
+      "overlayLayer": "Superposición",
+      "displayCity": "Ciudad",
+      "displayCountry": "País",
+      "font": "Fuente",
+      "defaultFont": "Por defecto (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "Sin descripción.",
+      "themeLabel": "Tema:",
+      "customizeAria": "Personalizar colores de {{name}}",
+      "savedThemes": "Guardados",
+      "savedEmpty": "Personaliza y guarda un tema para verlo aquí.",
+      "savedThemesAria": "Temas guardados",
+      "deleteSavedAria": "Eliminar tema guardado {{name}}",
+      "builtInThemes": "Incluidos",
+      "themeOptionsAria": "Opciones de tema",
+      "savedThemeDescription": "Tema guardado"
+    },
+    "card": {
+      "deleteAria": "Eliminar {{name}}"
+    },
+    "editor": {
+      "title": "Editor de color",
+      "editing": "Editando: {{label}}",
+      "save": "Guardar",
+      "resetAll": "Restablecer",
+      "done": "Listo"
+    },
+    "saveModal": {
+      "title": "Guardar tema",
+      "cancel": "Cancelar",
+      "name": "Nombre",
+      "description": "Descripción",
+      "hint": "Elige un nombre único para encontrar el tema más tarde.",
+      "duplicate": "Ya existe un tema guardado con este nombre.",
+      "confirm": "Confirmar"
+    },
+    "choiceModal": {
+      "title": "Guardar cambios",
+      "cancel": "Cancelar",
+      "message": "¿Actualizar <strong>“{{themeName}}”</strong> con tus cambios, o conservar el original y guardar estos colores como un tema nuevo?",
+      "saveAsCopy": "Guardar copia",
+      "save": "Guardar"
+    },
+    "colorPicker": {
+      "less": "Menos",
+      "more": "Más",
+      "resetColor": "Restablecer",
+      "hex": "Hex"
+    },
+    "colors": {
+      "ui": {
+        "bg": "Superposición",
+        "text": "Texto"
+      },
+      "map": {
+        "land": "Tierra",
+        "landcover": "Suelo",
+        "water": "Agua",
+        "waterway": "Ríos",
+        "parks": "Parques",
+        "buildings": "Edificios",
+        "aeroway": "Aeropuertos",
+        "rail": "Tren",
+        "roads": {
+          "major": "Principales",
+          "minor_high": "Secundarias altas",
+          "minor_mid": "Secundarias medias",
+          "minor_low": "Secundarias bajas",
+          "path": "Caminos",
+          "outline": "Contorno"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "Mármol blanco: piedra clara con vetas suaves de carbón",
+      "blush": "Rosa empolvado sobre blanco cálido",
+      "sandstone": "Beige cálido con líneas marrones apagadas",
+      "heatwave": "Base oscura carbonizada con calles naranja brillante y destellos solares",
+      "ruby": "Paleta granate con rojos intensos sobre manzanas ciruela oscuro",
+      "sage": "Tonos botánicos suaves con calles verde frío y contraste delicado",
+      "rustic": "Base terrosa tipo papel con calles en tonos madera y arcilla",
+      "midnight_blue": "Fondo azul marino profundo con calles doradas y cobre: estilo atlas de lujo",
+      "neon": "Paleta neón de alto contraste con acentos magenta y cian",
+      "terracotta": "Calidez mediterránea: naranja quemado y arcilla sobre crema",
+      "blueprint": "Plano arquitectónico clásico: estilo dibujo técnico",
+      "contrast_zones": "Fuerte contraste que muestra la densidad urbana: oscuro al centro, claro en los bordes",
+      "copper_patina": "Cobre oxidado: pátina verde azulada con acentos de cobre",
+      "emerald": "Verde oscuro exuberante con acentos menta",
+      "forest": "Verdes profundos y salvia: estilo botánico orgánico",
+      "japanese_ink": "Inspirado en la tinta japonesa: minimalista con un sutil acento rojo",
+      "noir": "Fondo negro puro con calles blancas y grises: estilo galería moderna",
+      "ocean": "Azules y turquesas variados: ideal para ciudades costeras",
+      "pastel_dream": "Pasteles suaves con azules y malvas empolvados: estilo artístico y soñador",
+      "coral": "Base marfil suave con calles coral cálido y detalles rosa y azul apagados",
+      "copper": "Crema oxidado y tonos cobre con calles de acentos metálicos cálidos",
+      "old_navy": "Mapa azul marino profundo con tipografía y calles en dorado",
+      "gradient_roads": "Degradado suave del centro oscuro a los bordes claros con detalles sutiles",
+      "monochrome_blue": "Una sola gama de azul con distinta saturación: limpio y coherente",
+      "sunset": "Naranjas y rosas cálidos sobre durazno suave: estilo hora dorada soñadora",
+      "autumn": "Naranjas quemados, rojos profundos y amarillos dorados: calidez de temporada",
+      "warm_beige": "Neutros terrosos cálidos con tonos sepia: estilo mapa antiguo"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "Exportar",
+      "download": "Descargar",
+      "downloadPoster": "Descargar",
+      "closeOptions": "Cerrar",
+      "supportProject": "Apoyar"
+    },
+    "flyout": {
+      "download": "Descargar"
+    },
+    "support": {
+      "close": "Cerrar",
+      "headline": "✨ ¡Tu póster está listo!",
+      "text": "Sigue a Terraink en Instagram para descubrir ideas de mapas, consejos de diseño y las últimas novedades, y enseña los pósteres que crees.",
+      "followUs": "Síguenos"
+    },
+    "errors": {
+      "mapNotReady": "El mapa no está listo.",
+      "exportFailed": "Error al exportar.",
+      "tilesTimeout": "Se agotó el tiempo esperando a que se renderizaran los mosaicos del mapa.",
+      "canvasUnavailable": "El renderizado en canvas no está disponible.",
+      "exportContext": "No se pudo crear el contexto 2D del canvas de exportación",
+      "svgLayerContext": "No se pudo crear el contexto 2D para exportar la capa SVG.",
+      "svgOverlayContext": "No se pudo crear el contexto 2D para exportar la superposición SVG.",
+      "pngBlob": "No se pudo crear el blob PNG desde el canvas."
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "Ajustes",
+      "language": "Idioma",
+      "note": "Estos son los valores que se usan al cargar la app. Toca <strong>Guardar ajustes</strong> para guardar tu póster actual (tema, formato, fuente) como valores predeterminados. Se guardan localmente en este dispositivo.",
+      "defaultFont": "Por defecto (Space Grotesk)",
+      "savedThemeLabel": "{{name}} (guardado)",
+      "summaryTheme": "Tema",
+      "summaryLayout": "Formato",
+      "summaryFont": "Fuente",
+      "defaultTheme": "Tema",
+      "defaultLayout": "Formato",
+      "defaultFontLabel": "Fuente",
+      "defaultLocation": "Ubicación",
+      "defaultDistance": "Distancia",
+      "defaultUnit": "Unidad",
+      "appTheme": "Tema de app",
+      "comingSoon": "Próximamente",
+      "centimeters": "Centímetros",
+      "dark": "Oscuro",
+      "saveButton": "Guardar",
+      "resetButton": "Restablecer",
+      "cancel": "Cancelar",
+      "saveModalTitle": "Guardar ajustes",
+      "saveModalIntro": "¿Guardar tus ajustes actuales como predeterminados?",
+      "saveModalOutro": "Estos valores se usarán la próxima vez que abras la app.",
+      "resetModalTitle": "Restablecer ajustes",
+      "resetModalMessage": "¿Borrar tus valores predeterminados guardados? La app usará los valores integrados en tu próxima visita."
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "Cerrar"
+    },
+    "footer": {
+      "imprint": "Aviso legal",
+      "privacy": "Privacidad",
+      "cookieSettings": "Cookies",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | Hecho con <heart>❤︎</heart> en Hannover, Alemania",
+      "mapData": "Datos del mapa © <link>colaboradores de OpenStreetMap</link>",
+      "moreAttribution": "Más atribuciones"
+    },
+    "attribution": {
+      "title": "Atribución del mapa",
+      "mapDataLine": "Datos del mapa © <link>colaboradores de OpenStreetMap</link>.",
+      "tiles": "Mosaicos ©",
+      "poweredBy": "Con tecnología de",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "Borrar ubicación",
+      "useCurrent": "Usar ubicación actual",
+      "toggleCoords": "Mostrar/ocultar coordenadas",
+      "toggleCoordsTitle": "Coordenadas",
+      "latitude": "Latitud",
+      "longitude": "Longitud"
+    },
+    "confirm": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "picker": {
+      "done": "Listo",
+      "close": "Cerrar {{title}}"
+    },
+    "ad": {
+      "label": "Los anuncios mantienen Terraink gratis"
+    },
+    "about": {
+      "dialog": "Acerca de Terraink"
+    },
+    "info": {
+      "helpTitle": "Ayúdanos",
+      "helpCopy": "Terraink funciona 100% en tu navegador y es de código abierto. ¡Ayúdanos a construir el futuro del arte con mapas contribuyendo a nuestra hoja de ruta!",
+      "supportProject": "Apoyar",
+      "spreadWord": "Compartir",
+      "supportMission": "Apoyar",
+      "githubRepo": "GitHub",
+      "openRepo": "Abrir el repositorio de Terraink en GitHub",
+      "starRepo": "Dar estrella a Terraink en GitHub",
+      "star": "Estrella",
+      "donate": "Donar",
+      "donateLabel": "Apoya Terraink y dona para mantenerlo gratis",
+      "follow": "Sigue a Terraink en {{network}}",
+      "credits": "Incluye los créditos para ayudar a otros a descubrir la herramienta"
+    },
+    "social": {
+      "projectLinks": "Enlaces del proyecto",
+      "githubRepository": "Repositorio de GitHub"
+    },
+    "header": {
+      "logoAlt": "Logotipo de Terraink",
+      "tagline": "Creador gratuito de pósteres y fondos con mapas",
+      "about": "Acerca de"
+    },
+    "nav": {
+      "location": "Ubicación",
+      "theme": "Tema",
+      "layout": "Formato",
+      "style": "Estilo",
+      "layers": "Capas",
+      "markers": "Marcadores",
+      "routes": "Rutas",
+      "settings": "Ajustes",
+      "mobileNav": "Navegación",
+      "sections": "Secciones",
+      "hideLocation": "Ocultar ubicación",
+      "showLocation": "Mostrar ubicación"
+    },
+    "markerSize": {
+      "group": "Tamaño",
+      "label": "Tamaño",
+      "doneEditing": "Listo"
+    },
+    "donate": {
+      "intro": "Apoya a Terraink y a los proyectos abiertos en los que se basa. Los enlaces se abren en una pestaña nueva."
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "Novedad",
+      "fixed": "Corregido",
+      "improved": "Mejorado",
+      "info": "Info",
+      "community": "Comunidad",
+      "docs": "Docs",
+      "roadmap": "Hoja de ruta",
+      "removed": "Eliminado",
+      "security": "Seguridad",
+      "breaking": "Cambio importante",
+      "major": "Principal",
+      "perf": "Rendimiento",
+      "core": "Núcleo"
+    },
+    "quickHighlights": "Destacados",
+    "whatIsNew": "Novedades",
+    "updateDetails": "Detalles",
+    "close": "Cerrar",
+    "version": "Versión {{version}}",
+    "releasedOn": "Publicada el {{date}}",
+    "previewAlt": "Vista previa de {{title}}",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "finish": "Finalizar",
+    "showAll": "Ver todo",
+    "okay": "Entendido"
+  },
+  "legal": {
+    "privacy": "Política de privacidad",
+    "imprint": "Aviso legal",
+    "close": "Cerrar",
+    "loading": "Cargando…",
+    "error": "No se pudo cargar este documento. Inténtalo de nuevo más tarde."
+  },
+  "meta": {
+    "title": "Terraink: Creador de pósters y fondos de mapas",
+    "description": "Generador online gratis de pósters y fondos de pantalla de mapas. Diseña arte de mapas personalizado y listo para imprimir de cualquier ciudad o lugar, y expórtalo en PNG, PDF o SVG. Sin registro."
+  }
+}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ADSENSE_AD_CLIENT } from "@/core/config";
 
 interface AdUnitProps {
@@ -17,9 +18,10 @@ export default function AdUnit({
   enabled = true,
   format = "auto",
   layoutKey,
-  label = "Ads keep Terraink free",
+  label,
   className,
 }: AdUnitProps) {
+  const { t } = useTranslation();
   const slotRef = useRef<HTMLDivElement>(null);
   const insRef = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
@@ -84,7 +86,7 @@ export default function AdUnit({
     <div ref={slotRef} className="ad-unit-measure">
       {ready && (
         <div className={`ad-unit-slot${className ? ` ${className}` : ""}`}>
-          <p className="panel-ad-label">{label}</p>
+          <p className="panel-ad-label">{label ?? t("shell.ad.label")}</p>
           <ins
             ref={insRef}
             className="adsbygoogle"

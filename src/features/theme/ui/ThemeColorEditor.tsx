@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { ThemeColorKey } from "../domain/types";
 
 interface ColorTarget {
@@ -26,19 +27,20 @@ export default function ThemeColorEditor({
   colorTargets,
   onTargetSelect,
 }: ThemeColorEditorProps) {
+  const { t } = useTranslation();
   return (
     <section className="panel-block color-editor-screen">
-      <h2>Color Editor</h2>
+      <h2>{t("theme.editor.title")}</h2>
 
       <div className="color-editor-header">
-        <p className="theme-active-label">Editing: {activeColorLabel}</p>
+        <p className="theme-active-label">{t("theme.editor.editing", { label: activeColorLabel })}</p>
         <div className="theme-edit-actions">
           <button
             type="button"
             className="theme-save-btn"
             onClick={onSave}
           >
-            Save
+            {t("theme.editor.save")}
           </button>
           <button
             type="button"
@@ -46,14 +48,14 @@ export default function ThemeColorEditor({
             onClick={onResetAllColors}
             disabled={!hasCustomColors}
           >
-            Reset All
+            {t("theme.editor.resetAll")}
           </button>
           <button
             type="button"
             className="theme-edit-done-btn"
             onClick={onDone}
           >
-            Done
+            {t("theme.editor.done")}
           </button>
         </div>
       </div>

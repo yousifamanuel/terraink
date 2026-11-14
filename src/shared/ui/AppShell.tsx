@@ -1,4 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import {
   MAX_MARKER_SIZE,
@@ -41,13 +42,14 @@ function SettingsDrawer({
   mobileTab: MobileTab;
   onClose: () => void;
 }) {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const { sheetRef, handleRef, handleProps } = useSwipeDown(onClose, 80, {
     onExpand: () => setIsExpanded(true),
   });
 
   return (
-    <div className="mobile-drawer" role="dialog" aria-label="Settings">
+    <div className="mobile-drawer" role="dialog" aria-label={t("shell.nav.settings")}>
       <div
         className="mobile-drawer-backdrop"
         onClick={onClose}
@@ -73,6 +75,7 @@ function SettingsDrawer({
 }
 
 export default function AppShell() {
+  const { t } = useTranslation();
   const { state, dispatch } = usePosterContext();
 
   // Fire once-per-session analytics on load (app_open).
@@ -249,9 +252,9 @@ export default function AppShell() {
         <div
           className="mobile-marker-size-bar"
           role="group"
-          aria-label="Selected marker size"
+          aria-label={t("shell.markerSize.group")}
         >
-          <p className="mobile-marker-size-bar__label">Marker Size</p>
+          <p className="mobile-marker-size-bar__label">{t("shell.markerSize.label")}</p>
           <div className="mobile-marker-size-bar__controls">
             <input
               type="range"
@@ -301,7 +304,7 @@ export default function AppShell() {
           }}
         >
           <CheckIcon />
-          <span>Done Editing</span>
+          <span>{t("shell.markerSize.doneEditing")}</span>
         </button>
       ) : null}
 

@@ -8,14 +8,18 @@ import { themeOptions } from "@/features/theme/infrastructure/themeRepository";
 import { layoutOptions } from "@/features/layout/infrastructure/layoutRepository";
 import { FONT_OPTIONS } from "@/core/config";
 import ConfirmModal from "@/shared/ui/ConfirmModal";
+import i18n, { changeLanguage } from "@/core/i18n";
+import { Trans, useTranslation } from "react-i18next";
+import { SUPPORTED_LANGUAGES } from "@/core/i18n/languages";
 
 function findFontLabel(fontFamily: string | undefined): string {
-  if (!fontFamily) return "Default (Space Grotesk)";
+  if (!fontFamily) return i18n.t("settings.section.defaultFont");
   const match = FONT_OPTIONS.find((f) => f.value === fontFamily);
   return match?.label ?? fontFamily;
 }
 
 export default function SettingsSection() {
+  const { t, i18n: i18nInstance } = useTranslation();
   const { state } = usePosterContext();
   const { handleSaveCurrentAsDefaults, handleResetUserDefaults } =
     useFormHandlers();
@@ -36,7 +40,7 @@ export default function SettingsSection() {
     const builtin = themeOptions.find((t) => t.id === effectiveThemeId);
     if (builtin) return builtin.name;
     const saved = savedThemes.find((t) => t.id === effectiveThemeId);
-    if (saved) return `${saved.name} (saved)`;
+    if (saved) return t("settings.section.savedThemeLabel", { name: saved.name });
     return effectiveThemeId;
   }, [savedThemes, effectiveThemeId]);
 
@@ -51,18 +55,18 @@ export default function SettingsSection() {
 
   const currentSummary: { label: string; value: string }[] = [
     {
-      label: "Theme",
+      label: t("settings.section.summaryTheme"),
       value:
         themeOptions.find((t) => t.id === form.theme)?.name ??
         savedThemes.find((t) => t.id === form.theme)?.name ??
         form.theme,
     },
     {
-      label: "Layout",
+      label: t("settings.section.summaryLayout"),
       value:
         layoutOptions.find((l) => l.id === form.layout)?.name ?? form.layout,
     },
-    { label: "Font", value: findFontLabel(form.fontFamily) },
+    { label: t("settings.section.summaryFont"), value: findFontLabel(form.fontFamily) },
   ];
 
   function handleSaveClick() {
@@ -84,51 +88,68 @@ export default function SettingsSection() {
 
   return (
     <section className="panel-block settings-section">
-      <h2>Settings</h2>
+      <h2>{t("settings.section.title")}</h2>
       <p className="settings-note">
-        These are the values used when the app loads. Tap{" "}
-        <strong>Save Settings</strong> to capture your current poster setup
-        (theme, layout, font) as your defaults. Saved locally on this device.
+        <Trans
+          i18nKey="settings.section.note"
+          components={{ strong: <strong /> }}
+        />
       </p>
 
       <div className="settings-defaults-list">
+        <label className="settings-default-row">
+          <span className="settings-default-label">
+            {t("settings.section.language")}
+          </span>
+          <select
+            className="settings-language-select"
+            value={i18nInstance.language ?? "en"}
+            onChange={(e) => void changeLanguage(e.target.value)}
+          >
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+        </label>
         <div className="settings-default-row">
-          <span className="settings-default-label">Default theme</span>
+          <span className="settings-default-label">{t("settings.section.defaultTheme")}</span>
           <span className="settings-default-value">{themeLabel}</span>
         </div>
         <div className="settings-default-row">
-          <span className="settings-default-label">Default layout</span>
+          <span className="settings-default-label">{t("settings.section.defaultLayout")}</span>
           <span className="settings-default-value">{layoutLabel}</span>
         </div>
         <div className="settings-default-row">
-          <span className="settings-default-label">Default font</span>
+          <span className="settings-default-label">{t("settings.section.defaultFontLabel")}</span>
           <span className="settings-default-value">{fontLabel}</span>
         </div>
 
         <div className="settings-default-row is-disabled" aria-disabled="true">
-          <span className="settings-default-label">Default location</span>
+          <span className="settings-default-label">{t("settings.section.defaultLocation")}</span>
           <span className="settings-default-value">
-            <span className="settings-coming-soon">Coming soon</span>
+            <span className="settings-coming-soon">{t("settings.section.comingSoon")}</span>
           </span>
         </div>
         <div className="settings-default-row is-disabled" aria-disabled="true">
-          <span className="settings-default-label">Default distance</span>
+          <span className="settings-default-label">{t("settings.section.defaultDistance")}</span>
           <span className="settings-default-value">
-            <span className="settings-coming-soon">Coming soon</span>
+            <span className="settings-coming-soon">{t("settings.section.comingSoon")}</span>
           </span>
         </div>
         <div className="settings-default-row is-disabled" aria-disabled="true">
-          <span className="settings-default-label">Default unit</span>
+          <span className="settings-default-label">{t("settings.section.defaultUnit")}</span>
           <span className="settings-default-value">
-            Centimeters
-            <span className="settings-coming-soon">Coming soon</span>
+            {t("settings.section.centimeters")}
+            <span className="settings-coming-soon">{t("settings.section.comingSoon")}</span>
           </span>
         </div>
         <div className="settings-default-row is-disabled" aria-disabled="true">
-          <span className="settings-default-label">App theme</span>
+          <span className="settings-default-label">{t("settings.section.appTheme")}</span>
           <span className="settings-default-value">
-            Dark
-            <span className="settings-coming-soon">Coming soon</span>
+            {t("settings.section.dark")}
+            <span className="settings-coming-soon">{t("settings.section.comingSoon")}</span>
           </span>
         </div>
       </div>
@@ -139,7 +160,7 @@ export default function SettingsSection() {
           className="settings-save-btn"
           onClick={handleSaveClick}
         >
-          Save Settings
+          {t("settings.section.saveButton")}
         </button>
         <button
           type="button"
@@ -147,22 +168,24 @@ export default function SettingsSection() {
           onClick={handleResetClick}
           disabled={!hasAnyDefaults}
         >
-          Reset
+          {t("settings.section.resetButton")}
         </button>
       </div>
 
       {confirmOpen === "save" ? (
         <ConfirmModal
-          title="Save settings"
+          title={t("settings.section.saveModalTitle")}
           message={
-            "Save your current settings as defaults?\n\n" +
+            t("settings.section.saveModalIntro") +
+            "\n\n" +
             currentSummary
               .map((s) => `• ${s.label}: ${s.value}`)
               .join("\n") +
-            "\n\nThese values will be used the next time you open the app."
+            "\n\n" +
+            t("settings.section.saveModalOutro")
           }
-          confirmLabel="Save Settings"
-          cancelLabel="Cancel"
+          confirmLabel={t("settings.section.saveButton")}
+          cancelLabel={t("settings.section.cancel")}
           onConfirm={handleConfirm}
           onCancel={() => setConfirmOpen(null)}
         />
@@ -170,10 +193,10 @@ export default function SettingsSection() {
 
       {confirmOpen === "reset" ? (
         <ConfirmModal
-          title="Reset settings"
-          message="Clear your saved defaults? The app will use built-in defaults on next visit."
-          confirmLabel="Reset"
-          cancelLabel="Cancel"
+          title={t("settings.section.resetModalTitle")}
+          message={t("settings.section.resetModalMessage")}
+          confirmLabel={t("settings.section.resetButton")}
+          cancelLabel={t("settings.section.cancel")}
           destructive
           onConfirm={handleConfirm}
           onCancel={() => setConfirmOpen(null)}

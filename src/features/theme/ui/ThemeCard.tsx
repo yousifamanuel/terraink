@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   DISPLAY_PALETTE_KEYS,
   type ThemeOption,
@@ -22,6 +23,7 @@ export default function ThemeCard({
   onDelete,
   deleteAriaLabel,
 }: ThemeCardProps) {
+  const { t } = useTranslation();
   if (!themeOption) {
     return null;
   }
@@ -102,7 +104,7 @@ export default function ThemeCard({
           e.stopPropagation();
           onDelete();
         }}
-        aria-label={deleteAriaLabel ?? `Delete ${themeOption.name}`}
+        aria-label={deleteAriaLabel ?? t("theme.card.deleteAria", { name: themeOption.name })}
       >
         <TrashIcon />
       </button>

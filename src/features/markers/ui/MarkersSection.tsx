@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
+import { getMarkerIconLabel } from "./markerIconLabel";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import type {
   MarkerDefaults,
@@ -64,6 +66,7 @@ function DeleteAllMarkersModal({
   onCancel: () => void;
   onConfirm: () => void;
 }) {
+  const { t } = useTranslation();
   return createPortal(
     <div
       className="picker-modal-backdrop"
@@ -82,11 +85,10 @@ function DeleteAllMarkersModal({
             className="marker-delete-modal__headline"
             id="marker-delete-modal-title"
           >
-            Delete all markers?
+            {t("markers.deleteAll.title")}
           </p>
           <p className="marker-delete-modal__text">
-            This will remove {markerCount} marker{markerCount === 1 ? "" : "s"}{" "}
-            from the map.
+            {t("markers.deleteAll.text", { count: markerCount })}
           </p>
           <div className="marker-delete-modal__actions">
             <button
@@ -94,7 +96,7 @@ function DeleteAllMarkersModal({
               className="marker-delete-modal__cancel"
               onClick={onCancel}
             >
-              Keep markers
+              {t("markers.deleteAll.keep")}
             </button>
             <button
               type="button"
@@ -102,7 +104,7 @@ function DeleteAllMarkersModal({
               onClick={onConfirm}
             >
               <TrashIcon />
-              Delete all markers
+              {t("markers.deleteAll.confirm")}
             </button>
           </div>
         </div>
@@ -113,6 +115,7 @@ function DeleteAllMarkersModal({
 }
 
 export default function MarkersSection() {
+  const { t } = useTranslation();
   const { state, dispatch, mapRef, effectiveTheme } = usePosterContext();
   const {
     form,
@@ -229,7 +232,9 @@ export default function MarkersSection() {
       const iconCounts = new Map<string, number>();
       return markers.map((marker, index) => {
         const icon = findMarkerIcon(marker.iconId, customMarkerIcons);
-        const iconLabel = String(icon?.label ?? "Marker").trim() || "Marker";
+        const iconLabel =
+          String(icon ? getMarkerIconLabel(t, icon) : "").trim() ||
+          t("markers.defaultLabel");
         const nextCount = (iconCounts.get(iconLabel) ?? 0) + 1;
         iconCounts.set(iconLabel, nextCount);
         return {
@@ -241,7 +246,7 @@ export default function MarkersSection() {
         };
       });
     },
-    [customMarkerIcons, expandedMarkerId, markers],
+    [customMarkerIcons, expandedMarkerId, markers, t],
   );
 
   const markerColorPalette = useMemo(
@@ -354,8 +359,8 @@ export default function MarkersSection() {
     ? buildDynamicColorChoices(activeColorPickerMarker.marker.color, markerColorPalette)
     : null;
   const markerHelpText = isMobileViewport
-    ? "Click an icon to drop a marker on the current map location. Marker settings apply to all markers and can be moved directly on the map. In marker edit mode, drag to move markers and use the marker size slider below the location row to resize."
-    : "Click an icon to drop a marker on the current map location. Marker settings apply to all markers and can be moved directly on the map. In marker edit mode, drag to move, use the arrow keys for fine nudging, use two-finger pinch or mouse wheel to resize, and use scroll or the +/- map controls to zoom.";
+    ? t("markers.help.mobile")
+    : t("markers.help.desktop");
 
   return (
     <section className="panel-block color-editor-screen marker-settings-screen">
@@ -373,7 +378,7 @@ export default function MarkersSection() {
       ) : null}
 
       <div className="markers-section-head">
-        <p className="section-summary-label">MARKERS</p>
+        <p className="section-summary-label">{t("markers.section.title")}</p>
         <div className="markers-section-head-actions">
           {!isMarkerEditorActive ? (
             <button
@@ -382,20 +387,20 @@ export default function MarkersSection() {
               onClick={toggleMarkerSettings}
               aria-label={
                 isSettingsOpen
-                  ? "Done with marker settings"
-                  : "Open marker settings"
+                  ? t("markers.section.doneSettings")
+                  : t("markers.section.openSettings")
               }
               title={
                 isSettingsOpen
-                  ? "Done with marker settings"
-                  : "Open marker settings"
+                  ? t("markers.section.doneSettings")
+                  : t("markers.section.openSettings")
               }
             >
               <span className="marker-row__icon-btn-icon" aria-hidden="true">
                 {isSettingsOpen ? <CheckIcon /> : <GearIcon />}
               </span>
               {isSettingsOpen ? (
-                <span className="marker-row__icon-btn-label">Done</span>
+                <span className="marker-row__icon-btn-label">{t("markers.common.done")}</span>
               ) : null}
             </button>
           ) : null}
@@ -405,10 +410,14 @@ export default function MarkersSection() {
               className={`marker-row__icon-btn marker-header-action-btn${isMarkerEditorActive ? " is-active" : ""}`}
               onClick={toggleMarkerEditMode}
               aria-label={
-                isMarkerEditorActive ? "Done editing markers" : "Edit markers"
+                isMarkerEditorActive
+                  ? t("markers.section.doneEditing")
+                  : t("markers.section.editMarkers")
               }
               title={
-                isMarkerEditorActive ? "Done editing markers" : "Edit markers"
+                isMarkerEditorActive
+                  ? t("markers.section.doneEditing")
+                  : t("markers.section.editMarkers")
               }
               disabled={!isMarkerEditorActive && !hasMarkers}
             >
@@ -416,7 +425,9 @@ export default function MarkersSection() {
                 {isMarkerEditorActive ? <CheckIcon /> : <EditIcon />}
               </span>
               <span className="marker-row__icon-btn-label">
-                {isMarkerEditorActive ? "Done" : "Edit Markers"}
+                {isMarkerEditorActive
+                  ? t("markers.common.done")
+                  : t("markers.section.editMarkersButton")}
               </span>
             </button>
           ) : null}
@@ -424,7 +435,7 @@ export default function MarkersSection() {
             <button
               type="button"
               className="icon-only-btn marker-info-btn"
-              aria-label="Marker picker help"
+              aria-label={t("markers.section.pickerHelp")}
             >
               <InfoIcon />
             </button>
@@ -452,16 +463,15 @@ export default function MarkersSection() {
         {!isMarkerEditorActive && isSettingsOpen ? (
           <div className="marker-settings-card">
             <div className="marker-settings-card__header">
-              <h3>Marker Settings</h3>
+              <h3>{t("markers.settings.title")}</h3>
             </div>
             <p className="marker-settings-card__theme-note">
-              Marker settings apply to all markers. Unlock markers to edit each
-              marker directly.
+              {t("markers.settings.note")}
             </p>
 
             <div className="marker-editor-card__stack">
               <label>
-                Default Size
+                {t("markers.settings.defaultSize")}
                 <div className="marker-editor-card__size-row">
                   <input
                     className="marker-editor-card__size-slider"
@@ -497,7 +507,7 @@ export default function MarkersSection() {
 
               <div className="marker-settings-card__theme-color">
                 <span className="marker-settings-card__theme-label">
-                  Default Color
+                  {t("markers.settings.defaultColor")}
                 </span>
                 <div className="marker-color-control">
                   <button
@@ -540,13 +550,15 @@ export default function MarkersSection() {
             {isColorPickerFocused && activeColorPickerMarker ? (
               <article className="marker-editor-card">
                 <div className="marker-settings-card__header">
-                  <h3>Edit Marker Color</h3>
+                  <h3>{t("markers.editColor.title")}</h3>
                   <button
                     type="button"
                     className="marker-row__icon-btn"
                     onClick={() => setOpenMarkerColorPickerId(null)}
                   >
-                    <span className="marker-row__icon-btn-label">Done</span>
+                    <span className="marker-row__icon-btn-label">
+                      {t("markers.common.done")}
+                    </span>
                   </button>
                 </div>
                 <ColorPicker
@@ -584,8 +596,10 @@ export default function MarkersSection() {
                                   event.stopPropagation();
                                   removeMarker(marker.id);
                                 }}
-                                title="Delete marker"
-                                aria-label={`Delete ${markerLabel}`}
+                                title={t("markers.list.deleteMarker")}
+                                aria-label={t("markers.list.deleteNamed", {
+                                  label: markerLabel,
+                                })}
                               >
                                 <CloseIcon />
                               </button>
@@ -593,7 +607,7 @@ export default function MarkersSection() {
                                 type="button"
                                 className="marker-mobile-card__select"
                                 onClick={() => openMarkerEditor(marker.id)}
-                                title={`Edit ${markerLabel}`}
+                                title={t("markers.list.editNamed", { label: markerLabel })}
                               >
                                 {icon ? (
                                   <MarkerVisual
@@ -627,8 +641,10 @@ export default function MarkersSection() {
                                   event.stopPropagation();
                                   removeMarker(marker.id);
                                 }}
-                                title="Delete marker"
-                                aria-label={`Delete ${markerLabel}`}
+                                title={t("markers.list.deleteMarker")}
+                                aria-label={t("markers.list.deleteNamed", {
+                                  label: markerLabel,
+                                })}
                               >
                                 <CloseIcon />
                               </button>
@@ -636,7 +652,7 @@ export default function MarkersSection() {
                                 type="button"
                                 className="marker-mobile-card__select"
                                 onClick={() => openMarkerEditor(marker.id)}
-                                title={`Edit ${markerLabel}`}
+                                title={t("markers.list.editNamed", { label: markerLabel })}
                               >
                                 {icon ? (
                                   <MarkerVisual
@@ -678,8 +694,8 @@ export default function MarkersSection() {
                                       onClick={() => toggleMarkerEditor(marker.id)}
                                       title={
                                         isExpanded
-                                          ? "Finish marker editing"
-                                          : "Edit marker"
+                                          ? t("markers.list.finishEditing")
+                                          : t("markers.list.editMarker")
                                       }
                                     >
                                       <span
@@ -689,14 +705,16 @@ export default function MarkersSection() {
                                         {isExpanded ? <CheckIcon /> : <EditIcon />}
                                       </span>
                                       <span className="marker-row__icon-btn-label">
-                                        {isExpanded ? "Done" : "Edit"}
+                                        {isExpanded
+                                          ? t("markers.common.done")
+                                          : t("markers.list.edit")}
                                       </span>
                                     </button>
                                     <button
                                       type="button"
                                       className="marker-row__icon-btn marker-row__icon-btn--danger"
                                       onClick={() => removeMarker(marker.id)}
-                                      title="Delete marker"
+                                      title={t("markers.list.deleteMarker")}
                                     >
                                       <TrashIcon />
                                     </button>
@@ -707,7 +725,7 @@ export default function MarkersSection() {
                                   <div className="marker-editor-card__details">
                                     <div className="field-grid keep-two-mobile">
                                       <label>
-                                        Latitude
+                                        {t("markers.editor.latitude")}
                                         <input
                                           className="form-control-tall"
                                           type="number"
@@ -726,7 +744,7 @@ export default function MarkersSection() {
                                         />
                                       </label>
                                       <label>
-                                        Longitude
+                                        {t("markers.editor.longitude")}
                                         <input
                                           className="form-control-tall"
                                           type="number"
@@ -748,7 +766,7 @@ export default function MarkersSection() {
 
                                     <div className="marker-editor-card__stack">
                                       <label>
-                                        Size
+                                        {t("markers.editor.size")}
                                         <div className="marker-editor-card__size-row">
                                           <input
                                             className="marker-editor-card__size-slider"
@@ -783,7 +801,7 @@ export default function MarkersSection() {
                                       </label>
                                       <div>
                                         <span className="marker-settings-card__theme-label">
-                                          Color
+                                          {t("markers.editor.color")}
                                         </span>
                                         <div className="marker-color-control">
                                           <button
@@ -821,14 +839,14 @@ export default function MarkersSection() {
                   </>
                 ) : (
                   <p className="marker-settings-card__theme-note">
-                    Add at least one marker, then unlock markers to edit.
+                    {t("markers.editor.empty")}
                   </p>
                 )}
                 {!expandedMarkerId && hasMarkers ? (
                   <p className="marker-settings-toggle-hint marker-settings-toggle-hint--editor">
                     {isMobileViewport
-                      ? "Swipe the marker row to choose one, then tap it to edit. Drag it on the map to move it, and use the marker-size slider below the location row to resize."
-                      : "Click a marker card to edit it. Drag the selected marker on the map to move it, use the arrow keys for fine nudging, then adjust size and color in the editor."}
+                      ? t("markers.editor.hintMobile")
+                      : t("markers.editor.hintDesktop")}
                   </p>
                 ) : null}
 
@@ -838,20 +856,22 @@ export default function MarkersSection() {
                       type="button"
                       className="marker-row__icon-btn"
                       onClick={handleResetMarkers}
-                      title="Reset all markers"
+                      title={t("markers.actions.resetAll")}
                     >
                       <RotateLeftIcon />
-                      <span className="marker-row__icon-btn-label">Reset Markers</span>
+                      <span className="marker-row__icon-btn-label">
+                        {t("markers.actions.resetMarkers")}
+                      </span>
                     </button>
                     <button
                       type="button"
                       className="marker-row__icon-btn marker-row__icon-btn--danger"
                       onClick={handleDeleteAllMarkers}
-                      title="Delete all markers"
+                      title={t("markers.actions.deleteAllTitle")}
                     >
                       <TrashIcon />
                       <span className="marker-row__icon-btn-label">
-                        Delete All Markers
+                        {t("markers.actions.deleteAllMarkers")}
                       </span>
                     </button>
                   </div>

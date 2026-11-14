@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { isNativePlatform, onPlatformAdapterChange } from "@/core/platform";
+import { i18nReady } from "@/core/i18n";
 import App from "./App";
 
 // Self-hosted UI typefaces. These replace the Google Fonts stylesheet that
@@ -57,8 +58,10 @@ if ("serviceWorker" in navigator && !isNativePlatform()) {
   });
 }
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+void i18nReady.then(() => {
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
+});

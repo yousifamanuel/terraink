@@ -9,7 +9,8 @@ interface UseLocationAutocompleteReturn {
   searchNow: (query: string) => Promise<void>;
 }
 
-const DEBOUNCE_DELAY_MS = 450;
+// Suggestions after 1 s without typing; Enter searches right away (searchNow).
+const DEBOUNCE_DELAY_MS = 1000;
 
 export function useLocationAutocomplete(
   locationInput: string,
@@ -79,9 +80,17 @@ export function useLocationAutocomplete(
     }
 
     let cancelled = false;
+    // Show "searching" right away, so the wait before the request is visible too.
+    setIsLocationSearching(true);
     debounceIdRef.current = window.setTimeout(() => {
-      if (!cancelled) {
+      // Dragging the map doesn't blur the input, so when the map-move lookup
+      // rewrites the field the "focused" flag can be stale. Only search while
+      // a text field really has focus, i.e. the user is typing.
+      const typing = document.activeElement instanceof HTMLInputElement;
+      if (!cancelled && typing) {
         void performSearch(query);
+      } else {
+        setIsLocationSearching(false);
       }
     }, DEBOUNCE_DELAY_MS);
 

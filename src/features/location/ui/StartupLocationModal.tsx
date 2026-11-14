@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   DEFAULT_CITY,
   DEFAULT_COUNTRY,
@@ -12,7 +13,7 @@ import {
   getGeolocationFailureMessage,
   requestCurrentPositionWithRetry,
 } from "@/features/location/infrastructure";
-import { MyLocationIcon } from "@/shared/ui/Icons";
+import { LoaderIcon, MyLocationIcon } from "@/shared/ui/Icons";
 import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
 import {
@@ -41,6 +42,7 @@ interface StartupLocationModalProps {
 export default function StartupLocationModal({
   onComplete,
 }: StartupLocationModalProps) {
+  const { t } = useTranslation();
   const { dispatch } = usePosterDispatch();
   const [isOpen, setIsOpen] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
@@ -221,7 +223,7 @@ export default function StartupLocationModal({
       });
       closeModal();
     } catch {
-      setErrorMessage("Could not resolve that location. Try another name.");
+      setErrorMessage(t("location.startup.resolveError"));
     } finally {
       setIsResolving(false);
     }
@@ -245,11 +247,13 @@ export default function StartupLocationModal({
 
       <div className="startup-location-card is-visible">
         <p className="startup-location-title" id="startup-location-title">
-          Choose Location
+          {t("location.startup.title")}
         </p>
+        <div className="startup-location-input-wrap">
         <input
           type="text"
-          className="startup-location-input"
+          className={`startup-location-input${isLocationSearching ? " is-busy" : ""}`}
+          aria-busy={isLocationSearching}
           value={locationInput}
           onChange={(event) => {
             setLocationInput(event.target.value);
@@ -262,9 +266,15 @@ export default function StartupLocationModal({
           onFocus={() => setIsInputFocused(true)}
           onBlur={() => setTimeout(() => setIsInputFocused(false), 120)}
           onKeyDown={(e) => { if (e.key === "Enter") void searchNow(e.currentTarget.value); }}
-          placeholder="Type a city or place"
+          placeholder={t("location.startup.placeholder")}
           autoComplete="off"
         />
+        {isLocationSearching ? (
+          <span className="startup-location-spinner location-search-icon is-busy" aria-hidden="true">
+            <LoaderIcon />
+          </span>
+        ) : null}
+        </div>
         <LocationSuggestionsDropdown
           query={locationInput}
           isFocused={isInputFocused}
@@ -284,7 +294,7 @@ export default function StartupLocationModal({
           disabled={isResolving}
         >
           <MyLocationIcon />
-          <span>{isResolving ? "Locating..." : "Get my location"}</span>
+          <span>{isResolving ? t("location.startup.locating") : t("location.startup.getMyLocation")}</span>
         </button>
         <button
           type="button"
@@ -292,7 +302,7 @@ export default function StartupLocationModal({
           onClick={() => void handleConfirm()}
           disabled={isResolving}
         >
-          OK
+          {t("location.startup.ok")}
         </button>
         {errorMessage ? (
           <p className="startup-location-error" role="status">

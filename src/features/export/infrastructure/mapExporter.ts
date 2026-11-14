@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 import maplibregl from "maplibre-gl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type { MarkerProjectionInput } from "@/features/markers/domain/types";
@@ -66,7 +67,7 @@ export async function captureMapAsCanvas(
     exportCanvas.height = exportHeight;
     const ctx = exportCanvas.getContext("2d");
     if (!ctx) {
-      throw new Error("Could not create 2D context for export canvas");
+      throw new Error(i18n.t("export.errors.exportContext"));
     }
 
     ctx.imageSmoothingEnabled = true;

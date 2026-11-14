@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   LocationIcon,
   ThemeIcon,
@@ -21,16 +22,16 @@ export type MobileTab =
 
 const tabs: {
   id: MobileTab;
-  label: string;
+  labelKey: string;
   Icon: React.ComponentType<{ className?: string }>;
 }[] = [
-  { id: "location", label: "Location", Icon: LocationIcon },
-  { id: "theme", label: "Theme", Icon: ThemeIcon },
-  { id: "layout", label: "Layout", Icon: LayoutIcon },
-  { id: "style", label: "Style", Icon: StyleIcon },
-  { id: "layers", label: "Layers", Icon: LayersIcon },
-  { id: "markers", label: "Markers", Icon: MarkersIcon },
-  { id: "routes", label: "Routes", Icon: RouteIcon },
+  { id: "location", labelKey: "shell.nav.location", Icon: LocationIcon },
+  { id: "theme", labelKey: "shell.nav.theme", Icon: ThemeIcon },
+  { id: "layout", labelKey: "shell.nav.layout", Icon: LayoutIcon },
+  { id: "style", labelKey: "shell.nav.style", Icon: StyleIcon },
+  { id: "layers", labelKey: "shell.nav.layers", Icon: LayersIcon },
+  { id: "markers", labelKey: "shell.nav.markers", Icon: MarkersIcon },
+  { id: "routes", labelKey: "shell.nav.routes", Icon: RouteIcon },
 ];
 
 interface MobileNavBarProps {
@@ -46,12 +47,13 @@ export default function MobileNavBar({
   isLocationVisible,
   onTabChange,
 }: MobileNavBarProps) {
+  const { t } = useTranslation();
   return (
     <div className="mobile-nav-wrapper">
-      <nav className="mobile-nav" aria-label="Mobile navigation">
+      <nav className="mobile-nav" aria-label={t("shell.nav.mobileNav")}>
         <div className="mobile-nav-scroll-container">
           <div className="mobile-nav-tabs">
-            {tabs.map(({ id, label, Icon }) => {
+            {tabs.map(({ id, labelKey, Icon }) => {
               const isLocationTab = id === "location";
               const isActive = isLocationTab
                 ? isLocationVisible
@@ -66,7 +68,7 @@ export default function MobileNavBar({
                   aria-pressed={isLocationTab ? isLocationVisible : undefined}
                 >
                   <Icon className="mobile-nav-icon" />
-                  <span className="mobile-nav-label">{label}</span>
+                  <span className="mobile-nav-label">{t(labelKey)}</span>
                 </button>
               );
             })}
@@ -80,7 +82,7 @@ export default function MobileNavBar({
         className={`mobile-nav-settings${
           drawerOpen && activeTab === "settings" ? " is-active" : ""
         }`}
-        aria-label="Settings"
+        aria-label={t("shell.nav.settings")}
         aria-pressed={drawerOpen && activeTab === "settings"}
         onClick={() => onTabChange("settings")}
       >

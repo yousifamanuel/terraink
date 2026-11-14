@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { InfoIcon } from "@/shared/ui/Icons";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
@@ -6,18 +7,19 @@ interface GeneralHeaderProps {
 }
 
 export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
+  const { t } = useTranslation();
   return (
     <header className="general-header">
       <div className="desktop-brand">
         <img
           className="desktop-brand-logo brand-logo"
           src="/assets/logo.svg"
-          alt="Terraink logo"
+          alt={t("shell.header.logoAlt")}
         />
         <div className="desktop-brand-copy brand-copy">
           <h1 className="desktop-brand-title">Terraink</h1>
           <p className="desktop-brand-kicker app-kicker">
-            Free Map Poster & Wallpaper Creator
+            {t("shell.header.tagline")}
           </p>
         </div>
       </div>
@@ -28,10 +30,10 @@ export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
           type="button"
           className="general-header-text-btn general-header-about-text-btn"
           onClick={onAboutOpen}
-          aria-label="About"
-          title="About"
+          aria-label={t("shell.header.about")}
+          title={t("shell.header.about")}
         >
-          <span className="general-header-btn-label">About</span>
+          <span className="general-header-btn-label">{t("shell.header.about")}</span>
           <span className="general-header-btn-icon" aria-hidden="true">
             <InfoIcon />
           </span>

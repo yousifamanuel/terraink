@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { CloseIcon } from "./Icons";
 
 interface ConfirmModalProps {
@@ -15,12 +16,13 @@ interface ConfirmModalProps {
 export default function ConfirmModal({
   title,
   message,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel,
+  cancelLabel,
   destructive = false,
   onConfirm,
   onCancel,
 }: ConfirmModalProps) {
+  const { t } = useTranslation();
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") onCancel();
@@ -48,7 +50,7 @@ export default function ConfirmModal({
             type="button"
             className="picker-modal-close"
             onClick={onCancel}
-            aria-label="Cancel"
+            aria-label={t("shell.confirm.cancel")}
           >
             <CloseIcon />
           </button>
@@ -62,7 +64,7 @@ export default function ConfirmModal({
             className="save-theme-cancel"
             onClick={onCancel}
           >
-            {cancelLabel}
+            {cancelLabel ?? t("shell.confirm.cancel")}
           </button>
           <button
             type="button"
@@ -71,7 +73,7 @@ export default function ConfirmModal({
             }
             onClick={onConfirm}
           >
-            {confirmLabel}
+            {confirmLabel ?? t("shell.confirm.confirm")}
           </button>
         </div>
       </div>

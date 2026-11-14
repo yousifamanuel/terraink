@@ -126,6 +126,11 @@ export default function MapPreview({
       interactive: false,
       attributionControl: false,
       canvasContextAttributes: { preserveDrawingBuffer: true },
+      // Flat maps only: rotating must not tilt into 3D. Re-enable these
+      // (and raise maxPitch) when the 3D view is built.
+      pitchWithRotate: false,
+      touchPitch: false,
+      maxPitch: 0,
     });
 
     mapRef.current = map;

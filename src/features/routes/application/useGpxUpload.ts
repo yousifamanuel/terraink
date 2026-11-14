@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import i18n from "@/core/i18n";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { gpxParser } from "@/core/services";
 import { MAX_GPX_FILE_SIZE_BYTES } from "@/features/routes/domain/constants";
@@ -60,10 +61,10 @@ export function useGpxUpload(): UseGpxUploadResult {
   const uploadGpxFile = useCallback(
     async (file: File): Promise<UploadGpxResult> => {
       if (!isGpxFile(file)) {
-        throw new Error("Please upload a .gpx file.");
+        throw new Error(i18n.t("routes.errors.notGpx"));
       }
       if (file.size > MAX_GPX_FILE_SIZE_BYTES) {
-        throw new Error("GPX file is too large (max 10 MB).");
+        throw new Error(i18n.t("routes.errors.tooLarge"));
       }
 
       const text = await readFileAsText(file);
@@ -92,7 +93,7 @@ export function useGpxUpload(): UseGpxUploadResult {
       const combinedHalfWidth = boundsHalfWidthMeters(combined);
       if (combinedHalfWidth > MAX_COMBINED_HALF_WIDTH_METERS) {
         throw new Error(
-          "This route is too far from your existing routes. Remove or replace them first.",
+          i18n.t("routes.errors.tooFar"),
         );
       }
 

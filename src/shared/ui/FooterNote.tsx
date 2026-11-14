@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import {
   APP_VERSION,
   CONTACT_EMAIL,
@@ -41,6 +42,7 @@ function handleCookieSettings() {
 }
 
 export default function FooterNote() {
+  const { t } = useTranslation();
   const appVersion = APP_VERSION;
   const [isAttributionOpen, setIsAttributionOpen] = useState(false);
   const contactEmail = String(CONTACT_EMAIL ?? "").trim();
@@ -71,7 +73,7 @@ export default function FooterNote() {
               href={LEGAL_DOC_PAGES.imprint}
               onClick={(event) => handleLegalClick(event, "imprint")}
             >
-              Imprint
+              {t("shell.footer.imprint")}
             </a>
           )}
           {imprintAvailable && privacyAvailable && " | "}
@@ -81,7 +83,7 @@ export default function FooterNote() {
               href={LEGAL_DOC_PAGES.privacy}
               onClick={(event) => handleLegalClick(event, "privacy")}
             >
-              Data Privacy
+              {t("shell.footer.privacy")}
             </a>
           )}
           {hasLegalLinks && " | "}
@@ -93,35 +95,46 @@ export default function FooterNote() {
               handleCookieSettings();
             }}
           >
-            Cookie Settings
+            {t("shell.footer.cookieSettings")}
           </button>
         </p>
       </div>
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          Terraink™ v{appVersion} | © 2026 | Made with{" "}
-          <span className="heart">❤︎</span> in Hannover, Germany
+          {/* One inline box, so the heart follows the text direction
+              (in Arabic it ends the sentence on the left). */}
+          <span>
+            <Trans
+              i18nKey="shell.footer.madeWith"
+              values={{ version: appVersion }}
+              components={{ heart: <span className="heart" /> }}
+            />
+          </span>
         </p>
       </div>
 
       <div className="desktop-footer-right">
         <p className="source-note">
-          Map data &copy;{" "}
-          <a
-            className="source-link"
-            href="https://www.openstreetmap.org/copyright"
-            target="_blank"
-            rel="noreferrer"
-          >
-            OpenStreetMap contributors
-          </a>
+          <Trans
+            i18nKey="shell.footer.mapData"
+            components={{
+              link: (
+                <a
+                  className="source-link"
+                  href="https://www.openstreetmap.org/copyright"
+                  target="_blank"
+                  rel="noreferrer"
+                />
+              ),
+            }}
+          />
         </p>
         {/* Desktop: opens the attribution modal (hidden on mobile via CSS). */}
         <button
           type="button"
           className="desktop-footer-info-btn"
-          aria-label="More map attribution"
+          aria-label={t("shell.footer.moreAttribution")}
           aria-haspopup="dialog"
           aria-expanded={isAttributionOpen}
           onClick={() => {

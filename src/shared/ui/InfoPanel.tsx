@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+import DonateLink from "@/shared/ui/DonateLink";
 import { useRepoStars } from "@/shared/hooks/useRepoStars";
 import { trackEvent } from "@/shared/utils/analytics";
 import {
@@ -9,7 +11,6 @@ import {
   SOCIAL_REDDIT,
   SOCIAL_THREADS,
   SOCIAL_YOUTUBE,
-  KOFI_URL,
 } from "@/core/config";
 import {
   GitHubIcon,
@@ -33,6 +34,7 @@ function HelpUsGrowSection({
   repoStars: number | null;
   repoStarsLoading: boolean;
 }) {
+  const { t } = useTranslation();
   const starsText = repoStarsLoading
     ? "…"
     : repoStars !== null
@@ -66,20 +68,18 @@ function HelpUsGrowSection({
       label: "YouTube",
     },
   ];
-  const kofiUrl = String(KOFI_URL ?? "").trim();
 
   return (
     <section className="info-panel-section">
-      <h3>Help Us Grow</h3>
+      <h3>{t("shell.info.helpTitle")}</h3>
       <p className="hug-copy">
-        Terraink is 100% client-side and open-source. Help us build the future
-        of map art by contributing to our roadmap!
+        {t("shell.info.helpCopy")}
       </p>
 
       <div className="hug-rows">
         {/* Support the project */}
         <div className="hug-row">
-          <span className="hug-row-label">Support the project</span>
+          <span className="hug-row-label">{t("shell.info.supportProject")}</span>
           <div className="hug-row-content">
             {repoUrl ? (
               <a
@@ -87,16 +87,16 @@ function HelpUsGrowSection({
                 href={repoUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Open Terraink repository on GitHub"
+                aria-label={t("shell.info.openRepo")}
                 onClick={() => trackEvent("github_click")}
               >
                 <GitHubIcon className="badge-icon" />
-                <span>GitHub Repo</span>
+                <span>{t("shell.info.githubRepo")}</span>
               </a>
             ) : (
               <span className="github-badge" style={{ opacity: 0.45 }}>
                 <GitHubIcon className="badge-icon" />
-                <span>GitHub Repo</span>
+                <span>{t("shell.info.githubRepo")}</span>
               </span>
             )}
             {repoUrl ? (
@@ -105,10 +105,10 @@ function HelpUsGrowSection({
                 href={`${repoUrl}/stargazers`}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Star Terraink on GitHub"
+                aria-label={t("shell.info.starRepo")}
               >
                 <StarIcon className="badge-icon" />
-                <span>{starsText !== null ? starsText : "Star"}</span>
+                <span>{starsText !== null ? starsText : t("shell.info.star")}</span>
               </a>
             ) : (
               <span
@@ -116,32 +116,25 @@ function HelpUsGrowSection({
                 style={{ opacity: 0.45 }}
               >
                 <StarIcon className="badge-icon" />
-                <span>Star</span>
+                <span>{t("shell.info.star")}</span>
               </span>
             )}
-            {kofiUrl ? (
-              <a
-                className="github-badge"
-                href={kofiUrl}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Support Terraink and donate to keep it free"
-                title="Support Terraink and donate to keep it free"
-                onClick={() => trackEvent("donate_click")}
-              >
-                <span>Donate</span>
-              </a>
-            ) : (
-              <span className="github-badge" style={{ opacity: 0.45 }}>
-                <span>Donate</span>
-              </span>
-            )}
+            <DonateLink
+              className="github-badge"
+              fallback={
+                <span className="github-badge" style={{ opacity: 0.45 }}>
+                  <span>{t("shell.info.donate")}</span>
+                </span>
+              }
+            >
+              <span>{t("shell.info.donate")}</span>
+            </DonateLink>
           </div>
         </div>
 
         {/* Spread the word */}
         <div className="hug-row">
-          <span className="hug-row-label">Spread the word</span>
+          <span className="hug-row-label">{t("shell.info.spreadWord")}</span>
           <div className="hug-row-content social-links-row">
             {socialLinks.map(({ href, Icon, label }) =>
               href ? (
@@ -151,7 +144,7 @@ function HelpUsGrowSection({
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`Follow Terraink on ${label}`}
+                  aria-label={t("shell.info.follow", { network: label })}
                   title={label}
                 >
                   <Icon className="social-icon" />
@@ -171,11 +164,11 @@ function HelpUsGrowSection({
 
         {/* Support the mission */}
         <div className="hug-row">
-          <span className="hug-row-label">Support the mission</span>
+          <span className="hug-row-label">{t("shell.info.supportMission")}</span>
           <div className="hug-row-content">
             <span className="hug-credits-note">
               <CheckIcon className="hug-check-icon" />
-              Include credits to help others discover the tool
+              {t("shell.info.credits")}
             </span>
           </div>
         </div>

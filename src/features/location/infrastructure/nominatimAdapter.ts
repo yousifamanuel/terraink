@@ -17,6 +17,30 @@ import {
 const inFlightSearchRequests = new Map<string, Promise<SearchResult[]>>();
 const inFlightReverseRequests = new Map<string, Promise<SearchResult>>();
 
+// Space requests to the public Nominatim server at least 1.1 s apart.
+// Every request (search or reverse) waits for its turn; cached answers don't.
+const MIN_REQUEST_GAP_MS = 1100;
+let nextRequestAt = 0;
+
+function waitForRequestSlot(signal?: AbortSignal): Promise<void> {
+  const now = Date.now();
+  const startAt = Math.max(now, nextRequestAt);
+  nextRequestAt = startAt + MIN_REQUEST_GAP_MS;
+  const wait = startAt - now;
+  if (wait <= 0) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    const timer = window.setTimeout(resolve, wait);
+    signal?.addEventListener(
+      "abort",
+      () => {
+        window.clearTimeout(timer);
+        reject(new DOMException("Aborted", "AbortError"));
+      },
+      { once: true },
+    );
+  });
+}
+
 export function createNominatimAdapter(
   http: IHttp,
   cache: ICache,
@@ -46,8 +70,10 @@ export function createNominatimAdapter(
       "https://nominatim.openstreetmap.org/search?" +
       `format=jsonv2&addressdetails=1&limit=${normalizedLimit}&q=${encodeURIComponent(lookup)}`;
 
-    const promise = http
-      .get(url, { headers: { Accept: "application/json" }, signal }, 16_000)
+    const promise = waitForRequestSlot(signal)
+      .then(() =>
+        http.get(url, { headers: { Accept: "application/json" }, signal }, 16_000),
+      )
       .then(async (response) => {
         const data = await response.json();
         const results = parseLocationResponseItems(data);
@@ -125,8 +151,8 @@ export function createNominatimAdapter(
       "https://nominatim.openstreetmap.org/reverse?" +
       `format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(String(lat))}&lon=${encodeURIComponent(String(lon))}`;
 
-    const promise = http
-      .get(url, { headers: { Accept: "application/json" } }, 16_000)
+    const promise = waitForRequestSlot()
+      .then(() => http.get(url, { headers: { Accept: "application/json" } }, 16_000))
       .then(async (response) => {
         const data = await response.json();
         const normalized = normalizeLocationResult(data);

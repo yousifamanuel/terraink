@@ -1,0 +1,118 @@
+/* Donate list window (opens when several donation links are configured). */
+
+.donate-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.donate-modal {
+  position: relative;
+  width: min(400px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: var(--sheet-bg);
+  border: 1px solid rgba(146, 176, 200, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
+  padding: 22px;
+}
+
+button.donate-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(146, 176, 200, 0.2);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(195, 220, 240, 0.86);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.donate-modal-title {
+  margin: 0 0 6px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  color: #ecf5ff;
+}
+
+.donate-modal-intro {
+  margin: 0 0 14px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #9bb3c5;
+}
+
+.donate-modal-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.donate-modal-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(146, 176, 200, 0.2);
+  border-radius: 10px;
+  background: rgba(10, 20, 31, 0.78);
+  color: #e7f2fb;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.donate-modal-link:hover,
+.donate-modal-link:focus-visible {
+  background: rgba(94, 174, 212, 0.1);
+  border-color: rgba(94, 174, 212, 0.5);
+}
+
+.donate-modal-link-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.donate-modal-link-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.donate-modal-link-host {
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.68rem;
+  color: #8fa8b9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.donate-modal-link svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: #8cb6d0;
+}

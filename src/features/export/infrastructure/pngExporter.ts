@@ -1,3 +1,4 @@
+import i18n from "@/core/i18n";
 function writeUint32BE(target: Uint8Array, offset: number, value: number) {
   target[offset] = (value >>> 24) & 0xff;
   target[offset + 1] = (value >>> 16) & 0xff;
@@ -89,7 +90,7 @@ export async function createPngBlob(
       if (blob) {
         resolve(blob);
       } else {
-        reject(new Error("Failed to create PNG blob from canvas."));
+        reject(new Error(i18n.t("export.errors.pngBlob")));
       }
     }, "image/png");
   });

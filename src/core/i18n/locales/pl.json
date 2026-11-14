@@ -1,0 +1,624 @@
+{
+  "markers": {
+    "defaultLabel": "Znacznik",
+    "common": {
+      "done": "Gotowe"
+    },
+    "icons": {
+      "app-marker": "Terraink",
+      "pin": "Pinezka",
+      "heart": "Serce",
+      "home": "Dom",
+      "star": "Gwiazda",
+      "circle": "Koło",
+      "square": "Kwadrat",
+      "x": "X",
+      "target": "Cel",
+      "sun": "Słońce",
+      "moon": "Księżyc",
+      "building": "Budynek",
+      "send": "Wyślij",
+      "snowflake": "Śnieżynka",
+      "shop": "Sklep",
+      "camera": "Aparat",
+      "flower": "Kwiat",
+      "tree": "Drzewo",
+      "flag": "Flaga"
+    },
+    "deleteAll": {
+      "title": "Usunąć wszystkie znaczniki?",
+      "text_one": "Usuniesz {{count}} znacznik z mapy.",
+      "text_few": "Usuniesz {{count}} znaczniki z mapy.",
+      "text_many": "Usuniesz {{count}} znaczników z mapy.",
+      "text_other": "Usuniesz {{count}} znacznika z mapy.",
+      "keep": "Zachowaj",
+      "confirm": "Usuń wszystkie"
+    },
+    "help": {
+      "mobile": "Kliknij ikonę, aby dodać znacznik w bieżącym miejscu na mapie. Ustawienia znaczników dotyczą wszystkich znaczników, które możesz przesuwać bezpośrednio na mapie. W trybie edycji przeciągaj znaczniki, aby je przesunąć, a suwakiem rozmiaru pod wierszem lokalizacji zmienisz ich wielkość.",
+      "desktop": "Kliknij ikonę, aby dodać znacznik w bieżącym miejscu na mapie. Ustawienia znaczników dotyczą wszystkich znaczników, które możesz przesuwać bezpośrednio na mapie. W trybie edycji przeciągaj znaczniki, aby je przesunąć, używaj strzałek do precyzyjnego przesuwania, szczypnięcia dwoma palcami lub kółka myszy do zmiany rozmiaru, a przewijania lub przycisków +/- do powiększania mapy."
+    },
+    "section": {
+      "title": "ZNACZNIKI",
+      "doneSettings": "Gotowe",
+      "openSettings": "Ustawienia",
+      "doneEditing": "Gotowe",
+      "editMarkers": "Edytuj",
+      "editMarkersButton": "Edytuj",
+      "pickerHelp": "Pomoc"
+    },
+    "settings": {
+      "title": "Ustawienia",
+      "note": "Ustawienia dotyczą wszystkich znaczników. Odblokuj znaczniki, aby edytować każdy z osobna.",
+      "defaultSize": "Domyślny rozmiar",
+      "defaultColor": "Domyślny kolor"
+    },
+    "editColor": {
+      "title": "Kolor znacznika"
+    },
+    "list": {
+      "deleteMarker": "Usuń znacznik",
+      "deleteNamed": "Usuń: {{label}}",
+      "editNamed": "Edytuj: {{label}}",
+      "finishEditing": "Gotowe",
+      "editMarker": "Edytuj",
+      "edit": "Edytuj"
+    },
+    "editor": {
+      "latitude": "Szerokość",
+      "longitude": "Długość",
+      "size": "Rozmiar",
+      "color": "Kolor",
+      "empty": "Dodaj co najmniej jeden znacznik, a potem odblokuj znaczniki, aby edytować.",
+      "hintMobile": "Przesuń wiersz znaczników, aby wybrać jeden, i dotknij go, aby edytować. Przeciągnij go na mapie, aby go przesunąć, a suwakiem rozmiaru pod wierszem lokalizacji zmienisz jego wielkość.",
+      "hintDesktop": "Kliknij kartę znacznika, aby go edytować. Przeciągnij wybrany znacznik na mapie, aby go przesunąć, użyj strzałek do precyzyjnego przesuwania, a potem dostosuj rozmiar i kolor w edytorze."
+    },
+    "actions": {
+      "resetAll": "Resetuj wszystko",
+      "resetMarkers": "Resetuj",
+      "deleteAllTitle": "Usuń wszystkie",
+      "deleteAllMarkers": "Usuń wszystkie"
+    },
+    "picker": {
+      "invalidFile": "Prześlij obraz lub plik SVG.",
+      "uploadFailed": "Nie udało się przesłać znacznika.",
+      "iconsTitle": "Ikony",
+      "showList": "Pokaż listę ikon",
+      "showMore": "Więcej ikon",
+      "showLess": "Pokaż mniej",
+      "moreIcons": "Więcej",
+      "uploadedTitle": "Przesłane",
+      "removeNamed": "Usuń przesłaną ikonę {{label}}",
+      "removeUploaded": "Usuń przesłaną ikonę",
+      "uploadTitle": "Prześlij znacznik",
+      "uploadButton": "Prześlij",
+      "clearUploaded": "Usuń przesłane z pamięci"
+    }
+  },
+  "routes": {
+    "errors": {
+      "uploadFailed": "Przesyłanie nie powiodło się.",
+      "notGpx": "Prześlij plik .gpx.",
+      "tooLarge": "Plik GPX jest za duży (maks. 10 MB).",
+      "tooFar": "Ta trasa jest zbyt daleko od Twoich istniejących tras. Najpierw usuń je lub zastąp.",
+      "invalidXml": "Nie udało się odczytać pliku GPX — nieprawidłowy XML.",
+      "noPoints": "Nie znaleziono punktów trasy w pliku GPX.",
+      "readFailed": "Nie udało się odczytać pliku GPX."
+    },
+    "boundsWarning": {
+      "title": "Ta trasa jest daleko od bieżącego obszaru",
+      "text": "Po dodaniu plakat zostanie oddalony, aby zmieścić wszystko. Możesz też zastąpić istniejące trasy tą, aby zachować bliższy widok.",
+      "cancel": "Anuluj",
+      "replace": "Zastąp istniejące",
+      "addAnyway": "Dodaj mimo to"
+    },
+    "section": {
+      "title": "TRASY",
+      "hideRoutes": "Ukryj trasy",
+      "showRoutes": "Pokaż trasy",
+      "hideAll": "Ukryj wszystkie",
+      "showAll": "Pokaż wszystkie",
+      "uploadTitle": "Prześlij plik GPX",
+      "uploading": "Przesyłanie…",
+      "uploadGpx": "Prześlij GPX",
+      "empty": "Prześlij plik <code>.gpx</code>, aby narysować trasę na plakacie. Ręczne rysowanie tras już wkrótce."
+    },
+    "card": {
+      "removeRoute": "Usuń trasę",
+      "removeNamed": "Usuń: {{label}}",
+      "finishEndpoint": "Zakończ punkt",
+      "done": "Gotowe",
+      "doneEditing": "Gotowe",
+      "editStart": "Edytuj start",
+      "editFinish": "Edytuj metę",
+      "icon": "Ikona",
+      "closeIconPicker": "Zamknij wybór ikony",
+      "changeIcon": "Zmień ikonę",
+      "color": "Kolor",
+      "closeColorPicker": "Zamknij wybór koloru",
+      "openColorPicker": "Otwórz wybór koloru",
+      "size": "Rozmiar",
+      "showEndpoints": "Pokaż start i metę",
+      "start": "Start",
+      "finish": "Meta",
+      "editStartMarker": "Edytuj znacznik startu",
+      "editFinishMarker": "Edytuj znacznik mety",
+      "width": "Grubość",
+      "opacity": "Krycie",
+      "style": "Styl",
+      "solid": "Ciągła",
+      "dashed": "Przerywana",
+      "removeRouteButton": "Usuń trasę"
+    }
+  },
+  "install": {
+    "prompt": {
+      "deferred": "Zainstaluj Terraink, aby mieć szybszy dostęp i wygodniejsze korzystanie.",
+      "addToHomeScreen": "Dodaj do ekranu głównego",
+      "maybeLater": "Może później",
+      "diagnostics": "Diagnostyka",
+      "iosHint": "Dotknij <share/>, a potem <strong>Do ekranu początkowego</strong>, aby mieć szybszy dostęp i wygodniejsze korzystanie.",
+      "androidHint": "Aby mieć szybszy dostęp i wygodniejsze korzystanie, zainstaluj Terraink z menu przeglądarki: <strong>Zainstaluj aplikację</strong> lub <strong>Dodaj do ekranu głównego</strong>"
+    },
+    "diagnostics": {
+      "ariaLabel": "Diagnostyka",
+      "title": "Diagnostyka",
+      "close": "Zamknij"
+    }
+  },
+  "layout": {
+    "card": {
+      "ratioSymbolAlt": "Symbol proporcji: {{name}}"
+    },
+    "groups": {
+      "print": "Druk",
+      "social_media": "Social media",
+      "wallpaper": "Tapeta",
+      "web": "Web"
+    },
+    "descriptions": {
+      "print_a3_portrait": "Format ISO A3 pionowo.",
+      "print_a4_portrait": "Domyślne proporcje druku wg A4 pionowo.",
+      "print_a5_portrait": "Format ISO A5 pionowo.",
+      "print_letter_us_portrait": "Format US Letter pionowo.",
+      "social_instagram_square": "Format posta 1:1 na Instagram.",
+      "social_instagram_portrait": "Format posta 4:5 pionowo na Instagram.",
+      "social_instagram_story_tiktok": "Format pionowy 9:16 do krótkich wideo.",
+      "social_linkedin_post": "Standardowy format obrazu posta na LinkedIn.",
+      "social_linkedin_cover": "Format okładki profilu lub firmy na LinkedIn.",
+      "social_pinterest_pin": "Format pionowy 2:3 do pinów na Pinterest.",
+      "social_reddit_post_16_9": "Format panoramiczny do postów na Reddit.",
+      "social_reddit_banner": "Ultraszeroki format nagłówka subreddita.",
+      "social_twitter_header": "Format nagłówka profilu na Twitter/X.",
+      "social_youtube_thumbnail": "Format miniatury 16:9 do filmów na YouTube.",
+      "wallpaper_desktop_full_hd": "Tapeta 16:9 na standardowe monitory.",
+      "wallpaper_desktop_4k": "Tapeta 4K UHD w proporcjach 16:9.",
+      "wallpaper_ultrawide": "Tapeta ultrapanoramiczna na monitory 21:9.",
+      "wallpaper_iphone_15_pro": "Pionowy format tapety na iPhone 15 Pro.",
+      "wallpaper_iphone_15_pro_max": "Pionowy format tapety na iPhone 15 Pro Max.",
+      "wallpaper_samsung_galaxy_s24_ultra": "Pionowy format tapety na Samsung Galaxy S24 Ultra.",
+      "wallpaper_ipad_pro_11": "Format tapety na ekran iPad Pro 11 cali.",
+      "wallpaper_ipad_pro_12_9": "Format tapety na ekran iPad Pro 12,9 cala.",
+      "wallpaper_xteink_x4": "Natywny format Xteink X4 (480x800). Eksport dokładnie w tej rozdzielczości przy 300 DPI.",
+      "web_hero_banner": "Szerokie proporcje sekcji hero nowoczesnych stron.",
+      "web_blog_featured": "Typowy format karty Open Graph/okładki bloga.",
+      "web_dashboard_card": "Wyważona ramka 4:3 do wizualizacji w panelach aplikacji.",
+      "print_poster_20x30": "Klasyczny pionowy rozmiar plakatu (proporcje 2:3)."
+    }
+  },
+  "map": {
+    "pickers": {
+      "chooseLayout": "Wybierz układ"
+    },
+    "layers": {
+      "title": "WARSTWY",
+      "mapDetails": "Szczegóły",
+      "showLandcover": "Pokrycie",
+      "showBuildings": "Budynki",
+      "showWater": "Woda",
+      "showParks": "Parki",
+      "showRoads": "Drogi",
+      "showRail": "Koleje",
+      "showAeroway": "Lotniska"
+    },
+    "dimensions": {
+      "widthCm": "Szerokość (cm)",
+      "heightCm": "Wysokość (cm)",
+      "distanceM": "Odległość (m)",
+      "distanceAria": "Odległość w metrach"
+    },
+    "settings": {
+      "customLayoutDescription": "Twój własny układ.",
+      "noDescription": "Brak opisu.",
+      "colorFallback": "Kolor",
+      "theme": "Motyw",
+      "themeFallbackName": "Motyw",
+      "colorEditor": "Edytor kolorów",
+      "editing": "Edytujesz: {{label}}",
+      "done": "Gotowe",
+      "deleteThemeTitle": "Usuń motyw",
+      "deleteThemeMessage": "Usunąć „{{name}}”? Tej operacji nie można cofnąć.",
+      "thisTheme": "ten motyw",
+      "delete": "Usuń",
+      "cancel": "Anuluj",
+      "layout": "Układ",
+      "layoutLabel": "UKŁAD:",
+      "doneEditingLayout": "Gotowe",
+      "customizeLayoutSize": "Własny rozmiar"
+    }
+  },
+  "location": {
+    "startup": {
+      "resolveError": "Nie udało się znaleźć tego miejsca. Spróbuj innej nazwy.",
+      "title": "Lokalizacja",
+      "placeholder": "Wpisz miasto lub miejsce",
+      "locating": "Lokalizowanie...",
+      "getMyLocation": "Moja lokalizacja",
+      "ok": "OK"
+    },
+    "dropdown": {
+      "searching": "Szukanie...",
+      "removeAria": "Usuń {{label}} z historii",
+      "removeTitle": "Usuń z historii",
+      "showLess": "Pokaż mniej",
+      "showMore": "Pokaż więcej",
+      "clearHistory": "Wyczyść historię"
+    },
+    "section": {
+      "title": "Lokalizacja",
+      "label": "Lokalizacja",
+      "searchPlaceholder": "Wpisz miasto lub miejsce",
+      "clearAria": "Wyczyść lokalizację",
+      "useCurrentAria": "Użyj bieżącej lokalizacji",
+      "latitude": "Szerokość (opc.)",
+      "longitude": "Długość (opc.)"
+    },
+    "geo": {
+      "deniedNative": "Dostęp do lokalizacji jest zablokowany. Włącz lokalizację dla Terraink w ustawieniach urządzenia i spróbuj ponownie.",
+      "deniedBrowser": "Dostęp do lokalizacji jest zablokowany. Włącz uprawnienie do lokalizacji w ustawieniach przeglądarki i spróbuj ponownie.",
+      "unsupported": "Ta przeglądarka nie obsługuje lokalizacji.",
+      "insecure": "Lokalizacja wymaga bezpiecznego połączenia (HTTPS).",
+      "generic": "Nie udało się teraz ustalić Twojej lokalizacji. Sprawdź usługi lokalizacji i spróbuj ponownie.",
+      "manualFallback": "Możesz wpisać lokalizację ręcznie."
+    }
+  },
+  "poster": {
+    "sections": {
+      "location": "Lokalizacja",
+      "theme": "Motyw",
+      "layout": "Układ",
+      "layers": "Warstwy",
+      "markers": "Znaczniki",
+      "routes": "Trasy",
+      "style": "Styl"
+    },
+    "info": {
+      "ariaLabel": "Ustawienia",
+      "title": "Ustawienia",
+      "location": "Lokalizacja",
+      "theme": "Motyw",
+      "layout": "Układ",
+      "posterSize": "Rozmiar",
+      "markers": "Znaczniki",
+      "coordinates": "Współrzędne",
+      "markerCount_one": "{{count}} znacznik",
+      "markerCount_few": "{{count}} znaczniki",
+      "markerCount_many": "{{count}} znaczników",
+      "markerCount_other": "{{count}} znacznika"
+    },
+    "controls": {
+      "mapControls": "Sterowanie mapą",
+      "recenter": "Wyśrodkuj",
+      "recenterHint": "Wyśrodkuj mapę",
+      "lockTitle": "Zablokuj mapę",
+      "lockMap": "Zablokuj mapę",
+      "editMap": "Edytuj mapę",
+      "lockedHint": "Mapa jest zablokowana, by uniknąć przypadkowego przesunięcia.",
+      "unlockHint": "Kliknij, aby odblokować edycję mapy.",
+      "disableRotation": "Wyłącz obracanie",
+      "enableRotation": "Włącz obracanie",
+      "disableRotationLabel": "Wyłącz obracanie",
+      "enableRotationLabel": "Włącz obracanie",
+      "zoomOut": "Pomniejsz",
+      "zoomIn": "Powiększ",
+      "zoomLevel": "Powiększenie",
+      "rotateLeft": "Obróć w lewo o 15°",
+      "rotateRight": "Obróć w prawo o 15°",
+      "rotationAngle": "Kąt obrotu"
+    },
+    "typography": {
+      "style": "STYL",
+      "posterText": "Tekst plakatu",
+      "overlayLayer": "Nakładka",
+      "displayCity": "Pokaż miasto",
+      "displayCountry": "Pokaż kraj",
+      "font": "Czcionka",
+      "defaultFont": "Domyślna (Space Grotesk)"
+    }
+  },
+  "theme": {
+    "summary": {
+      "noDescription": "Brak opisu.",
+      "themeLabel": "Motyw:",
+      "customizeAria": "Dostosuj kolory: {{name}}",
+      "savedThemes": "Zapisane",
+      "savedEmpty": "Dostosuj i zapisz motyw, aby zobaczyć go tutaj.",
+      "savedThemesAria": "Zapisane motywy",
+      "deleteSavedAria": "Usuń zapisany motyw {{name}}",
+      "builtInThemes": "Wbudowane",
+      "themeOptionsAria": "Opcje motywu",
+      "savedThemeDescription": "Zapisany motyw"
+    },
+    "card": {
+      "deleteAria": "Usuń: {{name}}"
+    },
+    "editor": {
+      "title": "Edytor kolorów",
+      "editing": "Edytujesz: {{label}}",
+      "save": "Zapisz",
+      "resetAll": "Resetuj wszystko",
+      "done": "Gotowe"
+    },
+    "saveModal": {
+      "title": "Zapisz motyw",
+      "cancel": "Anuluj",
+      "name": "Nazwa",
+      "description": "Opis",
+      "hint": "Wybierz unikalną nazwę, by później łatwo znaleźć motyw.",
+      "duplicate": "Zapisany motyw o tej nazwie już istnieje.",
+      "confirm": "Potwierdź"
+    },
+    "choiceModal": {
+      "title": "Zapisz zmiany",
+      "cancel": "Anuluj",
+      "message": "Zaktualizować <strong>„{{themeName}}”</strong> Twoimi zmianami, czy zachować oryginał i zapisać te kolory jako nowy motyw?",
+      "saveAsCopy": "Zapisz jako kopię",
+      "save": "Zapisz"
+    },
+    "colorPicker": {
+      "less": "Mniej",
+      "more": "Więcej",
+      "resetColor": "Resetuj kolor",
+      "hex": "Hex"
+    },
+    "colors": {
+      "ui": {
+        "bg": "Nakładka",
+        "text": "Tekst"
+      },
+      "map": {
+        "land": "Ląd",
+        "landcover": "Pokrycie",
+        "water": "Woda",
+        "waterway": "Rzeki",
+        "parks": "Parki",
+        "buildings": "Budynki",
+        "aeroway": "Lotniska",
+        "rail": "Koleje",
+        "roads": {
+          "major": "Drogi główne",
+          "minor_high": "Boczne wysokie",
+          "minor_mid": "Boczne średnie",
+          "minor_low": "Boczne niskie",
+          "path": "Ścieżki",
+          "outline": "Obrys dróg"
+        }
+      }
+    },
+    "descriptions": {
+      "carrara": "Biały marmur — jasny kamień z miękkimi szarymi żyłkami",
+      "blush": "Przygaszona róża na ciepłej bieli",
+      "sandstone": "Ciepły beż ze stonowanymi brązowymi liniami",
+      "heatwave": "Zwęglona ciemna baza z żarzącymi się pomarańczowymi drogami",
+      "ruby": "Paleta inspirowana granatem: soczyste czerwienie na głębokich śliwkowych kwartałach",
+      "sage": "Stonowane roślinne tony z chłodnozielonymi drogami",
+      "rustic": "Ziemisty papier z drewnianymi i glinianymi drogami",
+      "midnight_blue": "Głęboki granat ze złotymi i miedzianymi drogami — luksusowy atlas",
+      "neon": "Neonowa, kontrastowa paleta z akcentami magenty i cyjanu",
+      "terracotta": "Śródziemnomorskie ciepło — palona pomarańcza i glina na kremie",
+      "blueprint": "Klasyczny niebieski rysunek techniczny",
+      "contrast_zones": "Mocny kontrast zagęszczenia miasta — ciemno w centrum, jasno na brzegach",
+      "copper_patina": "Utleniona miedź — turkusowa patyna z miedzianymi akcentami",
+      "emerald": "Soczysta ciemna zieleń z miętowymi akcentami",
+      "forest": "Głębokie zielenie i szałwiowe tony — naturalny, botaniczny styl",
+      "japanese_ink": "Tradycyjny tusz japoński — minimalizm z subtelną czerwienią",
+      "noir": "Czysta czerń z biało-szarymi drogami — nowoczesna galeria",
+      "ocean": "Odcienie błękitu i turkusu — idealne dla miast nadmorskich",
+      "pastel_dream": "Miękkie pastele z przygaszonym błękitem i fioletem — senny, artystyczny styl",
+      "coral": "Miękka kość słoniowa z ciepłymi koralowymi drogami",
+      "copper": "Utleniony krem i miedź z ciepłymi metalicznymi akcentami",
+      "old_navy": "Głęboki granat map ze złotymi napisami i drogami",
+      "gradient_roads": "Płynny gradient od ciemnego centrum do jasnych brzegów",
+      "monochrome_blue": "Jedna rodzina błękitu o zmiennym nasyceniu — czysto i spójnie",
+      "sunset": "Ciepłe pomarańcze i róże na miękkiej brzoskwini — złota godzina",
+      "autumn": "Palona pomarańcza, głęboka czerwień, złoty żółty — jesienne ciepło",
+      "warm_beige": "Ziemiste ciepłe neutrale w sepii — styl vintage"
+    }
+  },
+  "export": {
+    "fab": {
+      "exportPoster": "Eksportuj plakat",
+      "download": "Pobierz",
+      "downloadPoster": "Pobierz plakat",
+      "closeOptions": "Zamknij",
+      "supportProject": "Wesprzyj projekt"
+    },
+    "flyout": {
+      "download": "Pobierz"
+    },
+    "support": {
+      "close": "Zamknij",
+      "headline": "✨ Twój plakat jest gotowy!",
+      "text": "Obserwuj Terraink na Instagramie, by poznać nowe pomysły na mapy, wskazówki projektowe i najnowsze funkcje — i pochwal się swoimi plakatami.",
+      "followUs": "Obserwuj nas"
+    },
+    "errors": {
+      "mapNotReady": "Mapa nie jest gotowa.",
+      "exportFailed": "Eksport nie powiódł się.",
+      "tilesTimeout": "Upłynął czas oczekiwania na wyrenderowanie kafelków mapy.",
+      "canvasUnavailable": "Renderowanie canvas jest niedostępne.",
+      "exportContext": "Nie udało się utworzyć kontekstu 2D dla canvasu eksportu",
+      "svgLayerContext": "Nie udało się utworzyć kontekstu 2D do eksportu warstwy SVG.",
+      "svgOverlayContext": "Nie udało się utworzyć kontekstu 2D do eksportu nakładki SVG.",
+      "pngBlob": "Nie udało się utworzyć pliku PNG z canvasu."
+    }
+  },
+  "settings": {
+    "section": {
+      "title": "Ustawienia",
+      "language": "Język",
+      "note": "To wartości używane po uruchomieniu aplikacji. Dotknij <strong>Zapisz ustawienia</strong>, aby zapisać bieżącą konfigurację plakatu (motyw, układ, czcionkę) jako domyślną. Zapisane lokalnie na tym urządzeniu.",
+      "defaultFont": "Domyślna (Space Grotesk)",
+      "savedThemeLabel": "{{name}} (zapisany)",
+      "summaryTheme": "Motyw",
+      "summaryLayout": "Układ",
+      "summaryFont": "Czcionka",
+      "defaultTheme": "Domyślny motyw",
+      "defaultLayout": "Domyślny układ",
+      "defaultFontLabel": "Domyślna czcionka",
+      "defaultLocation": "Domyślna lokalizacja",
+      "defaultDistance": "Domyślna odległość",
+      "defaultUnit": "Domyślna jednostka",
+      "appTheme": "Motyw aplikacji",
+      "comingSoon": "Wkrótce",
+      "centimeters": "Centymetry",
+      "dark": "Ciemny",
+      "saveButton": "Zapisz",
+      "resetButton": "Resetuj",
+      "cancel": "Anuluj",
+      "saveModalTitle": "Zapisz ustawienia",
+      "saveModalIntro": "Zapisać bieżące ustawienia jako domyślne?",
+      "saveModalOutro": "Zostaną użyte przy następnym otwarciu aplikacji.",
+      "resetModalTitle": "Resetuj ustawienia",
+      "resetModalMessage": "Wyczyścić zapisane ustawienia domyślne? Przy następnej wizycie aplikacja użyje wbudowanych."
+    }
+  },
+  "shell": {
+    "common": {
+      "close": "Zamknij"
+    },
+    "footer": {
+      "imprint": "Nota prawna",
+      "privacy": "Prywatność",
+      "cookieSettings": "Cookies",
+      "madeWith": "Terraink™ v{{version}} | © 2026 | Stworzone z <heart>❤︎</heart> w Hanowerze, Niemcy",
+      "mapData": "Dane mapy © <link>współtwórcy OpenStreetMap</link>",
+      "moreAttribution": "Źródła mapy"
+    },
+    "attribution": {
+      "title": "Źródła mapy",
+      "mapDataLine": "Dane mapy © <link>współtwórcy OpenStreetMap</link>.",
+      "tiles": "Kafelki ©",
+      "poweredBy": "Napędzane przez",
+      "and": "&"
+    },
+    "locationBar": {
+      "clear": "Wyczyść lokalizację",
+      "useCurrent": "Użyj bieżącej lokalizacji",
+      "toggleCoords": "Przełącz pola współrzędnych",
+      "toggleCoordsTitle": "Pokaż/ukryj współrzędne",
+      "latitude": "Szerokość",
+      "longitude": "Długość"
+    },
+    "confirm": {
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj"
+    },
+    "picker": {
+      "done": "Gotowe",
+      "close": "Zamknij: {{title}}"
+    },
+    "ad": {
+      "label": "Reklamy utrzymują Terraink za darmo"
+    },
+    "about": {
+      "dialog": "O Terraink"
+    },
+    "info": {
+      "helpTitle": "Pomóż nam rosnąć",
+      "helpCopy": "Terraink działa w 100% po stronie klienta i ma otwarty kod. Pomóż nam budować przyszłość sztuki map, współtworząc naszą mapę drogową!",
+      "supportProject": "Wesprzyj projekt",
+      "spreadWord": "Poleć dalej",
+      "supportMission": "Wesprzyj misję",
+      "githubRepo": "GitHub",
+      "openRepo": "Otwórz repozytorium Terraink na GitHub",
+      "starRepo": "Daj gwiazdkę Terraink na GitHub",
+      "star": "Gwiazdka",
+      "donate": "Wesprzyj",
+      "donateLabel": "Wesprzyj Terraink darowizną, by pozostał darmowy",
+      "follow": "Obserwuj Terraink na {{network}}",
+      "credits": "Podaj źródło, by pomóc innym odkryć to narzędzie"
+    },
+    "social": {
+      "projectLinks": "Linki projektu",
+      "githubRepository": "Repozytorium GitHub"
+    },
+    "header": {
+      "logoAlt": "Logo Terraink",
+      "tagline": "Darmowy kreator plakatów i tapet z map",
+      "about": "O nas"
+    },
+    "nav": {
+      "location": "Lokalizacja",
+      "theme": "Motyw",
+      "layout": "Układ",
+      "style": "Styl",
+      "layers": "Warstwy",
+      "markers": "Znaczniki",
+      "routes": "Trasy",
+      "settings": "Ustawienia",
+      "mobileNav": "Nawigacja",
+      "sections": "Sekcje",
+      "hideLocation": "Ukryj lokalizację",
+      "showLocation": "Pokaż lokalizację"
+    },
+    "markerSize": {
+      "group": "Rozmiar wybranego znacznika",
+      "label": "Rozmiar",
+      "doneEditing": "Gotowe"
+    },
+    "donate": {
+      "intro": "Wesprzyj Terraink i otwarte projekty, na których działa. Linki otwierają się w nowej karcie."
+    }
+  },
+  "updates": {
+    "categories": {
+      "new": "Nowość",
+      "fixed": "Poprawka",
+      "improved": "Ulepszenie",
+      "info": "Info",
+      "community": "Społeczność",
+      "docs": "Dokumenty",
+      "roadmap": "Plan",
+      "removed": "Usunięto",
+      "security": "Bezpieczeństwo",
+      "breaking": "Krytyczne",
+      "major": "Duże",
+      "perf": "Wydajność",
+      "core": "Rdzeń"
+    },
+    "quickHighlights": "W skrócie",
+    "whatIsNew": "Co nowego",
+    "updateDetails": "Szczegóły",
+    "close": "Zamknij",
+    "version": "Wersja {{version}}",
+    "releasedOn": "Wydano: {{date}}",
+    "previewAlt": "Podgląd: {{title}}",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "finish": "Zakończ",
+    "showAll": "Pokaż wszystko",
+    "okay": "Rozumiem"
+  },
+  "legal": {
+    "privacy": "Polityka prywatności",
+    "imprint": "Nota prawna",
+    "close": "Zamknij",
+    "loading": "Ładowanie…",
+    "error": "Nie udało się wczytać dokumentu — spróbuj ponownie później."
+  },
+  "meta": {
+    "title": "Terraink: darmowy kreator plakatów i tapet z map",
+    "description": "Darmowy generator plakatów i tapet z map online. Projektuj własne mapy gotowe do druku dla dowolnego miasta lub miejsca i eksportuj je jako PNG, PDF lub SVG. Bez rejestracji."
+  }
+}

@@ -7,6 +7,7 @@ import {
   useRef,
   type ReactNode,
 } from "react";
+import i18n from "@/core/i18n";
 import {
   posterReducer,
   type PosterState,
@@ -133,6 +134,7 @@ function buildInitialState(): PosterState {
     error: "",
     isExporting: false,
     isLocationFocused: false,
+    isLocationLookupPending: false,
     selectedLocation: null,
     userLocation: null,
     displayNameOverrides: {
@@ -185,7 +187,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
     if (saved) {
       return {
         name: saved.name,
-        description: "Saved theme",
+        description: i18n.t("theme.summary.savedThemeDescription"),
         ui: { ...saved.colors.ui },
         map: {
           ...saved.colors.map,
@@ -194,7 +196,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       };
     }
     return getTheme(state.form.theme);
-  }, [state.form.theme, state.savedThemes]);
+  }, [state.form.theme, state.savedThemes, i18n.language]);
 
   const effectiveTheme = useMemo(() => {
     if (Object.keys(state.customColors).length === 0) {

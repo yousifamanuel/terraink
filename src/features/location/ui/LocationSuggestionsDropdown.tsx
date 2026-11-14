@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { trackEvent } from "@/core/services";
 import { CloseIcon, HistoryIcon } from "@/shared/ui/Icons";
 import type { RecentLocation, SearchResult } from "../domain/types";
@@ -39,6 +40,7 @@ export default function LocationSuggestionsDropdown({
   onClearRecent,
   variant = "bar",
 }: LocationSuggestionsDropdownProps) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -75,7 +77,7 @@ export default function LocationSuggestionsDropdown({
             </li>
           ))}
           {isSearching ? (
-            <li className={`${prefix}-suggestion-status`}>Searching...</li>
+            <li className={`${prefix}-suggestion-status`}>{t("location.dropdown.searching")}</li>
           ) : null}
         </>
       ) : (
@@ -97,8 +99,8 @@ export default function LocationSuggestionsDropdown({
               <button
                 type="button"
                 className="location-recent-remove"
-                aria-label={`Remove ${entry.label} from history`}
-                title="Remove from history"
+                aria-label={t("location.dropdown.removeAria", { label: entry.label })}
+                title={t("location.dropdown.removeTitle")}
                 onMouseDown={(event) => {
                   event.preventDefault();
                   onRecentRemove(entry.id);
@@ -118,7 +120,7 @@ export default function LocationSuggestionsDropdown({
                   setExpanded((value) => !value);
                 }}
               >
-                {expanded ? "Show less" : "Show more"}
+                {expanded ? t("location.dropdown.showLess") : t("location.dropdown.showMore")}
               </button>
             </li>
           ) : null}
@@ -131,7 +133,7 @@ export default function LocationSuggestionsDropdown({
                 onClearRecent();
               }}
             >
-              Clear history
+              {t("location.dropdown.clearHistory")}
             </button>
           </li>
         </>
