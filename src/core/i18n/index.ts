@@ -27,10 +27,19 @@ function syncHtmlLang(code: string) {
   }
 }
 
+/* Browser tab title and search description follow the language. */
+function syncDocumentMeta() {
+  if (typeof document === "undefined") return;
+  document.title = i18n.t("meta.title");
+  document
+    .querySelector('meta[name="description"]')
+    ?.setAttribute("content", i18n.t("meta.description"));
+}
+
 i18n.on("languageChanged", (code) => {
   syncHtmlLang(code);
   // Components re-render when the bundle is added (bindI18nStore: "added").
-  void loadLanguage(code);
+  void loadLanguage(code).then(syncDocumentMeta);
 });
 
 /** Resolves once the starting language is loaded, so the first paint is translated. */
@@ -56,6 +65,7 @@ export const i18nReady: Promise<void> = i18n
     },
   })
   .then(() => loadLanguage(i18n.language))
+  .then(syncDocumentMeta)
   .catch(() => undefined);
 
 /** Manual pick from the language picker; remembered on this device. */
