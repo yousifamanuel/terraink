@@ -9,7 +9,8 @@
     "build": "bunx --bun vite build",
     "preview": "bunx --bun vite preview --host",
     "typecheck": "tsc --noEmit",
-    "showcase:grid": "node scripts/combine-showcase-grid.mjs"
+    "showcase:grid": "node scripts/combine-showcase-grid.mjs",
+    "i18n:check": "node scripts/check-i18n.mjs"
   },
   "dependencies": {
     "i18next": "^27.1.1",
