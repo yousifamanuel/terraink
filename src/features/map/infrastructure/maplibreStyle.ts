@@ -700,6 +700,25 @@ export function generateMapStyle(
         },
       },
       {
+        // The tiles have no coastline layer: the ocean's edge stands in for
+        // it, so "Show borders" outlines whole countries, not only land borders.
+        id: "country-coastline",
+        source: SOURCE_ID,
+        "source-layer": "water",
+        type: "line" as const,
+        filter: ["==", ["get", "class"], "ocean"],
+        paint: {
+          "line-color": blendHex(theme.map.land || "#ffffff", theme.ui.text || "#111111", 0.82),
+          "line-width": widthExpr(countryBorderWidthStops),
+          "line-opacity": 0.9,
+        },
+        layout: {
+          visibility: includeBorders ? ("visible" as const) : ("none" as const),
+          "line-cap": "round" as const,
+          "line-join": "round" as const,
+        },
+      },
+      {
         id: "country-borders",
         source: SOURCE_ID,
         "source-layer": "boundary",
