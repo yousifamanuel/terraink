@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import CoordinateField from "./CoordinateField";
 import { useTranslation } from "react-i18next";
 import { getMarkerIconLabel } from "./markerIconLabel";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
@@ -51,10 +52,6 @@ function isSvgFile(file: File) {
   return (
     file.type === "image/svg+xml" || file.name.toLowerCase().endsWith(".svg")
   );
-}
-
-function formatCoordinate(value: number) {
-  return Number(value).toFixed(6);
 }
 
 function DeleteAllMarkersModal({
@@ -726,40 +723,20 @@ export default function MarkersSection() {
                                     <div className="field-grid keep-two-mobile">
                                       <label>
                                         {t("markers.editor.latitude")}
-                                        <input
-                                          className="form-control-tall"
-                                          type="number"
-                                          step="0.000001"
+                                        <CoordinateField
+                                          value={marker.lat}
                                           min={-90}
                                           max={90}
-                                          value={formatCoordinate(marker.lat)}
-                                          onChange={(event) => {
-                                            const nextValue = Number(event.target.value);
-                                            if (Number.isFinite(nextValue)) {
-                                              updateMarker(marker.id, {
-                                                lat: Math.max(-90, Math.min(90, nextValue)),
-                                              });
-                                            }
-                                          }}
+                                          onChange={(lat) => updateMarker(marker.id, { lat })}
                                         />
                                       </label>
                                       <label>
                                         {t("markers.editor.longitude")}
-                                        <input
-                                          className="form-control-tall"
-                                          type="number"
-                                          step="0.000001"
+                                        <CoordinateField
+                                          value={marker.lon}
                                           min={-180}
                                           max={180}
-                                          value={formatCoordinate(marker.lon)}
-                                          onChange={(event) => {
-                                            const nextValue = Number(event.target.value);
-                                            if (Number.isFinite(nextValue)) {
-                                              updateMarker(marker.id, {
-                                                lon: Math.max(-180, Math.min(180, nextValue)),
-                                              });
-                                            }
-                                          }}
+                                          onChange={(lon) => updateMarker(marker.id, { lon })}
                                         />
                                       </label>
                                     </div>
