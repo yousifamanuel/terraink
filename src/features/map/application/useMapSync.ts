@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { clamp } from "@/shared/geo/math";
+import { clamp, haversineMeters } from "@/shared/geo/math";
 import { reverseGeocodeCoordinates } from "@/core/services";
 import type { MapInstanceRef } from "@/features/map/domain/types";
 import {
@@ -100,6 +100,13 @@ type MapSyncDispatch = (
 /** Wait this long after the map stops before asking for the place name. */
 const MAP_REST_LOOKUP_MS = 2000;
 
+/**
+ * Keep the current name until the map has moved this share of the poster
+ * width (default view ≈ 8 km wide → 2 km), but at least 1 km.
+ */
+const NAME_UPDATE_SHARE_OF_WIDTH = 0.25;
+const NAME_UPDATE_MIN_M = 1000;
+
 /*
  * One place-name lookup state for the whole app. useMapSync runs in several
  * components (preview, location bar, settings); per-instance refs let a late
@@ -184,13 +191,23 @@ export function useMapSync(
     [formDistance, formLat, effectiveContainerPx, mapZoomBounds],
   );
 
+  // Poster width = 2 × distance (see distanceToZoom).
+  const nameUpdateDistanceRef = useRef(NAME_UPDATE_MIN_M);
+  nameUpdateDistanceRef.current = Math.max(
+    NAME_UPDATE_MIN_M,
+    formDistance * 2 * NAME_UPDATE_SHARE_OF_WIDTH,
+  );
+
   const lookupLocationName = useCallback(
-    (lat: number, lon: number) => {
+    (lat: number, lon: number, force = false) => {
       const previous = nameLookup.coords;
       const movedEnough =
+        force ||
         !previous ||
-        Math.abs(previous[0] - lat) >= 0.002 ||
-        Math.abs(previous[1] - lon) >= 0.002;
+        haversineMeters(
+          { lat: previous[0], lon: previous[1] },
+          { lat, lon },
+        ) >= nameUpdateDistanceRef.current;
       if (!movedEnough) {
         dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
         return;
@@ -244,16 +261,36 @@ export function useMapSync(
   // Look up the place name only once the map has rested for this long,
   // so panning around doesn't send a request per stop.
   const updateLocationFromCoordinates = useCallback(
-    (lat: number, lon: number, delayMs = MAP_REST_LOOKUP_MS) => {
+    (lat: number, lon: number, delayMs = MAP_REST_LOOKUP_MS, force = false) => {
       window.clearTimeout(nameLookup.timer);
+      // Small moves keep the name: no spinner, no request.
+      const previous = nameLookup.coords;
+      if (
+        !force &&
+        previous &&
+        haversineMeters({ lat: previous[0], lon: previous[1] }, { lat, lon }) <
+          nameUpdateDistanceRef.current
+      ) {
+        nameLookup.timer = undefined;
+        dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: false });
+        return;
+      }
       dispatch({ type: "SET_LOCATION_LOOKUP_PENDING", pending: true });
       nameLookup.timer = window.setTimeout(() => {
         nameLookup.timer = undefined;
-        lookupLocationName(lat, lon);
+        lookupLocationName(lat, lon, force);
       }, delayMs);
     },
     [dispatch, lookupLocationName],
   );
+
+  // On start, the shown name belongs to the starting position.
+  useEffect(() => {
+    if (nameLookup.coords || !form.latitude || !form.longitude) return;
+    const lat = Number(form.latitude);
+    const lon = Number(form.longitude);
+    if (Number.isFinite(lat) && Number.isFinite(lon)) nameLookup.coords = [lat, lon];
+  }, [form.latitude, form.longitude]);
 
   /**
    * The name for (lat, lon) is already known (search pick, recenter): cancel
@@ -322,7 +359,8 @@ export function useMapSync(
     const timeoutId = window.setTimeout(() => {
       if (nameLookup.typedKey === key) return;
       nameLookup.typedKey = key;
-      updateLocationFromCoordinates(lat, lon, 1000);
+      // Typed coordinates always get a fresh name.
+      updateLocationFromCoordinates(lat, lon, 1000, true);
     }, 350);
 
     return () => {
