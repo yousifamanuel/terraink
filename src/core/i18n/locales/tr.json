@@ -358,7 +358,10 @@
         "solid": "Düz",
         "dashed": "Kesik"
       },
-      "lineThickness": "Çizgi kalınlığı"
+      "lineThickness": "Çizgi kalınlığı",
+      "titleSize": "Başlık boyutu",
+      "subtitleSize": "Alt başlık boyutu",
+      "textOffset": "Yukarı / aşağı"
     }
   },
   "theme": {

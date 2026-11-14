@@ -11,5 +11,8 @@ export function getPosterLayoutOptions(form: PosterForm): PosterLayoutOptions {
     borderLine: form.borderLine,
     borderDash: form.borderDash,
     borderThickness: Number(form.borderThickness),
+    titleSize: Number(form.titleSize),
+    subtitleSize: Number(form.subtitleSize),
+    textOffset: Number(form.textOffset),
   };
 }

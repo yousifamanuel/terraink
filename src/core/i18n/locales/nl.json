@@ -358,7 +358,10 @@
         "solid": "Doorgetrokken",
         "dashed": "Gestreept"
       },
-      "lineThickness": "Lijndikte"
+      "lineThickness": "Lijndikte",
+      "titleSize": "Titelgrootte",
+      "subtitleSize": "Ondertitelgrootte",
+      "textOffset": "Omhoog / omlaag"
     }
   },
   "theme": {

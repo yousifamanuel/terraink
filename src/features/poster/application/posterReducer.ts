@@ -53,6 +53,10 @@ export interface PosterForm {
   borderDash: BorderDash;
   /** Line thickness in % of the shorter side. */
   borderThickness: string;
+  /** Title / subtitle size in % of default, text block offset in % of height. */
+  titleSize: string;
+  subtitleSize: string;
+  textOffset: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

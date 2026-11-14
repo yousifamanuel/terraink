@@ -358,7 +358,10 @@
         "solid": "Durchgezogen",
         "dashed": "Gestrichelt"
       },
-      "lineThickness": "Linienstärke"
+      "lineThickness": "Linienstärke",
+      "titleSize": "Titelgröße",
+      "subtitleSize": "Untertitelgröße",
+      "textOffset": "Nach oben / unten"
     }
   },
   "theme": {

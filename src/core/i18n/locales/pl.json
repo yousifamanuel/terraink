@@ -362,7 +362,10 @@
         "solid": "Ciągła",
         "dashed": "Przerywana"
       },
-      "lineThickness": "Grubość linii"
+      "lineThickness": "Grubość linii",
+      "titleSize": "Rozmiar tytułu",
+      "subtitleSize": "Rozmiar podtytułu",
+      "textOffset": "W górę / w dół"
     }
   },
   "theme": {

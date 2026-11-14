@@ -360,7 +360,10 @@
         "solid": "Continua",
         "dashed": "Discontinua"
       },
-      "lineThickness": "Grosor de línea"
+      "lineThickness": "Grosor de línea",
+      "titleSize": "Tamaño del título",
+      "subtitleSize": "Tamaño del subtítulo",
+      "textOffset": "Subir / bajar"
     }
   },
   "theme": {

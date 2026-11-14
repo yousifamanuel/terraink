@@ -358,7 +358,10 @@
         "solid": "Solid",
         "dashed": "Dashed"
       },
-      "lineThickness": "Line thickness"
+      "lineThickness": "Line thickness",
+      "titleSize": "Title size",
+      "subtitleSize": "Subtitle size",
+      "textOffset": "Move up / down"
     }
   },
   "theme": {

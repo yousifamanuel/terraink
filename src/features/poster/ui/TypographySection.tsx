@@ -18,6 +18,9 @@ import {
   BORDER_WIDTH_MIN,
   POSTER_TEXT_ALIGNS,
   POSTER_TEXT_POSITIONS,
+  TEXT_OFFSET_MAX,
+  TEXT_SIZE_MAX,
+  TEXT_SIZE_MIN,
 } from "@/features/poster/domain/posterStyleTemplates";
 import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
@@ -182,6 +185,33 @@ export default function TypographySection({
               />
             </label>
           </div>
+            <SliderField
+              label={t("poster.typography.titleSize")}
+              value={Number(form.titleSize)}
+              min={TEXT_SIZE_MIN}
+              max={TEXT_SIZE_MAX}
+              step={5}
+              unit="%"
+              onChange={(value) => setField("titleSize", String(value))}
+            />
+            <SliderField
+              label={t("poster.typography.subtitleSize")}
+              value={Number(form.subtitleSize)}
+              min={TEXT_SIZE_MIN}
+              max={TEXT_SIZE_MAX}
+              step={5}
+              unit="%"
+              onChange={(value) => setField("subtitleSize", String(value))}
+            />
+            <SliderField
+              label={t("poster.typography.textOffset")}
+              value={Number(form.textOffset)}
+              min={-TEXT_OFFSET_MAX}
+              max={TEXT_OFFSET_MAX}
+              step={0.5}
+              unit="%"
+              onChange={(value) => setField("textOffset", String(value))}
+            />
           </div>
         ) : null}
         <label>

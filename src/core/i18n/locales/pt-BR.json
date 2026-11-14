@@ -360,7 +360,10 @@
         "solid": "Contínua",
         "dashed": "Tracejada"
       },
-      "lineThickness": "Espessura da linha"
+      "lineThickness": "Espessura da linha",
+      "titleSize": "Tamanho do título",
+      "subtitleSize": "Tamanho do subtítulo",
+      "textOffset": "Subir / descer"
     }
   },
   "theme": {

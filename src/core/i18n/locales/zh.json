@@ -356,7 +356,10 @@
         "solid": "实线",
         "dashed": "虚线"
       },
-      "lineThickness": "线条粗细"
+      "lineThickness": "线条粗细",
+      "titleSize": "标题大小",
+      "subtitleSize": "副标题大小",
+      "textOffset": "上下移动"
     }
   },
   "theme": {

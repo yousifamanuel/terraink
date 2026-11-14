@@ -84,6 +84,11 @@ export interface PosterLayoutOptions {
   borderDash: BorderDash;
   /** Line thickness in % of the shorter side. */
   borderThickness: number;
+  /** Title and subtitle size in % of the default. */
+  titleSize: number;
+  subtitleSize: number;
+  /** Moves the whole text block, in % of the poster height (+ = down). */
+  textOffset: number;
 }
 
 export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
@@ -94,7 +99,14 @@ export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
   borderLine: "single",
   borderDash: "solid",
   borderThickness: 0.25,
+  titleSize: 100,
+  subtitleSize: 100,
+  textOffset: 0,
 };
+
+export const TEXT_SIZE_MIN = 50;
+export const TEXT_SIZE_MAX = 150;
+export const TEXT_OFFSET_MAX = 10;
 
 export const BORDER_LINES: BorderLine[] = ["single", "double"];
 export const BORDER_DASHES: BorderDash[] = ["solid", "dashed"];
@@ -163,6 +175,50 @@ function borderInset(widthPercent: number): number {
   return Math.min(BORDER_WIDTH_MAX, Math.max(BORDER_WIDTH_MIN, value)) / 100;
 }
 
+function clampRange(value: number, min: number, max: number, fallback: number): number {
+  const n = Number.isFinite(value) ? value : fallback;
+  return Math.min(max, Math.max(min, n));
+}
+
+/**
+ * Text rows for the chosen sizes. Gaps between rows grow with the text they
+ * belong to; the block stays anchored at the poster edge it sits on (bottom
+ * block grows upward, top block downward), then moves by the offset.
+ */
+function stackRows(
+  position: PosterTextPosition,
+  titleRatio: number,
+  subtitleRatio: number,
+  offset: number,
+): Required<Pick<PosterTextLayoutSpec, "cityY" | "dividerY" | "countryY" | "coordsY">> {
+  const base = ROWS[position];
+  const dividerY = base.dividerY ?? base.cityY;
+  const titleGap = (dividerY - base.cityY) * titleRatio;
+  const dividerGap = (base.countryY - dividerY) * subtitleRatio;
+  const subtitleGap = (base.coordsY - base.countryY) * subtitleRatio;
+  if (position === "bottom") {
+    const coordsY = base.coordsY;
+    const countryY = coordsY - subtitleGap;
+    const divider = countryY - dividerGap;
+    return {
+      cityY: divider - titleGap + offset,
+      dividerY: divider + offset,
+      countryY: countryY + offset,
+      coordsY: coordsY + offset,
+    };
+  }
+  const cityTop = base.cityY - (dividerY - base.cityY);
+  const cityY = cityTop + titleGap;
+  const divider = cityY + titleGap;
+  const countryY = divider + dividerGap;
+  return {
+    cityY: cityY + offset,
+    dividerY: divider + offset,
+    countryY: countryY + offset,
+    coordsY: countryY + subtitleGap + offset,
+  };
+}
+
 /**
  * How far the line(s) reach inward from the frame edge. A double border's
  * extra line sits outside (in the band), so only the main line counts.
@@ -182,7 +238,18 @@ export function buildPosterLayout(
   /** Poster width ÷ height, to turn shorter-side sizes into width/height shares. */
   aspect: number = DEFAULT_ASPECT,
 ): PosterStyleTemplate {
-  const { textPosition, textAlign, border, borderWidth, borderLine, borderDash, borderThickness } = {
+  const {
+    textPosition,
+    textAlign,
+    border,
+    borderWidth,
+    borderLine,
+    borderDash,
+    borderThickness,
+    titleSize,
+    subtitleSize,
+    textOffset,
+  } = {
     ...DEFAULT_POSTER_LAYOUT,
     ...options,
   };
@@ -211,7 +278,10 @@ export function buildPosterLayout(
     shortOfHeight;
   const inner = (y: number) => insetY + y * (1 - 2 * insetY);
   const textScale = border ? (1 - 2 * insetY) / (1 - 2 * defaultInsetY) : 1;
-  const rows = ROWS[textPosition];
+  const titleRatio = clampRange(titleSize, TEXT_SIZE_MIN, TEXT_SIZE_MAX, 100) / 100;
+  const subtitleRatio = clampRange(subtitleSize, TEXT_SIZE_MIN, TEXT_SIZE_MAX, 100) / 100;
+  const offset = clampRange(textOffset, -TEXT_OFFSET_MAX, TEXT_OFFSET_MAX, 0) / 100;
+  const rows = stackRows(textPosition, titleRatio, subtitleRatio, offset);
   // The overlay follows the border: it starts at the frame and its size is
   // a share of the area inside it, so it looks the same at any border width.
   const bandY = inset * shortOfHeight;
@@ -238,11 +308,11 @@ export function buildPosterLayout(
       align: textAlign,
       ...columns(textAlign, marginX),
       cityY: inner(rows.cityY),
-      dividerY: inner(rows.dividerY ?? rows.cityY),
+      dividerY: inner(rows.dividerY),
       countryY: inner(rows.countryY),
       coordsY: inner(rows.coordsY),
-      cityScale: 0.94 * textScale,
-      countryScale: 0.88 * textScale,
+      cityScale: 0.94 * textScale * titleRatio,
+      countryScale: 0.88 * textScale * subtitleRatio,
       coordsScale: 0.85 * textScale,
       letterSpacedCity: true,
       showDivider: true,

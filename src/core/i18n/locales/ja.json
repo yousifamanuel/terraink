@@ -356,7 +356,10 @@
         "solid": "実線",
         "dashed": "破線"
       },
-      "lineThickness": "線の太さ"
+      "lineThickness": "線の太さ",
+      "titleSize": "タイトルの大きさ",
+      "subtitleSize": "サブタイトルの大きさ",
+      "textOffset": "上下の位置"
     }
   },
   "theme": {
