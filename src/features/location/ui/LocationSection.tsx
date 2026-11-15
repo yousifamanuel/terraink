@@ -3,6 +3,7 @@ import type { SearchResult } from "../domain/types";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import { useRecentLocations } from "../application/useRecentLocations";
 import LocationSuggestionsDropdown from "./LocationSuggestionsDropdown";
+import LocationPermissionMessage from "./LocationPermissionMessage";
 import {
   PLACEHOLDER_EXAMPLE_LATITUDE,
   PLACEHOLDER_EXAMPLE_LONGITUDE,
@@ -23,6 +24,7 @@ interface LocationSectionProps {
   onUseCurrentLocation: () => void;
   isLocatingUser: boolean;
   locationPermissionMessage: string;
+  onDismissLocationPermissionMessage: () => void;
 }
 
 export default function LocationSection({
@@ -39,6 +41,7 @@ export default function LocationSection({
   onUseCurrentLocation,
   isLocatingUser,
   locationPermissionMessage,
+  onDismissLocationPermissionMessage,
 }: LocationSectionProps) {
   const { t } = useTranslation();
   const { recent, removeRecent, clearRecent } = useRecentLocations();
@@ -99,9 +102,10 @@ export default function LocationSection({
             onClearRecent={clearRecent}
           />
           {locationPermissionMessage ? (
-            <p className="location-permission-message">
-              {locationPermissionMessage}
-            </p>
+            <LocationPermissionMessage
+              message={locationPermissionMessage}
+              onClose={onDismissLocationPermissionMessage}
+            />
           ) : null}
         </div>
       </label>

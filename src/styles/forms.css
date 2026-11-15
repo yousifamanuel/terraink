@@ -3988,3 +3988,37 @@ button.slider-field-reset:focus-visible {
   flex: 1;
   min-width: 0;
 }
+
+/* Location error: room for the close button. */
+.location-permission-message {
+  position: relative;
+  padding-right: 28px;
+}
+
+button.location-permission-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255, 152, 129, 0.3);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button.location-permission-close:hover,
+button.location-permission-close:focus-visible {
+  border-color: rgba(255, 152, 129, 0.7);
+}
+
+button.location-permission-close svg {
+  width: 12px;
+  height: 12px;
+}

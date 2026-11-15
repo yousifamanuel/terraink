@@ -88,7 +88,12 @@ export default function SettingsPanel({
     state.isLocationFocused,
   );
   const { flyToLocation } = useMapSync(state, dispatch, mapRef);
-  const { handleUseCurrentLocation, isLocatingUser, locationPermissionMessage } =
+  const {
+    handleUseCurrentLocation,
+    isLocatingUser,
+    locationPermissionMessage,
+    dismissLocationPermissionMessage,
+  } =
     useCurrentLocation(flyToLocation);
 
   const [isColorEditorActive, setIsColorEditorActive] = useState(false);
@@ -154,6 +159,9 @@ export default function SettingsPanel({
                 onUseCurrentLocation={handleUseCurrentLocation}
                 isLocatingUser={isLocatingUser}
                 locationPermissionMessage={locationPermissionMessage}
+                onDismissLocationPermissionMessage={
+                  dismissLocationPermissionMessage
+                }
               />
             ) : null}
           </div>
