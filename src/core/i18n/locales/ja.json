@@ -330,7 +330,7 @@
       "displayCity": "タイトル",
       "displayCountry": "サブタイトル",
       "font": "フォント",
-      "defaultFont": "標準（Space Grotesk）",
+      "defaultFont": "Space Grotesk（標準）",
       "coordinates": "座標",
       "separator": "区切り文字",
       "separatorNone": "区切りなし",

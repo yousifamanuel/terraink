@@ -1,11 +1,10 @@
-import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import { resolvePosterNames } from "@/features/poster/domain/posterNames";
 import type { FontOption } from "@/core/config";
 import { COORDINATE_FORMATS, formatCoordinates } from "@/shared/geo/posterBounds";
 import CoordinateSeparatorPicker from "./CoordinateSeparatorPicker";
+import FontPicker from "./FontPicker";
 import {
   PLACEHOLDER_EXAMPLE_CITY,
   PLACEHOLDER_EXAMPLE_COUNTRY,
@@ -40,7 +39,7 @@ export default function TextSection({
   fontOptions,
 }: TextSectionProps) {
   const { t } = useTranslation();
-  const { state, dispatch } = usePosterContext();
+  const { state, dispatch, effectiveTheme } = usePosterContext();
   // The fields show what the poster prints, which follows the zoom until
   // the user types their own text.
   const posterNames = resolvePosterNames({
@@ -74,24 +73,9 @@ export default function TextSection({
     ] as const;
     return Object.fromEntries(keys.map((key) => [key, DEFAULT_FORM[key]]));
   };
-  const previewsRequested = useRef(false);
   const exampleLat = Number(form.latitude) || 0;
   const exampleLon = Number(form.longitude) || 0;
 
-  // Each <option> previews itself in its own typeface, which means every family
-  // has to be loaded for the dropdown to look right. That is a lot of bytes for
-  // the many users who never change the font, so hold off until they actually
-  // reach for the control rather than paying it on mount.
-  const preloadFontPreviews = useCallback(() => {
-    if (previewsRequested.current) return;
-    previewsRequested.current = true;
-
-    const families = fontOptions
-      .map((option) => String(option.value || "").trim())
-      .filter(Boolean);
-
-    void Promise.allSettled(families.map((family) => ensureFont(family)));
-  }, [fontOptions]);
 
   return (
     <>
@@ -235,32 +219,16 @@ export default function TextSection({
             ) : null}
           </div>
         ) : null}
-        <label>
-          {t("poster.typography.font")}
-          <select
-            className="form-control-tall"
-            name="fontFamily"
+        <div className="font-picker-field">
+          <span className="font-picker-label">{t("poster.typography.font")}</span>
+          <FontPicker
             value={form.fontFamily}
-            onChange={onChange}
-            onFocus={preloadFontPreviews}
-            onMouseDown={preloadFontPreviews}
-            onTouchStart={preloadFontPreviews}
-          >
-            {fontOptions.map((fontOption) => (
-              <option
-                key={fontOption.value || "default"}
-                value={fontOption.value}
-                style={{
-                  fontFamily: fontOption.value
-                    ? `"${fontOption.value}", "Space Grotesk", sans-serif`
-                    : `"Space Grotesk", sans-serif`,
-                }}
-              >
-                {fontOption.value ? fontOption.label : t("poster.typography.defaultFont")}
-              </option>
-            ))}
-          </select>
-        </label>
+            options={fontOptions}
+            onSelect={(family) => setField("fontFamily", family)}
+            backgroundColor={effectiveTheme.ui.bg}
+            textColor={effectiveTheme.ui.text}
+          />
+        </div>
         <label className="toggle-field">
           <span>{t("poster.typography.coordinates")}</span>
           <span className="theme-switch">

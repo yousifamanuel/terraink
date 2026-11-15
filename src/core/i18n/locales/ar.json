@@ -340,7 +340,7 @@
       "displayCity": "العنوان",
       "displayCountry": "العنوان الفرعي",
       "font": "الخط",
-      "defaultFont": "الافتراضي (Space Grotesk)",
+      "defaultFont": "Space Grotesk (الافتراضي)",
       "coordinates": "الإحداثيات",
       "separator": "الفاصل",
       "separatorNone": "بدون فاصل",

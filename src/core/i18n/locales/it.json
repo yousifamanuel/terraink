@@ -334,7 +334,7 @@
       "displayCity": "Titolo",
       "displayCountry": "Sottotitolo",
       "font": "Carattere",
-      "defaultFont": "Predefinito (Space Grotesk)",
+      "defaultFont": "Space Grotesk (predefinito)",
       "coordinates": "Coordinate",
       "separator": "Separatore",
       "separatorNone": "Nessun separatore",

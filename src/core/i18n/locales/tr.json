@@ -332,7 +332,7 @@
       "displayCity": "Başlık",
       "displayCountry": "Alt başlık",
       "font": "Yazı tipi",
-      "defaultFont": "Varsayılan (Space Grotesk)",
+      "defaultFont": "Space Grotesk (varsayılan)",
       "coordinates": "Koordinatlar",
       "separator": "Ayırıcı",
       "separatorNone": "Ayırıcı yok",

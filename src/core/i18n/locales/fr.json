@@ -334,7 +334,7 @@
       "displayCity": "Titre",
       "displayCountry": "Sous-titre",
       "font": "Police",
-      "defaultFont": "Par défaut (Space Grotesk)",
+      "defaultFont": "Space Grotesk (par défaut)",
       "coordinates": "Coordonnées",
       "separator": "Séparateur",
       "separatorNone": "Aucun séparateur",

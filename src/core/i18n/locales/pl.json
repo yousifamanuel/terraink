@@ -336,7 +336,7 @@
       "displayCity": "Tytuł",
       "displayCountry": "Podtytuł",
       "font": "Czcionka",
-      "defaultFont": "Domyślna (Space Grotesk)",
+      "defaultFont": "Space Grotesk (domyślna)",
       "coordinates": "Współrzędne",
       "separator": "Separator",
       "separatorNone": "Bez separatora",

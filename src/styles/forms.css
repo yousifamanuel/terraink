@@ -4086,3 +4086,83 @@ button.color-editor-target.is-off:focus-visible {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+/* Font list: each name in its own font, on the theme's colors. */
+.font-picker-field {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.font-picker-label {
+  font-size: 0.8rem;
+  color: #9bb3c5;
+}
+
+.font-picker {
+  display: grid;
+  gap: 4px;
+}
+
+/* Closed state: the current font, written in itself. */
+button.font-picker-trigger {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(151, 183, 207, 0.26);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.font-picker-trigger:hover,
+button.font-picker-trigger:focus-visible {
+  border-color: rgba(102, 174, 209, 0.82);
+}
+
+.font-picker-chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s ease;
+}
+
+.font-picker-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* Open state: every font at once, no scrolling. */
+.font-picker-list {
+  display: grid;
+  padding: 4px;
+  border: 1px solid rgba(151, 183, 207, 0.26);
+  border-radius: 10px;
+}
+
+button.font-picker-option {
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+button.font-picker-option:hover,
+button.font-picker-option:focus-visible {
+  border-color: rgba(127, 127, 127, 0.45);
+}
+
+button.font-picker-option.is-selected {
+  border-color: currentColor;
+}

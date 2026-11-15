@@ -332,7 +332,7 @@
       "displayCity": "Title",
       "displayCountry": "Subtitle",
       "font": "Font",
-      "defaultFont": "Default (Space Grotesk)",
+      "defaultFont": "Space Grotesk (default)",
       "coordinates": "Coordinates",
       "separator": "Separator",
       "separatorNone": "No separator",
