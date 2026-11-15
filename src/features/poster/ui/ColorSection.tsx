@@ -2,8 +2,13 @@ import { useTranslation } from "react-i18next";
 import {
   adjustColor,
   COLOR_ADJUST_LIMITS,
+  hasColorAdjustments,
   type ColorAdjustments,
 } from "@/features/theme/domain/colorAdjust";
+import { getThemeDescription } from "@/features/theme/application/themeDescription";
+import SaveThemeButton from "@/features/theme/ui/SaveThemeButton";
+import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
+import { COLOR_ADJUST_DEFAULTS } from "@/features/poster/application/colorAdjustFields";
 import { applyThemeColorOverrides } from "@/features/theme/domain/colorPaths";
 import SliderField from "@/shared/ui/SliderField";
 import { ResetIcon } from "@/shared/ui/Icons";
@@ -40,6 +45,21 @@ export default function ColorSection() {
   const { t } = useTranslation();
   const { state, dispatch, selectedTheme, effectiveTheme } = usePosterContext();
   const { form } = state;
+  const {
+    handleAddSavedTheme,
+    handleUpdateSavedTheme,
+    handleThemeChange,
+    handleResetColors,
+  } = useFormHandlers();
+  const hasChanges = hasColorAdjustments({
+    brightness: Number(form.colorBrightness) || 0,
+    contrast: Number(form.colorContrast) || 0,
+    saturation: Number(form.colorSaturation) || 0,
+    hue: Number(form.colorHue) || 0,
+    warmth: Number(form.colorWarmth) || 0,
+    invert: Boolean(form.colorInvert),
+    grayscale: Boolean(form.colorGrayscale),
+  });
 
   const before = applyThemeColorOverrides(selectedTheme, state.customColors);
   const mainColors = (theme: typeof before) => [
@@ -69,24 +89,41 @@ export default function ColorSection() {
     warmth: "linear-gradient(to right, #4f8fe6, #c9c9c9, #f2a43a)",
   };
 
-  const resetFields = Object.fromEntries([
-    ...SLIDERS.map((slider) => [slider.name, "0"]),
-    ...SWITCHES.map((toggle) => [toggle.name, false]),
-  ]);
 
   return (
     <section className="panel-block">
       <div className="section-summary-head">
         <p className="section-summary-label">{t("poster.color.title")}</p>
-        <button
-          type="button"
-          className="section-reset-btn"
-          title={t("poster.color.reset")}
-          aria-label={t("poster.color.reset")}
-          onClick={() => dispatch({ type: "SET_FORM_FIELDS", fields: resetFields })}
-        >
-          <ResetIcon aria-hidden="true" />
-        </button>
+        {/* Same Save as in the theme editor; enabled once something changed. */}
+        <div className="color-section-actions">
+          <SaveThemeButton
+            disabled={!hasChanges}
+            themeName={selectedTheme.name}
+            themeDescription={getThemeDescription({
+              id: form.theme,
+              description: selectedTheme.description,
+            })}
+            colors={effectiveTheme}
+            currentThemeId={form.theme}
+            savedThemes={state.savedThemes}
+            onAddSavedTheme={handleAddSavedTheme}
+            onUpdateSavedTheme={handleUpdateSavedTheme}
+            onThemeChange={handleThemeChange}
+            onSaved={() => {
+              handleResetColors();
+              dispatch({ type: "SET_FORM_FIELDS", fields: COLOR_ADJUST_DEFAULTS });
+            }}
+          />
+          <button
+            type="button"
+            className="section-reset-btn"
+            title={t("poster.color.reset")}
+            aria-label={t("poster.color.reset")}
+            onClick={() => dispatch({ type: "SET_FORM_FIELDS", fields: COLOR_ADJUST_DEFAULTS })}
+          >
+            <ResetIcon aria-hidden="true" />
+          </button>
+        </div>
       </div>
       <p className="settings-toggle-hint color-section-hint">{t("poster.color.hint")}</p>
 

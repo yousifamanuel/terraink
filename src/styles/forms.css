@@ -4423,3 +4423,20 @@ button.theme-category-tab {
   overflow: hidden;
   border: 1px solid rgba(151, 183, 207, 0.25);
 }
+
+/* Color tab header: Save left of the reset button. */
+.color-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.color-section-actions button.section-reset-btn {
+  margin-bottom: 0;
+}
+
+.color-section-actions button.theme-save-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
