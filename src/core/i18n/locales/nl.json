@@ -251,6 +251,7 @@
       "resolveError": "Locatie niet gevonden. Probeer een andere naam.",
       "title": "Kies locatie",
       "placeholder": "Stad of plaats",
+      "continueWith": "Verder met <place>{{place}}</place>",
       "locating": "Zoeken...",
       "getMyLocation": "Mijn locatie",
       "ok": "OK"

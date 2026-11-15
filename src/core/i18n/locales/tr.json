@@ -251,6 +251,7 @@
       "resolveError": "Bu konum bulunamadı. Başka bir ad deneyin.",
       "title": "Konum seç",
       "placeholder": "Bir şehir veya yer yazın",
+      "continueWith": "<place>{{place}}</place> ile devam et",
       "locating": "Konum bulunuyor...",
       "getMyLocation": "Konumumu al",
       "ok": "Tamam"

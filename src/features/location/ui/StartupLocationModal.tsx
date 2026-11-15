@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import {
   DEFAULT_CITY,
   DEFAULT_COUNTRY,
@@ -13,7 +13,12 @@ import {
   getGeolocationFailureMessage,
   requestCurrentPositionWithRetry,
 } from "@/features/location/infrastructure";
-import { LoaderIcon, MyLocationIcon } from "@/shared/ui/Icons";
+import {
+  ArrowRightIcon,
+  LoaderIcon,
+  LocationIcon,
+  MyLocationIcon,
+} from "@/shared/ui/Icons";
 import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
 import {
@@ -33,6 +38,11 @@ interface PendingLocation {
   city: string;
   country: string;
   continent: string;
+}
+
+/** "Hanover" rather than "Hanover, Region Hannover, Lower Saxony, Germany". */
+function shortPlaceName(place: SearchResult): string {
+  return place.city?.trim() || place.label.split(",")[0].trim() || place.label;
 }
 
 interface StartupLocationModalProps {
@@ -58,6 +68,9 @@ export default function StartupLocationModal({
   const { locationSuggestions, isLocationSearching, clearLocationSuggestions, searchNow } =
     useLocationAutocomplete(locationInput, isInputFocused);
   const { recent, removeRecent, clearRecent } = useRecentLocations();
+  // The place picked last time (newest first). Captured once, so editing the
+  // history in the dropdown doesn't change what "Continue" opens.
+  const [lastPlace] = useState<SearchResult | null>(() => recent[0] ?? null);
 
   const closeModal = () => {
     setIsClosing(true);
@@ -111,6 +124,14 @@ export default function StartupLocationModal({
         lon: location.lon,
       },
     });
+  };
+
+  // The app already starts on the last place (see PosterContext), so
+  // "Continue" is instant.
+
+  const handleContinue = () => {
+    if (lastPlace) recordRecentLocation(lastPlace);
+    closeModal();
   };
 
   const handleUseMyLocation = () => {
@@ -195,7 +216,8 @@ export default function StartupLocationModal({
 
     const query = locationInput.trim();
     if (!query) {
-      applyResolvedLocation(null);
+      // Nothing typed: keep the last place (already loaded), else the default.
+      if (!lastPlace) applyResolvedLocation(null);
       closeModal();
       setIsResolving(false);
       return;
@@ -249,6 +271,24 @@ export default function StartupLocationModal({
         <p className="startup-location-title" id="startup-location-title">
           {t("location.startup.title")}
         </p>
+        {lastPlace ? (
+          <button
+            type="button"
+            className="startup-location-action startup-location-action--continue"
+            onClick={handleContinue}
+            disabled={isResolving}
+          >
+            <LocationIcon className="startup-location-continue-pin" aria-hidden="true" />
+            <span className="startup-location-continue-text">
+              <Trans
+                i18nKey="location.startup.continueWith"
+                values={{ place: shortPlaceName(lastPlace) }}
+                components={{ place: <span className="startup-location-place" /> }}
+              />
+            </span>
+            <ArrowRightIcon className="startup-location-continue-arrow" aria-hidden="true" />
+          </button>
+        ) : null}
         <div className="startup-location-input-wrap">
         <input
           type="text"

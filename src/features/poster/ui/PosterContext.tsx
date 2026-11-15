@@ -35,6 +35,7 @@ import {
   saveUserDefaults,
 } from "@/features/settings/infrastructure/userDefaultsStorage";
 import type { UserDefaults } from "@/features/settings/domain/types";
+import { getLastRecentLocation } from "@/features/location/application/useRecentLocations";
 import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Default form (moved from appConfig) ────── */
@@ -131,10 +132,28 @@ function applyUserDefaultsToForm(
   return next;
 }
 
+/**
+ * Start on the place picked last time, so the map never begins at the
+ * default and then jumps (a late map event could otherwise restore it).
+ */
+function applyLastPlaceToForm(form: PosterForm): PosterForm {
+  const last = getLastRecentLocation();
+  if (!last) return form;
+  return {
+    ...form,
+    location: last.label,
+    latitude: last.lat.toFixed(6),
+    longitude: last.lon.toFixed(6),
+    displayCity: last.city,
+    displayCountry: last.country,
+    displayContinent: String(last.continent ?? "").trim(),
+  };
+}
+
 function buildInitialState(): PosterState {
   const userDefaults = loadUserDefaults();
   return {
-    form: applyUserDefaultsToForm(DEFAULT_FORM, userDefaults),
+    form: applyLastPlaceToForm(applyUserDefaultsToForm(DEFAULT_FORM, userDefaults)),
     customColors: {},
     savedThemes: [],
     userDefaults,
@@ -157,7 +176,7 @@ function buildInitialState(): PosterState {
     isLocationLookupPending: false,
     mapZoom: Infinity,
     selectedLocation: null,
-    userLocation: null,
+    userLocation: getLastRecentLocation(),
     displayNameOverrides: {
       city: false,
       country: false,

@@ -250,6 +250,7 @@
       "resolveError": "无法识别该位置，请换个名称试试。",
       "title": "选择位置",
       "placeholder": "输入城市或地点",
+      "continueWith": "继续使用 <place>{{place}}</place>",
       "locating": "定位中...",
       "getMyLocation": "获取我的位置",
       "ok": "确定"

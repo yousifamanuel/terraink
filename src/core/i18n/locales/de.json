@@ -251,6 +251,7 @@
       "resolveError": "Dieser Ort wurde nicht gefunden. Versuche einen anderen Namen.",
       "title": "Ort wählen",
       "placeholder": "Stadt oder Ort eingeben",
+      "continueWith": "Weiter mit <place>{{place}}</place>",
       "locating": "Standort wird ermittelt...",
       "getMyLocation": "Mein Standort",
       "ok": "OK"

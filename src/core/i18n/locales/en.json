@@ -251,6 +251,7 @@
       "resolveError": "Could not resolve that location. Try another name.",
       "title": "Choose Location",
       "placeholder": "Type a city or place",
+      "continueWith": "Continue with <place>{{place}}</place>",
       "locating": "Locating...",
       "getMyLocation": "Get my location",
       "ok": "OK"

@@ -60,6 +60,7 @@ export { FiLayers as LayersIcon } from "react-icons/fi";
 export { BsPinMap as MarkersIcon } from "react-icons/bs";
 export { FaRoute as RouteIcon } from "react-icons/fa6";
 export { FiChevronDown as ChevronDownIcon } from "react-icons/fi";
+export { FiArrowRight as ArrowRightIcon } from "react-icons/fi";
 export { FiX as CloseIcon } from "react-icons/fi";
 export { FiSearch as SearchIcon } from "react-icons/fi";
 export { FiGlobe as LanguageIcon } from "react-icons/fi";

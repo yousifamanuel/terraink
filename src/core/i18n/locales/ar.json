@@ -255,6 +255,7 @@
       "resolveError": "تعذر تحديد هذا الموقع. جرّب اسمًا آخر.",
       "title": "اختيار الموقع",
       "placeholder": "اكتب اسم مدينة أو مكان",
+      "continueWith": "متابعة مع <place>{{place}}</place>",
       "locating": "جارٍ تحديد الموقع...",
       "getMyLocation": "تحديد موقعي",
       "ok": "موافق"

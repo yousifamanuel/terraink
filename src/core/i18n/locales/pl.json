@@ -253,6 +253,7 @@
       "resolveError": "Nie udało się znaleźć tego miejsca. Spróbuj innej nazwy.",
       "title": "Lokalizacja",
       "placeholder": "Wpisz miasto lub miejsce",
+      "continueWith": "Kontynuuj: <place>{{place}}</place>",
       "locating": "Lokalizowanie...",
       "getMyLocation": "Moja lokalizacja",
       "ok": "OK"

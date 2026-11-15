@@ -250,6 +250,7 @@
       "resolveError": "その場所を特定できませんでした。別の名前をお試しください。",
       "title": "場所を選択",
       "placeholder": "都市や場所を入力",
+      "continueWith": "<place>{{place}}</place> で続ける",
       "locating": "取得中...",
       "getMyLocation": "現在地を取得",
       "ok": "OK"

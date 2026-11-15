@@ -27,6 +27,11 @@ export function recordRecentLocation(location: Location): void {
   notifyChanged();
 }
 
+/** The place picked last (newest first in the history), if any. */
+export function getLastRecentLocation(): RecentLocation | null {
+  return listRecentLocations()[0] ?? null;
+}
+
 interface UseRecentLocationsReturn {
   recent: RecentLocation[];
   removeRecent: (id: string) => void;
