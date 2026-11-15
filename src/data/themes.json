@@ -213,7 +213,7 @@
       "description": "Neon-drenched high-contrast palette with magenta and cyan accents.",
       "ui": {
         "bg": "#0B0F1A",
-        "text": "#00F5FF"
+        "text": "#FFCD00"
       },
       "map": {
         "land": "#0B0F1A",
