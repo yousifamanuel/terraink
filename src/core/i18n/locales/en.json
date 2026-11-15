@@ -494,12 +494,16 @@
       "pastel_dream": "Soft muted pastels with dusty blues and mauves - dreamy artistic aesthetic",
       "coral": "Soft ivory base with warm coral roads and muted pink-blue features.",
       "copper": "Oxidized cream and copper tones with warm metallic road accents.",
-      "old_navy": "Deep navy map fields with gold-accented typography and roads.",
+      "old_navy": "Bright royal navy with shining gold roads.",
       "gradient_roads": "Smooth gradient from dark center to light edges with subtle features",
       "monochrome_blue": "Single blue color family with varying saturation - clean and cohesive",
       "sunset": "Warm oranges and pinks on soft peach - dreamy golden hour aesthetic",
-      "autumn": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
-      "warm_beige": "Earthy warm neutrals with sepia tones - vintage map aesthetic"
+      "autumn": "Wheat and rust with olive-gold parks and sage water.",
+      "warm_beige": "Earthy warm neutrals with sepia tones - vintage map aesthetic",
+      "amber": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
+      "mono_blue": "One blue hue in many shades, from navy roads to ice-blue land.",
+      "desert": "Golden sand with warm brown roads and muted sage water.",
+      "cyber": "Dark night with magenta motorways and glowing cyan streets."
     }
   },
   "export": {

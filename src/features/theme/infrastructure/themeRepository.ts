@@ -128,10 +128,6 @@ const referenceAliases: Record<string, string> = {
 };
 
 const preferredThemeOrder = [
-  "carrara",
-  "blush",
-  "sandstone",
-  "graphite",
   "midnight_blue",
   "terracotta",
   "neon",
@@ -139,6 +135,27 @@ const preferredThemeOrder = [
   "ruby",
   "sage",
   "rustic",
+  "autumn",
+  "blueprint",
+  "contrast_zones",
+  "copper_patina",
+  "emerald",
+  "forest",
+  "japanese_ink",
+  "noir",
+  "ocean",
+  "pastel_dream",
+  "amber",
+  "mono_blue",
+  "desert",
+  "cyber",
+  "coral",
+  "copper",
+  "old_navy",
+  "carrara",
+  "blush",
+  "sandstone",
+  "graphite",
 ];
 
 function isObject(value: unknown): value is ThemeObject {

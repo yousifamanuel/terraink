@@ -494,12 +494,16 @@
       "pastel_dream": "Yumuşak pastel renkler, solgun mavi ve eflatun - düşsel sanatsal hava",
       "coral": "Yumuşak fildişi zemin, sıcak mercan yollar, sönük pembe-mavi ayrıntılar.",
       "copper": "Oksitlenmiş krem ve bakır tonları, sıcak metalik yol vurguları.",
-      "old_navy": "Koyu lacivert harita zemini, altın vurgulu yazılar ve yollar.",
+      "old_navy": "Parlak kraliyet laciverti ve ışıl ışıl altın yollar.",
       "gradient_roads": "Koyu merkezden açık kenarlara yumuşak geçiş, ince ayrıntılar",
       "monochrome_blue": "Tek mavi renk ailesi, değişen doygunluk - sade ve uyumlu",
       "sunset": "Yumuşak şeftali üzerinde sıcak turuncu ve pembeler - altın saat havası",
-      "autumn": "Yanık turuncu, koyu kırmızı, altın sarısı - mevsimlik sıcaklık",
-      "warm_beige": "Toprak tonlu sıcak nötrler, sepya renkleri - nostaljik harita havası"
+      "autumn": "Buğday ve pas tonları, zeytin altını parklar ve adaçayı rengi su.",
+      "warm_beige": "Toprak tonlu sıcak nötrler, sepya renkleri - nostaljik harita havası",
+      "amber": "Yanık turuncu, koyu kırmızı, altın sarısı - mevsimlik sıcaklık",
+      "mono_blue": "Lacivert yollardan buz mavisi karaya, tek mavinin birçok tonu.",
+      "desert": "Altın kum, sıcak kahverengi yollar ve yumuşak adaçayı rengi su.",
+      "cyber": "Macenta otoyollar ve parlayan camgöbeği sokaklarla karanlık gece."
     }
   },
   "export": {

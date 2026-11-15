@@ -494,12 +494,16 @@
       "pastel_dream": "Sanfte Pastelltöne mit Staubblau und Mauve – verträumter, künstlerischer Look",
       "coral": "Sanftes Elfenbein mit warmen Korallstraßen und gedämpften Rosa-Blau-Akzenten.",
       "copper": "Oxidiertes Creme und Kupfertöne mit warmen metallischen Straßenakzenten.",
-      "old_navy": "Tiefes Marineblau mit goldenen Schriften und Straßen.",
+      "old_navy": "Helles Königsblau mit leuchtend goldenen Straßen.",
       "gradient_roads": "Sanfter Verlauf von dunkler Mitte zu hellen Rändern mit dezenten Details",
       "monochrome_blue": "Eine Blaufamilie in variierender Sättigung – klar und stimmig",
       "sunset": "Warmes Orange und Rosa auf zartem Pfirsich – verträumter Golden-Hour-Look",
-      "autumn": "Gebranntes Orange, tiefes Rot, goldenes Gelb – herbstliche Wärme",
-      "warm_beige": "Erdige warme Neutraltöne mit Sepia – Vintage-Karten-Look"
+      "autumn": "Weizen und Rost mit olivgoldenen Parks und salbeigrünem Wasser.",
+      "warm_beige": "Erdige warme Neutraltöne mit Sepia – Vintage-Karten-Look",
+      "amber": "Gebranntes Orange, tiefes Rot, goldenes Gelb – herbstliche Wärme",
+      "mono_blue": "Ein Blauton in vielen Abstufungen, von marineblauen Straßen bis eisblauem Land.",
+      "desert": "Goldener Sand mit warmbraunen Straßen und gedecktem salbeigrünem Wasser.",
+      "cyber": "Dunkle Nacht mit magentafarbenen Autobahnen und leuchtend cyanfarbenen Straßen."
     }
   },
   "export": {

@@ -498,12 +498,16 @@
       "pastel_dream": "Miękkie pastele z przygaszonym błękitem i fioletem — senny, artystyczny styl",
       "coral": "Miękka kość słoniowa z ciepłymi koralowymi drogami",
       "copper": "Utleniony krem i miedź z ciepłymi metalicznymi akcentami",
-      "old_navy": "Głęboki granat map ze złotymi napisami i drogami",
+      "old_navy": "Jasny królewski granat ze lśniącymi złotymi drogami.",
       "gradient_roads": "Płynny gradient od ciemnego centrum do jasnych brzegów",
       "monochrome_blue": "Jedna rodzina błękitu o zmiennym nasyceniu — czysto i spójnie",
       "sunset": "Ciepłe pomarańcze i róże na miękkiej brzoskwini — złota godzina",
-      "autumn": "Palona pomarańcza, głęboka czerwień, złoty żółty — jesienne ciepło",
-      "warm_beige": "Ziemiste ciepłe neutrale w sepii — styl vintage"
+      "autumn": "Pszenica i rdza, oliwkowo-złote parki i szałwiowa woda.",
+      "warm_beige": "Ziemiste ciepłe neutrale w sepii — styl vintage",
+      "amber": "Palona pomarańcza, głęboka czerwień, złoty żółty — jesienne ciepło",
+      "mono_blue": "Jeden odcień błękitu w wielu tonach, od granatowych dróg po lodowobłękitny ląd.",
+      "desert": "Złoty piasek, ciepłobrązowe drogi i stonowana szałwiowa woda.",
+      "cyber": "Ciemna noc z purpurowymi autostradami i świecącymi cyjanowymi ulicami."
     }
   },
   "export": {

@@ -496,12 +496,16 @@
       "pastel_dream": "Pastéis suaves com azuis e malvas empoeirados — estética artística e sonhadora",
       "coral": "Base marfim suave com ruas coral quentes e detalhes em rosa e azul suaves.",
       "copper": "Tons oxidados de creme e cobre com ruas em acentos metálicos quentes.",
-      "old_navy": "Campos do mapa azul-marinho profundo com tipografia e ruas douradas.",
+      "old_navy": "Azul-marinho real brilhante com ruas douradas reluzentes.",
       "gradient_roads": "Gradiente suave do centro escuro às bordas claras, com detalhes sutis",
       "monochrome_blue": "Uma única família de azul com saturação variada — limpo e coeso",
       "sunset": "Laranjas e rosas quentes sobre pêssego suave — estética sonhadora de hora dourada",
-      "autumn": "Laranjas queimados, vermelhos profundos, amarelos dourados — calor sazonal",
-      "warm_beige": "Neutros terrosos quentes com tons sépia — estética de mapa vintage"
+      "autumn": "Trigo e ferrugem com parques verde-oliva dourado e água sálvia.",
+      "warm_beige": "Neutros terrosos quentes com tons sépia — estética de mapa vintage",
+      "amber": "Laranjas queimados, vermelhos profundos, amarelos dourados — calor sazonal",
+      "mono_blue": "Um só tom de azul em muitas nuances, de ruas marinho a terra azul-gelo.",
+      "desert": "Areia dourada com ruas marrom quente e água sálvia suave.",
+      "cyber": "Noite escura com rodovias magenta e ruas ciano brilhantes."
     }
   },
   "export": {

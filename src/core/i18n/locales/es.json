@@ -496,12 +496,16 @@
       "pastel_dream": "Pasteles suaves con azules y malvas empolvados: estilo artístico y soñador",
       "coral": "Base marfil suave con calles coral cálido y detalles rosa y azul apagados",
       "copper": "Crema oxidado y tonos cobre con calles de acentos metálicos cálidos",
-      "old_navy": "Mapa azul marino profundo con tipografía y calles en dorado",
+      "old_navy": "Azul marino real brillante con calles doradas relucientes.",
       "gradient_roads": "Degradado suave del centro oscuro a los bordes claros con detalles sutiles",
       "monochrome_blue": "Una sola gama de azul con distinta saturación: limpio y coherente",
       "sunset": "Naranjas y rosas cálidos sobre durazno suave: estilo hora dorada soñadora",
-      "autumn": "Naranjas quemados, rojos profundos y amarillos dorados: calidez de temporada",
-      "warm_beige": "Neutros terrosos cálidos con tonos sepia: estilo mapa antiguo"
+      "autumn": "Trigo y óxido con parques verde oliva dorado y agua color salvia.",
+      "warm_beige": "Neutros terrosos cálidos con tonos sepia: estilo mapa antiguo",
+      "amber": "Naranjas quemados, rojos profundos y amarillos dorados: calidez de temporada",
+      "mono_blue": "Un solo tono azul en muchos matices, de calles marino a tierra azul hielo.",
+      "desert": "Arena dorada con calles marrón cálido y agua salvia apagada.",
+      "cyber": "Noche oscura con autopistas magenta y calles cian brillantes."
     }
   },
   "export": {

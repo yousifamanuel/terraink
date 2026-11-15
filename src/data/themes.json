@@ -518,6 +518,213 @@
           "minor_low": "#CCCCDA"
         }
       }
+    },
+    "amber": {
+      "name": "Amber",
+      "description": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
+      "ui": {
+        "bg": "#FBF7F0",
+        "text": "#8B4513"
+      },
+      "map": {
+        "land": "#FBF7F0",
+        "water": "#D4C8B4",
+        "waterway": "#D4C8B4",
+        "parks": "#EDE6D8",
+        "buildings": "#C8943C",
+        "aeroway": "#EDE6D8",
+        "rail": "#8b2500",
+        "roads": {
+          "major": "#8B2500",
+          "path": "#E8CC98",
+          "outline": "#ECD8AA",
+          "minor_high": "#B85820",
+          "minor_mid": "#D99050",
+          "minor_low": "#DEBA80"
+        }
+      }
+    },
+    "autumn": {
+      "name": "Autumn",
+      "description": "Wheat and rust with olive-gold parks and sage water.",
+      "ui": {
+        "bg": "#F2E2C6",
+        "text": "#2E2018"
+      },
+      "map": {
+        "land": "#F2E2C6",
+        "landcover": "#E6D3B0",
+        "water": "#A9B7A6",
+        "waterway": "#95A691",
+        "parks": "#A88E5E",
+        "buildings": "#D2A06C",
+        "aeroway": "#E3CDA8",
+        "rail": "#4E3424",
+        "roads": {
+          "major": "#A3361A",
+          "path": "#D6BE98",
+          "outline": "#E0CCA8",
+          "minor_high": "#6E4A30",
+          "minor_mid": "#8F6C4E",
+          "minor_low": "#B39478"
+        }
+      }
+    },
+    "mono_blue": {
+      "name": "Mono Blue",
+      "description": "One blue hue in many shades, from navy roads to ice-blue land.",
+      "ui": {
+        "bg": "#EDF3F9",
+        "text": "#0F2E4F"
+      },
+      "map": {
+        "land": "#EDF3F9",
+        "landcover": "#E1EBF5",
+        "water": "#A9C6E3",
+        "waterway": "#9DBCDC",
+        "parks": "#D6E4F1",
+        "buildings": "#B9CFE4",
+        "aeroway": "#D6E4F1",
+        "rail": "#1E4A75",
+        "roads": {
+          "major": "#143A63",
+          "path": "#C3D5E7",
+          "outline": "#DCE7F2",
+          "minor_high": "#2F5D8C",
+          "minor_mid": "#6E93B8",
+          "minor_low": "#9DB7D1"
+        }
+      }
+    },
+    "desert": {
+      "name": "Desert",
+      "description": "Golden sand with warm brown roads and muted sage water.",
+      "ui": {
+        "bg": "#ECD69C",
+        "text": "#5E4218"
+      },
+      "map": {
+        "land": "#ECD69C",
+        "landcover": "#E4CF92",
+        "water": "#C3BC97",
+        "waterway": "#B8B089",
+        "parks": "#DCC98C",
+        "buildings": "#D9BD7E",
+        "aeroway": "#D6C48D",
+        "rail": "#5E4218",
+        "roads": {
+          "major": "#8C6524",
+          "path": "#D9C28A",
+          "outline": "#ECD69C",
+          "minor_high": "#A07A35",
+          "minor_mid": "#B59352",
+          "minor_low": "#C8AE72"
+        }
+      }
+    },
+    "cyber": {
+      "name": "Cyber",
+      "description": "Dark night with magenta motorways and glowing cyan streets.",
+      "ui": {
+        "bg": "#0D0D1A",
+        "text": "#00FFFF"
+      },
+      "map": {
+        "land": "#0D0D1A",
+        "landcover": "#0D0D1A",
+        "water": "#0A0A15",
+        "waterway": "#0A1A30",
+        "parks": "#0D1A1A",
+        "buildings": "#1A1A30",
+        "aeroway": "#151520",
+        "rail": "#00E0E8",
+        "roads": {
+          "major": "#FF00FF",
+          "path": "#006870",
+          "outline": "#071F2D",
+          "minor_high": "#00FFFF",
+          "minor_mid": "#00B0B4",
+          "minor_low": "#008088"
+        }
+      }
+    },
+    "coral": {
+      "name": "Coral",
+      "description": "Soft ivory base with warm coral roads and muted pink-blue features.",
+      "ui": {
+        "bg": "#F3E1DA",
+        "text": "#6E2F28"
+      },
+      "map": {
+        "land": "#F3E1DA",
+        "landcover": "#EFD8D0",
+        "water": "#DFC0B5",
+        "waterway": "#DFC0B5",
+        "parks": "#EACFC6",
+        "buildings": "#E39B89",
+        "aeroway": "#EACFC6",
+        "rail": "#6e2f28",
+        "roads": {
+          "major": "#B9473A",
+          "path": "#E8C4B8",
+          "outline": "#EDD2C8",
+          "minor_high": "#C86050",
+          "minor_mid": "#E09888",
+          "minor_low": "#DDAA9A"
+        }
+      }
+    },
+    "copper": {
+      "name": "Copper",
+      "description": "Oxidized cream and copper tones with warm metallic road accents.",
+      "ui": {
+        "bg": "#E1D2C6",
+        "text": "#4E2F22"
+      },
+      "map": {
+        "land": "#E1D2C6",
+        "landcover": "#DCCCBE",
+        "water": "#CBB5A1",
+        "waterway": "#CBB5A1",
+        "parks": "#D8C6B5",
+        "buildings": "#C88B72",
+        "aeroway": "#D8C6B5",
+        "rail": "#4e2f22",
+        "roads": {
+          "major": "#7C452E",
+          "path": "#CEBAA6",
+          "outline": "#D4C2AE",
+          "minor_high": "#9E5A3C",
+          "minor_mid": "#C49078",
+          "minor_low": "#C8A890"
+        }
+      }
+    },
+    "old_navy": {
+      "name": "Old Navy",
+      "description": "Bright royal navy with shining gold roads.",
+      "ui": {
+        "bg": "#10284A",
+        "text": "#F0CC6E"
+      },
+      "map": {
+        "land": "#10284A",
+        "landcover": "#132D52",
+        "water": "#0A1C38",
+        "waterway": "#0A1C38",
+        "parks": "#15325A",
+        "buildings": "#2E4A70",
+        "aeroway": "#15325A",
+        "rail": "#E8C26A",
+        "roads": {
+          "major": "#F0C24A",
+          "path": "#2F4260",
+          "outline": "#1E3656",
+          "minor_high": "#C99A3A",
+          "minor_mid": "#5F6A6E",
+          "minor_low": "#3E4D62"
+        }
+      }
     }
   }
 }

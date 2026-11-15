@@ -496,12 +496,16 @@
       "pastel_dream": "Pastelli tenui con blu e malva polverosi, atmosfera onirica",
       "coral": "Base avorio con strade corallo caldo e dettagli rosa-azzurro tenui",
       "copper": "Crema ossidata e toni rame con strade dai riflessi metallici",
-      "old_navy": "Mappa blu navy con scritte e strade color oro",
+      "old_navy": "Blu navy brillante con strade d’oro lucente.",
       "gradient_roads": "Sfumatura dal centro scuro ai bordi chiari con dettagli leggeri",
       "monochrome_blue": "Un'unica famiglia di blu a saturazioni diverse: pulito e coeso",
       "sunset": "Arancio e rosa caldi su pesca tenue, atmosfera da ora dorata",
-      "autumn": "Arancio bruciato, rossi profondi e gialli dorati: calore stagionale",
-      "warm_beige": "Neutri caldi e terrosi con toni seppia, stile mappa vintage"
+      "autumn": "Grano e ruggine con parchi oliva dorato e acqua verde salvia.",
+      "warm_beige": "Neutri caldi e terrosi con toni seppia, stile mappa vintage",
+      "amber": "Arancio bruciato, rossi profondi e gialli dorati: calore stagionale",
+      "mono_blue": "Un solo blu in tante sfumature, dalle strade navy alla terra azzurro ghiaccio.",
+      "desert": "Sabbia dorata con strade marrone caldo e acqua salvia tenue.",
+      "cyber": "Notte scura con autostrade magenta e strade ciano luminose."
     }
   },
   "export": {

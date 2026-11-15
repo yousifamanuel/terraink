@@ -496,12 +496,16 @@
       "pastel_dream": "Pastels doux, bleus poudrés et mauves : ambiance artistique et rêveuse",
       "coral": "Fond ivoire doux, routes corail, touches rose-bleu",
       "copper": "Crème oxydée et cuivre, routes aux reflets métalliques",
-      "old_navy": "Fond bleu marine profond, typographie et routes dorées",
+      "old_navy": "Bleu marine royal lumineux et routes dorées éclatantes.",
       "gradient_roads": "Dégradé doux du centre sombre aux bords clairs",
       "monochrome_blue": "Une seule famille de bleus, nuancée, nette et harmonieuse",
       "sunset": "Orange et rose chauds sur pêche doux : heure dorée rêveuse",
-      "autumn": "Orange brûlé, rouge profond, jaune doré : chaleur d'automne",
-      "warm_beige": "Neutres chauds et tons sépia, esprit carte ancienne"
+      "autumn": "Blé et rouille, parcs vert olive doré et eau vert sauge.",
+      "warm_beige": "Neutres chauds et tons sépia, esprit carte ancienne",
+      "amber": "Orange brûlé, rouge profond, jaune doré : chaleur d'automne",
+      "mono_blue": "Un seul bleu en de nombreuses nuances, des routes marine à la terre bleu glacier.",
+      "desert": "Sable doré, routes brun chaud et eau vert sauge douce.",
+      "cyber": "Nuit sombre, autoroutes magenta et rues cyan lumineuses."
     }
   },
   "export": {
