@@ -395,7 +395,12 @@
       "editing": "Bearbeite: {{label}}",
       "save": "Speichern",
       "resetAll": "Zurücksetzen",
-      "done": "Fertig"
+      "done": "Fertig",
+      "groupColors": "Farben gruppieren",
+      "showDetails": "Details zeigen",
+      "layerOff": "Ebene ist aus",
+      "applyToDetails": "Auf Details anwenden",
+      "off": "Aus"
     },
     "saveModal": {
       "title": "Design speichern",
@@ -442,8 +447,23 @@
           "minor_low": "Nebenstraßen niedrig",
           "path": "Wege",
           "outline": "Straßenkontur"
-        }
+        },
+        "forest": "Wald",
+        "grass": "Wiese",
+        "farmland": "Ackerland",
+        "wetland": "Feuchtgebiet",
+        "sand": "Sand",
+        "ice": "Eis",
+        "borders": "Landesgrenzen"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Land",
+      "nature": "Natur",
+      "water": "Wasser",
+      "transport": "Verkehr",
+      "roads": "Straßen"
     },
     "descriptions": {
       "carrara": "Weißer Marmor – heller Stein mit zarter anthrazitfarbener Maserung",

@@ -395,7 +395,12 @@
       "editing": "Düzenlenen: {{label}}",
       "save": "Kaydet",
       "resetAll": "Sıfırla",
-      "done": "Bitti"
+      "done": "Bitti",
+      "groupColors": "Renkleri grupla",
+      "showDetails": "Ayrıntıları göster",
+      "layerOff": "Katman kapalı",
+      "applyToDetails": "Ayrıntılara uygula",
+      "off": "Kapalı"
     },
     "saveModal": {
       "title": "Temayı kaydet",
@@ -442,8 +447,23 @@
           "minor_low": "Küçük yol (alt)",
           "path": "Patikalar",
           "outline": "Yol kenarı"
-        }
+        },
+        "forest": "Orman",
+        "grass": "Çimen",
+        "farmland": "Tarım alanı",
+        "wetland": "Sulak alan",
+        "sand": "Kum",
+        "ice": "Buz",
+        "borders": "Ülke sınırları"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Kara",
+      "nature": "Doğa",
+      "water": "Su",
+      "transport": "Ulaşım",
+      "roads": "Yollar"
     },
     "descriptions": {
       "carrara": "Beyaz mermer — soluk taş, yumuşak kömür grisi damarlar",

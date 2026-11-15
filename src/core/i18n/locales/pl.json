@@ -399,7 +399,12 @@
       "editing": "Edytujesz: {{label}}",
       "save": "Zapisz",
       "resetAll": "Resetuj wszystko",
-      "done": "Gotowe"
+      "done": "Gotowe",
+      "groupColors": "Grupuj kolory",
+      "showDetails": "Pokaż szczegóły",
+      "layerOff": "Warstwa wyłączona",
+      "applyToDetails": "Zastosuj do szczegółów",
+      "off": "Wył."
     },
     "saveModal": {
       "title": "Zapisz motyw",
@@ -446,8 +451,23 @@
           "minor_low": "Boczne niskie",
           "path": "Ścieżki",
           "outline": "Obrys dróg"
-        }
+        },
+        "forest": "Las",
+        "grass": "Trawa",
+        "farmland": "Pola uprawne",
+        "wetland": "Mokradła",
+        "sand": "Piasek",
+        "ice": "Lód",
+        "borders": "Granice państw"
       }
+    },
+    "groups": {
+      "poster": "Plakat",
+      "land": "Ląd",
+      "nature": "Przyroda",
+      "water": "Woda",
+      "transport": "Transport",
+      "roads": "Drogi"
     },
     "descriptions": {
       "carrara": "Biały marmur — jasny kamień z miękkimi szarymi żyłkami",

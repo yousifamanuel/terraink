@@ -393,7 +393,12 @@
       "editing": "編集中：{{label}}",
       "save": "保存",
       "resetAll": "すべてリセット",
-      "done": "完了"
+      "done": "完了",
+      "groupColors": "色をグループ化",
+      "showDetails": "詳細を表示",
+      "layerOff": "レイヤーはオフ",
+      "applyToDetails": "詳細に適用",
+      "off": "オフ"
     },
     "saveModal": {
       "title": "テーマを保存",
@@ -440,8 +445,23 @@
           "minor_low": "細道路（下）",
           "path": "小道",
           "outline": "道路の輪郭"
-        }
+        },
+        "forest": "森林",
+        "grass": "草地",
+        "farmland": "農地",
+        "wetland": "湿地",
+        "sand": "砂地",
+        "ice": "氷",
+        "borders": "国境"
       }
+    },
+    "groups": {
+      "poster": "ポスター",
+      "land": "陸地",
+      "nature": "自然",
+      "water": "水",
+      "transport": "交通",
+      "roads": "道路"
     },
     "descriptions": {
       "carrara": "白い大理石、淡い石にやわらかな炭色の筋",

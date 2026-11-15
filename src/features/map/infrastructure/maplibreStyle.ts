@@ -1,6 +1,7 @@
 import type { ResolvedTheme } from "@/features/theme/domain/types";
 import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
 import { blendHex } from "@/shared/utils/color";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 import type { StyleSpecification } from "maplibre-gl";
 
 const OPENFREEMAP_SOURCE = "https://tiles.openfreemap.org/planet";
@@ -308,7 +309,24 @@ export function generateMapStyle(
         type: "fill" as const,
         layout: { visibility: includeLandcover ? ("visible" as const) : ("none" as const) },
         paint: {
-          "fill-color": theme.map.landcover,
+          // OpenMapTiles landcover classes; each copies Landcover until set.
+          "fill-color": [
+            "match",
+            ["get", "class"],
+            "wood",
+            getThemeColorByPath(theme, "map.forest"),
+            "grass",
+            getThemeColorByPath(theme, "map.grass"),
+            "farmland",
+            getThemeColorByPath(theme, "map.farmland"),
+            "wetland",
+            getThemeColorByPath(theme, "map.wetland"),
+            "sand",
+            getThemeColorByPath(theme, "map.sand"),
+            "ice",
+            getThemeColorByPath(theme, "map.ice"),
+            theme.map.landcover,
+          ] as any,
           "fill-opacity": 0.7,
         },
       },
@@ -708,7 +726,7 @@ export function generateMapStyle(
         type: "line" as const,
         filter: ["==", ["get", "class"], "ocean"],
         paint: {
-          "line-color": blendHex(theme.map.land || "#ffffff", theme.ui.text || "#111111", 0.82),
+          "line-color": getThemeColorByPath(theme, "map.borders"),
           "line-width": widthExpr(countryBorderWidthStops),
           "line-opacity": 0.9,
         },
@@ -725,7 +743,7 @@ export function generateMapStyle(
         type: "line" as const,
         filter: ["all", ["==", "admin_level", 2], ["!=", "maritime", 1]] as any,
         paint: {
-          "line-color": blendHex(theme.map.land || "#ffffff", theme.ui.text || "#111111", 0.82),
+          "line-color": getThemeColorByPath(theme, "map.borders"),
           "line-width": widthExpr(countryBorderWidthStops),
           "line-opacity": 0.9,
         },

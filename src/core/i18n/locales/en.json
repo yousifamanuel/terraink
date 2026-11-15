@@ -395,7 +395,12 @@
       "editing": "Editing: {{label}}",
       "save": "Save",
       "resetAll": "Reset All",
-      "done": "Done"
+      "done": "Done",
+      "groupColors": "Group colors",
+      "showDetails": "Show details",
+      "layerOff": "Layer is off",
+      "applyToDetails": "Apply to details",
+      "off": "Off"
     },
     "saveModal": {
       "title": "Save Theme",
@@ -442,8 +447,23 @@
           "minor_low": "Roads Minor Low",
           "path": "Roads Path",
           "outline": "Road Outline"
-        }
+        },
+        "forest": "Forest",
+        "grass": "Grass",
+        "farmland": "Farmland",
+        "wetland": "Wetland",
+        "sand": "Sand",
+        "ice": "Ice",
+        "borders": "Country borders"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Land",
+      "nature": "Nature",
+      "water": "Water",
+      "transport": "Transport",
+      "roads": "Roads"
     },
     "descriptions": {
       "carrara": "White marble — pale stone with soft charcoal veining",

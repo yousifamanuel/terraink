@@ -393,7 +393,12 @@
       "editing": "正在编辑：{{label}}",
       "save": "保存",
       "resetAll": "全部重置",
-      "done": "完成"
+      "done": "完成",
+      "groupColors": "颜色分组",
+      "showDetails": "显示细节",
+      "layerOff": "图层已关闭",
+      "applyToDetails": "应用到细节",
+      "off": "关"
     },
     "saveModal": {
       "title": "保存主题",
@@ -440,8 +445,23 @@
           "minor_low": "次级道路（低）",
           "path": "小径",
           "outline": "道路轮廓"
-        }
+        },
+        "forest": "森林",
+        "grass": "草地",
+        "farmland": "农田",
+        "wetland": "湿地",
+        "sand": "沙地",
+        "ice": "冰",
+        "borders": "国界"
       }
+    },
+    "groups": {
+      "poster": "海报",
+      "land": "陆地",
+      "nature": "自然",
+      "water": "水域",
+      "transport": "交通",
+      "roads": "道路"
     },
     "descriptions": {
       "carrara": "白色大理石，浅色石面带柔和炭灰纹理",

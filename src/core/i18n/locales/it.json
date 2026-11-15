@@ -397,7 +397,12 @@
       "editing": "Modifica: {{label}}",
       "save": "Salva",
       "resetAll": "Reimposta",
-      "done": "Fatto"
+      "done": "Fatto",
+      "groupColors": "Raggruppa colori",
+      "showDetails": "Mostra dettagli",
+      "layerOff": "Livello spento",
+      "applyToDetails": "Applica ai dettagli",
+      "off": "Spento"
     },
     "saveModal": {
       "title": "Salva tema",
@@ -444,8 +449,23 @@
           "minor_low": "Minori basse",
           "path": "Sentieri",
           "outline": "Contorno"
-        }
+        },
+        "forest": "Bosco",
+        "grass": "Prato",
+        "farmland": "Campi",
+        "wetland": "Zona umida",
+        "sand": "Sabbia",
+        "ice": "Ghiaccio",
+        "borders": "Confini"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Terra",
+      "nature": "Natura",
+      "water": "Acqua",
+      "transport": "Trasporti",
+      "roads": "Strade"
     },
     "descriptions": {
       "carrara": "Marmo bianco, pietra chiara con venature grigio antracite",

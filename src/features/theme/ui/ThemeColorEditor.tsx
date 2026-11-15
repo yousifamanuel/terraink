@@ -1,11 +1,19 @@
 import { useTranslation } from "react-i18next";
 import type { ThemeColorKey } from "../domain/types";
 
-interface ColorTarget {
+export interface ColorTarget {
   key: ThemeColorKey;
   label: string;
   color: string;
   isActive: boolean;
+  /** Its map layer is switched off, so changing it shows nothing now. */
+  isOff?: boolean;
+}
+
+export interface ColorTargetGroup {
+  id: string;
+  label: string;
+  targets: ColorTarget[];
 }
 
 interface ThemeColorEditorProps {
@@ -14,8 +22,13 @@ interface ThemeColorEditorProps {
   onResetAllColors: () => void;
   onSave: () => void;
   onDone: () => void;
-  colorTargets: ColorTarget[];
+  /** One group per section; a single unlabeled group when not grouped. */
+  colorGroups: ColorTargetGroup[];
   onTargetSelect: (key: ThemeColorKey) => void;
+  groupColors: boolean;
+  showDetails: boolean;
+  onGroupColorsChange: (value: boolean) => void;
+  onShowDetailsChange: (value: boolean) => void;
 }
 
 export default function ThemeColorEditor({
@@ -24,8 +37,12 @@ export default function ThemeColorEditor({
   onResetAllColors,
   onSave,
   onDone,
-  colorTargets,
+  colorGroups,
   onTargetSelect,
+  groupColors,
+  showDetails,
+  onGroupColorsChange,
+  onShowDetailsChange,
 }: ThemeColorEditorProps) {
   const { t } = useTranslation();
   return (
@@ -60,24 +77,62 @@ export default function ThemeColorEditor({
         </div>
       </div>
 
-      <div className="color-editor-target-grid">
-        {colorTargets.map((target) => (
-          <button
-            key={target.key}
-            type="button"
-            className={`color-editor-target${target.isActive ? " is-active" : ""}`}
-            onClick={() => onTargetSelect(target.key)}
-            aria-pressed={target.isActive}
-            aria-label={`${target.label}: ${target.color}`}
-          >
-            <span
-              className="color-editor-target-swatch"
-              style={{ backgroundColor: target.color }}
+      <div className="color-editor-toggles">
+        <label className="toggle-field">
+          <span>{t("theme.editor.groupColors")}</span>
+          <span className="theme-switch">
+            <input
+              type="checkbox"
+              checked={groupColors}
+              onChange={(event) => onGroupColorsChange(event.target.checked)}
             />
-            <span className="color-editor-target-name">{target.label}</span>
-          </button>
-        ))}
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
+        </label>
+        <label className="toggle-field">
+          <span>{t("theme.editor.showDetails")}</span>
+          <span className="theme-switch">
+            <input
+              type="checkbox"
+              checked={showDetails}
+              onChange={(event) => onShowDetailsChange(event.target.checked)}
+            />
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
+        </label>
       </div>
+
+      {colorGroups.map((group) => (
+        <div key={group.id} className="color-editor-group">
+          {group.label ? (
+            <h3 className="color-editor-group-title">{group.label}</h3>
+          ) : null}
+          <div className="color-editor-target-grid">
+            {group.targets.map((target) => (
+              <button
+                key={target.key}
+                type="button"
+                className={`color-editor-target${target.isActive ? " is-active" : ""}${target.isOff ? " is-off" : ""}`}
+                onClick={() => onTargetSelect(target.key)}
+                aria-pressed={target.isActive}
+                aria-label={`${target.label}: ${target.color}${target.isOff ? ` (${t("theme.editor.layerOff")})` : ""}`}
+                title={target.isOff ? t("theme.editor.layerOff") : undefined}
+              >
+                <span
+                  className="color-editor-target-swatch"
+                  style={{ backgroundColor: target.color }}
+                />
+                {target.isOff ? (
+                  <span className="color-editor-target-off" aria-hidden="true">
+                    {t("theme.editor.off")}
+                  </span>
+                ) : null}
+                <span className="color-editor-target-name">{target.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
     </section>
   );
 }

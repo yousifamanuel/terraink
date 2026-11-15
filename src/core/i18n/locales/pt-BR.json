@@ -397,7 +397,12 @@
       "editing": "Editando: {{label}}",
       "save": "Salvar",
       "resetAll": "Redefinir tudo",
-      "done": "Concluir"
+      "done": "Concluir",
+      "groupColors": "Agrupar cores",
+      "showDetails": "Mostrar detalhes",
+      "layerOff": "Camada desligada",
+      "applyToDetails": "Aplicar aos detalhes",
+      "off": "Desl."
     },
     "saveModal": {
       "title": "Salvar tema",
@@ -444,8 +449,23 @@
           "minor_low": "Vias sec. baixa",
           "path": "Caminhos",
           "outline": "Contorno"
-        }
+        },
+        "forest": "Floresta",
+        "grass": "Grama",
+        "farmland": "Plantações",
+        "wetland": "Área úmida",
+        "sand": "Areia",
+        "ice": "Gelo",
+        "borders": "Fronteiras"
       }
+    },
+    "groups": {
+      "poster": "Pôster",
+      "land": "Terra",
+      "nature": "Natureza",
+      "water": "Água",
+      "transport": "Transporte",
+      "roads": "Ruas"
     },
     "descriptions": {
       "carrara": "Mármore branco — pedra clara com veios suaves de carvão",

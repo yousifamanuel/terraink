@@ -403,7 +403,12 @@
       "editing": "تحرير: {{label}}",
       "save": "حفظ",
       "resetAll": "إعادة ضبط الكل",
-      "done": "تم"
+      "done": "تم",
+      "groupColors": "تجميع الألوان",
+      "showDetails": "إظهار التفاصيل",
+      "layerOff": "الطبقة مطفأة",
+      "applyToDetails": "تطبيق على التفاصيل",
+      "off": "مطفأ"
     },
     "saveModal": {
       "title": "حفظ الألوان",
@@ -450,8 +455,23 @@
           "minor_low": "الطرق الفرعية الدنيا",
           "path": "الممرات",
           "outline": "حدود الطرق"
-        }
+        },
+        "forest": "غابة",
+        "grass": "عشب",
+        "farmland": "أراضٍ زراعية",
+        "wetland": "أراضٍ رطبة",
+        "sand": "رمال",
+        "ice": "جليد",
+        "borders": "حدود الدول"
       }
+    },
+    "groups": {
+      "poster": "الملصق",
+      "land": "اليابسة",
+      "nature": "الطبيعة",
+      "water": "المياه",
+      "transport": "النقل",
+      "roads": "الطرق"
     },
     "descriptions": {
       "carrara": "رخام أبيض — حجر شاحب بعروق فحمية ناعمة",

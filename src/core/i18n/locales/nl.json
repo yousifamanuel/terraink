@@ -395,7 +395,12 @@
       "editing": "Bewerken: {{label}}",
       "save": "Opslaan",
       "resetAll": "Alles resetten",
-      "done": "Klaar"
+      "done": "Klaar",
+      "groupColors": "Kleuren groeperen",
+      "showDetails": "Details tonen",
+      "layerOff": "Laag staat uit",
+      "applyToDetails": "Op details toepassen",
+      "off": "Uit"
     },
     "saveModal": {
       "title": "Thema opslaan",
@@ -442,8 +447,23 @@
           "minor_low": "Kleine wegen -",
           "path": "Paden",
           "outline": "Wegcontour"
-        }
+        },
+        "forest": "Bos",
+        "grass": "Gras",
+        "farmland": "Akkerland",
+        "wetland": "Moeras",
+        "sand": "Zand",
+        "ice": "IJs",
+        "borders": "Landsgrenzen"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Land",
+      "nature": "Natuur",
+      "water": "Water",
+      "transport": "Vervoer",
+      "roads": "Wegen"
     },
     "descriptions": {
       "carrara": "Wit marmer: bleke steen met zachte antracieten aders",

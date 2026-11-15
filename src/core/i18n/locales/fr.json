@@ -397,7 +397,12 @@
       "editing": "Modification : {{label}}",
       "save": "Enregistrer",
       "resetAll": "Tout réinitialiser",
-      "done": "Terminé"
+      "done": "Terminé",
+      "groupColors": "Grouper les couleurs",
+      "showDetails": "Afficher les détails",
+      "layerOff": "Calque désactivé",
+      "applyToDetails": "Appliquer aux détails",
+      "off": "Désact."
     },
     "saveModal": {
       "title": "Enregistrer le thème",
@@ -444,8 +449,23 @@
           "minor_low": "Routes sec. basses",
           "path": "Chemins",
           "outline": "Contour routes"
-        }
+        },
+        "forest": "Forêt",
+        "grass": "Herbe",
+        "farmland": "Cultures",
+        "wetland": "Zone humide",
+        "sand": "Sable",
+        "ice": "Glace",
+        "borders": "Frontières"
       }
+    },
+    "groups": {
+      "poster": "Affiche",
+      "land": "Terre",
+      "nature": "Nature",
+      "water": "Eau",
+      "transport": "Transport",
+      "roads": "Routes"
     },
     "descriptions": {
       "carrara": "Marbre blanc, pierre pâle aux veines gris anthracite",

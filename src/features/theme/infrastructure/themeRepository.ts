@@ -86,7 +86,25 @@ const themeColorLookup: Record<ThemeColorKey, string[]> = {
     "road_residential",
   ],
   "map.roads.outline": ["map.roads.outline", "road_outline", "bg"],
+  "map.forest": ["map.forest"],
+  "map.grass": ["map.grass"],
+  "map.farmland": ["map.farmland"],
+  "map.wetland": ["map.wetland"],
+  "map.sand": ["map.sand"],
+  "map.ice": ["map.ice"],
+  "map.borders": ["map.borders"],
 };
+
+/** Detail colors a theme may set; unset ones copy their main color. */
+const OPTIONAL_MAP_COLOR_KEYS = [
+  "forest",
+  "grass",
+  "farmland",
+  "wetland",
+  "sand",
+  "ice",
+  "borders",
+] as const;
 
 const referenceAliases: Record<string, string> = {
   bg: "ui.bg",
@@ -200,6 +218,12 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
     resolveByCandidates(theme, themeColorLookup["ui.text"]) ||
     fallbackTheme.ui.text;
 
+  const optionalMapColors: Partial<Record<(typeof OPTIONAL_MAP_COLOR_KEYS)[number], string>> = {};
+  for (const key of OPTIONAL_MAP_COLOR_KEYS) {
+    const color = resolveByCandidates(theme, themeColorLookup[`map.${key}`]);
+    if (color) optionalMapColors[key] = color;
+  }
+
   const uiBorder = resolveByCandidates(theme, themeColorLookup["ui.border"]);
   const uiBorderLine = resolveByCandidates(
     theme,
@@ -283,6 +307,7 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
         path: roadPath,
         outline: roadOutline,
       },
+      ...optionalMapColors,
     },
   };
 }

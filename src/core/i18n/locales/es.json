@@ -397,7 +397,12 @@
       "editing": "Editando: {{label}}",
       "save": "Guardar",
       "resetAll": "Restablecer",
-      "done": "Listo"
+      "done": "Listo",
+      "groupColors": "Agrupar colores",
+      "showDetails": "Mostrar detalles",
+      "layerOff": "Capa desactivada",
+      "applyToDetails": "Aplicar a detalles",
+      "off": "Apag."
     },
     "saveModal": {
       "title": "Guardar tema",
@@ -444,8 +449,23 @@
           "minor_low": "Secundarias bajas",
           "path": "Caminos",
           "outline": "Contorno"
-        }
+        },
+        "forest": "Bosque",
+        "grass": "Hierba",
+        "farmland": "Cultivos",
+        "wetland": "Humedal",
+        "sand": "Arena",
+        "ice": "Hielo",
+        "borders": "Fronteras"
       }
+    },
+    "groups": {
+      "poster": "Póster",
+      "land": "Tierra",
+      "nature": "Naturaleza",
+      "water": "Agua",
+      "transport": "Transporte",
+      "roads": "Calles"
     },
     "descriptions": {
       "carrara": "Mármol blanco: piedra clara con vetas suaves de carbón",

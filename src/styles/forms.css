@@ -4039,3 +4039,50 @@ button.subsettings-link:hover,
 button.subsettings-link:focus-visible {
   text-decoration: underline;
 }
+
+/* Color editor: view toggles, sections, and colors whose layer is off. */
+.color-editor-toggles {
+  display: grid;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.color-editor-toggles > .toggle-field {
+  margin-bottom: 6px;
+}
+
+.color-editor-group-title {
+  margin: 4px 0 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8fb4cc;
+}
+
+/* Its layer is off: clearly faded, with an "Off" tag on the swatch. */
+button.color-editor-target.is-off {
+  position: relative;
+  opacity: 0.32;
+  border-style: dashed;
+}
+
+button.color-editor-target.is-off:hover,
+button.color-editor-target.is-off:focus-visible {
+  opacity: 0.7;
+}
+
+.color-editor-target-off {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(5, 12, 18, 0.85);
+  color: #e7f2fb;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
