@@ -27,6 +27,12 @@
 
 > **License & Trademark Notice:** This project is licensed under AGPL-3.0 and includes trademark protections. See the [License](#license) and [Trademark](#trademark) sections for details.
 
+## Watch the Complete Guide
+
+[![Terraink: Make Map Posters of Any City for FREE (Complete Guide)](https://img.youtube.com/vi/Eitp-_LAqlc/maxresdefault.jpg)](https://youtu.be/Eitp-_LAqlc)
+
+A 6-minute walkthrough of every menu, from picking a city to exporting a print-ready poster: [watch on YouTube](https://youtu.be/Eitp-_LAqlc).
+
 ## Features
 
 - **Custom city map posters** for any location in the world, powered by real OpenStreetMap data
