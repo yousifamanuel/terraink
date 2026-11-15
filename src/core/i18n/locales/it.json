@@ -509,6 +509,18 @@
       "mono_blue": "Un solo blu in tante sfumature, dalle strade navy alla terra azzurro ghiaccio.",
       "desert": "Sabbia dorata con strade marrone caldo e acqua salvia tenue.",
       "cyber": "Notte scura con autostrade magenta e strade ciano luminose."
+    },
+    "categories": {
+      "label": "Categorie di temi",
+      "all": "Tutti",
+      "neutral": "Neutri",
+      "sand": "Sabbia",
+      "warm": "Caldi",
+      "water": "Acqua",
+      "green": "Verdi",
+      "light": "Chiari",
+      "dark": "Scuri",
+      "electric": "Elettrici"
     }
   },
   "export": {

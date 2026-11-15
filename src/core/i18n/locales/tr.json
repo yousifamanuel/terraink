@@ -507,6 +507,18 @@
       "mono_blue": "Lacivert yollardan buz mavisi karaya, tek mavinin birçok tonu.",
       "desert": "Altın kum, sıcak kahverengi yollar ve yumuşak adaçayı rengi su.",
       "cyber": "Macenta otoyollar ve parlayan camgöbeği sokaklarla karanlık gece."
+    },
+    "categories": {
+      "label": "Tema kategorileri",
+      "all": "Tümü",
+      "neutral": "Nötr",
+      "sand": "Kum",
+      "warm": "Sıcak",
+      "water": "Su",
+      "green": "Yeşil",
+      "light": "Açık",
+      "dark": "Koyu",
+      "electric": "Elektrik"
     }
   },
   "export": {

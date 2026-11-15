@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import { useState, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import ThemeCard from "./ThemeCard";
@@ -9,6 +9,11 @@ import {
   type ThemeOption,
 } from "../domain/types";
 import { getThemeColorByPath } from "../domain/colorPaths";
+import {
+  THEME_CATEGORIES,
+  themesInCategory,
+  type ThemeCategoryId,
+} from "../domain/themeCategories";
 import { useFavoriteThemes } from "../application/useFavoriteThemes";
 
 interface ThemeSummarySectionProps {
@@ -48,6 +53,7 @@ export default function ThemeSummarySection({
 }: ThemeSummarySectionProps) {
   const { t } = useTranslation();
   const { favoriteIds, toggleFavorite } = useFavoriteThemes();
+  const [category, setCategory] = useState<ThemeCategoryId | "all">("all");
 
   const savedOptions = savedThemes.map(savedThemeToOption);
   const savedIds = new Set(savedThemes.map((saved) => saved.id));
@@ -75,6 +81,10 @@ export default function ThemeSummarySection({
     />
   );
 
+  // "All" lists every theme once; a category lists all its themes (a theme
+  // can be in several).
+  const visibleThemes =
+    category === "all" ? themeOptions : themesInCategory(themeOptions, category);
   const description =
     getThemeDescription(selectedThemeOption) || t("theme.summary.noDescription");
 
@@ -138,13 +148,34 @@ export default function ThemeSummarySection({
 
       <section className="theme-section theme-section--builtin">
         <h3 className="theme-section-heading">{t("theme.summary.builtInThemes")}</h3>
+        <div className="theme-category-tabs" role="tablist" aria-label={t("theme.categories.label")}>
+          {[{ id: "all" as const, color: "" }, ...THEME_CATEGORIES].map(({ id, color }) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={category === id}
+              className={`theme-category-tab${category === id ? " is-active" : ""}`}
+              onClick={() => setCategory(id)}
+            >
+              {color ? (
+                <span
+                  className="theme-category-dot"
+                  style={{ backgroundColor: color }}
+                  aria-hidden="true"
+                />
+              ) : null}
+              {t(`theme.categories.${id}`)}
+            </button>
+          ))}
+        </div>
         <div
           className="theme-card-list card-scroll-list"
           role="list"
           aria-label={t("theme.summary.themeOptionsAria")}
           ref={listRef}
         >
-          {themeOptions.map((option) => renderCard(option))}
+          {visibleThemes.map((option) => renderCard(option))}
         </div>
       </section>
     </div>

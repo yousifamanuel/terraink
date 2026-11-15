@@ -509,6 +509,18 @@
       "mono_blue": "Un solo tono azul en muchos matices, de calles marino a tierra azul hielo.",
       "desert": "Arena dorada con calles marrón cálido y agua salvia apagada.",
       "cyber": "Noche oscura con autopistas magenta y calles cian brillantes."
+    },
+    "categories": {
+      "label": "Categorías de temas",
+      "all": "Todos",
+      "neutral": "Neutros",
+      "sand": "Arena",
+      "warm": "Cálidos",
+      "water": "Agua",
+      "green": "Verdes",
+      "light": "Claros",
+      "dark": "Oscuros",
+      "electric": "Eléctricos"
     }
   },
   "export": {

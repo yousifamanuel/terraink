@@ -509,6 +509,18 @@
       "mono_blue": "Um só tom de azul em muitas nuances, de ruas marinho a terra azul-gelo.",
       "desert": "Areia dourada com ruas marrom quente e água sálvia suave.",
       "cyber": "Noite escura com rodovias magenta e ruas ciano brilhantes."
+    },
+    "categories": {
+      "label": "Categorias de temas",
+      "all": "Todos",
+      "neutral": "Neutros",
+      "sand": "Areia",
+      "warm": "Quentes",
+      "water": "Água",
+      "green": "Verdes",
+      "light": "Claros",
+      "dark": "Escuros",
+      "electric": "Elétricos"
     }
   },
   "export": {

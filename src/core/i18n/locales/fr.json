@@ -509,6 +509,18 @@
       "mono_blue": "Un seul bleu en de nombreuses nuances, des routes marine à la terre bleu glacier.",
       "desert": "Sable doré, routes brun chaud et eau vert sauge douce.",
       "cyber": "Nuit sombre, autoroutes magenta et rues cyan lumineuses."
+    },
+    "categories": {
+      "label": "Catégories de thèmes",
+      "all": "Tous",
+      "neutral": "Neutres",
+      "sand": "Sable",
+      "warm": "Chauds",
+      "water": "Eau",
+      "green": "Verts",
+      "light": "Clairs",
+      "dark": "Sombres",
+      "electric": "Électriques"
     }
   },
   "export": {

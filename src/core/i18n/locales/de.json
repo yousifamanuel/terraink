@@ -507,6 +507,18 @@
       "mono_blue": "Ein Blauton in vielen Abstufungen, von marineblauen Straßen bis eisblauem Land.",
       "desert": "Goldener Sand mit warmbraunen Straßen und gedecktem salbeigrünem Wasser.",
       "cyber": "Dunkle Nacht mit magentafarbenen Autobahnen und leuchtend cyanfarbenen Straßen."
+    },
+    "categories": {
+      "label": "Theme-Kategorien",
+      "all": "Alle",
+      "neutral": "Neutral",
+      "sand": "Sand",
+      "warm": "Warm",
+      "water": "Wasser",
+      "green": "Grün",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "electric": "Elektrisch"
     }
   },
   "export": {

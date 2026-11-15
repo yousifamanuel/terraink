@@ -511,6 +511,18 @@
       "mono_blue": "Jeden odcień błękitu w wielu tonach, od granatowych dróg po lodowobłękitny ląd.",
       "desert": "Złoty piasek, ciepłobrązowe drogi i stonowana szałwiowa woda.",
       "cyber": "Ciemna noc z purpurowymi autostradami i świecącymi cyjanowymi ulicami."
+    },
+    "categories": {
+      "label": "Kategorie motywów",
+      "all": "Wszystkie",
+      "neutral": "Neutralne",
+      "sand": "Piasek",
+      "warm": "Ciepłe",
+      "water": "Woda",
+      "green": "Zielone",
+      "light": "Jasne",
+      "dark": "Ciemne",
+      "electric": "Elektryczne"
     }
   },
   "export": {

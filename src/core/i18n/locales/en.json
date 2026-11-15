@@ -507,6 +507,18 @@
       "mono_blue": "One blue hue in many shades, from navy roads to ice-blue land.",
       "desert": "Golden sand with warm brown roads and muted sage water.",
       "cyber": "Dark night with magenta motorways and glowing cyan streets."
+    },
+    "categories": {
+      "label": "Theme categories",
+      "all": "All",
+      "neutral": "Neutral",
+      "sand": "Sand",
+      "warm": "Warm",
+      "water": "Water",
+      "green": "Green",
+      "light": "Light",
+      "dark": "Dark",
+      "electric": "Electric"
     }
   },
   "export": {

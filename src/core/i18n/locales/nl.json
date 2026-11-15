@@ -507,6 +507,18 @@
       "mono_blue": "Eén blauwe tint in vele schakeringen, van marineblauwe wegen tot ijsblauw land.",
       "desert": "Goudkleurig zand met warmbruine wegen en gedempt saliegroen water.",
       "cyber": "Donkere nacht met magenta snelwegen en gloeiende cyaan straten."
+    },
+    "categories": {
+      "label": "Themacategorieën",
+      "all": "Alle",
+      "neutral": "Neutraal",
+      "sand": "Zand",
+      "warm": "Warm",
+      "water": "Water",
+      "green": "Groen",
+      "light": "Licht",
+      "dark": "Donker",
+      "electric": "Elektrisch"
     }
   },
   "export": {
