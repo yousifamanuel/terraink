@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import {
+  APP_VERSION,
   SOCIAL_INSTAGRAM,
   VIDEO_GUIDE_THUMBNAIL,
   VIDEO_GUIDE_URL,
@@ -31,7 +32,11 @@ export default function SupportModal({
   const instagramUrl = String(SOCIAL_INSTAGRAM ?? "").trim();
   const videoUrl = String(VIDEO_GUIDE_URL ?? "").trim();
   const showVideo = variant === "videoGuide" && Boolean(videoUrl);
-  const trackParams = { source: "download_modal", download_number: posterNumber };
+  const trackParams = {
+    source: "download_modal",
+    download_number: posterNumber,
+    app_release: APP_VERSION,
+  };
 
   const handleClose = () => {
     // Closing without opening the video counts toward switching to follow.

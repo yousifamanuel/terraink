@@ -19,6 +19,7 @@ import {
   triggerDownloadBlob,
 } from "@/core/services";
 import {
+  APP_VERSION,
   CM_PER_INCH,
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
@@ -169,6 +170,7 @@ export function useExport() {
           has_markers: hasVisibleMarkers,
           has_routes: visibleRoutes.length > 0,
           export_number: nextCount,
+          app_release: APP_VERSION,
           ...(secondsBetweenExports !== null
             ? { seconds_between_exports: secondsBetweenExports }
             : {}),
@@ -287,7 +289,7 @@ export function useExport() {
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
         const message = err instanceof Error ? err.message : i18n.t("export.errors.exportFailed");
-        trackEvent("export_failed", { format, reason: message });
+        trackEvent("export_failed", { format, reason: message, app_release: APP_VERSION });
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false, error: message });
       }
     },
