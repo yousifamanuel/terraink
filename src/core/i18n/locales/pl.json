@@ -351,6 +351,7 @@
         "right": "Prawo"
       },
       "border": "Ramka",
+      "borderColors": "Kolory w Motywie",
       "borderWidth": "Szerokość ramki",
       "borderLine": "Linia",
       "line": {
@@ -425,7 +426,9 @@
     "colors": {
       "ui": {
         "bg": "Nakładka",
-        "text": "Tekst"
+        "text": "Tekst",
+        "border": "Ramka",
+        "borderLine": "Linia ramki"
       },
       "map": {
         "land": "Ląd",

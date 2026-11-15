@@ -347,6 +347,7 @@
         "right": "Sağ"
       },
       "border": "Çerçeve",
+      "borderColors": "Renkler Tema'da",
       "borderWidth": "Çerçeve genişliği",
       "borderLine": "Çizgi",
       "line": {
@@ -421,7 +422,9 @@
     "colors": {
       "ui": {
         "bg": "Kaplama",
-        "text": "Metin"
+        "text": "Metin",
+        "border": "Çerçeve",
+        "borderLine": "Çerçeve çizgisi"
       },
       "map": {
         "land": "Kara",

@@ -347,6 +347,7 @@
         "right": "Rechts"
       },
       "border": "Rahmen",
+      "borderColors": "Farben unter Thema",
       "borderWidth": "Rahmenbreite",
       "borderLine": "Linie",
       "line": {
@@ -421,7 +422,9 @@
     "colors": {
       "ui": {
         "bg": "Overlay",
-        "text": "Text"
+        "text": "Text",
+        "border": "Rahmen",
+        "borderLine": "Rahmenlinie"
       },
       "map": {
         "land": "Land",

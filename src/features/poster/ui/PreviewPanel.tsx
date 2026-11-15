@@ -48,6 +48,7 @@ import {
 import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
 import { getPosterLayoutOptions } from "@/features/poster/application/posterLayoutOptions";
 import { resolvePosterNames } from "@/features/poster/domain/posterNames";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 
 const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
@@ -476,6 +477,8 @@ export default function PreviewPanel() {
             textColor={effectiveTheme.ui.text}
             landColor={effectiveTheme.map.land}
             backgroundColor={effectiveTheme.ui.bg}
+            borderColor={getThemeColorByPath(effectiveTheme, "ui.border")}
+            borderLineColor={getThemeColorByPath(effectiveTheme, "ui.borderLine")}
             showPosterText={form.showPosterText}
             coordinateText={
               form.showCoordinates

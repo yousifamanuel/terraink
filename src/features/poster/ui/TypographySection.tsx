@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import { resolvePosterNames } from "@/features/poster/domain/posterNames";
+import { openPanelTab } from "@/shared/ui/openPanelTab";
 import type { FontOption } from "@/core/config";
 import { COORDINATE_FORMATS, formatCoordinates } from "@/shared/geo/posterBounds";
 import CoordinateSeparatorPicker from "./CoordinateSeparatorPicker";
@@ -195,6 +196,13 @@ export default function TypographySection({
               defaultValue={Number(DEFAULT_FORM.borderThickness)}
               onChange={(value) => setField("borderThickness", String(value))}
             />
+            <button
+              type="button"
+              className="subsettings-link"
+              onClick={() => openPanelTab("theme")}
+            >
+              {t("poster.typography.borderColors")} →
+            </button>
           </div>
         ) : null}
 

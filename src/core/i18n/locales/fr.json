@@ -349,6 +349,7 @@
         "right": "Droite"
       },
       "border": "Bordure",
+      "borderColors": "Couleurs dans Thème",
       "borderWidth": "Largeur de la bordure",
       "borderLine": "Trait",
       "line": {
@@ -423,7 +424,9 @@
     "colors": {
       "ui": {
         "bg": "Superposition",
-        "text": "Texte"
+        "text": "Texte",
+        "border": "Bordure",
+        "borderLine": "Trait de bordure"
       },
       "map": {
         "land": "Terre",

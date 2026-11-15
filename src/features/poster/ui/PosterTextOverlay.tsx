@@ -26,6 +26,9 @@ interface PosterTextOverlayProps {
   landColor: string;
   /** Poster background, used for the band outside the border. */
   backgroundColor: string;
+  /** Border area and border line colors (theme; default bg / text). */
+  borderColor: string;
+  borderLineColor: string;
   showPosterText: boolean;
   /** Pre-formatted coordinates; "" hides them. */
   coordinateText?: string;
@@ -43,6 +46,8 @@ export default function PosterTextOverlay({
   textColor,
   landColor,
   backgroundColor,
+  borderColor,
+  borderLineColor,
   showPosterText,
   coordinateText,
   includeCredits,
@@ -119,7 +124,7 @@ export default function PosterTextOverlay({
               className="poster-border-band"
               style={{
                 borderWidth: `${template.frame.inset * 100}cqmin`,
-                borderColor: backgroundColor,
+                borderColor: borderColor,
               }}
             />
           ) : null}
@@ -133,7 +138,7 @@ export default function PosterTextOverlay({
                   className={`poster-template-frame poster-template-frame--${template.frame.type}`}
                   style={{
                     inset: `max(0px, calc(${template.frame.inset * 100}cqmin + ${offsetInLines * thickness}cqmin))`,
-                    borderColor: withAlpha(textColor, template.frame.alpha),
+                    borderColor: withAlpha(borderLineColor, template.frame.alpha),
                     borderStyle: template.frame.dash === "dashed" ? "dashed" : "solid",
                     borderWidth: `max(1px, ${thickness}cqmin)`,
                   }}

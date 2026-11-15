@@ -15,6 +15,7 @@ import {
 } from "@/features/poster/infrastructure/renderer/layers";
 import { drawPosterText } from "@/features/poster/infrastructure/renderer/typography";
 import type { ResolvedTheme } from "@/features/theme/domain/types";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 import {
   buildPosterLayout,
   type PosterLayoutOptions,
@@ -265,8 +266,8 @@ export async function createLayeredSvgBlobFromMap({
             ctx,
             exportWidth,
             exportHeight,
-            theme.ui.text,
-            theme.ui.bg,
+            getThemeColorByPath(theme, "ui.borderLine"),
+            getThemeColorByPath(theme, "ui.border"),
             template,
           );
         }),

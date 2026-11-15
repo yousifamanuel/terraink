@@ -6,6 +6,7 @@ import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
 import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 
 /**
  * Composites a final poster from a MapLibre snapshot canvas.
@@ -103,7 +104,14 @@ export async function compositeExport(
   }
 
   // 6. Template frame
-  drawTemplateFrame(ctx, width, height, theme.ui.text, theme.ui.bg, template);
+  drawTemplateFrame(
+    ctx,
+    width,
+    height,
+    getThemeColorByPath(theme, "ui.borderLine"),
+    getThemeColorByPath(theme, "ui.border"),
+    template,
+  );
 
   // 7. Poster text
   drawPosterText(

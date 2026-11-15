@@ -349,6 +349,7 @@
         "right": "Direita"
       },
       "border": "Borda",
+      "borderColors": "Cores em Tema",
       "borderWidth": "Largura da borda",
       "borderLine": "Linha",
       "line": {
@@ -423,7 +424,9 @@
     "colors": {
       "ui": {
         "bg": "Sobreposição",
-        "text": "Texto"
+        "text": "Texto",
+        "border": "Borda",
+        "borderLine": "Linha da borda"
       },
       "map": {
         "land": "Terra",

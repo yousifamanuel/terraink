@@ -238,11 +238,14 @@ export function posterReducer(
         },
       };
 
-    case "SET_COLOR":
+    case "SET_COLOR": {
+      // An empty value removes the edit (the theme color applies again).
+      const { [action.key]: _removed, ...rest } = state.customColors;
       return {
         ...state,
-        customColors: { ...state.customColors, [action.key]: action.value },
+        customColors: action.value ? { ...rest, [action.key]: action.value } : rest,
       };
+    }
 
     case "SET_CUSTOM_COLORS":
       return { ...state, customColors: { ...action.colors } };

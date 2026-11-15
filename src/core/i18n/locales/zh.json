@@ -345,6 +345,7 @@
         "right": "右"
       },
       "border": "边框",
+      "borderColors": "颜色在主题中",
       "borderWidth": "边框宽度",
       "borderLine": "线条",
       "line": {
@@ -419,7 +420,9 @@
     "colors": {
       "ui": {
         "bg": "叠加层",
-        "text": "文字"
+        "text": "文字",
+        "border": "边框",
+        "borderLine": "边框线"
       },
       "map": {
         "land": "陆地",

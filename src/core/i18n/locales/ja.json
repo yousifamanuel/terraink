@@ -345,6 +345,7 @@
         "right": "右"
       },
       "border": "枠",
+      "borderColors": "色はテーマで",
       "borderWidth": "枠の幅",
       "borderLine": "線",
       "line": {
@@ -419,7 +420,9 @@
     "colors": {
       "ui": {
         "bg": "オーバーレイ",
-        "text": "文字"
+        "text": "文字",
+        "border": "枠",
+        "borderLine": "枠線"
       },
       "map": {
         "land": "陸地",

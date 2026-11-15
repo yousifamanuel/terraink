@@ -46,6 +46,8 @@ const fallbackTheme: ResolvedTheme = {
 const themeColorLookup: Record<ThemeColorKey, string[]> = {
   "ui.bg": ["ui.bg", "gradient_color", "bg"],
   "ui.text": ["ui.text", "text"],
+  "ui.border": ["ui.border"],
+  "ui.borderLine": ["ui.borderLine"],
   "map.land": ["map.land", "bg"],
   "map.landcover": ["map.landcover", "landcover"],
   "map.water": ["map.water", "water"],
@@ -197,6 +199,12 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
     resolveByCandidates(theme, themeColorLookup["ui.text"]) ||
     fallbackTheme.ui.text;
 
+  const uiBorder = resolveByCandidates(theme, themeColorLookup["ui.border"]);
+  const uiBorderLine = resolveByCandidates(
+    theme,
+    themeColorLookup["ui.borderLine"],
+  );
+
   const land =
     resolveByCandidates(theme, themeColorLookup["map.land"]) ||
     uiBg ||
@@ -253,6 +261,9 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
     ui: {
       bg: uiBg,
       text: uiText,
+      // Unset border colors copy bg / text (see THEME_COLOR_FALLBACKS).
+      ...(uiBorder ? { border: uiBorder } : {}),
+      ...(uiBorderLine ? { borderLine: uiBorderLine } : {}),
     },
     map: {
       land,

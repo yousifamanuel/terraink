@@ -4022,3 +4022,20 @@ button.location-permission-close svg {
   width: 12px;
   height: 12px;
 }
+
+/* Small text link inside a settings group (e.g. border colors → Theme). */
+button.subsettings-link {
+  justify-self: start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #7cc4e2;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+button.subsettings-link:hover,
+button.subsettings-link:focus-visible {
+  text-decoration: underline;
+}

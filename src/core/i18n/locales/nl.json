@@ -347,6 +347,7 @@
         "right": "Rechts"
       },
       "border": "Rand",
+      "borderColors": "Kleuren bij Thema",
       "borderWidth": "Randbreedte",
       "borderLine": "Lijn",
       "line": {
@@ -421,7 +422,9 @@
     "colors": {
       "ui": {
         "bg": "Overlay",
-        "text": "Tekst"
+        "text": "Tekst",
+        "border": "Rand",
+        "borderLine": "Randlijn"
       },
       "map": {
         "land": "Land",

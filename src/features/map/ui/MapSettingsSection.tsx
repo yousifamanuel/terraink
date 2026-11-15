@@ -8,7 +8,11 @@ import {
 } from "@/features/theme/domain/types";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import { getPaletteColorLabel } from "@/features/theme/application/paletteColorLabel";
-import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
+import {
+  getEditedThemeColor,
+  getThemeColorByPath,
+  THEME_COLOR_FALLBACKS,
+} from "@/features/theme/domain/colorPaths";
 import { normalizeHexColor } from "@/shared/utils/color";
 import {
   buildDynamicColorChoices,
@@ -137,11 +141,11 @@ export default function MapSettingsSection({
 
   const currentThemePalette = useMemo(
     () =>
-      DISPLAY_PALETTE_KEYS.map((key) => {
-        const themeColor =
-          getThemeColorByPath(selectedTheme, key) || FALLBACK_COLOR;
-        return customColors[key] ?? themeColor;
-      }),
+      DISPLAY_PALETTE_KEYS.map(
+        (key) =>
+          getEditedThemeColor(selectedTheme, customColors, key) ||
+          FALLBACK_COLOR,
+      ),
     [customColors, selectedTheme],
   );
 
@@ -181,9 +185,9 @@ export default function MapSettingsSection({
   const colorTargets = useMemo(
     () =>
       DISPLAY_PALETTE_KEYS.map((key) => {
-        const baseColor =
-          getThemeColorByPath(selectedTheme, key) || FALLBACK_COLOR;
-        const currentColor = customColors[key] ?? baseColor;
+        const currentColor =
+          getEditedThemeColor(selectedTheme, customColors, key) ||
+          FALLBACK_COLOR;
         return {
           key,
           label: getPaletteColorLabel(key),
@@ -229,9 +233,10 @@ export default function MapSettingsSection({
   }
 
   function handleSwatchClick(key: ThemeColorKey) {
-    const themeColor = getThemeColorByPath(selectedTheme, key);
     const seedColor =
-      customColors[key] ?? (themeColor || currentThemePalette[0] || "");
+      getEditedThemeColor(selectedTheme, customColors, key) ||
+      currentThemePalette[0] ||
+      "";
     setActiveColorKey(key);
     setActiveColorSession({
       key,
@@ -401,6 +406,11 @@ export default function MapSettingsSection({
   }
 
   function handleResetSingleColor(key: ThemeColorKey) {
+    // Border colors drop their edit, so they copy background / text again.
+    if (THEME_COLOR_FALLBACKS[key]) {
+      onColorChange(key, "");
+      return;
+    }
     const originalColor =
       normalizeHexColor(getThemeColorByPath(selectedTheme, key)) ||
       normalizeHexColor(currentThemePalette[0]) ||
@@ -470,10 +480,14 @@ export default function MapSettingsSection({
     ? activeColorChoices
     : buildDynamicColorChoices(currentThemePalette[0] || "", currentThemePalette);
   const editorColor =
-    customColors[editorKey] ??
-    (getThemeColorByPath(selectedTheme, editorKey) || currentThemePalette[0] || "");
+    getEditedThemeColor(selectedTheme, customColors, editorKey) ||
+    currentThemePalette[0] ||
+    "";
+  const { [editorKey]: _editorEdit, ...editsWithoutEditorKey } = customColors;
   const originalEditorColor =
-    normalizeHexColor(getThemeColorByPath(selectedTheme, editorKey)) ||
+    normalizeHexColor(
+      getEditedThemeColor(selectedTheme, editsWithoutEditorKey, editorKey),
+    ) ||
     normalizeHexColor(currentThemePalette[0]) ||
     "";
   const normalizedEditorColor = normalizeHexColor(editorColor) || "";

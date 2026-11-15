@@ -355,6 +355,7 @@
         "right": "يمين"
       },
       "border": "إطار",
+      "borderColors": "الألوان في السمة",
       "borderWidth": "عرض الإطار",
       "borderLine": "الخط",
       "line": {
@@ -429,7 +430,9 @@
     "colors": {
       "ui": {
         "bg": "التراكب",
-        "text": "النص"
+        "text": "النص",
+        "border": "الإطار",
+        "borderLine": "خط الإطار"
       },
       "map": {
         "land": "اليابسة",

@@ -1,6 +1,10 @@
 export interface ThemeUiColors {
   bg: string;
   text: string;
+  /** Poster border area; unset = same as bg. */
+  border?: string;
+  /** Poster border line; unset = same as text. */
+  borderLine?: string;
 }
 
 export interface ThemeRoadColors {
@@ -37,6 +41,8 @@ export interface ResolvedTheme extends ThemeColors {
 export type ThemeColorKey =
   | "ui.bg"
   | "ui.text"
+  | "ui.border"
+  | "ui.borderLine"
   | "map.land"
   | "map.landcover"
   | "map.water"
@@ -70,6 +76,8 @@ export interface SavedTheme {
 export const DISPLAY_PALETTE_KEYS: ThemeColorKey[] = [
   "ui.bg",
   "ui.text",
+  "ui.border",
+  "ui.borderLine",
   "map.land",
   "map.landcover",
   "map.water",
@@ -89,6 +97,8 @@ export const DISPLAY_PALETTE_KEYS: ThemeColorKey[] = [
 export const PALETTE_COLOR_LABELS: Record<ThemeColorKey, string> = {
   "ui.bg": "Overlay",
   "ui.text": "Text",
+  "ui.border": "Border",
+  "ui.borderLine": "Border line",
   "map.land": "Land",
   "map.landcover": "Landcover",
   "map.water": "Water",

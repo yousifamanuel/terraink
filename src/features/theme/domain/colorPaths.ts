@@ -4,10 +4,39 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
+/** Colors that copy another one until they are set on their own. */
+export const THEME_COLOR_FALLBACKS: Partial<Record<ThemeColorKey, ThemeColorKey>> = {
+  "ui.border": "ui.bg",
+  "ui.borderLine": "ui.text",
+};
+
 export function getThemeColorByPath(
   theme: unknown,
   keyPath: ThemeColorKey | string,
 ): string {
+  const own = readColorPath(theme, keyPath);
+  if (own) return own;
+  const fallback = THEME_COLOR_FALLBACKS[keyPath as ThemeColorKey];
+  return fallback ? readColorPath(theme, fallback) : "";
+}
+
+/**
+ * The color a key shows with the user's unsaved edits applied: its own edit,
+ * else its theme value, else (for border colors) the edited color it copies.
+ */
+export function getEditedThemeColor(
+  theme: unknown,
+  overrides: Record<string, string>,
+  keyPath: ThemeColorKey,
+): string {
+  if (overrides[keyPath]) return overrides[keyPath];
+  const own = readColorPath(theme, keyPath);
+  if (own) return own;
+  const fallback = THEME_COLOR_FALLBACKS[keyPath];
+  return fallback ? getEditedThemeColor(theme, overrides, fallback) : "";
+}
+
+function readColorPath(theme: unknown, keyPath: string): string {
   if (!isObject(theme)) return "";
 
   const segments = String(keyPath)

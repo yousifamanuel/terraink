@@ -347,6 +347,7 @@
         "right": "Right"
       },
       "border": "Border",
+      "borderColors": "Colors in Theme",
       "borderWidth": "Border width",
       "borderLine": "Line",
       "line": {
@@ -421,7 +422,9 @@
     "colors": {
       "ui": {
         "bg": "Overlay",
-        "text": "Text"
+        "text": "Text",
+        "border": "Border",
+        "borderLine": "Border line"
       },
       "map": {
         "land": "Land",

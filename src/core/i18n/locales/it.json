@@ -349,6 +349,7 @@
         "right": "Destra"
       },
       "border": "Bordo",
+      "borderColors": "Colori in Tema",
       "borderWidth": "Larghezza bordo",
       "borderLine": "Linea",
       "line": {
@@ -423,7 +424,9 @@
     "colors": {
       "ui": {
         "bg": "Sovrapposizione",
-        "text": "Testo"
+        "text": "Testo",
+        "border": "Bordo",
+        "borderLine": "Linea del bordo"
       },
       "map": {
         "land": "Terra",
