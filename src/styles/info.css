@@ -194,6 +194,43 @@
   color: #6bc77e;
 }
 
+/* ── Built with (service credits) ── */
+
+.built-with-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.built-with-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.82rem;
+}
+
+.built-with-link {
+  color: #c5d9e8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.built-with-link:hover,
+.built-with-link:focus-visible {
+  color: #ecf8ff;
+  text-decoration: underline;
+}
+
+.built-with-role {
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.7rem;
+  color: #6a90a8;
+  text-align: right;
+}
+
 /* ── Social media badges ── */
 
 .social-links-row {

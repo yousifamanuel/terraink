@@ -219,7 +219,8 @@
       "showParks": "Parki",
       "showRoads": "Drogi",
       "showRail": "Koleje",
-      "showAeroway": "Lotniska"
+      "showAeroway": "Lotniska",
+      "showBorders": "Granice"
     },
     "dimensions": {
       "widthCm": "Szerokość (cm)",
@@ -290,7 +291,8 @@
       "layers": "Warstwy",
       "markers": "Znaczniki",
       "routes": "Trasy",
-      "style": "Styl"
+      "style": "Styl",
+      "text": "Tekst"
     },
     "info": {
       "ariaLabel": "Ustawienia",
@@ -328,12 +330,55 @@
     },
     "typography": {
       "style": "STYL",
+      "text": "TEKST",
       "posterText": "Tekst plakatu",
       "overlayLayer": "Nakładka",
-      "displayCity": "Pokaż miasto",
-      "displayCountry": "Pokaż kraj",
+      "displayCity": "Tytuł",
+      "displayCountry": "Podtytuł",
       "font": "Czcionka",
-      "defaultFont": "Domyślna (Space Grotesk)"
+      "defaultFont": "Space Grotesk (domyślna)",
+      "coordinates": "Współrzędne",
+      "separator": "Separator",
+      "separatorNone": "Bez separatora",
+      "separatorCustom": "Własny separator (do 3 znaków)",
+      "textPosition": "Pozycja tekstu",
+      "position": {
+        "top": "Góra",
+        "bottom": "Dół"
+      },
+      "textAlign": "Wyrównanie",
+      "align": {
+        "left": "Lewo",
+        "center": "Środek",
+        "right": "Prawo"
+      },
+      "border": "Ramka",
+      "borderColors": "Kolory w Motywie",
+      "borderWidth": "Szerokość ramki",
+      "borderLine": "Linia",
+      "line": {
+        "single": "Pojedyncza",
+        "double": "Podwójna"
+      },
+      "borderStyle": "Styl linii",
+      "dash": {
+        "solid": "Ciągła",
+        "dashed": "Przerywana"
+      },
+      "lineThickness": "Grubość linii",
+      "titleSize": "Rozmiar tytułu",
+      "subtitleSize": "Rozmiar podtytułu",
+      "textOffset": "W górę / w dół",
+      "divider": "Linia podziału",
+      "dividerStyle": "Styl linii",
+      "dividerStyles": {
+        "solid": "Ciągła",
+        "dashed": "Kreskowana",
+        "dotted": "Kropkowana"
+      },
+      "dividerThickness": "Grubość linii",
+      "resetStyle": "Resetuj wszystkie ustawienia stylu",
+      "resetText": "Resetuj wszystkie ustawienia tekstu"
     }
   },
   "theme": {
@@ -357,7 +402,12 @@
       "editing": "Edytujesz: {{label}}",
       "save": "Zapisz",
       "resetAll": "Resetuj wszystko",
-      "done": "Gotowe"
+      "done": "Gotowe",
+      "groupColors": "Grupuj kolory",
+      "showDetails": "Pokaż szczegóły",
+      "layerOff": "Warstwa wyłączona",
+      "applyToDetails": "Zastosuj do szczegółów",
+      "off": "Wył."
     },
     "saveModal": {
       "title": "Zapisz motyw",
@@ -384,7 +434,9 @@
     "colors": {
       "ui": {
         "bg": "Nakładka",
-        "text": "Tekst"
+        "text": "Tekst",
+        "border": "Ramka",
+        "borderLine": "Linia ramki"
       },
       "map": {
         "land": "Ląd",
@@ -402,8 +454,23 @@
           "minor_low": "Boczne niskie",
           "path": "Ścieżki",
           "outline": "Obrys dróg"
-        }
+        },
+        "forest": "Las",
+        "grass": "Trawa",
+        "farmland": "Pola uprawne",
+        "wetland": "Mokradła",
+        "sand": "Piasek",
+        "ice": "Lód",
+        "borders": "Granice państw"
       }
+    },
+    "groups": {
+      "poster": "Plakat",
+      "land": "Ląd",
+      "nature": "Przyroda",
+      "water": "Woda",
+      "transport": "Transport",
+      "roads": "Drogi"
     },
     "descriptions": {
       "carrara": "Biały marmur — jasny kamień z miękkimi szarymi żyłkami",
@@ -415,6 +482,7 @@
       "rustic": "Ziemisty papier z drewnianymi i glinianymi drogami",
       "midnight_blue": "Głęboki granat ze złotymi i miedzianymi drogami — luksusowy atlas",
       "neon": "Neonowa, kontrastowa paleta z akcentami magenty i cyjanu",
+      "graphite": "Neutralne szarości z białym tekstem i jasnoszarymi drogami.",
       "terracotta": "Śródziemnomorskie ciepło — palona pomarańcza i glina na kremie",
       "blueprint": "Klasyczny niebieski rysunek techniczny",
       "contrast_zones": "Mocny kontrast zagęszczenia miasta — ciemno w centrum, jasno na brzegach",
@@ -495,7 +563,8 @@
   },
   "shell": {
     "common": {
-      "close": "Zamknij"
+      "close": "Zamknij",
+      "resetDefault": "Przywróć domyślne"
     },
     "footer": {
       "imprint": "Nota prawna",
@@ -547,7 +616,15 @@
       "donate": "Wesprzyj",
       "donateLabel": "Wesprzyj Terraink darowizną, by pozostał darmowy",
       "follow": "Obserwuj Terraink na {{network}}",
-      "credits": "Podaj źródło, by pomóc innym odkryć to narzędzie"
+      "credits": "Podaj źródło, by pomóc innym odkryć to narzędzie",
+      "builtWith": {
+        "title": "Zbudowano z",
+        "mapData": "Dane mapy",
+        "tiles": "Styl mapy",
+        "hosting": "Hosting kafelków",
+        "search": "Wyszukiwanie miejsc",
+        "renderer": "Silnik mapy"
+      }
     },
     "social": {
       "projectLinks": "Linki projektu",
@@ -563,6 +640,7 @@
       "theme": "Motyw",
       "layout": "Układ",
       "style": "Styl",
+      "text": "Tekst",
       "layers": "Warstwy",
       "markers": "Znaczniki",
       "routes": "Trasy",

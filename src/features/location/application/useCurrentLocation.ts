@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { reverseGeocodeCoordinates } from "@/core/services";
 import { DEFAULT_DISTANCE_METERS } from "@/core/config";
@@ -13,7 +13,10 @@ interface UseCurrentLocationReturn {
   handleUseCurrentLocation: () => void;
   isLocatingUser: boolean;
   locationPermissionMessage: string;
+  dismissLocationPermissionMessage: () => void;
 }
+
+const LOCATION_MESSAGE_HIDE_MS = 5000;
 
 export function useCurrentLocation(
   flyToLocation: (lat: number, lon: number) => void,
@@ -23,6 +26,16 @@ export function useCurrentLocation(
   const isLocatingRef = useRef(false);
   const [locationPermissionMessage, setLocationPermissionMessage] =
     useState("");
+
+  // The message covers the panel below it, so it hides itself after a while.
+  useEffect(() => {
+    if (!locationPermissionMessage) return;
+    const timer = window.setTimeout(
+      () => setLocationPermissionMessage(""),
+      LOCATION_MESSAGE_HIDE_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [locationPermissionMessage]);
 
   const handleUseCurrentLocation = useCallback(() => {
     if (isLocatingRef.current) return;
@@ -98,5 +111,15 @@ export function useCurrentLocation(
     })();
   }, [flyToLocation, dispatch]);
 
-  return { handleUseCurrentLocation, isLocatingUser, locationPermissionMessage };
+  const dismissLocationPermissionMessage = useCallback(
+    () => setLocationPermissionMessage(""),
+    [],
+  );
+
+  return {
+    handleUseCurrentLocation,
+    isLocatingUser,
+    locationPermissionMessage,
+    dismissLocationPermissionMessage,
+  };
 }

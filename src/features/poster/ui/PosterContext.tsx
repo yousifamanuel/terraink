@@ -35,6 +35,7 @@ import {
   saveUserDefaults,
 } from "@/features/settings/infrastructure/userDefaultsStorage";
 import type { UserDefaults } from "@/features/settings/domain/types";
+import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -74,8 +75,26 @@ export const DEFAULT_FORM: PosterForm = {
   displayCity: "Hanover",
   displayCountry: "Germany",
   displayContinent: "Europe",
+  posterTitle: "",
+  posterSubtitle: "",
   fontFamily: "",
+  textPosition: DEFAULT_POSTER_LAYOUT.textPosition,
+  textAlign: DEFAULT_POSTER_LAYOUT.textAlign,
+  showBorder: DEFAULT_POSTER_LAYOUT.border,
+  borderWidth: String(DEFAULT_POSTER_LAYOUT.borderWidth),
+  borderLine: DEFAULT_POSTER_LAYOUT.borderLine,
+  borderDash: DEFAULT_POSTER_LAYOUT.borderDash,
+  borderThickness: String(DEFAULT_POSTER_LAYOUT.borderThickness),
+  titleSize: String(DEFAULT_POSTER_LAYOUT.titleSize),
+  subtitleSize: String(DEFAULT_POSTER_LAYOUT.subtitleSize),
+  textOffset: String(DEFAULT_POSTER_LAYOUT.textOffset),
+  showDivider: DEFAULT_POSTER_LAYOUT.showDivider,
+  dividerStyle: DEFAULT_POSTER_LAYOUT.dividerStyle,
+  dividerThickness: String(DEFAULT_POSTER_LAYOUT.dividerThickness),
   showPosterText: true,
+  coordinateFormat: "nsew",
+  showCoordinates: true,
+  coordinateSeparator: "/",
   includeCredits: true,
   includeLandcover: true,
   includeBuildings: false,
@@ -87,6 +106,7 @@ export const DEFAULT_FORM: PosterForm = {
   includeRoadPath: true,
   includeRoadMinorLow: true,
   includeRoadOutline: true,
+  includeBorders: false,
   showMarkers: true,
   showRoutes: true,
 };
@@ -135,6 +155,7 @@ function buildInitialState(): PosterState {
     isExporting: false,
     isLocationFocused: false,
     isLocationLookupPending: false,
+    mapZoom: Infinity,
     selectedLocation: null,
     userLocation: null,
     displayNameOverrides: {
@@ -295,6 +316,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
         includeRoadPath: state.form.includeRoadPath,
         includeRoadMinorLow: state.form.includeRoadMinorLow,
         includeRoadOutline: state.form.includeRoadOutline,
+        includeBorders: state.form.includeBorders,
         distanceMeters: Number(state.form.distance),
       }),
     [
@@ -309,6 +331,7 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       state.form.includeRoadPath,
       state.form.includeRoadMinorLow,
       state.form.includeRoadOutline,
+      state.form.includeBorders,
       state.form.distance,
     ],
   );

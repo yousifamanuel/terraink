@@ -221,7 +221,8 @@
       "showParks": "عرض الحدائق",
       "showRoads": "عرض الطرق",
       "showRail": "عرض السكك الحديدية",
-      "showAeroway": "عرض مسارات الطيران"
+      "showAeroway": "عرض مسارات الطيران",
+      "showBorders": "عرض الحدود"
     },
     "dimensions": {
       "widthCm": "العرض (cm)",
@@ -292,7 +293,8 @@
       "layers": "الطبقات",
       "markers": "العلامات",
       "routes": "المسارات",
-      "style": "النمط"
+      "style": "النمط",
+      "text": "النص"
     },
     "info": {
       "ariaLabel": "الإعدادات الحالية",
@@ -332,12 +334,55 @@
     },
     "typography": {
       "style": "النمط",
+      "text": "النص",
       "posterText": "نص الملصق",
       "overlayLayer": "طبقة التراكب",
-      "displayCity": "عرض المدينة",
-      "displayCountry": "عرض الدولة",
+      "displayCity": "العنوان",
+      "displayCountry": "العنوان الفرعي",
       "font": "الخط",
-      "defaultFont": "الافتراضي (Space Grotesk)"
+      "defaultFont": "Space Grotesk (الافتراضي)",
+      "coordinates": "الإحداثيات",
+      "separator": "الفاصل",
+      "separatorNone": "بدون فاصل",
+      "separatorCustom": "فاصل خاص (حتى 3 أحرف)",
+      "textPosition": "موضع النص",
+      "position": {
+        "top": "أعلى",
+        "bottom": "أسفل"
+      },
+      "textAlign": "المحاذاة",
+      "align": {
+        "left": "يسار",
+        "center": "وسط",
+        "right": "يمين"
+      },
+      "border": "إطار",
+      "borderColors": "الألوان في السمة",
+      "borderWidth": "عرض الإطار",
+      "borderLine": "الخط",
+      "line": {
+        "single": "مفرد",
+        "double": "مزدوج"
+      },
+      "borderStyle": "نمط الخط",
+      "dash": {
+        "solid": "متصل",
+        "dashed": "متقطع"
+      },
+      "lineThickness": "سُمك الخط",
+      "titleSize": "حجم العنوان",
+      "subtitleSize": "حجم العنوان الفرعي",
+      "textOffset": "تحريك لأعلى / لأسفل",
+      "divider": "خط فاصل",
+      "dividerStyle": "نمط الخط",
+      "dividerStyles": {
+        "solid": "متصل",
+        "dashed": "متقطع",
+        "dotted": "منقط"
+      },
+      "dividerThickness": "سُمك الخط",
+      "resetStyle": "إعادة ضبط كل إعدادات النمط",
+      "resetText": "إعادة ضبط كل إعدادات النص"
     }
   },
   "theme": {
@@ -361,7 +406,12 @@
       "editing": "تحرير: {{label}}",
       "save": "حفظ",
       "resetAll": "إعادة ضبط الكل",
-      "done": "تم"
+      "done": "تم",
+      "groupColors": "تجميع الألوان",
+      "showDetails": "إظهار التفاصيل",
+      "layerOff": "الطبقة مطفأة",
+      "applyToDetails": "تطبيق على التفاصيل",
+      "off": "مطفأ"
     },
     "saveModal": {
       "title": "حفظ الألوان",
@@ -388,7 +438,9 @@
     "colors": {
       "ui": {
         "bg": "التراكب",
-        "text": "النص"
+        "text": "النص",
+        "border": "الإطار",
+        "borderLine": "خط الإطار"
       },
       "map": {
         "land": "اليابسة",
@@ -406,8 +458,23 @@
           "minor_low": "الطرق الفرعية الدنيا",
           "path": "الممرات",
           "outline": "حدود الطرق"
-        }
+        },
+        "forest": "غابة",
+        "grass": "عشب",
+        "farmland": "أراضٍ زراعية",
+        "wetland": "أراضٍ رطبة",
+        "sand": "رمال",
+        "ice": "جليد",
+        "borders": "حدود الدول"
       }
+    },
+    "groups": {
+      "poster": "الملصق",
+      "land": "اليابسة",
+      "nature": "الطبيعة",
+      "water": "المياه",
+      "transport": "النقل",
+      "roads": "الطرق"
     },
     "descriptions": {
       "carrara": "رخام أبيض — حجر شاحب بعروق فحمية ناعمة",
@@ -419,6 +486,7 @@
       "rustic": "خلفية ترابية تشبه الورق مع طرق بدرجات الخشب والطين",
       "midnight_blue": "أزرق كحلي داكن وطرق ذهبية نحاسية — طابع أطلس فاخر",
       "neon": "ألوان نيون شديدة التباين مع لمسات ماجنتا وسماوي",
+      "graphite": "درجات رمادية محايدة مع نص أبيض وطرق رمادية فاتحة.",
       "terracotta": "دفء متوسطي — برتقالي محروق وطين على كريمي",
       "blueprint": "مخطط معماري كلاسيكي — طابع الرسم الهندسي",
       "contrast_zones": "تباين قوي يُظهر كثافة المدينة — أغمق في الوسط وأفتح عند الأطراف",
@@ -499,7 +567,8 @@
   },
   "shell": {
     "common": {
-      "close": "إغلاق"
+      "close": "إغلاق",
+      "resetDefault": "استعادة الافتراضي"
     },
     "footer": {
       "imprint": "بيانات الناشر",
@@ -551,7 +620,15 @@
       "donate": "تبرّع",
       "donateLabel": "ادعم Terraink وتبرّع لإبقائه مجانيًا",
       "follow": "تابع Terraink على {{network}}",
-      "credits": "اذكر المصدر ليكتشف الآخرون الأداة"
+      "credits": "اذكر المصدر ليكتشف الآخرون الأداة",
+      "builtWith": {
+        "title": "مبني باستخدام",
+        "mapData": "بيانات الخريطة",
+        "tiles": "نمط الخريطة",
+        "hosting": "استضافة البلاطات",
+        "search": "البحث عن الأماكن",
+        "renderer": "محرك الخريطة"
+      }
     },
     "social": {
       "projectLinks": "روابط المشروع",
@@ -567,6 +644,7 @@
       "theme": "الألوان",
       "layout": "التخطيط",
       "style": "النمط",
+      "text": "النص",
       "layers": "الطبقات",
       "markers": "العلامات",
       "routes": "المسارات",

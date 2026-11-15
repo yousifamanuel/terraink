@@ -216,7 +216,8 @@
       "showParks": "公園を表示",
       "showRoads": "道路を表示",
       "showRail": "鉄道を表示",
-      "showAeroway": "空港を表示"
+      "showAeroway": "空港を表示",
+      "showBorders": "国境を表示"
     },
     "dimensions": {
       "widthCm": "幅（cm）",
@@ -287,7 +288,8 @@
       "layers": "レイヤー",
       "markers": "マーカー",
       "routes": "ルート",
-      "style": "スタイル"
+      "style": "スタイル",
+      "text": "文字"
     },
     "info": {
       "ariaLabel": "現在の設定",
@@ -322,12 +324,55 @@
     },
     "typography": {
       "style": "スタイル",
+      "text": "文字",
       "posterText": "ポスターの文字",
       "overlayLayer": "オーバーレイ",
-      "displayCity": "都市を表示",
-      "displayCountry": "国を表示",
+      "displayCity": "タイトル",
+      "displayCountry": "サブタイトル",
       "font": "フォント",
-      "defaultFont": "標準（Space Grotesk）"
+      "defaultFont": "Space Grotesk（標準）",
+      "coordinates": "座標",
+      "separator": "区切り文字",
+      "separatorNone": "区切りなし",
+      "separatorCustom": "独自の区切り文字（3文字まで）",
+      "textPosition": "文字の位置",
+      "position": {
+        "top": "上",
+        "bottom": "下"
+      },
+      "textAlign": "配置",
+      "align": {
+        "left": "左",
+        "center": "中央",
+        "right": "右"
+      },
+      "border": "枠",
+      "borderColors": "色はテーマで",
+      "borderWidth": "枠の幅",
+      "borderLine": "線",
+      "line": {
+        "single": "一重",
+        "double": "二重"
+      },
+      "borderStyle": "線の種類",
+      "dash": {
+        "solid": "実線",
+        "dashed": "破線"
+      },
+      "lineThickness": "線の太さ",
+      "titleSize": "タイトルの大きさ",
+      "subtitleSize": "サブタイトルの大きさ",
+      "textOffset": "上下の位置",
+      "divider": "区切り線",
+      "dividerStyle": "線の種類",
+      "dividerStyles": {
+        "solid": "実線",
+        "dashed": "破線",
+        "dotted": "点線"
+      },
+      "dividerThickness": "線の太さ",
+      "resetStyle": "スタイル設定をすべてリセット",
+      "resetText": "文字設定をすべてリセット"
     }
   },
   "theme": {
@@ -351,7 +396,12 @@
       "editing": "編集中：{{label}}",
       "save": "保存",
       "resetAll": "すべてリセット",
-      "done": "完了"
+      "done": "完了",
+      "groupColors": "色をグループ化",
+      "showDetails": "詳細を表示",
+      "layerOff": "レイヤーはオフ",
+      "applyToDetails": "詳細に適用",
+      "off": "オフ"
     },
     "saveModal": {
       "title": "テーマを保存",
@@ -378,7 +428,9 @@
     "colors": {
       "ui": {
         "bg": "オーバーレイ",
-        "text": "文字"
+        "text": "文字",
+        "border": "枠",
+        "borderLine": "枠線"
       },
       "map": {
         "land": "陸地",
@@ -396,8 +448,23 @@
           "minor_low": "細道路（下）",
           "path": "小道",
           "outline": "道路の輪郭"
-        }
+        },
+        "forest": "森林",
+        "grass": "草地",
+        "farmland": "農地",
+        "wetland": "湿地",
+        "sand": "砂地",
+        "ice": "氷",
+        "borders": "国境"
       }
+    },
+    "groups": {
+      "poster": "ポスター",
+      "land": "陸地",
+      "nature": "自然",
+      "water": "水",
+      "transport": "交通",
+      "roads": "道路"
     },
     "descriptions": {
       "carrara": "白い大理石、淡い石にやわらかな炭色の筋",
@@ -409,6 +476,7 @@
       "rustic": "紙のような大地の色に、木と粘土色の道",
       "midnight_blue": "深いネイビーに金と銅の道、高級アトラスの雰囲気",
       "neon": "マゼンタとシアンが光る、ネオンのハイコントラスト",
+      "graphite": "白い文字と明るいグレーの道路のニュートラルなグレー。",
       "terracotta": "地中海の温もり、クリーム地に焦げたオレンジと粘土色",
       "blueprint": "定番の建築ブループリント、製図の雰囲気",
       "contrast_zones": "都市の密度を強いコントラストで表現、中心は濃く外側は淡く",
@@ -489,7 +557,8 @@
   },
   "shell": {
     "common": {
-      "close": "閉じる"
+      "close": "閉じる",
+      "resetDefault": "初期値に戻す"
     },
     "footer": {
       "imprint": "運営者情報",
@@ -541,7 +610,15 @@
       "donate": "寄付",
       "donateLabel": "Terrainkを無料で続けるために寄付で応援",
       "follow": "{{network}}でTerrainkをフォロー",
-      "credits": "クレジットを入れて、このツールを広めましょう"
+      "credits": "クレジットを入れて、このツールを広めましょう",
+      "builtWith": {
+        "title": "使用サービス",
+        "mapData": "地図データ",
+        "tiles": "地図スタイル",
+        "hosting": "タイル配信",
+        "search": "場所検索",
+        "renderer": "地図エンジン"
+      }
     },
     "social": {
       "projectLinks": "プロジェクトのリンク",
@@ -557,6 +634,7 @@
       "theme": "テーマ",
       "layout": "レイアウト",
       "style": "スタイル",
+      "text": "文字",
       "layers": "レイヤー",
       "markers": "マーカー",
       "routes": "ルート",

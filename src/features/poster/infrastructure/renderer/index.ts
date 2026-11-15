@@ -1,10 +1,12 @@
 import i18n from "@/core/i18n";
-import { applyFades } from "./layers";
+import { applyFades, drawTemplateFrame } from "./layers";
 import { drawPosterText } from "./typography";
 import { drawMarkersOnCanvas } from "@/features/markers/infrastructure/rendering";
 import { drawRoutesOnCanvas } from "@/features/routes/infrastructure/rendering";
 import { routeEndpointMarkerItems } from "@/features/routes/infrastructure/helpers";
 import type { ExportOptions, CanvasSize } from "../../domain/types";
+import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 
 /**
  * Composites a final poster from a MapLibre snapshot canvas.
@@ -28,7 +30,9 @@ export async function compositeExport(
     displayCountry,
     fontFamily,
     showPosterText = true,
+    coordinateText,
     showOverlay = true,
+    posterLayout,
     includeCredits = true,
     markers = [],
     markerIcons = [],
@@ -41,6 +45,7 @@ export async function compositeExport(
 
   const width = mapCanvas.width;
   const height = mapCanvas.height;
+  const template = buildPosterLayout(posterLayout, width / height);
 
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -54,7 +59,7 @@ export async function compositeExport(
 
   // 2. Gradient fades
   if (showOverlay) {
-    applyFades(ctx, width, height, theme.ui.bg);
+    applyFades(ctx, width, height, theme.ui.bg, template);
   }
 
   // 3. Routes (below markers)
@@ -98,7 +103,17 @@ export async function compositeExport(
     );
   }
 
-  // 6. Poster text
+  // 6. Template frame
+  drawTemplateFrame(
+    ctx,
+    width,
+    height,
+    getThemeColorByPath(theme, "ui.borderLine"),
+    getThemeColorByPath(theme, "ui.border"),
+    template,
+  );
+
+  // 7. Poster text
   drawPosterText(
     ctx,
     width,
@@ -111,6 +126,8 @@ export async function compositeExport(
     showPosterText,
     showOverlay,
     includeCredits,
+    template,
+    coordinateText,
   );
 
   const size: CanvasSize = {

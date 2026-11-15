@@ -218,7 +218,8 @@
       "showParks": "Parques",
       "showRoads": "Ruas",
       "showRail": "Ferrovias",
-      "showAeroway": "Aeroportos"
+      "showAeroway": "Aeroportos",
+      "showBorders": "Fronteiras"
     },
     "dimensions": {
       "widthCm": "Largura (cm)",
@@ -289,7 +290,8 @@
       "layers": "Camadas",
       "markers": "Marcadores",
       "routes": "Rotas",
-      "style": "Estilo"
+      "style": "Estilo",
+      "text": "Texto"
     },
     "info": {
       "ariaLabel": "Ajustes atuais",
@@ -326,12 +328,55 @@
     },
     "typography": {
       "style": "ESTILO",
+      "text": "TEXTO",
       "posterText": "Texto",
       "overlayLayer": "Sobreposição",
-      "displayCity": "Cidade",
-      "displayCountry": "País",
+      "displayCity": "Título",
+      "displayCountry": "Subtítulo",
       "font": "Fonte",
-      "defaultFont": "Padrão (Space Grotesk)"
+      "defaultFont": "Space Grotesk (padrão)",
+      "coordinates": "Coordenadas",
+      "separator": "Separador",
+      "separatorNone": "Sem separador",
+      "separatorCustom": "Separador próprio (até 3 caracteres)",
+      "textPosition": "Posição do texto",
+      "position": {
+        "top": "Topo",
+        "bottom": "Base"
+      },
+      "textAlign": "Alinhamento",
+      "align": {
+        "left": "Esquerda",
+        "center": "Centro",
+        "right": "Direita"
+      },
+      "border": "Borda",
+      "borderColors": "Cores em Tema",
+      "borderWidth": "Largura da borda",
+      "borderLine": "Linha",
+      "line": {
+        "single": "Simples",
+        "double": "Dupla"
+      },
+      "borderStyle": "Estilo da linha",
+      "dash": {
+        "solid": "Contínua",
+        "dashed": "Tracejada"
+      },
+      "lineThickness": "Espessura da linha",
+      "titleSize": "Tamanho do título",
+      "subtitleSize": "Tamanho do subtítulo",
+      "textOffset": "Subir / descer",
+      "divider": "Linha divisória",
+      "dividerStyle": "Estilo da linha",
+      "dividerStyles": {
+        "solid": "Contínua",
+        "dashed": "Tracejada",
+        "dotted": "Pontilhada"
+      },
+      "dividerThickness": "Espessura da linha",
+      "resetStyle": "Redefinir todo o estilo",
+      "resetText": "Redefinir todo o texto"
     }
   },
   "theme": {
@@ -355,7 +400,12 @@
       "editing": "Editando: {{label}}",
       "save": "Salvar",
       "resetAll": "Redefinir tudo",
-      "done": "Concluir"
+      "done": "Concluir",
+      "groupColors": "Agrupar cores",
+      "showDetails": "Mostrar detalhes",
+      "layerOff": "Camada desligada",
+      "applyToDetails": "Aplicar aos detalhes",
+      "off": "Desl."
     },
     "saveModal": {
       "title": "Salvar tema",
@@ -382,7 +432,9 @@
     "colors": {
       "ui": {
         "bg": "Sobreposição",
-        "text": "Texto"
+        "text": "Texto",
+        "border": "Borda",
+        "borderLine": "Linha da borda"
       },
       "map": {
         "land": "Terra",
@@ -400,8 +452,23 @@
           "minor_low": "Vias sec. baixa",
           "path": "Caminhos",
           "outline": "Contorno"
-        }
+        },
+        "forest": "Floresta",
+        "grass": "Grama",
+        "farmland": "Plantações",
+        "wetland": "Área úmida",
+        "sand": "Areia",
+        "ice": "Gelo",
+        "borders": "Fronteiras"
       }
+    },
+    "groups": {
+      "poster": "Pôster",
+      "land": "Terra",
+      "nature": "Natureza",
+      "water": "Água",
+      "transport": "Transporte",
+      "roads": "Ruas"
     },
     "descriptions": {
       "carrara": "Mármore branco — pedra clara com veios suaves de carvão",
@@ -413,6 +480,7 @@
       "rustic": "Base terrosa de papel com ruas em tons de madeira e argila.",
       "midnight_blue": "Fundo azul-marinho profundo com ruas douradas e cobre — estética de atlas de luxo",
       "neon": "Paleta de alto contraste encharcada de neon, com detalhes magenta e ciano.",
+      "graphite": "Cinzas neutros com texto branco e ruas cinza-claro.",
       "terracotta": "Calor mediterrâneo — laranja queimado e tons de argila sobre creme",
       "blueprint": "Planta arquitetônica clássica — estética de desenho técnico",
       "contrast_zones": "Forte contraste que mostra a densidade urbana — mais escuro no centro, mais claro nas bordas",
@@ -493,7 +561,8 @@
   },
   "shell": {
     "common": {
-      "close": "Fechar"
+      "close": "Fechar",
+      "resetDefault": "Voltar ao padrão"
     },
     "footer": {
       "imprint": "Aviso legal",
@@ -545,7 +614,15 @@
       "donate": "Doar",
       "donateLabel": "Apoie o Terraink e doe para mantê-lo gratuito",
       "follow": "Siga o Terraink no {{network}}",
-      "credits": "Inclua os créditos para ajudar outras pessoas a descobrir a ferramenta"
+      "credits": "Inclua os créditos para ajudar outras pessoas a descobrir a ferramenta",
+      "builtWith": {
+        "title": "Feito com",
+        "mapData": "Dados do mapa",
+        "tiles": "Estilo do mapa",
+        "hosting": "Hospedagem de blocos",
+        "search": "Busca de lugares",
+        "renderer": "Motor do mapa"
+      }
     },
     "social": {
       "projectLinks": "Links do projeto",
@@ -561,6 +638,7 @@
       "theme": "Tema",
       "layout": "Layout",
       "style": "Estilo",
+      "text": "Texto",
       "layers": "Camadas",
       "markers": "Marcadores",
       "routes": "Rotas",

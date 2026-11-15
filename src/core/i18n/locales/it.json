@@ -218,7 +218,8 @@
       "showParks": "Parchi",
       "showRoads": "Strade",
       "showRail": "Ferrovie",
-      "showAeroway": "Aeroporti"
+      "showAeroway": "Aeroporti",
+      "showBorders": "Confini"
     },
     "dimensions": {
       "widthCm": "Larghezza (cm)",
@@ -289,7 +290,8 @@
       "layers": "Livelli",
       "markers": "Segnaposto",
       "routes": "Percorsi",
-      "style": "Stile"
+      "style": "Stile",
+      "text": "Testo"
     },
     "info": {
       "ariaLabel": "Impostazioni attuali",
@@ -326,12 +328,55 @@
     },
     "typography": {
       "style": "STILE",
+      "text": "TESTO",
       "posterText": "Testo poster",
       "overlayLayer": "Sovrapposizione",
-      "displayCity": "Città",
-      "displayCountry": "Paese",
+      "displayCity": "Titolo",
+      "displayCountry": "Sottotitolo",
       "font": "Carattere",
-      "defaultFont": "Predefinito (Space Grotesk)"
+      "defaultFont": "Space Grotesk (predefinito)",
+      "coordinates": "Coordinate",
+      "separator": "Separatore",
+      "separatorNone": "Nessun separatore",
+      "separatorCustom": "Separatore personale (max 3 caratteri)",
+      "textPosition": "Posizione testo",
+      "position": {
+        "top": "Alto",
+        "bottom": "Basso"
+      },
+      "textAlign": "Allineamento",
+      "align": {
+        "left": "Sinistra",
+        "center": "Centro",
+        "right": "Destra"
+      },
+      "border": "Bordo",
+      "borderColors": "Colori in Tema",
+      "borderWidth": "Larghezza bordo",
+      "borderLine": "Linea",
+      "line": {
+        "single": "Singola",
+        "double": "Doppia"
+      },
+      "borderStyle": "Stile linea",
+      "dash": {
+        "solid": "Continua",
+        "dashed": "Tratteggiata"
+      },
+      "lineThickness": "Spessore linea",
+      "titleSize": "Dimensione titolo",
+      "subtitleSize": "Dimensione sottotitolo",
+      "textOffset": "Su / giù",
+      "divider": "Linea divisoria",
+      "dividerStyle": "Stile linea",
+      "dividerStyles": {
+        "solid": "Continua",
+        "dashed": "Tratteggiata",
+        "dotted": "Punteggiata"
+      },
+      "dividerThickness": "Spessore linea",
+      "resetStyle": "Reimposta tutto lo stile",
+      "resetText": "Reimposta tutto il testo"
     }
   },
   "theme": {
@@ -355,7 +400,12 @@
       "editing": "Modifica: {{label}}",
       "save": "Salva",
       "resetAll": "Reimposta",
-      "done": "Fatto"
+      "done": "Fatto",
+      "groupColors": "Raggruppa colori",
+      "showDetails": "Mostra dettagli",
+      "layerOff": "Livello spento",
+      "applyToDetails": "Applica ai dettagli",
+      "off": "Spento"
     },
     "saveModal": {
       "title": "Salva tema",
@@ -382,7 +432,9 @@
     "colors": {
       "ui": {
         "bg": "Sovrapposizione",
-        "text": "Testo"
+        "text": "Testo",
+        "border": "Bordo",
+        "borderLine": "Linea del bordo"
       },
       "map": {
         "land": "Terra",
@@ -400,8 +452,23 @@
           "minor_low": "Minori basse",
           "path": "Sentieri",
           "outline": "Contorno"
-        }
+        },
+        "forest": "Bosco",
+        "grass": "Prato",
+        "farmland": "Campi",
+        "wetland": "Zona umida",
+        "sand": "Sabbia",
+        "ice": "Ghiaccio",
+        "borders": "Confini"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Terra",
+      "nature": "Natura",
+      "water": "Acqua",
+      "transport": "Trasporti",
+      "roads": "Strade"
     },
     "descriptions": {
       "carrara": "Marmo bianco, pietra chiara con venature grigio antracite",
@@ -413,6 +480,7 @@
       "rustic": "Base color carta con strade tra legno e argilla",
       "midnight_blue": "Blu notte con strade oro e rame, stile atlante di lusso",
       "neon": "Palette neon ad alto contrasto con accenti magenta e ciano",
+      "graphite": "Grigi neutri con testo bianco e strade grigio chiaro.",
       "terracotta": "Calore mediterraneo: arancio bruciato e argilla su crema",
       "blueprint": "Classico progetto architettonico, stile disegno tecnico",
       "contrast_zones": "Forte contrasto per la densità urbana: scuro al centro, chiaro ai bordi",
@@ -493,7 +561,8 @@
   },
   "shell": {
     "common": {
-      "close": "Chiudi"
+      "close": "Chiudi",
+      "resetDefault": "Ripristina predefinito"
     },
     "footer": {
       "imprint": "Note legali",
@@ -545,7 +614,15 @@
       "donate": "Dona",
       "donateLabel": "Sostieni Terraink e dona per mantenerlo gratuito",
       "follow": "Segui Terraink su {{network}}",
-      "credits": "Cita la fonte per aiutare altri a scoprire lo strumento"
+      "credits": "Cita la fonte per aiutare altri a scoprire lo strumento",
+      "builtWith": {
+        "title": "Realizzato con",
+        "mapData": "Dati mappa",
+        "tiles": "Stile mappa",
+        "hosting": "Hosting dei tile",
+        "search": "Ricerca luoghi",
+        "renderer": "Motore mappa"
+      }
     },
     "social": {
       "projectLinks": "Link del progetto",
@@ -561,6 +638,7 @@
       "theme": "Tema",
       "layout": "Formato",
       "style": "Stile",
+      "text": "Testo",
       "layers": "Livelli",
       "markers": "Segnaposto",
       "routes": "Percorsi",

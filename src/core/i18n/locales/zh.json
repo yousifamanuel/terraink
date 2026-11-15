@@ -216,7 +216,8 @@
       "showParks": "显示公园",
       "showRoads": "显示道路",
       "showRail": "显示铁路",
-      "showAeroway": "显示航空设施"
+      "showAeroway": "显示航空设施",
+      "showBorders": "显示国界"
     },
     "dimensions": {
       "widthCm": "宽度 (cm)",
@@ -287,7 +288,8 @@
       "layers": "图层",
       "markers": "标记",
       "routes": "路线",
-      "style": "样式"
+      "style": "样式",
+      "text": "文字"
     },
     "info": {
       "ariaLabel": "当前设置",
@@ -322,12 +324,55 @@
     },
     "typography": {
       "style": "样式",
+      "text": "文字",
       "posterText": "海报文字",
       "overlayLayer": "叠加层",
-      "displayCity": "显示城市",
-      "displayCountry": "显示国家/地区",
+      "displayCity": "标题",
+      "displayCountry": "副标题",
       "font": "字体",
-      "defaultFont": "默认 (Space Grotesk)"
+      "defaultFont": "Space Grotesk (默认)",
+      "coordinates": "坐标",
+      "separator": "分隔符",
+      "separatorNone": "无分隔符",
+      "separatorCustom": "自定义分隔符（最多 3 个字符）",
+      "textPosition": "文字位置",
+      "position": {
+        "top": "顶部",
+        "bottom": "底部"
+      },
+      "textAlign": "对齐",
+      "align": {
+        "left": "左",
+        "center": "居中",
+        "right": "右"
+      },
+      "border": "边框",
+      "borderColors": "颜色在主题中",
+      "borderWidth": "边框宽度",
+      "borderLine": "线条",
+      "line": {
+        "single": "单线",
+        "double": "双线"
+      },
+      "borderStyle": "线型",
+      "dash": {
+        "solid": "实线",
+        "dashed": "虚线"
+      },
+      "lineThickness": "线条粗细",
+      "titleSize": "标题大小",
+      "subtitleSize": "副标题大小",
+      "textOffset": "上下移动",
+      "divider": "分隔线",
+      "dividerStyle": "线型",
+      "dividerStyles": {
+        "solid": "实线",
+        "dashed": "虚线",
+        "dotted": "点线"
+      },
+      "dividerThickness": "线条粗细",
+      "resetStyle": "重置所有样式设置",
+      "resetText": "重置所有文字设置"
     }
   },
   "theme": {
@@ -351,7 +396,12 @@
       "editing": "正在编辑：{{label}}",
       "save": "保存",
       "resetAll": "全部重置",
-      "done": "完成"
+      "done": "完成",
+      "groupColors": "颜色分组",
+      "showDetails": "显示细节",
+      "layerOff": "图层已关闭",
+      "applyToDetails": "应用到细节",
+      "off": "关"
     },
     "saveModal": {
       "title": "保存主题",
@@ -378,7 +428,9 @@
     "colors": {
       "ui": {
         "bg": "叠加层",
-        "text": "文字"
+        "text": "文字",
+        "border": "边框",
+        "borderLine": "边框线"
       },
       "map": {
         "land": "陆地",
@@ -396,8 +448,23 @@
           "minor_low": "次级道路（低）",
           "path": "小径",
           "outline": "道路轮廓"
-        }
+        },
+        "forest": "森林",
+        "grass": "草地",
+        "farmland": "农田",
+        "wetland": "湿地",
+        "sand": "沙地",
+        "ice": "冰",
+        "borders": "国界"
       }
+    },
+    "groups": {
+      "poster": "海报",
+      "land": "陆地",
+      "nature": "自然",
+      "water": "水域",
+      "transport": "交通",
+      "roads": "道路"
     },
     "descriptions": {
       "carrara": "白色大理石，浅色石面带柔和炭灰纹理",
@@ -409,6 +476,7 @@
       "rustic": "泥土般的纸质底色，木色与陶土色道路",
       "midnight_blue": "深海军蓝底色配金铜色道路，奢华地图集风格",
       "neon": "霓虹高对比配色，洋红与青色点缀",
+      "graphite": "中性灰色调，白色文字配浅灰色道路。",
       "terracotta": "地中海暖意，奶油底色上的焦橙与陶土色",
       "blueprint": "经典建筑蓝图，技术制图风格",
       "contrast_zones": "强烈对比呈现城市密度，中心深、边缘浅",
@@ -489,7 +557,8 @@
   },
   "shell": {
     "common": {
-      "close": "关闭"
+      "close": "关闭",
+      "resetDefault": "恢复默认"
     },
     "footer": {
       "imprint": "法律声明",
@@ -541,7 +610,15 @@
       "donate": "捐赠",
       "donateLabel": "支持 Terraink，捐赠让它保持免费",
       "follow": "在 {{network}} 上关注 Terraink",
-      "credits": "注明出处，帮助更多人发现这个工具"
+      "credits": "注明出处，帮助更多人发现这个工具",
+      "builtWith": {
+        "title": "技术支持",
+        "mapData": "地图数据",
+        "tiles": "地图样式",
+        "hosting": "瓦片托管",
+        "search": "地点搜索",
+        "renderer": "地图引擎"
+      }
     },
     "social": {
       "projectLinks": "项目链接",
@@ -557,6 +634,7 @@
       "theme": "主题",
       "layout": "布局",
       "style": "样式",
+      "text": "文字",
       "layers": "图层",
       "markers": "标记",
       "routes": "路线",

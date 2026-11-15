@@ -46,6 +46,8 @@ const fallbackTheme: ResolvedTheme = {
 const themeColorLookup: Record<ThemeColorKey, string[]> = {
   "ui.bg": ["ui.bg", "gradient_color", "bg"],
   "ui.text": ["ui.text", "text"],
+  "ui.border": ["ui.border"],
+  "ui.borderLine": ["ui.borderLine"],
   "map.land": ["map.land", "bg"],
   "map.landcover": ["map.landcover", "landcover"],
   "map.water": ["map.water", "water"],
@@ -84,7 +86,25 @@ const themeColorLookup: Record<ThemeColorKey, string[]> = {
     "road_residential",
   ],
   "map.roads.outline": ["map.roads.outline", "road_outline", "bg"],
+  "map.forest": ["map.forest"],
+  "map.grass": ["map.grass"],
+  "map.farmland": ["map.farmland"],
+  "map.wetland": ["map.wetland"],
+  "map.sand": ["map.sand"],
+  "map.ice": ["map.ice"],
+  "map.borders": ["map.borders"],
 };
+
+/** Detail colors a theme may set; unset ones copy their main color. */
+const OPTIONAL_MAP_COLOR_KEYS = [
+  "forest",
+  "grass",
+  "farmland",
+  "wetland",
+  "sand",
+  "ice",
+  "borders",
+] as const;
 
 const referenceAliases: Record<string, string> = {
   bg: "ui.bg",
@@ -111,6 +131,7 @@ const preferredThemeOrder = [
   "carrara",
   "blush",
   "sandstone",
+  "graphite",
   "midnight_blue",
   "terracotta",
   "neon",
@@ -197,6 +218,18 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
     resolveByCandidates(theme, themeColorLookup["ui.text"]) ||
     fallbackTheme.ui.text;
 
+  const optionalMapColors: Partial<Record<(typeof OPTIONAL_MAP_COLOR_KEYS)[number], string>> = {};
+  for (const key of OPTIONAL_MAP_COLOR_KEYS) {
+    const color = resolveByCandidates(theme, themeColorLookup[`map.${key}`]);
+    if (color) optionalMapColors[key] = color;
+  }
+
+  const uiBorder = resolveByCandidates(theme, themeColorLookup["ui.border"]);
+  const uiBorderLine = resolveByCandidates(
+    theme,
+    themeColorLookup["ui.borderLine"],
+  );
+
   const land =
     resolveByCandidates(theme, themeColorLookup["map.land"]) ||
     uiBg ||
@@ -253,6 +286,9 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
     ui: {
       bg: uiBg,
       text: uiText,
+      // Unset border colors copy bg / text (see THEME_COLOR_FALLBACKS).
+      ...(uiBorder ? { border: uiBorder } : {}),
+      ...(uiBorderLine ? { borderLine: uiBorderLine } : {}),
     },
     map: {
       land,
@@ -271,6 +307,7 @@ function normalizeTheme(themeInput: unknown): ResolvedTheme {
         path: roadPath,
         outline: roadOutline,
       },
+      ...optionalMapColors,
     },
   };
 }

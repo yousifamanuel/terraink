@@ -1136,7 +1136,7 @@
 
   .mobile-location-row-wrap .dsk-loc-bar .location-permission-message {
     margin-top: 4px;
-    padding: 8px 10px;
+    padding: 8px 30px 8px 10px;
     border: 1px solid rgba(255, 152, 129, 0.3);
     border-radius: 8px;
     background: rgba(9, 16, 24, 0.94);
@@ -1452,8 +1452,13 @@
     display: none;
   }
 
-  /* Style tab: show only the style/typography section */
+  /* Style tab: show only the style section */
   [data-mobile-tab="style"] .mobile-section:not(.mobile-section--style) {
+    display: none;
+  }
+
+  /* Text tab: show only the text section */
+  [data-mobile-tab="text"] .mobile-section:not(.mobile-section--text) {
     display: none;
   }
 

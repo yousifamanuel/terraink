@@ -1,3 +1,4 @@
+import type React from "react";
 import { useTranslation } from "react-i18next";
 import { MIN_DISTANCE_METERS, MAX_DISTANCE_METERS } from "@/core/config";
 
@@ -172,6 +173,11 @@ export default function MapDimensionFields({
             max={SLIDER_MAX}
             step={1}
             value={sliderValue}
+            style={
+              {
+                "--slider-fill": `${((sliderValue - SLIDER_MIN) / (SLIDER_MAX - SLIDER_MIN)) * 100}%`,
+              } as React.CSSProperties
+            }
             onChange={(event) =>
               emitDistanceChange(
                 sliderValueToDistance(Number(event.target.value)),

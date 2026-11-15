@@ -3,12 +3,24 @@ import { useTranslation } from "react-i18next";
 import { createCustomLayoutOption } from "@/features/layout/infrastructure/layoutRepository";
 import {
   DISPLAY_PALETTE_KEYS,
+  THEME_COLOR_GROUPS,
+  DETAIL_COLOR_KEYS,
   type ThemeColorKey,
   type ThemeOption,
 } from "@/features/theme/domain/types";
+import { useColorEditorPrefs } from "@/features/theme/application/useColorEditorPrefs";
+import type { ColorTargetGroup } from "@/features/theme/ui/ThemeColorEditor";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import { getPaletteColorLabel } from "@/features/theme/application/paletteColorLabel";
-import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
+import {
+  getColorChildren,
+  getColorParent,
+  getEditedThemeColor,
+  getThemeColorByPath,
+  hasOwnEditedColor,
+  INHERIT_COLOR,
+  THEME_COLOR_FALLBACKS,
+} from "@/features/theme/domain/colorPaths";
 import { normalizeHexColor } from "@/shared/utils/color";
 import {
   buildDynamicColorChoices,
@@ -47,6 +59,51 @@ interface MapSettingsForm {
   includeRoadPath: boolean;
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
+  includeBorders: boolean;
+  includeLandcover?: boolean;
+  showBorder?: boolean;
+}
+
+/** False when the map layer (or poster border) that uses the color is off. */
+function isColorInUse(key: ThemeColorKey, form: MapSettingsForm): boolean {
+  switch (key) {
+    case "ui.border":
+    case "ui.borderLine":
+      return form.showBorder !== false;
+    case "map.buildings":
+      return form.includeBuildings;
+    case "map.water":
+    case "map.waterway":
+      return form.includeWater;
+    case "map.parks":
+      return form.includeParks;
+    case "map.landcover":
+    case "map.forest":
+    case "map.grass":
+    case "map.farmland":
+    case "map.wetland":
+    case "map.sand":
+    case "map.ice":
+      return form.includeLandcover !== false;
+    case "map.aeroway":
+      return form.includeAeroway;
+    case "map.rail":
+      return form.includeRail;
+    case "map.roads.path":
+      return form.includeRoads && form.includeRoadPath;
+    case "map.roads.minor_low":
+      return form.includeRoads && form.includeRoadMinorLow;
+    case "map.roads.outline":
+      return form.includeRoads && form.includeRoadOutline;
+    case "map.roads.major":
+    case "map.roads.minor_high":
+    case "map.roads.minor_mid":
+      return form.includeRoads;
+    case "map.borders":
+      return form.includeBorders;
+    default:
+      return true;
+  }
 }
 
 interface MapSettingsSectionProps {
@@ -136,11 +193,11 @@ export default function MapSettingsSection({
 
   const currentThemePalette = useMemo(
     () =>
-      DISPLAY_PALETTE_KEYS.map((key) => {
-        const themeColor =
-          getThemeColorByPath(selectedTheme, key) || FALLBACK_COLOR;
-        return customColors[key] ?? themeColor;
-      }),
+      DISPLAY_PALETTE_KEYS.map(
+        (key) =>
+          getEditedThemeColor(selectedTheme, customColors, key) ||
+          FALLBACK_COLOR,
+      ),
     [customColors, selectedTheme],
   );
 
@@ -177,21 +234,40 @@ export default function MapSettingsSection({
     selectedTheme,
   ]);
 
-  const colorTargets = useMemo(
-    () =>
-      DISPLAY_PALETTE_KEYS.map((key) => {
-        const baseColor =
-          getThemeColorByPath(selectedTheme, key) || FALLBACK_COLOR;
-        const currentColor = customColors[key] ?? baseColor;
-        return {
-          key,
-          label: getPaletteColorLabel(key),
-          color: currentColor,
-          isActive: activeColorKey === key,
-        };
-      }),
-    [activeColorKey, customColors, selectedTheme, t],
-  );
+  const { prefs: colorEditorPrefs, setPref: setColorEditorPref } =
+    useColorEditorPrefs();
+
+  const colorGroups = useMemo<ColorTargetGroup[]>(() => {
+    const toTarget = (key: ThemeColorKey) => ({
+      key,
+      label: getPaletteColorLabel(key),
+      color:
+        getEditedThemeColor(selectedTheme, customColors, key) || FALLBACK_COLOR,
+      isActive: activeColorKey === key,
+      isOff: !isColorInUse(key, form),
+    });
+    const groups = THEME_COLOR_GROUPS.map((group) => ({
+      id: group.id,
+      label: t(`theme.groups.${group.id}`),
+      // Each detail sits right after the main color it copies.
+      targets: (colorEditorPrefs.showDetails
+        ? [
+            ...group.keys.flatMap((key) => [
+              key,
+              ...group.detailKeys.filter((detail) => getColorParent(detail) === key),
+            ]),
+            ...group.detailKeys.filter(
+              (detail) => !group.keys.includes(getColorParent(detail) as ThemeColorKey),
+            ),
+          ]
+        : group.keys
+      ).map(toTarget),
+    }));
+    if (colorEditorPrefs.groupColors) return groups;
+    return [
+      { id: "all", label: "", targets: groups.flatMap((group) => group.targets) },
+    ];
+  }, [activeColorKey, colorEditorPrefs, customColors, form, selectedTheme, t]);
 
   const layoutOptions = useMemo(
     () => layoutGroups.flatMap((g) => g.options),
@@ -228,9 +304,10 @@ export default function MapSettingsSection({
   }
 
   function handleSwatchClick(key: ThemeColorKey) {
-    const themeColor = getThemeColorByPath(selectedTheme, key);
     const seedColor =
-      customColors[key] ?? (themeColor || currentThemePalette[0] || "");
+      getEditedThemeColor(selectedTheme, customColors, key) ||
+      currentThemePalette[0] ||
+      "";
     setActiveColorKey(key);
     setActiveColorSession({
       key,
@@ -400,6 +477,11 @@ export default function MapSettingsSection({
   }
 
   function handleResetSingleColor(key: ThemeColorKey) {
+    // Border colors drop their edit, so they copy background / text again.
+    if (THEME_COLOR_FALLBACKS[key]) {
+      onColorChange(key, "");
+      return;
+    }
     const originalColor =
       normalizeHexColor(getThemeColorByPath(selectedTheme, key)) ||
       normalizeHexColor(currentThemePalette[0]) ||
@@ -410,7 +492,11 @@ export default function MapSettingsSection({
 
   const hasCustomColors = useMemo(
     () =>
-      DISPLAY_PALETTE_KEYS.some((key) => {
+      [...DISPLAY_PALETTE_KEYS, ...DETAIL_COLOR_KEYS].some((key) => {
+        // "Apply to details" only changes something if the theme set its own color.
+        if (customColors[key] === INHERIT_COLOR) {
+          return hasOwnEditedColor(selectedTheme, {}, key);
+        }
         const override = normalizeHexColor(customColors[key]);
         if (!override) return false;
         const original = normalizeHexColor(getThemeColorByPath(selectedTheme, key));
@@ -469,13 +555,26 @@ export default function MapSettingsSection({
     ? activeColorChoices
     : buildDynamicColorChoices(currentThemePalette[0] || "", currentThemePalette);
   const editorColor =
-    customColors[editorKey] ??
-    (getThemeColorByPath(selectedTheme, editorKey) || currentThemePalette[0] || "");
+    getEditedThemeColor(selectedTheme, customColors, editorKey) ||
+    currentThemePalette[0] ||
+    "";
+  const { [editorKey]: _editorEdit, ...editsWithoutEditorKey } = customColors;
   const originalEditorColor =
-    normalizeHexColor(getThemeColorByPath(selectedTheme, editorKey)) ||
+    normalizeHexColor(
+      getEditedThemeColor(selectedTheme, editsWithoutEditorKey, editorKey),
+    ) ||
     normalizeHexColor(currentThemePalette[0]) ||
     "";
   const normalizedEditorColor = normalizeHexColor(editorColor) || "";
+  // Detail colors of this main color that no longer copy it.
+  const detailsWithOwnColor = getColorChildren(editorKey).filter((child) =>
+    hasOwnEditedColor(selectedTheme, customColors, child),
+  );
+  const handleApplyToDetails = () => {
+    for (const child of detailsWithOwnColor) {
+      onColorChange(child, INHERIT_COLOR);
+    }
+  };
   const canResetEditorColor = Boolean(
     originalEditorColor &&
       normalizedEditorColor &&
@@ -494,6 +593,15 @@ export default function MapSettingsSection({
               <div className="color-editor-header">
                 <p className="theme-active-label">{t("map.settings.editing", { label: activeColorLabel })}</p>
                 <div className="theme-edit-actions">
+                  {detailsWithOwnColor.length > 0 ? (
+                    <button
+                      type="button"
+                      className="theme-save-btn"
+                      onClick={handleApplyToDetails}
+                    >
+                      {t("theme.editor.applyToDetails")}
+                    </button>
+                  ) : null}
                   <button
                     type="button"
                     className="theme-edit-done-btn"
@@ -512,6 +620,7 @@ export default function MapSettingsSection({
                 onResetColor={() => handleResetSingleColor(editorKey)}
                 canResetColor={canResetEditorColor}
               />
+
             </section>
           ) : (
             <ThemeColorEditor
@@ -520,7 +629,15 @@ export default function MapSettingsSection({
               onResetAllColors={handleResetThemeColors}
               onSave={handleOpenSaveModal}
               onDone={handleDoneThemeEditor}
-              colorTargets={colorTargets}
+              colorGroups={colorGroups}
+              groupColors={colorEditorPrefs.groupColors}
+              showDetails={colorEditorPrefs.showDetails}
+              onGroupColorsChange={(value) =>
+                setColorEditorPref("groupColors", value)
+              }
+              onShowDetailsChange={(value) =>
+                setColorEditorPref("showDetails", value)
+              }
               onTargetSelect={handleSwatchClick}
             />
           )

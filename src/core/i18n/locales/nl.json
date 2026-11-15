@@ -217,7 +217,8 @@
       "showParks": "Parken tonen",
       "showRoads": "Wegen tonen",
       "showRail": "Spoor tonen",
-      "showAeroway": "Luchthaven"
+      "showAeroway": "Luchthaven",
+      "showBorders": "Grenzen tonen"
     },
     "dimensions": {
       "widthCm": "Breedte (cm)",
@@ -288,7 +289,8 @@
       "layers": "Lagen",
       "markers": "Markers",
       "routes": "Routes",
-      "style": "Stijl"
+      "style": "Stijl",
+      "text": "Tekst"
     },
     "info": {
       "ariaLabel": "Instellingen",
@@ -324,12 +326,55 @@
     },
     "typography": {
       "style": "STIJL",
+      "text": "TEKST",
       "posterText": "Postertekst",
       "overlayLayer": "Overlaylaag",
-      "displayCity": "Stad tonen",
-      "displayCountry": "Land tonen",
+      "displayCity": "Titel",
+      "displayCountry": "Ondertitel",
       "font": "Lettertype",
-      "defaultFont": "Standaard (Space Grotesk)"
+      "defaultFont": "Space Grotesk (standaard)",
+      "coordinates": "Coördinaten",
+      "separator": "Scheidingsteken",
+      "separatorNone": "Geen scheidingsteken",
+      "separatorCustom": "Eigen scheidingsteken (max. 3 tekens)",
+      "textPosition": "Tekstpositie",
+      "position": {
+        "top": "Boven",
+        "bottom": "Onder"
+      },
+      "textAlign": "Uitlijning",
+      "align": {
+        "left": "Links",
+        "center": "Midden",
+        "right": "Rechts"
+      },
+      "border": "Rand",
+      "borderColors": "Kleuren bij Thema",
+      "borderWidth": "Randbreedte",
+      "borderLine": "Lijn",
+      "line": {
+        "single": "Enkel",
+        "double": "Dubbel"
+      },
+      "borderStyle": "Lijnstijl",
+      "dash": {
+        "solid": "Doorgetrokken",
+        "dashed": "Gestreept"
+      },
+      "lineThickness": "Lijndikte",
+      "titleSize": "Titelgrootte",
+      "subtitleSize": "Ondertitelgrootte",
+      "textOffset": "Omhoog / omlaag",
+      "divider": "Scheidingslijn",
+      "dividerStyle": "Lijnstijl",
+      "dividerStyles": {
+        "solid": "Doorgetrokken",
+        "dashed": "Gestreept",
+        "dotted": "Gestippeld"
+      },
+      "dividerThickness": "Lijndikte",
+      "resetStyle": "Alle stijlinstellingen herstellen",
+      "resetText": "Alle tekstinstellingen herstellen"
     }
   },
   "theme": {
@@ -353,7 +398,12 @@
       "editing": "Bewerken: {{label}}",
       "save": "Opslaan",
       "resetAll": "Alles resetten",
-      "done": "Klaar"
+      "done": "Klaar",
+      "groupColors": "Kleuren groeperen",
+      "showDetails": "Details tonen",
+      "layerOff": "Laag staat uit",
+      "applyToDetails": "Op details toepassen",
+      "off": "Uit"
     },
     "saveModal": {
       "title": "Thema opslaan",
@@ -380,7 +430,9 @@
     "colors": {
       "ui": {
         "bg": "Overlay",
-        "text": "Tekst"
+        "text": "Tekst",
+        "border": "Rand",
+        "borderLine": "Randlijn"
       },
       "map": {
         "land": "Land",
@@ -398,8 +450,23 @@
           "minor_low": "Kleine wegen -",
           "path": "Paden",
           "outline": "Wegcontour"
-        }
+        },
+        "forest": "Bos",
+        "grass": "Gras",
+        "farmland": "Akkerland",
+        "wetland": "Moeras",
+        "sand": "Zand",
+        "ice": "IJs",
+        "borders": "Landsgrenzen"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Land",
+      "nature": "Natuur",
+      "water": "Water",
+      "transport": "Vervoer",
+      "roads": "Wegen"
     },
     "descriptions": {
       "carrara": "Wit marmer: bleke steen met zachte antracieten aders",
@@ -411,6 +478,7 @@
       "rustic": "Aardse, papierachtige basis met hout- en kleikleurige wegen",
       "midnight_blue": "Diepblauwe achtergrond met goud- en koperkleurige wegen, luxe atlasstijl",
       "neon": "Neonfel palet met hoog contrast en magenta en cyaan accenten",
+      "graphite": "Neutrale grijstinten met witte tekst en lichtgrijze wegen.",
       "terracotta": "Mediterrane warmte: gebrand oranje en kleitinten op crème",
       "blueprint": "Klassieke bouwtekening, technische tekenstijl",
       "contrast_zones": "Sterk contrast toont stedelijke dichtheid: donkerder in het midden, lichter aan de randen",
@@ -491,7 +559,8 @@
   },
   "shell": {
     "common": {
-      "close": "Sluiten"
+      "close": "Sluiten",
+      "resetDefault": "Standaard herstellen"
     },
     "footer": {
       "imprint": "Colofon",
@@ -543,7 +612,15 @@
       "donate": "Doneren",
       "donateLabel": "Doneer om Terraink gratis te houden",
       "follow": "Volg Terraink op {{network}}",
-      "credits": "Vermeld de bron zodat anderen de tool ontdekken"
+      "credits": "Vermeld de bron zodat anderen de tool ontdekken",
+      "builtWith": {
+        "title": "Gemaakt met",
+        "mapData": "Kaartgegevens",
+        "tiles": "Kaartstijl",
+        "hosting": "Tile-hosting",
+        "search": "Plaatsen zoeken",
+        "renderer": "Kaart-engine"
+      }
     },
     "social": {
       "projectLinks": "Projectlinks",
@@ -559,6 +636,7 @@
       "theme": "Thema",
       "layout": "Lay-out",
       "style": "Stijl",
+      "text": "Tekst",
       "layers": "Lagen",
       "markers": "Markers",
       "routes": "Routes",

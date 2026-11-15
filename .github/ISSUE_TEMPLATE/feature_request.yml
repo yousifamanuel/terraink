@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest an idea or improvement for Terraink
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the idea! Please check the open issues first, maybe someone suggested it already.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: The goal or problem behind the idea.
+      placeholder: e.g. I want to show only one country on my poster.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How could it work?
+      description: Your idea for the feature. Sketches or examples from other apps are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything else?
+      description: Alternatives you tried, links, or screenshots.

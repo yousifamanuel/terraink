@@ -234,6 +234,32 @@
         }
       }
     },
+    "graphite": {
+      "name": "Graphite",
+      "description": "Neutral greys with white text and light grey roads.",
+      "ui": {
+        "bg": "#494949",
+        "text": "#FFFFFF"
+      },
+      "map": {
+        "land": "#494949",
+        "landcover": "#4E4E4E",
+        "water": "#C6C6C6",
+        "waterway": "#C6C6C6",
+        "parks": "#555555",
+        "buildings": "#6E6E6E",
+        "aeroway": "#8B8B8B",
+        "rail": "#C6C6C6",
+        "roads": {
+          "major": "#C6C6C6",
+          "path": "#5F5F5F",
+          "outline": "#494949",
+          "minor_high": "#A7A7A7",
+          "minor_mid": "#8B8B8B",
+          "minor_low": "#707070"
+        }
+      }
+    },
     "terracotta": {
       "name": "Terracotta",
       "description": "Mediterranean warmth - burnt orange and clay tones on cream",

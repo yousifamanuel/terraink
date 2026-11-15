@@ -217,7 +217,8 @@
       "showParks": "Parklar",
       "showRoads": "Yollar",
       "showRail": "Demiryolu",
-      "showAeroway": "Havayolu"
+      "showAeroway": "Havayolu",
+      "showBorders": "Sınırlar"
     },
     "dimensions": {
       "widthCm": "Genişlik (cm)",
@@ -288,7 +289,8 @@
       "layers": "Katmanlar",
       "markers": "İşaretçiler",
       "routes": "Rotalar",
-      "style": "Stil"
+      "style": "Stil",
+      "text": "Metin"
     },
     "info": {
       "ariaLabel": "Geçerli ayarlar",
@@ -324,12 +326,55 @@
     },
     "typography": {
       "style": "STİL",
+      "text": "METİN",
       "posterText": "Poster metni",
       "overlayLayer": "Üst katman",
-      "displayCity": "Şehri göster",
-      "displayCountry": "Ülke göster",
+      "displayCity": "Başlık",
+      "displayCountry": "Alt başlık",
       "font": "Yazı tipi",
-      "defaultFont": "Varsayılan (Space Grotesk)"
+      "defaultFont": "Space Grotesk (varsayılan)",
+      "coordinates": "Koordinatlar",
+      "separator": "Ayırıcı",
+      "separatorNone": "Ayırıcı yok",
+      "separatorCustom": "Özel ayırıcı (en fazla 3 karakter)",
+      "textPosition": "Metin konumu",
+      "position": {
+        "top": "Üst",
+        "bottom": "Alt"
+      },
+      "textAlign": "Hizalama",
+      "align": {
+        "left": "Sol",
+        "center": "Orta",
+        "right": "Sağ"
+      },
+      "border": "Çerçeve",
+      "borderColors": "Renkler Tema'da",
+      "borderWidth": "Çerçeve genişliği",
+      "borderLine": "Çizgi",
+      "line": {
+        "single": "Tek",
+        "double": "Çift"
+      },
+      "borderStyle": "Çizgi stili",
+      "dash": {
+        "solid": "Düz",
+        "dashed": "Kesik"
+      },
+      "lineThickness": "Çizgi kalınlığı",
+      "titleSize": "Başlık boyutu",
+      "subtitleSize": "Alt başlık boyutu",
+      "textOffset": "Yukarı / aşağı",
+      "divider": "Ayırıcı çizgi",
+      "dividerStyle": "Çizgi stili",
+      "dividerStyles": {
+        "solid": "Düz",
+        "dashed": "Kesik",
+        "dotted": "Noktalı"
+      },
+      "dividerThickness": "Çizgi kalınlığı",
+      "resetStyle": "Tüm stil ayarlarını sıfırla",
+      "resetText": "Tüm metin ayarlarını sıfırla"
     }
   },
   "theme": {
@@ -353,7 +398,12 @@
       "editing": "Düzenlenen: {{label}}",
       "save": "Kaydet",
       "resetAll": "Sıfırla",
-      "done": "Bitti"
+      "done": "Bitti",
+      "groupColors": "Renkleri grupla",
+      "showDetails": "Ayrıntıları göster",
+      "layerOff": "Katman kapalı",
+      "applyToDetails": "Ayrıntılara uygula",
+      "off": "Kapalı"
     },
     "saveModal": {
       "title": "Temayı kaydet",
@@ -380,7 +430,9 @@
     "colors": {
       "ui": {
         "bg": "Kaplama",
-        "text": "Metin"
+        "text": "Metin",
+        "border": "Çerçeve",
+        "borderLine": "Çerçeve çizgisi"
       },
       "map": {
         "land": "Kara",
@@ -398,8 +450,23 @@
           "minor_low": "Küçük yol (alt)",
           "path": "Patikalar",
           "outline": "Yol kenarı"
-        }
+        },
+        "forest": "Orman",
+        "grass": "Çimen",
+        "farmland": "Tarım alanı",
+        "wetland": "Sulak alan",
+        "sand": "Kum",
+        "ice": "Buz",
+        "borders": "Ülke sınırları"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Kara",
+      "nature": "Doğa",
+      "water": "Su",
+      "transport": "Ulaşım",
+      "roads": "Yollar"
     },
     "descriptions": {
       "carrara": "Beyaz mermer — soluk taş, yumuşak kömür grisi damarlar",
@@ -411,6 +478,7 @@
       "rustic": "Kâğıt gibi toprak rengi zemin, ahşap ve kil tonlu yollar.",
       "midnight_blue": "Koyu lacivert zemin, altın/bakır yollar - lüks atlas havası",
       "neon": "Yüksek kontrastlı neon palet, eflatun ve camgöbeği vurgular.",
+      "graphite": "Beyaz yazı ve açık gri yollarla nötr gri tonlar.",
       "terracotta": "Akdeniz sıcaklığı - krem üzerinde yanık turuncu ve kil tonları",
       "blueprint": "Klasik mimari mavi baskı - teknik çizim havası",
       "contrast_zones": "Kent yoğunluğunu gösteren güçlü kontrast - merkez koyu, kenarlar açık",
@@ -491,7 +559,8 @@
   },
   "shell": {
     "common": {
-      "close": "Kapat"
+      "close": "Kapat",
+      "resetDefault": "Varsayılana döndür"
     },
     "footer": {
       "imprint": "Künye",
@@ -543,7 +612,15 @@
       "donate": "Bağış",
       "donateLabel": "Terraink'i ücretsiz tutmak için destek olun ve bağış yapın",
       "follow": "Terraink'i {{network}} üzerinde takip et",
-      "credits": "Aracı başkalarının keşfetmesi için kaynak göstermeyi unutmayın"
+      "credits": "Aracı başkalarının keşfetmesi için kaynak göstermeyi unutmayın",
+      "builtWith": {
+        "title": "Kullanılanlar",
+        "mapData": "Harita verisi",
+        "tiles": "Harita stili",
+        "hosting": "Karo barındırma",
+        "search": "Yer arama",
+        "renderer": "Harita motoru"
+      }
     },
     "social": {
       "projectLinks": "Proje bağlantıları",
@@ -559,6 +636,7 @@
       "theme": "Tema",
       "layout": "Düzen",
       "style": "Stil",
+      "text": "Metin",
       "layers": "Katmanlar",
       "markers": "İşaretçiler",
       "routes": "Rotalar",

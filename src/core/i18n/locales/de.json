@@ -217,7 +217,8 @@
       "showParks": "Parks",
       "showRoads": "Straßen",
       "showRail": "Bahnlinien",
-      "showAeroway": "Flugwege"
+      "showAeroway": "Flugwege",
+      "showBorders": "Grenzen"
     },
     "dimensions": {
       "widthCm": "Breite (cm)",
@@ -288,7 +289,8 @@
       "layers": "Ebenen",
       "markers": "Marker",
       "routes": "Routen",
-      "style": "Stil"
+      "style": "Stil",
+      "text": "Text"
     },
     "info": {
       "ariaLabel": "Aktuelle Auswahl",
@@ -324,12 +326,55 @@
     },
     "typography": {
       "style": "STIL",
+      "text": "TEXT",
       "posterText": "Postertext",
       "overlayLayer": "Overlay",
-      "displayCity": "Stadt",
-      "displayCountry": "Land",
+      "displayCity": "Titel",
+      "displayCountry": "Untertitel",
       "font": "Schriftart",
-      "defaultFont": "Standard (Space Grotesk)"
+      "defaultFont": "Space Grotesk (Standard)",
+      "coordinates": "Koordinaten",
+      "separator": "Trennzeichen",
+      "separatorNone": "Kein Trennzeichen",
+      "separatorCustom": "Eigenes Trennzeichen (bis 3 Zeichen)",
+      "textPosition": "Textposition",
+      "position": {
+        "top": "Oben",
+        "bottom": "Unten"
+      },
+      "textAlign": "Ausrichtung",
+      "align": {
+        "left": "Links",
+        "center": "Mitte",
+        "right": "Rechts"
+      },
+      "border": "Rahmen",
+      "borderColors": "Farben unter Thema",
+      "borderWidth": "Rahmenbreite",
+      "borderLine": "Linie",
+      "line": {
+        "single": "Einfach",
+        "double": "Doppelt"
+      },
+      "borderStyle": "Linienart",
+      "dash": {
+        "solid": "Durchgezogen",
+        "dashed": "Gestrichelt"
+      },
+      "lineThickness": "Linienstärke",
+      "titleSize": "Titelgröße",
+      "subtitleSize": "Untertitelgröße",
+      "textOffset": "Nach oben / unten",
+      "divider": "Trennlinie",
+      "dividerStyle": "Linienart",
+      "dividerStyles": {
+        "solid": "Durchgezogen",
+        "dashed": "Gestrichelt",
+        "dotted": "Gepunktet"
+      },
+      "dividerThickness": "Linienstärke",
+      "resetStyle": "Alle Stil-Einstellungen zurücksetzen",
+      "resetText": "Alle Text-Einstellungen zurücksetzen"
     }
   },
   "theme": {
@@ -353,7 +398,12 @@
       "editing": "Bearbeite: {{label}}",
       "save": "Speichern",
       "resetAll": "Zurücksetzen",
-      "done": "Fertig"
+      "done": "Fertig",
+      "groupColors": "Farben gruppieren",
+      "showDetails": "Details zeigen",
+      "layerOff": "Ebene ist aus",
+      "applyToDetails": "Auf Details anwenden",
+      "off": "Aus"
     },
     "saveModal": {
       "title": "Design speichern",
@@ -380,7 +430,9 @@
     "colors": {
       "ui": {
         "bg": "Overlay",
-        "text": "Text"
+        "text": "Text",
+        "border": "Rahmen",
+        "borderLine": "Rahmenlinie"
       },
       "map": {
         "land": "Land",
@@ -398,8 +450,23 @@
           "minor_low": "Nebenstraßen niedrig",
           "path": "Wege",
           "outline": "Straßenkontur"
-        }
+        },
+        "forest": "Wald",
+        "grass": "Wiese",
+        "farmland": "Ackerland",
+        "wetland": "Feuchtgebiet",
+        "sand": "Sand",
+        "ice": "Eis",
+        "borders": "Landesgrenzen"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Land",
+      "nature": "Natur",
+      "water": "Wasser",
+      "transport": "Verkehr",
+      "roads": "Straßen"
     },
     "descriptions": {
       "carrara": "Weißer Marmor – heller Stein mit zarter anthrazitfarbener Maserung",
@@ -411,6 +478,7 @@
       "rustic": "Erdiger, papierartiger Grund mit Holz- und Lehmtönen.",
       "midnight_blue": "Tiefes Marineblau mit Gold- und Kupferstraßen – Luxus-Atlas-Look",
       "neon": "Kontrastreiche Neonfarben mit Magenta- und Cyan-Akzenten.",
+      "graphite": "Neutrale Grautöne mit weißer Schrift und hellgrauen Straßen.",
       "terracotta": "Mediterrane Wärme – gebranntes Orange und Lehmtöne auf Creme",
       "blueprint": "Klassischer Bauplan – Look einer technischen Zeichnung",
       "contrast_zones": "Starker Kontrast zeigt Stadtdichte – innen dunkler, außen heller",
@@ -491,7 +559,8 @@
   },
   "shell": {
     "common": {
-      "close": "Schließen"
+      "close": "Schließen",
+      "resetDefault": "Auf Standard zurücksetzen"
     },
     "footer": {
       "imprint": "Impressum",
@@ -543,7 +612,15 @@
       "donate": "Spenden",
       "donateLabel": "Unterstütze Terraink und spende, damit es kostenlos bleibt",
       "follow": "Terraink auf {{network}} folgen",
-      "credits": "Nenne die Quelle, damit andere das Tool entdecken"
+      "credits": "Nenne die Quelle, damit andere das Tool entdecken",
+      "builtWith": {
+        "title": "Erstellt mit",
+        "mapData": "Kartendaten",
+        "tiles": "Kartenstil",
+        "hosting": "Tile-Hosting",
+        "search": "Ortssuche",
+        "renderer": "Karten-Engine"
+      }
     },
     "social": {
       "projectLinks": "Projektlinks",
@@ -559,6 +636,7 @@
       "theme": "Design",
       "layout": "Layout",
       "style": "Stil",
+      "text": "Text",
       "layers": "Ebenen",
       "markers": "Marker",
       "routes": "Routen",

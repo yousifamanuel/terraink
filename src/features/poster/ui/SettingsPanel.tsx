@@ -13,7 +13,8 @@ import SettingsSection from "@/features/settings/ui/SettingsSection";
 import LayersSection from "@/features/map/ui/LayersSection";
 import MarkersSection from "@/features/markers/ui/MarkersSection";
 import RoutesSection from "@/features/routes/ui/RoutesSection";
-import TypographySection from "@/features/poster/ui/TypographySection";
+import StyleSection from "@/features/poster/ui/StyleSection";
+import TextSection from "@/features/poster/ui/TextSection";
 import {
   LocationIcon,
   ThemeIcon,
@@ -22,6 +23,7 @@ import {
   MarkersIcon,
   RouteIcon,
   StyleIcon,
+  TextIcon,
   ChevronDownIcon,
 } from "@/shared/ui/Icons";
 
@@ -41,7 +43,8 @@ type SectionId =
   | "layers"
   | "markers"
   | "routes"
-  | "style";
+  | "style"
+  | "text";
 
 const accordionSections: {
   id: SectionId;
@@ -54,6 +57,7 @@ const accordionSections: {
   { id: "layers", labelKey: "poster.sections.layers", Icon: LayersIcon },
   { id: "markers", labelKey: "poster.sections.markers", Icon: MarkersIcon },
   { id: "routes", labelKey: "poster.sections.routes", Icon: RouteIcon },
+  { id: "text", labelKey: "poster.sections.text", Icon: TextIcon },
   { id: "style", labelKey: "poster.sections.style", Icon: StyleIcon },
 ];
 
@@ -88,12 +92,17 @@ export default function SettingsPanel({
     state.isLocationFocused,
   );
   const { flyToLocation } = useMapSync(state, dispatch, mapRef);
-  const { handleUseCurrentLocation, isLocatingUser, locationPermissionMessage } =
+  const {
+    handleUseCurrentLocation,
+    isLocatingUser,
+    locationPermissionMessage,
+    dismissLocationPermissionMessage,
+  } =
     useCurrentLocation(flyToLocation);
 
   const [isColorEditorActive, setIsColorEditorActive] = useState(false);
   const [openSections, setOpenSections] = useState<Set<SectionId>>(
-    new Set(["location", "theme", "layout", "style"]),
+    new Set(["location", "theme", "layout", "style", "text"]),
   );
 
   const isAuxEditorActive = isColorEditorActive;
@@ -154,6 +163,9 @@ export default function SettingsPanel({
                 onUseCurrentLocation={handleUseCurrentLocation}
                 isLocatingUser={isLocatingUser}
                 locationPermissionMessage={locationPermissionMessage}
+                onDismissLocationPermissionMessage={
+                  dismissLocationPermissionMessage
+                }
               />
             ) : null}
           </div>
@@ -312,12 +324,37 @@ export default function SettingsPanel({
       </div>
 
       <div
+        className={`mobile-section mobile-section--text accordion-item${openSections.has("text") ? " accordion-item--open" : ""}`}
+      >
+        <AccordionHeader
+          sectionId="text"
+          label={t(accordionSections[6].labelKey)}
+          Icon={accordionSections[6].Icon}
+          isOpen={openSections.has("text")}
+          onToggle={toggleSection}
+        />
+        <div
+          className={`accordion-body${openSections.has("text") ? " is-open" : ""}`}
+        >
+          <div className="accordion-body-inner">
+            {!isAuxEditorActive ? (
+              <TextSection
+                form={state.form}
+                onChange={handleChange}
+                fontOptions={FONT_OPTIONS}
+              />
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div
         className={`mobile-section mobile-section--style accordion-item${openSections.has("style") ? " accordion-item--open" : ""}`}
       >
         <AccordionHeader
           sectionId="style"
-          label={t(accordionSections[6].labelKey)}
-          Icon={accordionSections[6].Icon}
+          label={t(accordionSections[7].labelKey)}
+          Icon={accordionSections[7].Icon}
           isOpen={openSections.has("style")}
           onToggle={toggleSection}
         />
@@ -326,11 +363,7 @@ export default function SettingsPanel({
         >
           <div className="accordion-body-inner">
             {!isAuxEditorActive ? (
-              <TypographySection
-                form={state.form}
-                onChange={handleChange}
-                fontOptions={FONT_OPTIONS}
-              />
+              <StyleSection form={state.form} onChange={handleChange} />
             ) : null}
           </div>
         </div>

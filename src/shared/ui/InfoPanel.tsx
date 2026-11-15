@@ -177,6 +177,41 @@ function HelpUsGrowSection({
   );
 }
 
+/* ── Built with: the services and data Terraink relies on ── */
+
+const SERVICE_CREDITS = [
+  { name: "OpenStreetMap", roleKey: "shell.info.builtWith.mapData", href: "https://www.openstreetmap.org/copyright" },
+  { name: "OpenMapTiles", roleKey: "shell.info.builtWith.tiles", href: "https://openmaptiles.org/" },
+  { name: "OpenFreeMap", roleKey: "shell.info.builtWith.hosting", href: "https://openfreemap.org/" },
+  { name: "Nominatim", roleKey: "shell.info.builtWith.search", href: "https://nominatim.org/" },
+  { name: "MapLibre", roleKey: "shell.info.builtWith.renderer", href: "https://maplibre.org/" },
+];
+
+function BuiltWithSection() {
+  const { t } = useTranslation();
+  return (
+    <section className="info-panel-section">
+      <h3>{t("shell.info.builtWith.title")}</h3>
+      <ul className="built-with-list">
+        {SERVICE_CREDITS.map(({ name, roleKey, href }) => (
+          <li key={name} className="built-with-item">
+            <a
+              className="built-with-link"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              referrerPolicy="no-referrer"
+            >
+              {name}
+            </a>
+            <span className="built-with-role">{t(roleKey)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* ── main panel ── */
 
 export default function InfoPanel() {
@@ -191,6 +226,7 @@ export default function InfoPanel() {
           repoStars={repoStars}
           repoStarsLoading={repoStarsLoading}
         />
+        <BuiltWithSection />
       </div>
     </aside>
   );

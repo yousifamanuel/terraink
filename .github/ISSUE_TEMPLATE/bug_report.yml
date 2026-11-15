@@ -1,0 +1,59 @@
+name: Bug report
+description: Something in Terraink doesn't work as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a bug! Please check the open issues first, maybe it's already reported.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: A short description of the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we see the problem ourselves?
+      placeholder: |
+        1. Search for "Berlin"
+        2. Open Layers and turn on ...
+        3. Download as PNG
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the app?
+      options:
+        - Location search
+        - Map / layers
+        - Theme / colors
+        - Layout / size
+        - Text / style
+        - Markers
+        - Routes
+        - Download / export
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: e.g. iPhone 15, Safari / Windows 11, Chrome 131
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or exported file
+      description: Drag and drop images here. Helpful for anything visual.

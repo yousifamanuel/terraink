@@ -1,4 +1,5 @@
 import type { ICache } from "@/core/cache/ports";
+import { trackEvent } from "@/shared/utils/analytics";
 import type { IHttp } from "@/core/http/ports";
 import type { IGeocodePort } from "../domain/ports";
 import type { SearchResult } from "../domain/types";
@@ -71,9 +72,11 @@ export function createNominatimAdapter(
       `format=jsonv2&addressdetails=1&limit=${normalizedLimit}&q=${encodeURIComponent(lookup)}`;
 
     const promise = waitForRequestSlot(signal)
-      .then(() =>
-        http.get(url, { headers: { Accept: "application/json" }, signal }, 16_000),
-      )
+      .then(() => {
+        // Count real requests only (no query text): cached/shared ones skip this.
+        trackEvent("location_search");
+        return http.get(url, { headers: { Accept: "application/json" }, signal }, 16_000);
+      })
       .then(async (response) => {
         const data = await response.json();
         const results = parseLocationResponseItems(data);
@@ -152,7 +155,11 @@ export function createNominatimAdapter(
       `format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(String(lat))}&lon=${encodeURIComponent(String(lon))}`;
 
     const promise = waitForRequestSlot()
-      .then(() => http.get(url, { headers: { Accept: "application/json" } }, 16_000))
+      .then(() => {
+        // Count real requests only (no coordinates).
+        trackEvent("place_name_lookup");
+        return http.get(url, { headers: { Accept: "application/json" } }, 16_000);
+      })
       .then(async (response) => {
         const data = await response.json();
         const normalized = normalizeLocationResult(data);

@@ -4,6 +4,7 @@ import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { useFormHandlers } from "@/features/poster/application/useFormHandlers";
 import { useLocationAutocomplete } from "@/features/location/application/useLocationAutocomplete";
 import { useCurrentLocation } from "@/features/location/application/useCurrentLocation";
+import LocationPermissionMessage from "@/features/location/ui/LocationPermissionMessage";
 import { useRecentLocations } from "@/features/location/application/useRecentLocations";
 import LocationSuggestionsDropdown from "@/features/location/ui/LocationSuggestionsDropdown";
 import { useMapSync } from "@/features/map/application/useMapSync";
@@ -36,7 +37,12 @@ export default function DesktopLocationBar() {
   const { flyToLocation } = useMapSync(state, dispatch, mapRef);
   // Spinner while a search waits/runs or the map-move place name is pending.
   const isBusy = isLocationSearching || state.isLocationLookupPending;
-  const { handleUseCurrentLocation, isLocatingUser, locationPermissionMessage } =
+  const {
+    handleUseCurrentLocation,
+    isLocatingUser,
+    locationPermissionMessage,
+    dismissLocationPermissionMessage,
+  } =
     useCurrentLocation(flyToLocation);
   const { recent, removeRecent, clearRecent } = useRecentLocations();
 
@@ -127,7 +133,10 @@ export default function DesktopLocationBar() {
         </div>
 
         {locationPermissionMessage ? (
-          <p className="location-permission-message">{locationPermissionMessage}</p>
+          <LocationPermissionMessage
+            message={locationPermissionMessage}
+            onClose={dismissLocationPermissionMessage}
+          />
         ) : null}
 
         <div className="dsk-loc-coords">

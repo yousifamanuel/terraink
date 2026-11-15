@@ -10,6 +10,10 @@ import DesktopNavBar from "@/shared/ui/DesktopNavBar";
 import FooterNote from "@/shared/ui/FooterNote";
 import PreviewPanel from "@/features/poster/ui/PreviewPanel";
 import MobileNavBar, { type MobileTab } from "@/shared/ui/MobileNavBar";
+import {
+  OPEN_PANEL_TAB_EVENT,
+  type OpenPanelTabDetail,
+} from "@/shared/ui/openPanelTab";
 import InstallPrompt from "@/features/install/ui/InstallPrompt";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
@@ -108,6 +112,17 @@ export default function AppShell() {
     };
     window.addEventListener(SUPPORT_PROMPT_EVENT, handler);
     return () => window.removeEventListener(SUPPORT_PROMPT_EVENT, handler);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { tab } = (e as CustomEvent<OpenPanelTabDetail>).detail;
+      setDesktopTab(tab);
+      setDesktopPanelOpen(true);
+      setMobileTab(tab);
+    };
+    window.addEventListener(OPEN_PANEL_TAB_EVENT, handler);
+    return () => window.removeEventListener(OPEN_PANEL_TAB_EVENT, handler);
   }, []);
 
   useEffect(() => {

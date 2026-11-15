@@ -6,6 +6,7 @@ import {
   type CSSProperties,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { formatCoordinates } from "@/shared/geo/posterBounds";
 import { usePosterContext } from "./PosterContext";
 import AdUnit from "@/shared/ui/AdUnit";
 import { AD_SLOT_SIDEBAR, ADS_SIDEBAR_ENABLED } from "@/core/config";
@@ -44,9 +45,11 @@ import {
   formatLayoutDimensions,
   getLayoutOption,
 } from "@/features/layout/infrastructure/layoutRepository";
+import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
+import { getPosterLayoutOptions } from "@/features/poster/application/posterLayoutOptions";
+import { resolvePosterNames } from "@/features/poster/domain/posterNames";
+import { getThemeColorByPath } from "@/features/theme/domain/colorPaths";
 
-const COUNTRY_VIEW_ZOOM_LEVEL = 10;
-const CONTINENT_VIEW_ZOOM_LEVEL = 6;
 const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
 
@@ -71,6 +74,7 @@ export default function PreviewPanel() {
     mapMaxZoom,
     handleMove,
     handleMoveEnd,
+    settleLocationName,
     setContainerWidth,
     overzoomScale,
   } = useMapSync(state, dispatch, mapRef);
@@ -169,6 +173,7 @@ export default function PreviewPanel() {
   const widthCm = Number(form.width) || DEFAULT_POSTER_WIDTH_CM;
   const heightCm = Number(form.height) || DEFAULT_POSTER_HEIGHT_CM;
   const aspect = widthCm / heightCm;
+  const posterLayout = buildPosterLayout(getPosterLayoutOptions(form), aspect);
   const formLat = Number(form.latitude) || 0;
   const formLon = Number(form.longitude) || 0;
   const layoutOption =
@@ -183,19 +188,21 @@ export default function PreviewPanel() {
   const markerCount = state.markers.length;
   const markersLabel = t("poster.info.markerCount", { count: markerCount });
   const coordinatesLabel = `${formLat.toFixed(4)}, ${formLon.toFixed(4)}`;
-  const isCityCountryView = mapZoom >= COUNTRY_VIEW_ZOOM_LEVEL;
-  const isCountryContinentView =
-    mapZoom >= CONTINENT_VIEW_ZOOM_LEVEL && mapZoom < COUNTRY_VIEW_ZOOM_LEVEL;
-  const cityLabel = isCityCountryView
-    ? form.displayCity || form.location || "Hanover"
-    : isCountryContinentView
-      ? form.displayCountry || "Germany"
-      : form.displayContinent || "Earth";
-  const countryLabel = isCityCountryView
-    ? form.displayCountry || "Germany"
-    : isCountryContinentView
-      ? form.displayContinent || "Europe"
-      : "Earth";
+  // Share the zoom so the Style fields and the export pick the same names.
+  useEffect(() => {
+    dispatch({ type: "SET_MAP_ZOOM", zoom: mapZoom });
+  }, [dispatch, mapZoom]);
+
+  const { title: cityLabel, subtitle: countryLabel } = resolvePosterNames({
+    city: form.displayCity,
+    country: form.displayCountry,
+    continent: form.displayContinent,
+    location: form.location,
+    customTitle: form.posterTitle,
+    customSubtitle: form.posterSubtitle,
+    overrides: state.displayNameOverrides,
+    zoom: mapZoom,
+  });
 
   const handleStartEditing = useCallback(() => {
     setIsEditing(true);
@@ -282,6 +289,13 @@ export default function PreviewPanel() {
         lat: DEFAULT_LAT,
         lon: DEFAULT_LON,
       };
+    // Recenter moves the map back; text the user typed (posterTitle /
+    // posterSubtitle) stays.
+    const posterNames = (city: string, country: string) => ({
+      displayCity: city,
+      displayCountry: country,
+    });
+
     const applyTarget = (
       city: string,
       country: string,
@@ -291,7 +305,6 @@ export default function PreviewPanel() {
     ) => {
       dispatch({
         type: "SET_FORM_FIELDS",
-        resetDisplayNameOverrides: true,
         fields: {
           ...(includeCoordinates
             ? {
@@ -301,8 +314,7 @@ export default function PreviewPanel() {
                 distance: String(DEFAULT_DISTANCE_METERS),
               }
             : { location: label }),
-          displayCity: city,
-          displayCountry: country,
+          ...posterNames(city, country),
           displayContinent: continent,
         },
       });
@@ -318,6 +330,10 @@ export default function PreviewPanel() {
       pitch: 0,
     });
     setMapBearing(0);
+    // After the jump (it counts as a map move and schedules a lookup for the
+    // old spot): drop every pending or in-flight lookup, so no late answer
+    // overwrites the name we restore.
+    settleLocationName(target.lat, target.lon);
 
     if (city && country) {
       // All display names known — single dispatch with coordinates + correct names.
@@ -334,11 +350,11 @@ export default function PreviewPanel() {
         dispatch({ type: "SET_USER_LOCATION", location: resolved });
         dispatch({
           type: "SET_FORM_FIELDS",
-          resetDisplayNameOverrides: true,
           fields: {
-            displayCity: String(resolved.city ?? "").trim() || DEFAULT_CITY,
-            displayCountry:
+            ...posterNames(
+              String(resolved.city ?? "").trim() || DEFAULT_CITY,
               String(resolved.country ?? "").trim() || DEFAULT_COUNTRY,
+            ),
             displayContinent:
               String(resolved.continent ?? "").trim() || "Europe",
           },
@@ -347,7 +363,13 @@ export default function PreviewPanel() {
       .catch(() => {
         // fallback names already applied above — nothing more to do.
       });
-  }, [mapRef, selectedLocation, userLocation, dispatch]);
+  }, [
+    mapRef,
+    selectedLocation,
+    userLocation,
+    dispatch,
+    settleLocationName,
+  ]);
 
   const handleMarkerPositionChange = useCallback(
     (markerId: string, lat: number, lon: number) => {
@@ -415,7 +437,10 @@ export default function PreviewPanel() {
             onMoveEnd={handleMoveEnd}
           />
           {form.showMarkers ? (
-            <GradientFades color={effectiveTheme.ui.bg} />
+            <GradientFades
+              color={effectiveTheme.ui.bg}
+              template={posterLayout}
+            />
           ) : null}
           <RouteOverlay
             routes={state.routes}
@@ -451,9 +476,21 @@ export default function PreviewPanel() {
             fontFamily={form.fontFamily}
             textColor={effectiveTheme.ui.text}
             landColor={effectiveTheme.map.land}
+            backgroundColor={effectiveTheme.ui.bg}
+            borderColor={getThemeColorByPath(effectiveTheme, "ui.border")}
+            borderLineColor={getThemeColorByPath(effectiveTheme, "ui.borderLine")}
             showPosterText={form.showPosterText}
+            coordinateText={
+              form.showCoordinates
+                ? formatCoordinates(formLat, formLon, {
+                    format: form.coordinateFormat,
+                    separator: form.coordinateSeparator,
+                  })
+                : ""
+            }
             includeCredits={form.includeCredits}
             showOverlay={form.showMarkers}
+            template={posterLayout}
           />
 
           <div className="map-controls" aria-label={t("poster.controls.mapControls")}>

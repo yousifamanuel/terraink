@@ -217,7 +217,8 @@
       "showParks": "Show parks",
       "showRoads": "Show roads",
       "showRail": "Show rail",
-      "showAeroway": "Show aeroway"
+      "showAeroway": "Show aeroway",
+      "showBorders": "Show borders"
     },
     "dimensions": {
       "widthCm": "Width (cm)",
@@ -288,7 +289,8 @@
       "layers": "Layers",
       "markers": "Markers",
       "routes": "Routes",
-      "style": "Style"
+      "style": "Style",
+      "text": "Text"
     },
     "info": {
       "ariaLabel": "Current settings",
@@ -324,12 +326,55 @@
     },
     "typography": {
       "style": "STYLE",
+      "text": "TEXT",
       "posterText": "Poster text",
       "overlayLayer": "Overlay layer",
-      "displayCity": "Display city",
-      "displayCountry": "Display country",
+      "displayCity": "Title",
+      "displayCountry": "Subtitle",
       "font": "Font",
-      "defaultFont": "Default (Space Grotesk)"
+      "defaultFont": "Space Grotesk (default)",
+      "coordinates": "Coordinates",
+      "separator": "Separator",
+      "separatorNone": "No separator",
+      "separatorCustom": "Own separator (up to 3 characters)",
+      "textPosition": "Text position",
+      "position": {
+        "top": "Top",
+        "bottom": "Bottom"
+      },
+      "textAlign": "Alignment",
+      "align": {
+        "left": "Left",
+        "center": "Center",
+        "right": "Right"
+      },
+      "border": "Border",
+      "borderColors": "Colors in Theme",
+      "borderWidth": "Border width",
+      "borderLine": "Line",
+      "line": {
+        "single": "Single",
+        "double": "Double"
+      },
+      "borderStyle": "Line style",
+      "dash": {
+        "solid": "Solid",
+        "dashed": "Dashed"
+      },
+      "lineThickness": "Line thickness",
+      "titleSize": "Title size",
+      "subtitleSize": "Subtitle size",
+      "textOffset": "Move up / down",
+      "divider": "Divider line",
+      "dividerStyle": "Divider style",
+      "dividerStyles": {
+        "solid": "Solid",
+        "dashed": "Dashed",
+        "dotted": "Dotted"
+      },
+      "dividerThickness": "Divider thickness",
+      "resetStyle": "Reset all style settings",
+      "resetText": "Reset all text settings"
     }
   },
   "theme": {
@@ -353,7 +398,12 @@
       "editing": "Editing: {{label}}",
       "save": "Save",
       "resetAll": "Reset All",
-      "done": "Done"
+      "done": "Done",
+      "groupColors": "Group colors",
+      "showDetails": "Show details",
+      "layerOff": "Layer is off",
+      "applyToDetails": "Apply to details",
+      "off": "Off"
     },
     "saveModal": {
       "title": "Save Theme",
@@ -380,7 +430,9 @@
     "colors": {
       "ui": {
         "bg": "Overlay",
-        "text": "Text"
+        "text": "Text",
+        "border": "Border",
+        "borderLine": "Border line"
       },
       "map": {
         "land": "Land",
@@ -398,8 +450,23 @@
           "minor_low": "Roads Minor Low",
           "path": "Roads Path",
           "outline": "Road Outline"
-        }
+        },
+        "forest": "Forest",
+        "grass": "Grass",
+        "farmland": "Farmland",
+        "wetland": "Wetland",
+        "sand": "Sand",
+        "ice": "Ice",
+        "borders": "Country borders"
       }
+    },
+    "groups": {
+      "poster": "Poster",
+      "land": "Land",
+      "nature": "Nature",
+      "water": "Water",
+      "transport": "Transport",
+      "roads": "Roads"
     },
     "descriptions": {
       "carrara": "White marble — pale stone with soft charcoal veining",
@@ -411,6 +478,7 @@
       "rustic": "Earthy paper-like base with wood and clay road tones.",
       "midnight_blue": "Deep navy background with gold/copper roads - luxury atlas aesthetic",
       "neon": "Neon-drenched high-contrast palette with magenta and cyan accents.",
+      "graphite": "Neutral greys with white text and light grey roads.",
       "terracotta": "Mediterranean warmth - burnt orange and clay tones on cream",
       "blueprint": "Classic architectural blueprint - technical drawing aesthetic",
       "contrast_zones": "Strong contrast showing urban density - darker in center, lighter at edges",
@@ -491,7 +559,8 @@
   },
   "shell": {
     "common": {
-      "close": "Close"
+      "close": "Close",
+      "resetDefault": "Reset to default"
     },
     "footer": {
       "imprint": "Imprint",
@@ -543,7 +612,15 @@
       "donate": "Donate",
       "donateLabel": "Support Terraink and donate to keep it free",
       "follow": "Follow Terraink on {{network}}",
-      "credits": "Include credits to help others discover the tool"
+      "credits": "Include credits to help others discover the tool",
+      "builtWith": {
+        "title": "Built with",
+        "mapData": "Map data",
+        "tiles": "Map style",
+        "hosting": "Tile hosting",
+        "search": "Place search",
+        "renderer": "Map engine"
+      }
     },
     "social": {
       "projectLinks": "Project links",
@@ -559,6 +636,7 @@
       "theme": "Theme",
       "layout": "Layout",
       "style": "Style",
+      "text": "Text",
       "layers": "Layers",
       "markers": "Markers",
       "routes": "Routes",

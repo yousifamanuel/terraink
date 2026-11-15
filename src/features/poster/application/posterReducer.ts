@@ -1,4 +1,5 @@
 import type { SearchResult } from "@/features/location/domain/types";
+import type { CoordinateFormat } from "@/shared/geo/posterBounds";
 import type {
   MarkerDefaults,
   MarkerIconDefinition,
@@ -20,6 +21,13 @@ import {
 } from "@/features/routes/domain/constants";
 import type { SavedTheme } from "@/features/theme/domain/types";
 import type { UserDefaults } from "@/features/settings/domain/types";
+import type {
+  BorderDash,
+  BorderLine,
+  DividerStyle,
+  PosterTextAlign,
+  PosterTextPosition,
+} from "@/features/poster/domain/posterStyleTemplates";
 
 /* ────── Form state ────── */
 
@@ -35,8 +43,34 @@ export interface PosterForm {
   displayCity: string;
   displayCountry: string;
   displayContinent: string;
+  /** Title / subtitle the user typed; used while displayNameOverrides is set. */
+  posterTitle: string;
+  posterSubtitle: string;
   fontFamily: string;
+  /** Title block at the top or bottom of the poster. */
+  textPosition: PosterTextPosition;
+  textAlign: PosterTextAlign;
+  showBorder: boolean;
+  /** Border width in % of the shorter side (string while editing the slider). */
+  borderWidth: string;
+  borderLine: BorderLine;
+  borderDash: BorderDash;
+  /** Line thickness in % of the shorter side. */
+  borderThickness: string;
+  /** Title / subtitle size in % of default, text block offset in % of height. */
+  titleSize: string;
+  subtitleSize: string;
+  textOffset: string;
+  showDivider: boolean;
+  dividerStyle: DividerStyle;
+  /** Divider thickness in % of the default line. */
+  dividerThickness: string;
   showPosterText: boolean;
+  /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
+  coordinateFormat: CoordinateFormat;
+  showCoordinates: boolean;
+  /** Text between latitude and longitude; "" = none (just a space). */
+  coordinateSeparator: string;
   includeCredits: boolean;
   includeLandcover: boolean;
   includeBuildings: boolean;
@@ -48,6 +82,7 @@ export interface PosterForm {
   includeRoadPath: boolean;
   includeRoadMinorLow: boolean;
   includeRoadOutline: boolean;
+  includeBorders: boolean;
   showMarkers: boolean;
   showRoutes: boolean;
 }
@@ -71,6 +106,8 @@ export interface PosterState {
   isLocationFocused: boolean;
   /** A place-name lookup for the current map position is waiting or running. */
   isLocationLookupPending: boolean;
+  /** Zoom of the poster map; picks city, country or continent names. */
+  mapZoom: number;
   selectedLocation: SearchResult | null;
   userLocation: SearchResult | null;
   displayNameOverrides: {
@@ -104,6 +141,7 @@ export type PosterAction =
   | { type: "CLEAR_LOCATION" }
   | { type: "SET_LOCATION_FOCUSED"; focused: boolean }
   | { type: "SET_LOCATION_LOOKUP_PENDING"; pending: boolean }
+  | { type: "SET_MAP_ZOOM"; zoom: number }
   | { type: "SET_ERROR"; error: string }
   | { type: "SET_EXPORT_STATUS"; exporting: boolean; error?: string }
   | { type: "SET_MARKER_EDITOR_ACTIVE"; active: boolean }
@@ -154,11 +192,11 @@ export function posterReducer(
         nextDisplayNameOverrides.country = false;
       }
 
-      if (action.name === "displayCity") {
+      if (action.name === "posterTitle") {
         nextDisplayNameOverrides.city = true;
       }
 
-      if (action.name === "displayCountry") {
+      if (action.name === "posterSubtitle") {
         nextDisplayNameOverrides.country = true;
       }
 
@@ -200,11 +238,14 @@ export function posterReducer(
         },
       };
 
-    case "SET_COLOR":
+    case "SET_COLOR": {
+      // An empty value removes the edit (the theme color applies again).
+      const { [action.key]: _removed, ...rest } = state.customColors;
       return {
         ...state,
-        customColors: { ...state.customColors, [action.key]: action.value },
+        customColors: action.value ? { ...rest, [action.key]: action.value } : rest,
       };
+    }
 
     case "SET_CUSTOM_COLORS":
       return { ...state, customColors: { ...action.colors } };
@@ -285,6 +326,10 @@ export function posterReducer(
     case "SET_LOCATION_LOOKUP_PENDING":
       if (state.isLocationLookupPending === action.pending) return state;
       return { ...state, isLocationLookupPending: action.pending };
+
+    case "SET_MAP_ZOOM":
+      if (state.mapZoom === action.zoom) return state;
+      return { ...state, mapZoom: action.zoom };
 
     case "SET_ERROR":
       return { ...state, error: action.error };

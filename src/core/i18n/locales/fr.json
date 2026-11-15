@@ -218,7 +218,8 @@
       "showParks": "Parcs",
       "showRoads": "Routes",
       "showRail": "Voies ferrées",
-      "showAeroway": "Aéroports"
+      "showAeroway": "Aéroports",
+      "showBorders": "Frontières"
     },
     "dimensions": {
       "widthCm": "Largeur (cm)",
@@ -289,7 +290,8 @@
       "layers": "Calques",
       "markers": "Repères",
       "routes": "Trajets",
-      "style": "Style"
+      "style": "Style",
+      "text": "Texte"
     },
     "info": {
       "ariaLabel": "Réglages actuels",
@@ -326,12 +328,55 @@
     },
     "typography": {
       "style": "STYLE",
+      "text": "TEXTE",
       "posterText": "Texte de l’affiche",
       "overlayLayer": "Superposition",
-      "displayCity": "Afficher la ville",
-      "displayCountry": "Afficher le pays",
+      "displayCity": "Titre",
+      "displayCountry": "Sous-titre",
       "font": "Police",
-      "defaultFont": "Par défaut (Space Grotesk)"
+      "defaultFont": "Space Grotesk (par défaut)",
+      "coordinates": "Coordonnées",
+      "separator": "Séparateur",
+      "separatorNone": "Aucun séparateur",
+      "separatorCustom": "Séparateur personnalisé (3 caractères max.)",
+      "textPosition": "Position du texte",
+      "position": {
+        "top": "Haut",
+        "bottom": "Bas"
+      },
+      "textAlign": "Alignement",
+      "align": {
+        "left": "Gauche",
+        "center": "Centre",
+        "right": "Droite"
+      },
+      "border": "Bordure",
+      "borderColors": "Couleurs dans Thème",
+      "borderWidth": "Largeur de la bordure",
+      "borderLine": "Trait",
+      "line": {
+        "single": "Simple",
+        "double": "Double"
+      },
+      "borderStyle": "Style du trait",
+      "dash": {
+        "solid": "Plein",
+        "dashed": "Pointillé"
+      },
+      "lineThickness": "Épaisseur du trait",
+      "titleSize": "Taille du titre",
+      "subtitleSize": "Taille du sous-titre",
+      "textOffset": "Monter / descendre",
+      "divider": "Ligne de séparation",
+      "dividerStyle": "Style du trait",
+      "dividerStyles": {
+        "solid": "Plein",
+        "dashed": "Tirets",
+        "dotted": "Pointillé"
+      },
+      "dividerThickness": "Épaisseur du trait",
+      "resetStyle": "Réinitialiser tout le style",
+      "resetText": "Réinitialiser tout le texte"
     }
   },
   "theme": {
@@ -355,7 +400,12 @@
       "editing": "Modification : {{label}}",
       "save": "Enregistrer",
       "resetAll": "Tout réinitialiser",
-      "done": "Terminé"
+      "done": "Terminé",
+      "groupColors": "Grouper les couleurs",
+      "showDetails": "Afficher les détails",
+      "layerOff": "Calque désactivé",
+      "applyToDetails": "Appliquer aux détails",
+      "off": "Désact."
     },
     "saveModal": {
       "title": "Enregistrer le thème",
@@ -382,7 +432,9 @@
     "colors": {
       "ui": {
         "bg": "Superposition",
-        "text": "Texte"
+        "text": "Texte",
+        "border": "Bordure",
+        "borderLine": "Trait de bordure"
       },
       "map": {
         "land": "Terre",
@@ -400,8 +452,23 @@
           "minor_low": "Routes sec. basses",
           "path": "Chemins",
           "outline": "Contour routes"
-        }
+        },
+        "forest": "Forêt",
+        "grass": "Herbe",
+        "farmland": "Cultures",
+        "wetland": "Zone humide",
+        "sand": "Sable",
+        "ice": "Glace",
+        "borders": "Frontières"
       }
+    },
+    "groups": {
+      "poster": "Affiche",
+      "land": "Terre",
+      "nature": "Nature",
+      "water": "Eau",
+      "transport": "Transport",
+      "roads": "Routes"
     },
     "descriptions": {
       "carrara": "Marbre blanc, pierre pâle aux veines gris anthracite",
@@ -413,6 +480,7 @@
       "rustic": "Fond papier terreux, routes bois et argile",
       "midnight_blue": "Bleu marine profond, routes or et cuivre : style atlas de luxe",
       "neon": "Néons très contrastés, accents magenta et cyan",
+      "graphite": "Gris neutres, texte blanc et routes gris clair.",
       "terracotta": "Chaleur méditerranéenne : orange brûlé et argile sur crème",
       "blueprint": "Plan d'architecte classique, esthétique dessin technique",
       "contrast_zones": "Fort contraste selon la densité : sombre au centre, clair aux bords",
@@ -493,7 +561,8 @@
   },
   "shell": {
     "common": {
-      "close": "Fermer"
+      "close": "Fermer",
+      "resetDefault": "Rétablir la valeur par défaut"
     },
     "footer": {
       "imprint": "Mentions légales",
@@ -545,7 +614,15 @@
       "donate": "Faire un don",
       "donateLabel": "Soutenez Terraink et faites un don pour le garder gratuit",
       "follow": "Suivre Terraink sur {{network}}",
-      "credits": "Mentionnez-nous pour aider d’autres personnes à découvrir l’outil"
+      "credits": "Mentionnez-nous pour aider d’autres personnes à découvrir l’outil",
+      "builtWith": {
+        "title": "Conçu avec",
+        "mapData": "Données cartographiques",
+        "tiles": "Style de carte",
+        "hosting": "Hébergement des tuiles",
+        "search": "Recherche de lieux",
+        "renderer": "Moteur de carte"
+      }
     },
     "social": {
       "projectLinks": "Liens du projet",
@@ -561,6 +638,7 @@
       "theme": "Thème",
       "layout": "Format",
       "style": "Style",
+      "text": "Texte",
       "layers": "Calques",
       "markers": "Repères",
       "routes": "Trajets",
