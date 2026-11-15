@@ -253,7 +253,8 @@
       "continueWith": "<place>{{place}}</place> で続ける",
       "locating": "取得中...",
       "getMyLocation": "現在地を取得",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "今後表示しない"
     },
     "dropdown": {
       "searching": "検索中...",
@@ -534,6 +535,8 @@
     "section": {
       "title": "設定",
       "language": "言語",
+      "startupWindow": "場所ウィンドウ",
+      "startupWindowHint": "アプリを開くたびに場所を尋ねます。",
       "note": "アプリの起動時に使われる値です。<strong>設定を保存</strong>をタップすると、現在のポスター設定（テーマ、レイアウト、フォント）が標準として保存されます。この端末内に保存されます。",
       "defaultFont": "標準（Space Grotesk）",
       "savedThemeLabel": "{{name}}（保存済み）",

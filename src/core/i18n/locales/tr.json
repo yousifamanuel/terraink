@@ -254,7 +254,8 @@
       "continueWith": "<place>{{place}}</place> ile devam et",
       "locating": "Konum bulunuyor...",
       "getMyLocation": "Konumumu al",
-      "ok": "Tamam"
+      "ok": "Tamam",
+      "dontShowAgain": "Bir daha gösterme"
     },
     "dropdown": {
       "searching": "Aranıyor...",
@@ -536,6 +537,8 @@
     "section": {
       "title": "Ayarlar",
       "language": "Dil",
+      "startupWindow": "Konum penceresi",
+      "startupWindowHint": "Uygulama her açıldığında bir yer sor.",
       "note": "Bunlar uygulama açılırken kullanılan değerlerdir. Mevcut poster düzeninizi (tema, düzen, yazı tipi) varsayılan olarak almak için <strong>Ayarları kaydet</strong> düğmesine dokunun. Bu cihazda yerel olarak saklanır.",
       "defaultFont": "Varsayılan (Space Grotesk)",
       "savedThemeLabel": "{{name}} (kayıtlı)",

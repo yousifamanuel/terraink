@@ -51,6 +51,10 @@ export { createPosterFilename } from "@/features/export/infrastructure/filenameG
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
 export {
+  loadStartupWindowHidden,
+  saveStartupWindowHidden,
+} from "@/features/location/infrastructure/startupWindowStorage";
+export {
   loadAllTimeDownloadCount,
   saveAllTimeDownloadCount,
 } from "@/features/export/infrastructure/downloadCountStorage";

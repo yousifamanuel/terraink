@@ -253,7 +253,8 @@
       "continueWith": "继续使用 <place>{{place}}</place>",
       "locating": "定位中...",
       "getMyLocation": "获取我的位置",
-      "ok": "确定"
+      "ok": "确定",
+      "dontShowAgain": "不再显示"
     },
     "dropdown": {
       "searching": "搜索中...",
@@ -534,6 +535,8 @@
     "section": {
       "title": "设置",
       "language": "语言",
+      "startupWindow": "地点窗口",
+      "startupWindowHint": "每次打开应用时询问地点。",
       "note": "这些是应用启动时使用的值。点按<strong>保存设置</strong>，即可将当前海报设置（主题、布局、字体）保存为默认值。仅保存在此设备本地。",
       "defaultFont": "默认 (Space Grotesk)",
       "savedThemeLabel": "{{name}}（已保存）",

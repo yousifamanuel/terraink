@@ -254,7 +254,8 @@
       "continueWith": "Verder met <place>{{place}}</place>",
       "locating": "Zoeken...",
       "getMyLocation": "Mijn locatie",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Niet meer tonen"
     },
     "dropdown": {
       "searching": "Zoeken...",
@@ -536,6 +537,8 @@
     "section": {
       "title": "Instellingen",
       "language": "Taal",
+      "startupWindow": "Locatievenster",
+      "startupWindowHint": "Vraag om een plaats bij elke start van de app.",
       "note": "Dit zijn de waarden die bij het laden van de app worden gebruikt. Tik op <strong>Instellingen opslaan</strong> om je huidige posteropzet (thema, lay-out, lettertype) als standaard vast te leggen. Lokaal opgeslagen op dit apparaat.",
       "defaultFont": "Standaard (Space Grotesk)",
       "savedThemeLabel": "{{name}} (opgeslagen)",

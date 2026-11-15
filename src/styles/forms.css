@@ -4222,3 +4222,68 @@ button.font-picker-option.is-selected {
   border-color: rgba(255, 140, 140, 0.8);
   background: rgba(195, 40, 40, 0.96);
 }
+
+/* Shared checkbox: a dark blue box, the accent blue with a check when ticked. */
+input.app-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 1px solid rgba(146, 176, 200, 0.4);
+  border-radius: 6px;
+  background: rgba(20, 41, 57, 0.95);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+input.app-checkbox::after {
+  content: "";
+  width: 11px;
+  height: 6px;
+  margin-top: -3px;
+  border-left: 2px solid #f4fbff;
+  border-bottom: 2px solid #f4fbff;
+  transform: rotate(-45deg) scale(0);
+  transition: transform 0.12s ease;
+}
+
+input.app-checkbox:checked {
+  background: linear-gradient(135deg, #1a6f8c, #2f8eaf);
+  border-color: #2f8eaf;
+}
+
+input.app-checkbox:checked::after {
+  transform: rotate(-45deg) scale(1);
+}
+
+input.app-checkbox:hover,
+input.app-checkbox:focus-visible {
+  border-color: rgba(146, 176, 200, 0.75);
+}
+
+/* Settings row with a switch: name and short description left, switch right. */
+.settings-default-row.settings-toggle-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.settings-toggle-text {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.settings-toggle-hint {
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: #9bb3c5;
+}

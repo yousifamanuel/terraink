@@ -256,7 +256,8 @@
       "continueWith": "Kontynuuj: <place>{{place}}</place>",
       "locating": "Lokalizowanie...",
       "getMyLocation": "Moja lokalizacja",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Nie pokazuj ponownie"
     },
     "dropdown": {
       "searching": "Szukanie...",
@@ -540,6 +541,8 @@
     "section": {
       "title": "Ustawienia",
       "language": "Język",
+      "startupWindow": "Okno miejsca",
+      "startupWindowHint": "Pytaj o miejsce przy każdym otwarciu aplikacji.",
       "note": "To wartości używane po uruchomieniu aplikacji. Dotknij <strong>Zapisz ustawienia</strong>, aby zapisać bieżącą konfigurację plakatu (motyw, układ, czcionkę) jako domyślną. Zapisane lokalnie na tym urządzeniu.",
       "defaultFont": "Domyślna (Space Grotesk)",
       "savedThemeLabel": "{{name}} (zapisany)",

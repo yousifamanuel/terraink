@@ -258,7 +258,8 @@
       "continueWith": "متابعة مع <place>{{place}}</place>",
       "locating": "جارٍ تحديد الموقع...",
       "getMyLocation": "تحديد موقعي",
-      "ok": "موافق"
+      "ok": "موافق",
+      "dontShowAgain": "لا تعرض مرة أخرى"
     },
     "dropdown": {
       "searching": "جارٍ البحث...",
@@ -544,6 +545,8 @@
     "section": {
       "title": "الإعدادات",
       "language": "اللغة",
+      "startupWindow": "نافذة الموقع",
+      "startupWindowHint": "طلب مكان في كل مرة يُفتح فيها التطبيق.",
       "note": "هذه هي القيم المستخدمة عند تشغيل التطبيق. اضغط <strong>حفظ الإعدادات</strong> لاعتماد إعداد ملصقك الحالي (الألوان والتخطيط والخط) كقيم افتراضية. تُحفظ محليًا على هذا الجهاز.",
       "defaultFont": "الافتراضي (Space Grotesk)",
       "savedThemeLabel": "{{name}} (محفوظة)",

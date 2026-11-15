@@ -774,6 +774,19 @@ button.install-prompt-dismiss:hover {
   }
 }
 
+/* "Don't show again" under the startup window buttons. */
+.startup-location-hide {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 10px 0 0;
+  font-size: 0.8rem;
+  color: rgba(180, 205, 225, 0.8);
+  cursor: pointer;
+}
+
+
 /* The place name stands out from the uppercase button text. */
 .startup-location-place {
   font-family: "Space Grotesk", sans-serif;

@@ -255,7 +255,8 @@
       "continueWith": "Seguir con <place>{{place}}</place>",
       "locating": "Localizando...",
       "getMyLocation": "Mi ubicación",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "No volver a mostrar"
     },
     "dropdown": {
       "searching": "Buscando...",
@@ -538,6 +539,8 @@
     "section": {
       "title": "Ajustes",
       "language": "Idioma",
+      "startupWindow": "Ventana de lugar",
+      "startupWindowHint": "Pedir un lugar cada vez que se abre la app.",
       "note": "Estos son los valores que se usan al cargar la app. Toca <strong>Guardar ajustes</strong> para guardar tu póster actual (tema, formato, fuente) como valores predeterminados. Se guardan localmente en este dispositivo.",
       "defaultFont": "Por defecto (Space Grotesk)",
       "savedThemeLabel": "{{name}} (guardado)",

@@ -255,7 +255,8 @@
       "continueWith": "Continua con <place>{{place}}</place>",
       "locating": "Localizzazione...",
       "getMyLocation": "Usa posizione",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Non mostrare più"
     },
     "dropdown": {
       "searching": "Ricerca...",
@@ -538,6 +539,8 @@
     "section": {
       "title": "Impostazioni",
       "language": "Lingua",
+      "startupWindow": "Finestra luogo",
+      "startupWindowHint": "Chiedi un luogo a ogni apertura dell'app.",
       "note": "Questi sono i valori usati all'avvio dell'app. Tocca <strong>Salva</strong> per usare come predefiniti la configurazione attuale del poster (tema, formato, carattere). Salvato in locale su questo dispositivo.",
       "defaultFont": "Predefinito (Space Grotesk)",
       "savedThemeLabel": "{{name}} (salvato)",

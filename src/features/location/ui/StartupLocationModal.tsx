@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import {
   DEFAULT_CITY,
@@ -25,6 +25,7 @@ import {
   recordRecentLocation,
   useRecentLocations,
 } from "@/features/location/application/useRecentLocations";
+import { useStartupWindowPref } from "@/features/location/application/useStartupWindowPref";
 import LocationSuggestionsDropdown from "./LocationSuggestionsDropdown";
 import type { SearchResult } from "@/features/location/domain/types";
 
@@ -54,7 +55,10 @@ export default function StartupLocationModal({
 }: StartupLocationModalProps) {
   const { t } = useTranslation();
   const { dispatch } = usePosterDispatch();
-  const [isOpen, setIsOpen] = useState(true);
+  const { hidden: windowHidden, setHidden: setWindowHidden } = useStartupWindowPref();
+  // Turned off ("Don't show again"): open straight on the last place.
+  const [skipWindow] = useState(windowHidden);
+  const [isOpen, setIsOpen] = useState(!skipWindow);
   const [isClosing, setIsClosing] = useState(false);
   const [locationInput, setLocationInput] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -127,7 +131,11 @@ export default function StartupLocationModal({
   };
 
   // The app already starts on the last place (see PosterContext), so
-  // "Continue" is instant.
+  // "Continue" is instant. Skipped window: finish right away.
+  useEffect(() => {
+    if (skipWindow) onComplete?.();
+    // Only once, on open.
+  }, []);
 
   const handleContinue = () => {
     if (lastPlace) recordRecentLocation(lastPlace);
@@ -344,6 +352,15 @@ export default function StartupLocationModal({
         >
           {t("location.startup.ok")}
         </button>
+        <label className="startup-location-hide">
+          <input
+            type="checkbox"
+            className="app-checkbox"
+            checked={windowHidden}
+            onChange={(event) => setWindowHidden(event.target.checked)}
+          />
+          <span>{t("location.startup.dontShowAgain")}</span>
+        </label>
         {errorMessage ? (
           <p className="startup-location-error" role="status">
             {errorMessage}

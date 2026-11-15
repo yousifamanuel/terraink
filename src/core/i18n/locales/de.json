@@ -254,7 +254,8 @@
       "continueWith": "Weiter mit <place>{{place}}</place>",
       "locating": "Standort wird ermittelt...",
       "getMyLocation": "Mein Standort",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Nicht mehr anzeigen"
     },
     "dropdown": {
       "searching": "Suche läuft...",
@@ -536,6 +537,8 @@
     "section": {
       "title": "Optionen",
       "language": "Sprache",
+      "startupWindow": "Ortsfenster",
+      "startupWindowHint": "Beim Öffnen der App nach einem Ort fragen.",
       "note": "Diese Werte werden beim Start der App verwendet. Tippe auf <strong>Speichern</strong>, um dein aktuelles Poster-Setup (Design, Layout, Schriftart) als Standard zu übernehmen. Wird lokal auf diesem Gerät gespeichert.",
       "defaultFont": "Standard (Space Grotesk)",
       "savedThemeLabel": "{{name}} (gespeichert)",

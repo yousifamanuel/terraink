@@ -255,7 +255,8 @@
       "continueWith": "Continuer avec <place>{{place}}</place>",
       "locating": "Localisation…",
       "getMyLocation": "Ma position",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Ne plus afficher"
     },
     "dropdown": {
       "searching": "Recherche…",
@@ -538,6 +539,8 @@
     "section": {
       "title": "Réglages",
       "language": "Langue",
+      "startupWindow": "Fenêtre de lieu",
+      "startupWindowHint": "Demander un lieu à chaque ouverture de l'app.",
       "note": "Ces valeurs sont utilisées au chargement de l’app. Touchez <strong>Enregistrer les réglages</strong> pour définir votre affiche actuelle (thème, format, police) comme valeurs par défaut. Enregistré localement sur cet appareil.",
       "defaultFont": "Par défaut (Space Grotesk)",
       "savedThemeLabel": "{{name}} (enregistré)",

@@ -255,7 +255,8 @@
       "continueWith": "Continuar com <place>{{place}}</place>",
       "locating": "Localizando…",
       "getMyLocation": "Minha localização",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Não mostrar novamente"
     },
     "dropdown": {
       "searching": "Buscando…",
@@ -538,6 +539,8 @@
     "section": {
       "title": "Ajustes",
       "language": "Idioma",
+      "startupWindow": "Janela de local",
+      "startupWindowHint": "Pedir um local sempre que o app abrir.",
       "note": "Estes são os valores usados quando o app abre. Toque em <strong>Salvar</strong> para guardar seu pôster atual (tema, layout, fonte) como padrão. Salvo localmente neste dispositivo.",
       "defaultFont": "Padrão (Space Grotesk)",
       "savedThemeLabel": "{{name}} (salvo)",

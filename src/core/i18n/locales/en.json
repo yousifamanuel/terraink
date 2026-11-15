@@ -254,7 +254,8 @@
       "continueWith": "Continue with <place>{{place}}</place>",
       "locating": "Locating...",
       "getMyLocation": "Get my location",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Don't show again"
     },
     "dropdown": {
       "searching": "Searching...",
@@ -536,6 +537,8 @@
     "section": {
       "title": "Settings",
       "language": "Language",
+      "startupWindow": "Location window",
+      "startupWindowHint": "Ask for a place each time the app opens.",
       "note": "These are the values used when the app loads. Tap <strong>Save Settings</strong> to capture your current poster setup (theme, layout, font) as your defaults. Saved locally on this device.",
       "defaultFont": "Default (Space Grotesk)",
       "savedThemeLabel": "{{name}} (saved)",
