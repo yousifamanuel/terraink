@@ -4287,3 +4287,48 @@ input.app-checkbox:focus-visible {
   line-height: 1.35;
   color: #9bb3c5;
 }
+
+/* Theme card star (favorite), top right; the saved-theme trash sits left of it. */
+button.theme-card-favorite {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(151, 183, 207, 0.35);
+  border-radius: 999px;
+  background: rgba(9, 18, 27, 0.78);
+  color: #c7d8e6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+button.theme-card-favorite svg {
+  width: 13px;
+  height: 13px;
+}
+
+button.theme-card-favorite:hover,
+button.theme-card-favorite:focus-visible {
+  border-color: rgba(255, 205, 0, 0.7);
+  color: #ffd84d;
+  transform: scale(1.06);
+}
+
+button.theme-card-favorite.is-active {
+  border-color: rgba(255, 205, 0, 0.75);
+  color: #ffcd00;
+}
+
+.theme-card-favorite ~ button.theme-card-delete {
+  right: 42px;
+}

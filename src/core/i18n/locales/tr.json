@@ -391,10 +391,13 @@
       "deleteSavedAria": "{{name}} kayıtlı temasını sil",
       "builtInThemes": "Yerleşik",
       "themeOptionsAria": "Tema seçenekleri",
-      "savedThemeDescription": "Kayıtlı tema"
+      "savedThemeDescription": "Kayıtlı tema",
+      "favorites": "Favoriler"
     },
     "card": {
-      "deleteAria": "{{name}} öğesini sil"
+      "deleteAria": "{{name}} öğesini sil",
+      "favoriteAdd": "{{name}} favorilere ekle",
+      "favoriteRemove": "{{name}} favorilerden çıkar"
     },
     "editor": {
       "title": "Renkler",

@@ -399,10 +399,13 @@
       "deleteSavedAria": "حذف الألوان المحفوظة {{name}}",
       "builtInThemes": "الألوان المضمنة",
       "themeOptionsAria": "خيارات الألوان",
-      "savedThemeDescription": "ألوان محفوظة"
+      "savedThemeDescription": "ألوان محفوظة",
+      "favorites": "المفضلة"
     },
     "card": {
-      "deleteAria": "حذف {{name}}"
+      "deleteAria": "حذف {{name}}",
+      "favoriteAdd": "إضافة {{name}} إلى المفضلة",
+      "favoriteRemove": "إزالة {{name}} من المفضلة"
     },
     "editor": {
       "title": "محرر الألوان",

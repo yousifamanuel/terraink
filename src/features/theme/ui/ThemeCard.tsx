@@ -4,7 +4,7 @@ import {
   type ThemeOption,
   type ThemeColorKey,
 } from "../domain/types";
-import { TrashIcon } from "@/shared/ui/Icons";
+import { StarIcon, StarOutlineIcon, TrashIcon } from "@/shared/ui/Icons";
 
 interface ThemeCardProps {
   themeOption: ThemeOption | null;
@@ -13,6 +13,9 @@ interface ThemeCardProps {
   showFullPalette?: boolean;
   onDelete?: () => void;
   deleteAriaLabel?: string;
+  /** Shows a star in the corner to mark the theme as a favorite. */
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
 }
 
 export default function ThemeCard({
@@ -22,6 +25,8 @@ export default function ThemeCard({
   showFullPalette = false,
   onDelete,
   deleteAriaLabel,
+  isFavorite = false,
+  onToggleFavorite,
 }: ThemeCardProps) {
   const { t } = useTranslation();
   if (!themeOption) {
@@ -57,6 +62,7 @@ export default function ThemeCard({
     "theme-card",
     isSelected ? "is-selected" : "",
     onDelete ? "theme-card--deletable" : "",
+    onToggleFavorite ? "theme-card--favoritable" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -92,11 +98,32 @@ export default function ThemeCard({
     </button>
   );
 
-  if (!onDelete) return cardButton;
+  if (!onDelete && !onToggleFavorite) return cardButton;
 
   return (
     <div className="theme-card-wrap">
       {cardButton}
+      {onToggleFavorite ? (
+        <button
+          type="button"
+          className={`theme-card-favorite${isFavorite ? " is-active" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleFavorite();
+          }}
+          aria-pressed={isFavorite}
+          aria-label={t(
+            isFavorite ? "theme.card.favoriteRemove" : "theme.card.favoriteAdd",
+            { name: themeOption.name },
+          )}
+          title={t(isFavorite ? "theme.card.favoriteRemove" : "theme.card.favoriteAdd", {
+            name: themeOption.name,
+          })}
+        >
+          {isFavorite ? <StarIcon /> : <StarOutlineIcon />}
+        </button>
+      ) : null}
+      {onDelete ? (
       <button
         type="button"
         className="theme-card-delete"
@@ -108,6 +135,7 @@ export default function ThemeCard({
       >
         <TrashIcon />
       </button>
+      ) : null}
     </div>
   );
 }

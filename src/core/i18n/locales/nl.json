@@ -391,10 +391,13 @@
       "deleteSavedAria": "Thema {{name}} wissen",
       "builtInThemes": "Ingebouwd",
       "themeOptionsAria": "Themaopties",
-      "savedThemeDescription": "Opgeslagen thema"
+      "savedThemeDescription": "Opgeslagen thema",
+      "favorites": "Favorieten"
     },
     "card": {
-      "deleteAria": "{{name}} wissen"
+      "deleteAria": "{{name}} wissen",
+      "favoriteAdd": "{{name}} aan favorieten toevoegen",
+      "favoriteRemove": "{{name}} uit favorieten verwijderen"
     },
     "editor": {
       "title": "Kleureditor",

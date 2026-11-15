@@ -395,10 +395,13 @@
       "deleteSavedAria": "Usuń zapisany motyw {{name}}",
       "builtInThemes": "Wbudowane",
       "themeOptionsAria": "Opcje motywu",
-      "savedThemeDescription": "Zapisany motyw"
+      "savedThemeDescription": "Zapisany motyw",
+      "favorites": "Ulubione"
     },
     "card": {
-      "deleteAria": "Usuń: {{name}}"
+      "deleteAria": "Usuń: {{name}}",
+      "favoriteAdd": "Dodaj {{name}} do ulubionych",
+      "favoriteRemove": "Usuń {{name}} z ulubionych"
     },
     "editor": {
       "title": "Edytor kolorów",

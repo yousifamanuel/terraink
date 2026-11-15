@@ -393,10 +393,13 @@
       "deleteSavedAria": "Eliminar tema guardado {{name}}",
       "builtInThemes": "Incluidos",
       "themeOptionsAria": "Opciones de tema",
-      "savedThemeDescription": "Tema guardado"
+      "savedThemeDescription": "Tema guardado",
+      "favorites": "Favoritos"
     },
     "card": {
-      "deleteAria": "Eliminar {{name}}"
+      "deleteAria": "Eliminar {{name}}",
+      "favoriteAdd": "Añadir {{name}} a favoritos",
+      "favoriteRemove": "Quitar {{name}} de favoritos"
     },
     "editor": {
       "title": "Editor de color",

@@ -28,6 +28,7 @@ export const StyleIcon = GenIcon({
 
 export { FaGithub as GitHubIcon } from "react-icons/fa";
 export { FaStar as StarIcon } from "react-icons/fa";
+export { FaRegStar as StarOutlineIcon } from "react-icons/fa";
 export { FaLinkedin as LinkedInIcon } from "react-icons/fa";
 export { FaInstagram as InstagramIcon } from "react-icons/fa";
 export { FaRedditAlien as RedditIcon } from "react-icons/fa";

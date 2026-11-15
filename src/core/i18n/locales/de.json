@@ -391,10 +391,13 @@
       "deleteSavedAria": "Gespeichertes Design {{name}} löschen",
       "builtInThemes": "Integriert",
       "themeOptionsAria": "Designoptionen",
-      "savedThemeDescription": "Gespeichertes Design"
+      "savedThemeDescription": "Gespeichertes Design",
+      "favorites": "Favoriten"
     },
     "card": {
-      "deleteAria": "{{name}} löschen"
+      "deleteAria": "{{name}} löschen",
+      "favoriteAdd": "{{name}} zu Favoriten",
+      "favoriteRemove": "{{name}} aus Favoriten entfernen"
     },
     "editor": {
       "title": "Farbeditor",

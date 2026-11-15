@@ -389,10 +389,13 @@
       "deleteSavedAria": "保存したテーマ{{name}}を削除",
       "builtInThemes": "標準テーマ",
       "themeOptionsAria": "テーマのオプション",
-      "savedThemeDescription": "保存したテーマ"
+      "savedThemeDescription": "保存したテーマ",
+      "favorites": "お気に入り"
     },
     "card": {
-      "deleteAria": "{{name}}を削除"
+      "deleteAria": "{{name}}を削除",
+      "favoriteAdd": "{{name}} をお気に入りに追加",
+      "favoriteRemove": "{{name}} をお気に入りから削除"
     },
     "editor": {
       "title": "カラーエディタ",

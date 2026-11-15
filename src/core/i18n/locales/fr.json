@@ -393,10 +393,13 @@
       "deleteSavedAria": "Supprimer le thème enregistré {{name}}",
       "builtInThemes": "Intégrés",
       "themeOptionsAria": "Options de thème",
-      "savedThemeDescription": "Thème enregistré"
+      "savedThemeDescription": "Thème enregistré",
+      "favorites": "Favoris"
     },
     "card": {
-      "deleteAria": "Supprimer {{name}}"
+      "deleteAria": "Supprimer {{name}}",
+      "favoriteAdd": "Ajouter {{name}} aux favoris",
+      "favoriteRemove": "Retirer {{name}} des favoris"
     },
     "editor": {
       "title": "Couleurs",
