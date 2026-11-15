@@ -515,7 +515,10 @@
       "close": "Sluiten",
       "headline": "✨ Je poster is klaar!",
       "text": "Volg Terraink op Instagram voor frisse kaartideeën, ontwerptips en de nieuwste functies — en laat de posters zien die je maakt.",
-      "followUs": "Volg ons"
+      "followUs": "Volg ons",
+      "videoText": "Meer uit Terraink halen? Bekijk de gids van 6 minuten over alle menu's.",
+      "videoWatch": "Bekijk op YouTube",
+      "videoAlt": "Terraink-videogids"
     },
     "errors": {
       "mapNotReady": "De kaart is nog niet klaar.",

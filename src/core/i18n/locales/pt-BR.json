@@ -517,7 +517,10 @@
       "close": "Fechar",
       "headline": "✨ Seu pôster está pronto!",
       "text": "Siga o Terraink no Instagram para ver novas ideias de mapas, dicas de design e as últimas novidades — e mostre os pôsteres que você criar.",
-      "followUs": "Seguir"
+      "followUs": "Seguir",
+      "videoText": "Quer aproveitar mais o Terraink? Assista ao guia de 6 minutos com todos os menus.",
+      "videoWatch": "Assistir no YouTube",
+      "videoAlt": "Guia em vídeo do Terraink"
     },
     "errors": {
       "mapNotReady": "O mapa não está pronto.",

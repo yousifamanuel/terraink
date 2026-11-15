@@ -517,7 +517,10 @@
       "close": "Fermer",
       "headline": "✨ Votre affiche est prête !",
       "text": "Suivez Terraink sur Instagram pour des idées de cartes, des conseils de design et les dernières nouveautés — et montrez les affiches que vous créez.",
-      "followUs": "Suivez-nous"
+      "followUs": "Suivez-nous",
+      "videoText": "Envie d'en faire plus avec Terraink ? Regardez le guide de 6 minutes sur tous les menus.",
+      "videoWatch": "Voir sur YouTube",
+      "videoAlt": "Guide vidéo de Terraink"
     },
     "errors": {
       "mapNotReady": "La carte n’est pas prête.",

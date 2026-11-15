@@ -519,7 +519,10 @@
       "close": "Zamknij",
       "headline": "✨ Twój plakat jest gotowy!",
       "text": "Obserwuj Terraink na Instagramie, by poznać nowe pomysły na mapy, wskazówki projektowe i najnowsze funkcje — i pochwal się swoimi plakatami.",
-      "followUs": "Obserwuj nas"
+      "followUs": "Obserwuj nas",
+      "videoText": "Chcesz wycisnąć więcej z Terraink? Obejrzyj 6-minutowy przewodnik po wszystkich menu.",
+      "videoWatch": "Obejrzyj na YouTube",
+      "videoAlt": "Wideoporadnik Terraink"
     },
     "errors": {
       "mapNotReady": "Mapa nie jest gotowa.",

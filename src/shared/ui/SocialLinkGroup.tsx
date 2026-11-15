@@ -48,7 +48,7 @@ export default function SocialLinkGroup({ variant }: SocialLinkGroupProps) {
           rel="noreferrer"
           aria-label={t("shell.info.follow", { network: "Instagram" })}
           title="Instagram"
-          onClick={() => trackEvent("follow_click")}
+          onClick={() => trackEvent("follow_click", { source: variant })}
         >
           <InstagramIcon />
         </a>

@@ -517,7 +517,10 @@
       "close": "Chiudi",
       "headline": "✨ Il tuo poster è pronto!",
       "text": "Segui Terraink su Instagram per nuove idee di mappe, consigli di design e le ultime novità, e mostra i poster che crei.",
-      "followUs": "Seguici"
+      "followUs": "Seguici",
+      "videoText": "Vuoi sfruttare di più Terraink? Guarda la guida di 6 minuti a tutti i menu.",
+      "videoWatch": "Guarda su YouTube",
+      "videoAlt": "Videoguida di Terraink"
     },
     "errors": {
       "mapNotReady": "La mappa non è pronta.",

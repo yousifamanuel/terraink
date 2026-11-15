@@ -1,28 +1,58 @@
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { SOCIAL_INSTAGRAM } from "@/core/config";
-import { CloseIcon, InstagramIcon } from "@/shared/ui/Icons";
+import {
+  SOCIAL_INSTAGRAM,
+  VIDEO_GUIDE_THUMBNAIL,
+  VIDEO_GUIDE_URL,
+} from "@/core/config";
+import { CloseIcon, InstagramIcon, YouTubeIcon } from "@/shared/ui/Icons";
 import { trackEvent } from "@/shared/utils/analytics";
+import type { SupportPromptVariant } from "../application/useExport";
+import {
+  markVideoGuideClicked,
+  markVideoGuideDismissed,
+} from "../application/videoGuidePrompt";
 
 interface SupportModalProps {
   posterNumber: number;
+  /** "videoGuide" until the guide is opened, then "follow". */
+  variant?: SupportPromptVariant;
   onClose: () => void;
   titleId?: string;
 }
 
 export default function SupportModal({
   posterNumber,
+  variant = "follow",
   onClose,
   titleId = "export-support-modal-title",
 }: SupportModalProps) {
   const { t } = useTranslation();
   const instagramUrl = String(SOCIAL_INSTAGRAM ?? "").trim();
+  const videoUrl = String(VIDEO_GUIDE_URL ?? "").trim();
+  const showVideo = variant === "videoGuide" && Boolean(videoUrl);
+  const trackParams = { source: "download_modal", download_number: posterNumber };
+
+  const handleClose = () => {
+    // Closing without opening the video counts toward switching to follow.
+    if (showVideo) {
+      markVideoGuideDismissed();
+      trackEvent("video_guide_dismiss", trackParams);
+    }
+    onClose();
+  };
+
+  const handleVideoClick = () => {
+    markVideoGuideClicked();
+    trackEvent("video_guide_click", trackParams);
+    onClose();
+  };
 
   return createPortal(
     <div
       className="picker-modal-backdrop"
       role="presentation"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className="picker-modal support-modal"
@@ -34,7 +64,7 @@ export default function SupportModal({
         <button
           type="button"
           className="support-modal__close"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label={t("export.support.close")}
         >
           <CloseIcon />
@@ -43,30 +73,54 @@ export default function SupportModal({
           <p className="support-modal__headline" id={titleId}>
             {t("export.support.headline")}
           </p>
-          <p className="support-modal__text">
-            {t("export.support.text")}
-          </p>
-          <div className="support-modal__actions">
-            {instagramUrl ? (
+          {showVideo ? (
+            <>
+              <p className="support-modal__text">{t("export.support.videoText")}</p>
               <a
-                className="support-modal__instagram"
-                href={instagramUrl}
+                className="support-modal__video"
+                href={videoUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => trackEvent("follow_click")}
+                onClick={handleVideoClick}
               >
-                <InstagramIcon /> {t("export.support.followUs")}
+                <img
+                  className="support-modal__video-thumb"
+                  src={VIDEO_GUIDE_THUMBNAIL}
+                  alt={t("export.support.videoAlt")}
+                  width={640}
+                  height={360}
+                />
+                <span className="support-modal__video-cta">
+                  <YouTubeIcon aria-hidden="true" /> {t("export.support.videoWatch")}
+                </span>
               </a>
-            ) : (
-              <button
-                type="button"
-                className="support-modal__dismiss"
-                onClick={onClose}
-              >
-                {t("export.support.close")}
-              </button>
-            )}
-          </div>
+            </>
+          ) : (
+            <>
+              <p className="support-modal__text">{t("export.support.text")}</p>
+              <div className="support-modal__actions">
+                {instagramUrl ? (
+                  <a
+                    className="support-modal__instagram"
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackEvent("follow_click", trackParams)}
+                  >
+                    <InstagramIcon /> {t("export.support.followUs")}
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    className="support-modal__dismiss"
+                    onClick={handleClose}
+                  >
+                    {t("export.support.close")}
+                  </button>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>,

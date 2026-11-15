@@ -50,6 +50,10 @@ export { createPdfBlobFromCanvas } from "@/features/export/infrastructure/pdfExp
 export { createPosterFilename } from "@/features/export/infrastructure/filenameGenerator";
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
+export {
+  loadVideoGuideState,
+  saveVideoGuideState,
+} from "@/features/export/infrastructure/videoGuideStorage";
 
 /* ── Analytics ── */
 

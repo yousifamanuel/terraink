@@ -513,7 +513,10 @@
       "close": "閉じる",
       "headline": "✨ ポスターができました！",
       "text": "InstagramでTerrainkをフォローして、マップのアイデアやデザインのコツ、最新機能をチェックしましょう。作ったポスターもぜひ見せてください。",
-      "followUs": "フォローする"
+      "followUs": "フォローする",
+      "videoText": "Terraink をもっと活用したい方へ。全メニューを 6 分で紹介するガイドをご覧ください。",
+      "videoWatch": "YouTube で見る",
+      "videoAlt": "Terraink 動画ガイド"
     },
     "errors": {
       "mapNotReady": "マップの準備ができていません。",

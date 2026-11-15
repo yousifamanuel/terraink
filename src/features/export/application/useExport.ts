@@ -24,10 +24,11 @@ import {
   DEFAULT_POSTER_HEIGHT_CM,
 } from "@/core/config";
 import { trackEvent, setUserProperty } from "@/core/services";
+import { shouldOfferVideoGuide } from "./videoGuidePrompt";
 
 const EXPORT_COUNT_STORAGE_KEY = "terraink.poster.count";
 
-export type SupportPromptVariant = "follow";
+export type SupportPromptVariant = "follow" | "videoGuide";
 
 export interface SupportPromptState {
   posterNumber: number;
@@ -111,11 +112,14 @@ export function useExport() {
   const registerSuccessfulExport = useCallback((nextCount: number) => {
     writePosterExportCount(nextCount);
 
-    // Prompt cadence: follow on the first download and every 5th after → 1, 6, 11, …
-    // Donate lives in the header; ad interstitials are handled by Google's
-    // vignette/Offerwall, not a custom modal.
+    // Prompt cadence: the first download and every 3rd after →
+    // 1, 4, 7, … The video guide shows until it is opened (or closed three
+    // times), then the follow prompt. Donate lives in the header; ad
+    // interstitials are handled by Google's vignette/Offerwall.
     let variant: SupportPromptVariant | null = null;
-    if ((nextCount - 1) % 5 === 0) variant = "follow";
+    if ((nextCount - 1) % 3 === 0) {
+      variant = shouldOfferVideoGuide() ? "videoGuide" : "follow";
+    }
 
     if (variant) {
       window.dispatchEvent(

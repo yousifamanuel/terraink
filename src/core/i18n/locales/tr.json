@@ -515,7 +515,10 @@
       "close": "Kapat",
       "headline": "✨ Posteriniz hazır!",
       "text": "Yeni harita fikirleri, tasarım ipuçları ve en son özellikler için Terraink'i Instagram'da takip edin — yaptığınız posterleri de bizimle paylaşın.",
-      "followUs": "Bizi takip edin"
+      "followUs": "Bizi takip edin",
+      "videoText": "Terraink'ten daha fazlasını mı istiyorsunuz? Tüm menüleri anlatan 6 dakikalık rehberi izleyin.",
+      "videoWatch": "YouTube'da izle",
+      "videoAlt": "Terraink video rehberi"
     },
     "errors": {
       "mapNotReady": "Harita hazır değil.",
