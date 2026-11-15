@@ -288,7 +288,8 @@
       "layers": "图层",
       "markers": "标记",
       "routes": "路线",
-      "style": "样式"
+      "style": "样式",
+      "text": "文字"
     },
     "info": {
       "ariaLabel": "当前设置",
@@ -323,6 +324,7 @@
     },
     "typography": {
       "style": "样式",
+      "text": "文字",
       "posterText": "海报文字",
       "overlayLayer": "叠加层",
       "displayCity": "标题",
@@ -369,7 +371,8 @@
         "dotted": "点线"
       },
       "dividerThickness": "线条粗细",
-      "resetStyle": "重置所有样式设置"
+      "resetStyle": "重置所有样式设置",
+      "resetText": "重置所有文字设置"
     }
   },
   "theme": {
@@ -631,6 +634,7 @@
       "theme": "主题",
       "layout": "布局",
       "style": "样式",
+      "text": "文字",
       "layers": "图层",
       "markers": "标记",
       "routes": "路线",

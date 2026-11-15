@@ -1452,8 +1452,13 @@
     display: none;
   }
 
-  /* Style tab: show only the style/typography section */
+  /* Style tab: show only the style section */
   [data-mobile-tab="style"] .mobile-section:not(.mobile-section--style) {
+    display: none;
+  }
+
+  /* Text tab: show only the text section */
+  [data-mobile-tab="text"] .mobile-section:not(.mobile-section--text) {
     display: none;
   }
 

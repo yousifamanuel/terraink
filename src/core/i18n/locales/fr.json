@@ -290,7 +290,8 @@
       "layers": "Calques",
       "markers": "Repères",
       "routes": "Trajets",
-      "style": "Style"
+      "style": "Style",
+      "text": "Texte"
     },
     "info": {
       "ariaLabel": "Réglages actuels",
@@ -327,6 +328,7 @@
     },
     "typography": {
       "style": "STYLE",
+      "text": "TEXTE",
       "posterText": "Texte de l’affiche",
       "overlayLayer": "Superposition",
       "displayCity": "Titre",
@@ -373,7 +375,8 @@
         "dotted": "Pointillé"
       },
       "dividerThickness": "Épaisseur du trait",
-      "resetStyle": "Réinitialiser tout le style"
+      "resetStyle": "Réinitialiser tout le style",
+      "resetText": "Réinitialiser tout le texte"
     }
   },
   "theme": {
@@ -635,6 +638,7 @@
       "theme": "Thème",
       "layout": "Format",
       "style": "Style",
+      "text": "Texte",
       "layers": "Calques",
       "markers": "Repères",
       "routes": "Trajets",

@@ -290,7 +290,8 @@
       "layers": "Camadas",
       "markers": "Marcadores",
       "routes": "Rotas",
-      "style": "Estilo"
+      "style": "Estilo",
+      "text": "Texto"
     },
     "info": {
       "ariaLabel": "Ajustes atuais",
@@ -327,6 +328,7 @@
     },
     "typography": {
       "style": "ESTILO",
+      "text": "TEXTO",
       "posterText": "Texto",
       "overlayLayer": "Sobreposição",
       "displayCity": "Título",
@@ -373,7 +375,8 @@
         "dotted": "Pontilhada"
       },
       "dividerThickness": "Espessura da linha",
-      "resetStyle": "Redefinir todo o estilo"
+      "resetStyle": "Redefinir todo o estilo",
+      "resetText": "Redefinir todo o texto"
     }
   },
   "theme": {
@@ -635,6 +638,7 @@
       "theme": "Tema",
       "layout": "Layout",
       "style": "Estilo",
+      "text": "Texto",
       "layers": "Camadas",
       "markers": "Marcadores",
       "routes": "Rotas",

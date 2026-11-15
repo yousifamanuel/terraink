@@ -293,7 +293,8 @@
       "layers": "الطبقات",
       "markers": "العلامات",
       "routes": "المسارات",
-      "style": "النمط"
+      "style": "النمط",
+      "text": "النص"
     },
     "info": {
       "ariaLabel": "الإعدادات الحالية",
@@ -333,6 +334,7 @@
     },
     "typography": {
       "style": "النمط",
+      "text": "النص",
       "posterText": "نص الملصق",
       "overlayLayer": "طبقة التراكب",
       "displayCity": "العنوان",
@@ -379,7 +381,8 @@
         "dotted": "منقط"
       },
       "dividerThickness": "سُمك الخط",
-      "resetStyle": "إعادة ضبط كل إعدادات النمط"
+      "resetStyle": "إعادة ضبط كل إعدادات النمط",
+      "resetText": "إعادة ضبط كل إعدادات النص"
     }
   },
   "theme": {
@@ -641,6 +644,7 @@
       "theme": "الألوان",
       "layout": "التخطيط",
       "style": "النمط",
+      "text": "النص",
       "layers": "الطبقات",
       "markers": "العلامات",
       "routes": "المسارات",

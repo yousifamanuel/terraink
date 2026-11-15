@@ -289,7 +289,8 @@
       "layers": "Katmanlar",
       "markers": "İşaretçiler",
       "routes": "Rotalar",
-      "style": "Stil"
+      "style": "Stil",
+      "text": "Metin"
     },
     "info": {
       "ariaLabel": "Geçerli ayarlar",
@@ -325,6 +326,7 @@
     },
     "typography": {
       "style": "STİL",
+      "text": "METİN",
       "posterText": "Poster metni",
       "overlayLayer": "Üst katman",
       "displayCity": "Başlık",
@@ -371,7 +373,8 @@
         "dotted": "Noktalı"
       },
       "dividerThickness": "Çizgi kalınlığı",
-      "resetStyle": "Tüm stil ayarlarını sıfırla"
+      "resetStyle": "Tüm stil ayarlarını sıfırla",
+      "resetText": "Tüm metin ayarlarını sıfırla"
     }
   },
   "theme": {
@@ -633,6 +636,7 @@
       "theme": "Tema",
       "layout": "Düzen",
       "style": "Stil",
+      "text": "Metin",
       "layers": "Katmanlar",
       "markers": "İşaretçiler",
       "routes": "Rotalar",

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import { resolvePosterNames } from "@/features/poster/domain/posterNames";
-import { openPanelTab } from "@/shared/ui/openPanelTab";
 import type { FontOption } from "@/core/config";
 import { COORDINATE_FORMATS, formatCoordinates } from "@/shared/geo/posterBounds";
 import CoordinateSeparatorPicker from "./CoordinateSeparatorPicker";
@@ -12,17 +11,11 @@ import {
   PLACEHOLDER_EXAMPLE_COUNTRY,
 } from "@/features/location/ui/constants";
 import {
-  BORDER_DASHES,
-  BORDER_LINES,
-  BORDER_THICKNESS_MAX,
-  BORDER_THICKNESS_MIN,
-  BORDER_WIDTH_MAX,
-  BORDER_WIDTH_MIN,
   DIVIDER_STYLES,
-  DIVIDER_THICKNESS_MAX,
-  DIVIDER_THICKNESS_MIN,
   POSTER_TEXT_ALIGNS,
   POSTER_TEXT_POSITIONS,
+  DIVIDER_THICKNESS_MAX,
+  DIVIDER_THICKNESS_MIN,
   TEXT_OFFSET_MAX,
   TEXT_SIZE_MAX,
   TEXT_SIZE_MIN,
@@ -32,7 +25,7 @@ import SegmentedControl from "@/shared/ui/SegmentedControl";
 import { DEFAULT_FORM, usePosterContext } from "./PosterContext";
 import { ResetIcon } from "@/shared/ui/Icons";
 
-interface TypographySectionProps {
+interface TextSectionProps {
   form: PosterForm;
   onChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -40,11 +33,12 @@ interface TypographySectionProps {
   fontOptions: FontOption[];
 }
 
-export default function TypographySection({
+/** Poster text: position, alignment, title and subtitle, sizes, divider, font, coordinates. */
+export default function TextSection({
   form,
   onChange,
   fontOptions,
-}: TypographySectionProps) {
+}: TextSectionProps) {
   const { t } = useTranslation();
   const { state, dispatch } = usePosterContext();
   // The fields show what the poster prints, which follows the zoom until
@@ -61,17 +55,11 @@ export default function TypographySection({
   });
   const setField = (name: string, value: string) =>
     dispatch({ type: "SET_FIELD", name, value });
-  /** Every Style setting back to default; typed title/subtitle are cleared, so the place names return. */
-  const styleDefaults = () => {
+  /** Every Text setting back to default; typed title/subtitle are cleared, so the place names return. */
+  const textDefaults = () => {
     const keys = [
       "textPosition",
       "textAlign",
-      "showBorder",
-      "borderWidth",
-      "borderLine",
-      "borderDash",
-      "borderThickness",
-      "showMarkers",
       "showPosterText",
       "titleSize",
       "subtitleSize",
@@ -109,17 +97,17 @@ export default function TypographySection({
     <>
       <section className="panel-block">
         <div className="section-summary-head">
-          <p className="section-summary-label">{t("poster.typography.style")}</p>
+          <p className="section-summary-label">{t("poster.typography.text")}</p>
           <button
             type="button"
             className="section-reset-btn"
-            title={t("poster.typography.resetStyle")}
-            aria-label={t("poster.typography.resetStyle")}
+            title={t("poster.typography.resetText")}
+            aria-label={t("poster.typography.resetText")}
             onClick={() =>
               dispatch({
                 type: "SET_FORM_FIELDS",
                 resetDisplayNameOverrides: true,
-                fields: { ...styleDefaults(), posterTitle: "", posterSubtitle: "" },
+                fields: { ...textDefaults(), posterTitle: "", posterSubtitle: "" },
               })
             }
           >
@@ -144,80 +132,6 @@ export default function TypographySection({
           }))}
           onChange={(value) => setField("textAlign", value)}
         />
-        <label className="toggle-field">
-          <span>{t("poster.typography.border")}</span>
-          <span className="theme-switch">
-            <input
-              type="checkbox"
-              name="showBorder"
-              checked={Boolean(form.showBorder)}
-              onChange={onChange}
-            />
-            <span className="theme-switch-track" aria-hidden="true" />
-          </span>
-        </label>
-        {form.showBorder ? (
-          <div className="toggle-subsettings">
-            <SliderField
-              label={t("poster.typography.borderWidth")}
-              value={Number(form.borderWidth)}
-              min={BORDER_WIDTH_MIN}
-              max={BORDER_WIDTH_MAX}
-              step={0.5}
-              unit="%"
-              defaultValue={Number(DEFAULT_FORM.borderWidth)}
-              onChange={(value) => setField("borderWidth", String(value))}
-            />
-            <SegmentedControl
-              label={t("poster.typography.borderLine")}
-              value={form.borderLine}
-              options={BORDER_LINES.map((line) => ({
-                value: line,
-                label: t(`poster.typography.line.${line}`),
-              }))}
-              onChange={(value) => setField("borderLine", value)}
-            />
-            <SegmentedControl
-              label={t("poster.typography.borderStyle")}
-              value={form.borderDash}
-              options={BORDER_DASHES.map((dash) => ({
-                value: dash,
-                label: t(`poster.typography.dash.${dash}`),
-              }))}
-              onChange={(value) => setField("borderDash", value)}
-            />
-            <SliderField
-              label={t("poster.typography.lineThickness")}
-              value={Number(form.borderThickness)}
-              min={BORDER_THICKNESS_MIN}
-              max={BORDER_THICKNESS_MAX}
-              step={0.05}
-              unit="%"
-              defaultValue={Number(DEFAULT_FORM.borderThickness)}
-              onChange={(value) => setField("borderThickness", String(value))}
-            />
-            <button
-              type="button"
-              className="subsettings-link"
-              onClick={() => openPanelTab("theme")}
-            >
-              {t("poster.typography.borderColors")} →
-            </button>
-          </div>
-        ) : null}
-
-        <label className="toggle-field">
-          <span>{t("poster.typography.overlayLayer")}</span>
-          <span className="theme-switch">
-            <input
-              type="checkbox"
-              name="showMarkers"
-              checked={Boolean(form.showMarkers)}
-              onChange={onChange}
-            />
-            <span className="theme-switch-track" aria-hidden="true" />
-          </span>
-        </label>
         <label className="toggle-field">
           <span>{t("poster.typography.posterText")}</span>
           <span className="theme-switch">

@@ -288,7 +288,8 @@
       "layers": "レイヤー",
       "markers": "マーカー",
       "routes": "ルート",
-      "style": "スタイル"
+      "style": "スタイル",
+      "text": "文字"
     },
     "info": {
       "ariaLabel": "現在の設定",
@@ -323,6 +324,7 @@
     },
     "typography": {
       "style": "スタイル",
+      "text": "文字",
       "posterText": "ポスターの文字",
       "overlayLayer": "オーバーレイ",
       "displayCity": "タイトル",
@@ -369,7 +371,8 @@
         "dotted": "点線"
       },
       "dividerThickness": "線の太さ",
-      "resetStyle": "スタイル設定をすべてリセット"
+      "resetStyle": "スタイル設定をすべてリセット",
+      "resetText": "文字設定をすべてリセット"
     }
   },
   "theme": {
@@ -631,6 +634,7 @@
       "theme": "テーマ",
       "layout": "レイアウト",
       "style": "スタイル",
+      "text": "文字",
       "layers": "レイヤー",
       "markers": "マーカー",
       "routes": "ルート",

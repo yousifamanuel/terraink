@@ -762,6 +762,12 @@
     display: none;
   }
 
+  [data-desktop-tab="text"]
+    .desktop-settings-slide
+    .mobile-section:not(.mobile-section--text) {
+    display: none;
+  }
+
   /* ── Preview panel: full-screen map area ── */
 
   .app-shell > .preview-panel {

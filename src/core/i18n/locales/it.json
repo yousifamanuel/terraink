@@ -290,7 +290,8 @@
       "layers": "Livelli",
       "markers": "Segnaposto",
       "routes": "Percorsi",
-      "style": "Stile"
+      "style": "Stile",
+      "text": "Testo"
     },
     "info": {
       "ariaLabel": "Impostazioni attuali",
@@ -327,6 +328,7 @@
     },
     "typography": {
       "style": "STILE",
+      "text": "TESTO",
       "posterText": "Testo poster",
       "overlayLayer": "Sovrapposizione",
       "displayCity": "Titolo",
@@ -373,7 +375,8 @@
         "dotted": "Punteggiata"
       },
       "dividerThickness": "Spessore linea",
-      "resetStyle": "Reimposta tutto lo stile"
+      "resetStyle": "Reimposta tutto lo stile",
+      "resetText": "Reimposta tutto il testo"
     }
   },
   "theme": {
@@ -635,6 +638,7 @@
       "theme": "Tema",
       "layout": "Formato",
       "style": "Stile",
+      "text": "Testo",
       "layers": "Livelli",
       "markers": "Segnaposto",
       "routes": "Percorsi",

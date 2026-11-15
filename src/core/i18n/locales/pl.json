@@ -291,7 +291,8 @@
       "layers": "Warstwy",
       "markers": "Znaczniki",
       "routes": "Trasy",
-      "style": "Styl"
+      "style": "Styl",
+      "text": "Tekst"
     },
     "info": {
       "ariaLabel": "Ustawienia",
@@ -329,6 +330,7 @@
     },
     "typography": {
       "style": "STYL",
+      "text": "TEKST",
       "posterText": "Tekst plakatu",
       "overlayLayer": "Nakładka",
       "displayCity": "Tytuł",
@@ -375,7 +377,8 @@
         "dotted": "Kropkowana"
       },
       "dividerThickness": "Grubość linii",
-      "resetStyle": "Resetuj wszystkie ustawienia stylu"
+      "resetStyle": "Resetuj wszystkie ustawienia stylu",
+      "resetText": "Resetuj wszystkie ustawienia tekstu"
     }
   },
   "theme": {
@@ -637,6 +640,7 @@
       "theme": "Motyw",
       "layout": "Układ",
       "style": "Styl",
+      "text": "Tekst",
       "layers": "Warstwy",
       "markers": "Znaczniki",
       "routes": "Trasy",

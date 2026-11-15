@@ -7,6 +7,7 @@ import {
   MarkersIcon,
   RouteIcon,
   StyleIcon,
+  TextIcon,
   SettingsIcon,
 } from "./Icons";
 
@@ -14,6 +15,7 @@ export type MobileTab =
   | "location"
   | "theme"
   | "layout"
+  | "text"
   | "style"
   | "layers"
   | "markers"
@@ -28,6 +30,7 @@ const tabs: {
   { id: "location", labelKey: "shell.nav.location", Icon: LocationIcon },
   { id: "theme", labelKey: "shell.nav.theme", Icon: ThemeIcon },
   { id: "layout", labelKey: "shell.nav.layout", Icon: LayoutIcon },
+  { id: "text", labelKey: "shell.nav.text", Icon: TextIcon },
   { id: "style", labelKey: "shell.nav.style", Icon: StyleIcon },
   { id: "layers", labelKey: "shell.nav.layers", Icon: LayersIcon },
   { id: "markers", labelKey: "shell.nav.markers", Icon: MarkersIcon },

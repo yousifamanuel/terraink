@@ -289,7 +289,8 @@
       "layers": "Layers",
       "markers": "Markers",
       "routes": "Routes",
-      "style": "Style"
+      "style": "Style",
+      "text": "Text"
     },
     "info": {
       "ariaLabel": "Current settings",
@@ -325,6 +326,7 @@
     },
     "typography": {
       "style": "STYLE",
+      "text": "TEXT",
       "posterText": "Poster text",
       "overlayLayer": "Overlay layer",
       "displayCity": "Title",
@@ -371,7 +373,8 @@
         "dotted": "Dotted"
       },
       "dividerThickness": "Divider thickness",
-      "resetStyle": "Reset all style settings"
+      "resetStyle": "Reset all style settings",
+      "resetText": "Reset all text settings"
     }
   },
   "theme": {
@@ -633,6 +636,7 @@
       "theme": "Theme",
       "layout": "Layout",
       "style": "Style",
+      "text": "Text",
       "layers": "Layers",
       "markers": "Markers",
       "routes": "Routes",

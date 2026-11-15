@@ -289,7 +289,8 @@
       "layers": "Lagen",
       "markers": "Markers",
       "routes": "Routes",
-      "style": "Stijl"
+      "style": "Stijl",
+      "text": "Tekst"
     },
     "info": {
       "ariaLabel": "Instellingen",
@@ -325,6 +326,7 @@
     },
     "typography": {
       "style": "STIJL",
+      "text": "TEKST",
       "posterText": "Postertekst",
       "overlayLayer": "Overlaylaag",
       "displayCity": "Titel",
@@ -371,7 +373,8 @@
         "dotted": "Gestippeld"
       },
       "dividerThickness": "Lijndikte",
-      "resetStyle": "Alle stijlinstellingen herstellen"
+      "resetStyle": "Alle stijlinstellingen herstellen",
+      "resetText": "Alle tekstinstellingen herstellen"
     }
   },
   "theme": {
@@ -633,6 +636,7 @@
       "theme": "Thema",
       "layout": "Lay-out",
       "style": "Stijl",
+      "text": "Tekst",
       "layers": "Lagen",
       "markers": "Markers",
       "routes": "Routes",
