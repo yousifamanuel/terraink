@@ -362,7 +362,8 @@
       "lineThickness": "线条粗细",
       "titleSize": "标题大小",
       "subtitleSize": "副标题大小",
-      "textOffset": "上下移动",
+      "textOffsetUp": "上移",
+      "textOffsetDown": "下移",
       "divider": "分隔线",
       "dividerStyle": "线型",
       "dividerStyles": {

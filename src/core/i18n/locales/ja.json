@@ -362,7 +362,8 @@
       "lineThickness": "線の太さ",
       "titleSize": "タイトルの大きさ",
       "subtitleSize": "サブタイトルの大きさ",
-      "textOffset": "上下の位置",
+      "textOffsetUp": "上へ移動",
+      "textOffsetDown": "下へ移動",
       "divider": "区切り線",
       "dividerStyle": "線の種類",
       "dividerStyles": {

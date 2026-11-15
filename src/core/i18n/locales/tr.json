@@ -364,7 +364,8 @@
       "lineThickness": "Çizgi kalınlığı",
       "titleSize": "Başlık boyutu",
       "subtitleSize": "Alt başlık boyutu",
-      "textOffset": "Yukarı / aşağı",
+      "textOffsetUp": "Yukarı taşı",
+      "textOffsetDown": "Aşağı taşı",
       "divider": "Ayırıcı çizgi",
       "dividerStyle": "Çizgi stili",
       "dividerStyles": {

@@ -366,7 +366,8 @@
       "lineThickness": "Grosor de línea",
       "titleSize": "Tamaño del título",
       "subtitleSize": "Tamaño del subtítulo",
-      "textOffset": "Subir / bajar",
+      "textOffsetUp": "Subir",
+      "textOffsetDown": "Bajar",
       "divider": "Línea divisoria",
       "dividerStyle": "Estilo de línea",
       "dividerStyles": {

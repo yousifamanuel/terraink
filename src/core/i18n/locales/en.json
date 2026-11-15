@@ -364,7 +364,8 @@
       "lineThickness": "Line thickness",
       "titleSize": "Title size",
       "subtitleSize": "Subtitle size",
-      "textOffset": "Move up / down",
+      "textOffsetUp": "Move up",
+      "textOffsetDown": "Move down",
       "divider": "Divider line",
       "dividerStyle": "Divider style",
       "dividerStyles": {

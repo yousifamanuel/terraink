@@ -368,7 +368,8 @@
       "lineThickness": "Grubość linii",
       "titleSize": "Rozmiar tytułu",
       "subtitleSize": "Rozmiar podtytułu",
-      "textOffset": "W górę / w dół",
+      "textOffsetUp": "W górę",
+      "textOffsetDown": "W dół",
       "divider": "Linia podziału",
       "dividerStyle": "Styl linii",
       "dividerStyles": {

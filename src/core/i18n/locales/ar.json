@@ -372,7 +372,8 @@
       "lineThickness": "سُمك الخط",
       "titleSize": "حجم العنوان",
       "subtitleSize": "حجم العنوان الفرعي",
-      "textOffset": "تحريك لأعلى / لأسفل",
+      "textOffsetUp": "تحريك لأعلى",
+      "textOffsetDown": "تحريك لأسفل",
       "divider": "خط فاصل",
       "dividerStyle": "نمط الخط",
       "dividerStyles": {

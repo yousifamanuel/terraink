@@ -364,7 +364,8 @@
       "lineThickness": "Lijndikte",
       "titleSize": "Titelgrootte",
       "subtitleSize": "Ondertitelgrootte",
-      "textOffset": "Omhoog / omlaag",
+      "textOffsetUp": "Omhoog",
+      "textOffsetDown": "Omlaag",
       "divider": "Scheidingslijn",
       "dividerStyle": "Lijnstijl",
       "dividerStyles": {

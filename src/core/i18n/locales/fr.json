@@ -366,7 +366,8 @@
       "lineThickness": "Épaisseur du trait",
       "titleSize": "Taille du titre",
       "subtitleSize": "Taille du sous-titre",
-      "textOffset": "Monter / descendre",
+      "textOffsetUp": "Monter",
+      "textOffsetDown": "Descendre",
       "divider": "Ligne de séparation",
       "dividerStyle": "Style du trait",
       "dividerStyles": {

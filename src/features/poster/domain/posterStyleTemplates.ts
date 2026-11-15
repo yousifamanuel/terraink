@@ -122,6 +122,11 @@ export const DIVIDER_THICKNESS_MAX = 300;
 
 export const TEXT_SIZE_MIN = 50;
 export const TEXT_SIZE_MAX = 150;
+/**
+ * How far (% of the poster) the text block may move away from its edge,
+ * toward the middle. It never moves outward: a bottom block would cover the
+ * credits, a top block would leave the poster.
+ */
 export const TEXT_OFFSET_MAX = 10;
 
 export const BORDER_LINES: BorderLine[] = ["single", "double"];
@@ -299,7 +304,9 @@ export function buildPosterLayout(
   const textScale = border ? (1 - 2 * insetY) / (1 - 2 * defaultInsetY) : 1;
   const titleRatio = clampRange(titleSize, TEXT_SIZE_MIN, TEXT_SIZE_MAX, 100) / 100;
   const subtitleRatio = clampRange(subtitleSize, TEXT_SIZE_MIN, TEXT_SIZE_MAX, 100) / 100;
-  const offset = clampRange(textOffset, -TEXT_OFFSET_MAX, TEXT_OFFSET_MAX, 0) / 100;
+  // Only toward the middle: up for a bottom block, down for a top block.
+  const inward = clampRange(textOffset, 0, TEXT_OFFSET_MAX, 0) / 100;
+  const offset = textPosition === "bottom" ? -inward : inward;
   const rows = stackRows(textPosition, titleRatio, subtitleRatio, offset);
   // The overlay follows the border: it starts at the frame and its size is
   // a share of the area inside it, so it looks the same at any border width.
