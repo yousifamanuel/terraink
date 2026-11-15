@@ -17,6 +17,7 @@ import {
 import InstallPrompt from "@/features/install/ui/InstallPrompt";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
+import { loadAds } from "@/core/services";
 import { CheckIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
 import {
@@ -236,7 +237,7 @@ export default function AppShell() {
     >
       <GeneralHeader onAboutOpen={() => setAboutOpen(true)} />
       <InstallPrompt />
-      <StartupLocationModal />
+      <StartupLocationModal onComplete={loadAds} />
 
       <DesktopNavBar
         activeTab={desktopTab}

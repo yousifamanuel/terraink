@@ -35,12 +35,13 @@ function getPackageName(id) {
 }
 
 /**
- * Wires up AdSense: the loader script in index.html, and the ads.txt seller
- * line that authorises Google to sell this site's inventory.
+ * Wires up AdSense: the account meta tag in index.html, and the ads.txt
+ * seller line that authorises Google to sell this site's inventory.
  *
- * The script tag is emitted from here rather than interpolated into the HTML
- * so an unset client ID omits it entirely, instead of leaving a literal
- * %VITE_…% placeholder that the browser would request and 404 on.
+ * The ad script itself is added by the app (core/ads) once the startup
+ * window closes, so nothing loads behind it. The meta tag keeps the site
+ * verified for AdSense. Emitted from here so an unset client ID omits it
+ * entirely instead of leaving a literal %VITE_…% placeholder.
  */
 function adsensePlugin() {
   const SCRIPT_MARKER = "<!-- adsense-script -->";
@@ -59,7 +60,7 @@ function adsensePlugin() {
       return html.replace(
         SCRIPT_MARKER,
         client
-          ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}" crossorigin="anonymous"></script>`
+          ? `<meta name="google-adsense-account" content="${client}" />`
           : "",
       );
     },

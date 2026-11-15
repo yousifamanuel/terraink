@@ -66,6 +66,7 @@ export {
 /* ── Analytics ── */
 
 export { trackEvent, setUserProperty } from "@/core/analytics/gtagAnalytics";
+export { loadAds } from "@/core/ads/adsenseLoader";
 
 /* ── Legal docs ── */
 
