@@ -47,9 +47,8 @@ import {
 } from "@/features/layout/infrastructure/layoutRepository";
 import { buildPosterLayout } from "@/features/poster/domain/posterStyleTemplates";
 import { getPosterLayoutOptions } from "@/features/poster/application/posterLayoutOptions";
+import { resolvePosterNames } from "@/features/poster/domain/posterNames";
 
-const COUNTRY_VIEW_ZOOM_LEVEL = 10;
-const CONTINENT_VIEW_ZOOM_LEVEL = 6;
 const DEFAULT_LOCATION_LABEL =
   "Hanover, Region Hannover, Lower Saxony, Germany";
 
@@ -188,19 +187,21 @@ export default function PreviewPanel() {
   const markerCount = state.markers.length;
   const markersLabel = t("poster.info.markerCount", { count: markerCount });
   const coordinatesLabel = `${formLat.toFixed(4)}, ${formLon.toFixed(4)}`;
-  const isCityCountryView = mapZoom >= COUNTRY_VIEW_ZOOM_LEVEL;
-  const isCountryContinentView =
-    mapZoom >= CONTINENT_VIEW_ZOOM_LEVEL && mapZoom < COUNTRY_VIEW_ZOOM_LEVEL;
-  const cityLabel = isCityCountryView
-    ? form.displayCity || form.location || "Hanover"
-    : isCountryContinentView
-      ? form.displayCountry || "Germany"
-      : form.displayContinent || "Earth";
-  const countryLabel = isCityCountryView
-    ? form.displayCountry || "Germany"
-    : isCountryContinentView
-      ? form.displayContinent || "Europe"
-      : "Earth";
+  // Share the zoom so the Style fields and the export pick the same names.
+  useEffect(() => {
+    dispatch({ type: "SET_MAP_ZOOM", zoom: mapZoom });
+  }, [dispatch, mapZoom]);
+
+  const { title: cityLabel, subtitle: countryLabel } = resolvePosterNames({
+    city: form.displayCity,
+    country: form.displayCountry,
+    continent: form.displayContinent,
+    location: form.location,
+    customTitle: form.posterTitle,
+    customSubtitle: form.posterSubtitle,
+    overrides: state.displayNameOverrides,
+    zoom: mapZoom,
+  });
 
   const handleStartEditing = useCallback(() => {
     setIsEditing(true);
@@ -287,11 +288,11 @@ export default function PreviewPanel() {
         lat: DEFAULT_LAT,
         lon: DEFAULT_LON,
       };
-    // Recenter moves the map back; poster names the user typed stay.
-    const overrides = state.displayNameOverrides;
+    // Recenter moves the map back; text the user typed (posterTitle /
+    // posterSubtitle) stays.
     const posterNames = (city: string, country: string) => ({
-      ...(!overrides.city ? { displayCity: city } : {}),
-      ...(!overrides.country ? { displayCountry: country } : {}),
+      displayCity: city,
+      displayCountry: country,
     });
 
     const applyTarget = (
@@ -367,7 +368,6 @@ export default function PreviewPanel() {
     userLocation,
     dispatch,
     settleLocationName,
-    state.displayNameOverrides,
   ]);
 
   const handleMarkerPositionChange = useCallback(

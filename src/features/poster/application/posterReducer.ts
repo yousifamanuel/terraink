@@ -43,6 +43,9 @@ export interface PosterForm {
   displayCity: string;
   displayCountry: string;
   displayContinent: string;
+  /** Title / subtitle the user typed; used while displayNameOverrides is set. */
+  posterTitle: string;
+  posterSubtitle: string;
   fontFamily: string;
   /** Title block at the top or bottom of the poster. */
   textPosition: PosterTextPosition;
@@ -103,6 +106,8 @@ export interface PosterState {
   isLocationFocused: boolean;
   /** A place-name lookup for the current map position is waiting or running. */
   isLocationLookupPending: boolean;
+  /** Zoom of the poster map; picks city, country or continent names. */
+  mapZoom: number;
   selectedLocation: SearchResult | null;
   userLocation: SearchResult | null;
   displayNameOverrides: {
@@ -136,6 +141,7 @@ export type PosterAction =
   | { type: "CLEAR_LOCATION" }
   | { type: "SET_LOCATION_FOCUSED"; focused: boolean }
   | { type: "SET_LOCATION_LOOKUP_PENDING"; pending: boolean }
+  | { type: "SET_MAP_ZOOM"; zoom: number }
   | { type: "SET_ERROR"; error: string }
   | { type: "SET_EXPORT_STATUS"; exporting: boolean; error?: string }
   | { type: "SET_MARKER_EDITOR_ACTIVE"; active: boolean }
@@ -186,11 +192,11 @@ export function posterReducer(
         nextDisplayNameOverrides.country = false;
       }
 
-      if (action.name === "displayCity") {
+      if (action.name === "posterTitle") {
         nextDisplayNameOverrides.city = true;
       }
 
-      if (action.name === "displayCountry") {
+      if (action.name === "posterSubtitle") {
         nextDisplayNameOverrides.country = true;
       }
 
@@ -317,6 +323,10 @@ export function posterReducer(
     case "SET_LOCATION_LOOKUP_PENDING":
       if (state.isLocationLookupPending === action.pending) return state;
       return { ...state, isLocationLookupPending: action.pending };
+
+    case "SET_MAP_ZOOM":
+      if (state.mapZoom === action.zoom) return state;
+      return { ...state, mapZoom: action.zoom };
 
     case "SET_ERROR":
       return { ...state, error: action.error };

@@ -75,6 +75,8 @@ export const DEFAULT_FORM: PosterForm = {
   displayCity: "Hanover",
   displayCountry: "Germany",
   displayContinent: "Europe",
+  posterTitle: "",
+  posterSubtitle: "",
   fontFamily: "",
   textPosition: DEFAULT_POSTER_LAYOUT.textPosition,
   textAlign: DEFAULT_POSTER_LAYOUT.textAlign,
@@ -153,6 +155,7 @@ function buildInitialState(): PosterState {
     isExporting: false,
     isLocationFocused: false,
     isLocationLookupPending: false,
+    mapZoom: Infinity,
     selectedLocation: null,
     userLocation: null,
     displayNameOverrides: {

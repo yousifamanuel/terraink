@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { getPosterLayoutOptions } from "@/features/poster/application/posterLayoutOptions";
 import { formatCoordinates } from "@/shared/geo/posterBounds";
+import { resolvePosterNames } from "@/features/poster/domain/posterNames";
 import i18n from "@/core/i18n";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { localStorageCache } from "@/core/cache/localStorageCache";
@@ -180,6 +181,18 @@ export function useExport() {
             })
           : "";
 
+        // Same title / subtitle as the preview shows at this zoom.
+        const posterNames = resolvePosterNames({
+          city: form.displayCity,
+          country: form.displayCountry,
+          continent: form.displayContinent,
+          location: form.location,
+          customTitle: form.posterTitle,
+          customSubtitle: form.posterSubtitle,
+          overrides: state.displayNameOverrides,
+          zoom: state.mapZoom,
+        });
+
         if (format === "svg") {
           const svgBlob = await createLayeredSvgBlobFromMap({
             map,
@@ -187,8 +200,8 @@ export function useExport() {
             exportHeight: size.height,
             theme: effectiveTheme,
             center: { lat, lon },
-            displayCity: form.displayCity || form.location || "",
-            displayCountry: form.displayCountry || "",
+            displayCity: posterNames.title,
+            displayCountry: posterNames.subtitle,
             fontFamily: form.fontFamily.trim(),
             showPosterText: form.showPosterText,
             coordinateText,
@@ -228,8 +241,8 @@ export function useExport() {
           center: { lat, lon },
           widthInches,
           heightInches,
-          displayCity: form.displayCity || form.location || "",
-          displayCountry: form.displayCountry || "",
+          displayCity: posterNames.title,
+          displayCountry: posterNames.subtitle,
           fontFamily: form.fontFamily.trim(),
           showPosterText: form.showPosterText,
           coordinateText,
@@ -285,6 +298,8 @@ export function useExport() {
       registerSuccessfulExport,
       state.markers,
       state.customMarkerIcons,
+      state.displayNameOverrides,
+      state.mapZoom,
     ],
   );
 

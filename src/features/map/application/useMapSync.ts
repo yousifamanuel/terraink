@@ -138,13 +138,6 @@ export function useMapSync(
   // a location immediately reverse-geocodes the same coords and refills the field.
   const selectedLocationRef = useRef(state.selectedLocation);
   selectedLocationRef.current = state.selectedLocation;
-  // Read inside the reverse-geocode .then() below instead of closing over
-  // `state.displayNameOverrides` — otherwise a lookup started before the user
-  // edits Display City/Country can resolve afterward with the stale (false)
-  // override flag and silently overwrite their edit (sometimes with an empty
-  // string, if the reverse geocode has no city for that point).
-  const displayNameOverridesRef = useRef(state.displayNameOverrides);
-  displayNameOverridesRef.current = state.displayNameOverrides;
 
   const [containerPx, setContainerPx] = useState(DEFAULT_CONTAINER_PX);
 
@@ -236,13 +229,11 @@ export function useMapSync(
             type: "SET_FORM_FIELDS",
             fields: {
               location: nextLocation,
+              // Place names always follow the map; text the user typed
+              // lives in posterTitle / posterSubtitle.
+              displayCity: nextCity,
+              displayCountry: nextCountry,
               displayContinent: nextContinent,
-              ...(!displayNameOverridesRef.current.city
-                ? { displayCity: nextCity }
-                : {}),
-              ...(!displayNameOverridesRef.current.country
-                ? { displayCountry: nextCountry }
-                : {}),
             },
           });
         })

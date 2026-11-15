@@ -2,6 +2,7 @@ import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ensureFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
+import { resolvePosterNames } from "@/features/poster/domain/posterNames";
 import type { FontOption } from "@/core/config";
 import { COORDINATE_FORMATS, formatCoordinates } from "@/shared/geo/posterBounds";
 import CoordinateSeparatorPicker from "./CoordinateSeparatorPicker";
@@ -44,10 +45,22 @@ export default function TypographySection({
   fontOptions,
 }: TypographySectionProps) {
   const { t } = useTranslation();
-  const { dispatch } = usePosterContext();
+  const { state, dispatch } = usePosterContext();
+  // The fields show what the poster prints, which follows the zoom until
+  // the user types their own text.
+  const posterNames = resolvePosterNames({
+    city: form.displayCity,
+    country: form.displayCountry,
+    continent: form.displayContinent,
+    location: form.location,
+    customTitle: form.posterTitle,
+    customSubtitle: form.posterSubtitle,
+    overrides: state.displayNameOverrides,
+    zoom: state.mapZoom,
+  });
   const setField = (name: string, value: string) =>
     dispatch({ type: "SET_FIELD", name, value });
-  /** Every Style setting back to default; title/subtitle text stays (it comes from the location). */
+  /** Every Style setting back to default; typed title/subtitle are cleared, so the place names return. */
   const styleDefaults = () => {
     const keys = [
       "textPosition",
@@ -101,7 +114,13 @@ export default function TypographySection({
             className="section-reset-btn"
             title={t("poster.typography.resetStyle")}
             aria-label={t("poster.typography.resetStyle")}
-            onClick={() => dispatch({ type: "SET_FORM_FIELDS", fields: styleDefaults() })}
+            onClick={() =>
+              dispatch({
+                type: "SET_FORM_FIELDS",
+                resetDisplayNameOverrides: true,
+                fields: { ...styleDefaults(), posterTitle: "", posterSubtitle: "" },
+              })
+            }
           >
             <ResetIcon aria-hidden="true" />
           </button>
@@ -210,8 +229,8 @@ export default function TypographySection({
               {t("poster.typography.displayCity")}
               <input
                 className="form-control-tall"
-                name="displayCity"
-                value={form.displayCity}
+                name="posterTitle"
+                value={posterNames.title}
                 onChange={onChange}
                 placeholder={PLACEHOLDER_EXAMPLE_CITY}
               />
@@ -220,8 +239,8 @@ export default function TypographySection({
               {t("poster.typography.displayCountry")}
               <input
                 className="form-control-tall"
-                name="displayCountry"
-                value={form.displayCountry}
+                name="posterSubtitle"
+                value={posterNames.subtitle}
                 onChange={onChange}
                 placeholder={PLACEHOLDER_EXAMPLE_COUNTRY}
               />
