@@ -287,6 +287,7 @@
     "sections": {
       "location": "Konum",
       "theme": "Tema",
+      "color": "Renk",
       "layout": "Düzen",
       "layers": "Katmanlar",
       "markers": "İşaretçiler",
@@ -378,6 +379,20 @@
       "dividerThickness": "Çizgi kalınlığı",
       "resetStyle": "Tüm stil ayarlarını sıfırla",
       "resetText": "Tüm metin ayarlarını sıfırla"
+    },
+    "color": {
+      "title": "Renk",
+      "reset": "Renk ayarlarını sıfırla",
+      "hint": "Tüm tema renklerini tek seferde ayarlayın.",
+      "brightness": "Parlaklık",
+      "contrast": "Kontrast",
+      "saturation": "Doygunluk",
+      "hue": "Ton",
+      "warmth": "Sıcaklık",
+      "invert": "Renkleri ters çevir",
+      "grayscale": "Gri tonlama",
+      "before": "Önce",
+      "after": "Sonra"
     }
   },
   "theme": {
@@ -661,6 +676,7 @@
     "nav": {
       "location": "Konum",
       "theme": "Tema",
+      "color": "Renk",
       "layout": "Düzen",
       "style": "Stil",
       "text": "Metin",

@@ -17,6 +17,7 @@ import {
 import type { ResolvedTheme } from "@/features/theme/domain/types";
 import { getTheme } from "@/features/theme/infrastructure/themeRepository";
 import { applyThemeColorOverrides } from "@/features/theme/domain/colorPaths";
+import { adjustThemeColors } from "@/features/theme/domain/colorAdjust";
 import { generateMapStyle } from "@/features/map/infrastructure/maplibreStyle";
 import type { StyleSpecification } from "maplibre-gl";
 import type { MapInstanceRef } from "@/features/map/domain/types";
@@ -77,6 +78,13 @@ export const DEFAULT_FORM: PosterForm = {
   displayCountry: "Germany",
   displayContinent: "Europe",
   posterTitle: "",
+  colorBrightness: "0",
+  colorContrast: "0",
+  colorSaturation: "0",
+  colorHue: "0",
+  colorWarmth: "0",
+  colorInvert: false,
+  colorGrayscale: false,
   posterSubtitle: "",
   fontFamily: "",
   textPosition: DEFAULT_POSTER_LAYOUT.textPosition,
@@ -238,12 +246,41 @@ export function PosterProvider({ children }: { children: ReactNode }) {
     return getTheme(state.form.theme);
   }, [state.form.theme, state.savedThemes, i18n.language]);
 
+  const {
+    colorBrightness,
+    colorContrast,
+    colorSaturation,
+    colorHue,
+    colorWarmth,
+    colorInvert,
+    colorGrayscale,
+  } = state.form;
   const effectiveTheme = useMemo(() => {
-    if (Object.keys(state.customColors).length === 0) {
-      return selectedTheme;
-    }
-    return applyThemeColorOverrides(selectedTheme, state.customColors);
-  }, [selectedTheme, state.customColors]);
+    const edited =
+      Object.keys(state.customColors).length === 0
+        ? selectedTheme
+        : applyThemeColorOverrides(selectedTheme, state.customColors);
+    // Color tab: one adjustment for every color, used by preview and exports.
+    return adjustThemeColors(edited, {
+      brightness: Number(colorBrightness) || 0,
+      contrast: Number(colorContrast) || 0,
+      saturation: Number(colorSaturation) || 0,
+      hue: Number(colorHue) || 0,
+      warmth: Number(colorWarmth) || 0,
+      invert: Boolean(colorInvert),
+      grayscale: Boolean(colorGrayscale),
+    });
+  }, [
+    selectedTheme,
+    state.customColors,
+    colorBrightness,
+    colorContrast,
+    colorSaturation,
+    colorHue,
+    colorWarmth,
+    colorInvert,
+    colorGrayscale,
+  ]);
 
   useEffect(() => {
     const markerThemeColor = effectiveTheme.ui.text;

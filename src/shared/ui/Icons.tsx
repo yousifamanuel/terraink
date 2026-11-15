@@ -56,6 +56,7 @@ export { FiMapPin as LocationIcon } from "react-icons/fi";
 export { FiDroplet as ThemeIcon } from "react-icons/fi";
 export { FiLayout as LayoutIcon } from "react-icons/fi";
 export { FiType as TextIcon } from "react-icons/fi";
+export { LuPalette as ColorIcon } from "react-icons/lu";
 export { FiInfo as InfoIcon } from "react-icons/fi";
 export { FiLayers as LayersIcon } from "react-icons/fi";
 export { BsPinMap as MarkersIcon } from "react-icons/bs";

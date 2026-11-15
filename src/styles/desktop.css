@@ -768,6 +768,12 @@
     display: none;
   }
 
+  [data-desktop-tab="color"]
+    .desktop-settings-slide
+    .mobile-section:not(.mobile-section--color) {
+    display: none;
+  }
+
   /* ── Preview panel: full-screen map area ── */
 
   .app-shell > .preview-panel {

@@ -288,6 +288,7 @@
     "sections": {
       "location": "Ubicación",
       "theme": "Tema",
+      "color": "Color",
       "layout": "Formato",
       "layers": "Capas",
       "markers": "Marcadores",
@@ -380,6 +381,20 @@
       "dividerThickness": "Grosor de línea",
       "resetStyle": "Restablecer todo el estilo",
       "resetText": "Restablecer todo el texto"
+    },
+    "color": {
+      "title": "Color",
+      "reset": "Restablecer ajustes de color",
+      "hint": "Ajusta todos los colores del tema a la vez.",
+      "brightness": "Brillo",
+      "contrast": "Contraste",
+      "saturation": "Saturación",
+      "hue": "Tono",
+      "warmth": "Calidez",
+      "invert": "Invertir colores",
+      "grayscale": "Escala de grises",
+      "before": "Antes",
+      "after": "Después"
     }
   },
   "theme": {
@@ -663,6 +678,7 @@
     "nav": {
       "location": "Ubicación",
       "theme": "Tema",
+      "color": "Color",
       "layout": "Formato",
       "style": "Estilo",
       "text": "Texto",

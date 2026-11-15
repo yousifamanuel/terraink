@@ -4376,3 +4376,50 @@ button.theme-category-tab {
   border-radius: 999px;
   border: 1px solid rgba(231, 242, 251, 0.35);
 }
+
+/* Short explanation under the Color tab title. */
+.color-section-hint {
+  margin: 0 0 12px;
+}
+
+/* Slider with a colored track (Color tab): the gradient shows the effect. */
+.distance-slider.has-track::-webkit-slider-runnable-track {
+  height: 6px;
+  background: var(--slider-track-bg);
+}
+
+.distance-slider.has-track::-webkit-slider-thumb {
+  margin-top: -5px;
+}
+
+.distance-slider.has-track::-moz-range-track {
+  height: 6px;
+  background: var(--slider-track-bg);
+}
+
+.distance-slider.has-track::-moz-range-progress {
+  background: transparent;
+}
+
+/* Before / after strip of the theme's main colors. */
+.color-preview {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0 0 14px;
+}
+
+.color-preview-label {
+  font-size: 0.68rem;
+  color: #9bb3c5;
+}
+
+.color-preview-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  height: 18px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(151, 183, 207, 0.25);
+}

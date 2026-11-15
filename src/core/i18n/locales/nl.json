@@ -287,6 +287,7 @@
     "sections": {
       "location": "Locatie",
       "theme": "Thema",
+      "color": "Kleur",
       "layout": "Lay-out",
       "layers": "Lagen",
       "markers": "Markers",
@@ -378,6 +379,20 @@
       "dividerThickness": "Lijndikte",
       "resetStyle": "Alle stijlinstellingen herstellen",
       "resetText": "Alle tekstinstellingen herstellen"
+    },
+    "color": {
+      "title": "Kleur",
+      "reset": "Kleuraanpassingen herstellen",
+      "hint": "Pas alle themakleuren in één keer aan.",
+      "brightness": "Helderheid",
+      "contrast": "Contrast",
+      "saturation": "Verzadiging",
+      "hue": "Tint",
+      "warmth": "Warmte",
+      "invert": "Kleuren omkeren",
+      "grayscale": "Grijstinten",
+      "before": "Voor",
+      "after": "Na"
     }
   },
   "theme": {
@@ -661,6 +676,7 @@
     "nav": {
       "location": "Locatie",
       "theme": "Thema",
+      "color": "Kleur",
       "layout": "Lay-out",
       "style": "Stijl",
       "text": "Tekst",

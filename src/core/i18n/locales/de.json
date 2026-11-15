@@ -287,6 +287,7 @@
     "sections": {
       "location": "Ort",
       "theme": "Design",
+      "color": "Farbe",
       "layout": "Layout",
       "layers": "Ebenen",
       "markers": "Marker",
@@ -378,6 +379,20 @@
       "dividerThickness": "Linienstärke",
       "resetStyle": "Alle Stil-Einstellungen zurücksetzen",
       "resetText": "Alle Text-Einstellungen zurücksetzen"
+    },
+    "color": {
+      "title": "Farbe",
+      "reset": "Farbanpassungen zurücksetzen",
+      "hint": "Alle Theme-Farben auf einmal anpassen.",
+      "brightness": "Helligkeit",
+      "contrast": "Kontrast",
+      "saturation": "Sättigung",
+      "hue": "Farbton",
+      "warmth": "Wärme",
+      "invert": "Farben umkehren",
+      "grayscale": "Graustufen",
+      "before": "Vorher",
+      "after": "Nachher"
     }
   },
   "theme": {
@@ -661,6 +676,7 @@
     "nav": {
       "location": "Ort",
       "theme": "Design",
+      "color": "Farbe",
       "layout": "Layout",
       "style": "Stil",
       "text": "Text",

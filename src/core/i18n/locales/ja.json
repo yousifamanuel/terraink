@@ -286,6 +286,7 @@
     "sections": {
       "location": "場所",
       "theme": "テーマ",
+      "color": "色",
       "layout": "レイアウト",
       "layers": "レイヤー",
       "markers": "マーカー",
@@ -376,6 +377,20 @@
       "dividerThickness": "線の太さ",
       "resetStyle": "スタイル設定をすべてリセット",
       "resetText": "文字設定をすべてリセット"
+    },
+    "color": {
+      "title": "色",
+      "reset": "色の調整をリセット",
+      "hint": "テーマの全色を一度に調整します。",
+      "brightness": "明るさ",
+      "contrast": "コントラスト",
+      "saturation": "彩度",
+      "hue": "色相",
+      "warmth": "暖かさ",
+      "invert": "色を反転",
+      "grayscale": "グレースケール",
+      "before": "前",
+      "after": "後"
     }
   },
   "theme": {
@@ -659,6 +674,7 @@
     "nav": {
       "location": "場所",
       "theme": "テーマ",
+      "color": "色",
       "layout": "レイアウト",
       "style": "スタイル",
       "text": "文字",

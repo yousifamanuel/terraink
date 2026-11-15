@@ -286,6 +286,7 @@
     "sections": {
       "location": "位置",
       "theme": "主题",
+      "color": "颜色",
       "layout": "布局",
       "layers": "图层",
       "markers": "标记",
@@ -376,6 +377,20 @@
       "dividerThickness": "线条粗细",
       "resetStyle": "重置所有样式设置",
       "resetText": "重置所有文字设置"
+    },
+    "color": {
+      "title": "颜色",
+      "reset": "重置颜色调整",
+      "hint": "一次调整主题的所有颜色。",
+      "brightness": "亮度",
+      "contrast": "对比度",
+      "saturation": "饱和度",
+      "hue": "色相",
+      "warmth": "冷暖",
+      "invert": "反转颜色",
+      "grayscale": "灰度",
+      "before": "调整前",
+      "after": "调整后"
     }
   },
   "theme": {
@@ -659,6 +674,7 @@
     "nav": {
       "location": "位置",
       "theme": "主题",
+      "color": "颜色",
       "layout": "布局",
       "style": "样式",
       "text": "文字",

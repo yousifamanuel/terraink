@@ -14,6 +14,7 @@ import LayersSection from "@/features/map/ui/LayersSection";
 import MarkersSection from "@/features/markers/ui/MarkersSection";
 import RoutesSection from "@/features/routes/ui/RoutesSection";
 import StyleSection from "@/features/poster/ui/StyleSection";
+import ColorSection from "@/features/poster/ui/ColorSection";
 import TextSection from "@/features/poster/ui/TextSection";
 import {
   LocationIcon,
@@ -24,6 +25,7 @@ import {
   RouteIcon,
   StyleIcon,
   TextIcon,
+  ColorIcon,
   ChevronDownIcon,
 } from "@/shared/ui/Icons";
 
@@ -44,7 +46,8 @@ type SectionId =
   | "markers"
   | "routes"
   | "style"
-  | "text";
+  | "text"
+  | "color";
 
 const accordionSections: {
   id: SectionId;
@@ -59,6 +62,7 @@ const accordionSections: {
   { id: "routes", labelKey: "poster.sections.routes", Icon: RouteIcon },
   { id: "text", labelKey: "poster.sections.text", Icon: TextIcon },
   { id: "style", labelKey: "poster.sections.style", Icon: StyleIcon },
+  { id: "color", labelKey: "poster.sections.color", Icon: ColorIcon },
 ];
 
 export default function SettingsPanel({
@@ -365,6 +369,25 @@ export default function SettingsPanel({
             {!isAuxEditorActive ? (
               <StyleSection form={state.form} onChange={handleChange} />
             ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`mobile-section mobile-section--color accordion-item${openSections.has("color") ? " accordion-item--open" : ""}`}
+      >
+        <AccordionHeader
+          sectionId="color"
+          label={t(accordionSections[8].labelKey)}
+          Icon={accordionSections[8].Icon}
+          isOpen={openSections.has("color")}
+          onToggle={toggleSection}
+        />
+        <div
+          className={`accordion-body${openSections.has("color") ? " is-open" : ""}`}
+        >
+          <div className="accordion-body-inner">
+            {!isAuxEditorActive ? <ColorSection /> : null}
           </div>
         </div>
       </div>
