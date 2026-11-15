@@ -317,24 +317,23 @@
       "description": "Strong contrast showing urban density - darker in center, lighter at edges",
       "ui": {
         "bg": "#FFFFFF",
-        "text": "#111111"
+        "text": "#000000"
       },
       "map": {
         "land": "#FFFFFF",
-        "landcover": "#F6F6F6",
-        "water": "#B0B0B0",
-        "waterway": "#B0B0B0",
-        "parks": "#ECECEC",
-        "buildings": "#6C6C6C",
-        "aeroway": "#ECECEC",
+        "water": "#D0D0D0",
+        "waterway": "#D0D0D0",
+        "parks": "#F0F0F0",
+        "buildings": "#505050",
+        "aeroway": "#F0F0F0",
         "rail": "#111111",
         "roads": {
-          "major": "#1A1A1A",
-          "path": "#CCCCCC",
+          "major": "#111111",
+          "path": "#C8C8C8",
           "outline": "#D8D8D8",
-          "minor_high": "#484848",
-          "minor_mid": "#989898",
-          "minor_low": "#B8B8B8"
+          "minor_high": "#444444",
+          "minor_mid": "#909090",
+          "minor_low": "#B4B4B4"
         }
       }
     },
