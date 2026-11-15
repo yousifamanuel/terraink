@@ -51,6 +51,10 @@ export { createPosterFilename } from "@/features/export/infrastructure/filenameG
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
 export {
+  loadAllTimeDownloadCount,
+  saveAllTimeDownloadCount,
+} from "@/features/export/infrastructure/downloadCountStorage";
+export {
   loadVideoGuideState,
   saveVideoGuideState,
 } from "@/features/export/infrastructure/videoGuideStorage";
