@@ -145,7 +145,13 @@ export default function AnnouncementModal() {
       return;
     }
 
-    const lastSeenVersion = localStorage.getItem(LAST_SEEN_VERSION) ?? "0.0.0";
+    const storedVersion = localStorage.getItem(LAST_SEEN_VERSION);
+    // First visit: nothing is "new" yet. Mark this version as seen silently.
+    if (storedVersion === null) {
+      localStorage.setItem(LAST_SEEN_VERSION, CURRENT_VERSION);
+      return;
+    }
+    const lastSeenVersion = storedVersion;
     const isNewer = compareVersions(CURRENT_VERSION, lastSeenVersion) > 0;
 
     if (!isNewer) {
