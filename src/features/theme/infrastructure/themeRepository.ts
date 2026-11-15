@@ -113,6 +113,7 @@ const preferredThemeOrder = [
   "carrara",
   "blush",
   "sandstone",
+  "graphite",
   "midnight_blue",
   "terracotta",
   "neon",
