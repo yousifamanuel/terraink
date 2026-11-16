@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -13,6 +14,9 @@ import {
   markVideoGuideClicked,
   markVideoGuideDismissed,
 } from "../application/videoGuidePrompt";
+
+/** Closes by itself after this long, unless the user touches it. */
+const AUTO_CLOSE_MS = 10_000;
 
 interface SupportModalProps {
   posterNumber: number;
@@ -37,6 +41,20 @@ export default function SupportModal({
     download_number: posterNumber,
     app_release: APP_VERSION,
   };
+
+  // A timed close is not the user's choice, so it doesn't count as closing
+  // the video guide. Any touch or hover on the window stops the timer.
+  const timerRef = useRef<number | null>(null);
+  const stopAutoClose = () => {
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+  useEffect(() => {
+    timerRef.current = window.setTimeout(onClose, AUTO_CLOSE_MS);
+    return stopAutoClose;
+  }, []);
 
   const handleClose = () => {
     // Closing without opening the video counts toward switching to follow.
@@ -65,6 +83,9 @@ export default function SupportModal({
         aria-modal="true"
         aria-labelledby={titleId}
         onClick={(event) => event.stopPropagation()}
+        onPointerEnter={stopAutoClose}
+        onPointerDown={stopAutoClose}
+        onFocus={stopAutoClose}
       >
         <button
           type="button"
