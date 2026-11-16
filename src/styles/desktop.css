@@ -366,6 +366,20 @@
     opacity: 1;
   }
 
+  /* News sits at the bottom, right above Settings. */
+  .desktop-nav-tab--news {
+    margin-top: auto;
+  }
+
+  .desktop-nav-tab--news + .desktop-nav-tab--settings {
+    margin-top: 0;
+  }
+
+  /* On desktop News has its own nav button, not a row in About. */
+  .about-news-row {
+    display: none;
+  }
+
   /* ── Desktop left panel: floating fixed container (location bar + settings) ── */
 
   .desktop-left-panel {

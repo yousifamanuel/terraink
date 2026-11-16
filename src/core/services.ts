@@ -66,6 +66,12 @@ export {
   loadVideoGuideState,
   saveVideoGuideState,
 } from "@/features/export/infrastructure/videoGuideStorage";
+export {
+  fetchUpdateReleases,
+  resolveUpdateImage,
+  loadNewsSeenVersion,
+  saveNewsSeenVersion,
+} from "@/features/updates/infrastructure/updatesFeed";
 
 /* ── Analytics ── */
 
