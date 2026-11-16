@@ -1,6 +1,13 @@
 import { useEffect } from "react";
 import { trackEvent } from "@/core/services";
 
+/** "standalone" when opened as an installed app, else "browser". */
+export function getDisplayMode(): "standalone" | "browser" {
+  return document.documentElement.dataset.displayMode === "standalone"
+    ? "standalone"
+    : "browser";
+}
+
 // Sample once per page load, not per component remount.
 let reported = false;
 
@@ -14,10 +21,6 @@ export function useSessionAnalytics(): void {
     if (reported) return;
     reported = true;
 
-    const displayMode =
-      document.documentElement.dataset.displayMode === "standalone"
-        ? "standalone"
-        : "browser";
-    trackEvent("app_open", { display_mode: displayMode });
+    trackEvent("app_open", { display_mode: getDisplayMode() });
   }, []);
 }

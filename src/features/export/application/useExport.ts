@@ -31,6 +31,7 @@ import {
   saveAllTimeDownloadCount,
 } from "@/core/services";
 import { shouldOfferVideoGuide } from "./videoGuidePrompt";
+import { getDisplayMode } from "./useSessionAnalytics";
 
 const EXPORT_COUNT_STORAGE_KEY = "terraink.poster.count";
 
@@ -191,6 +192,7 @@ export function useExport() {
           export_number: nextCount,
           version_export_number: nextVersionCount,
           app_release: APP_VERSION,
+          display_mode: getDisplayMode(),
           ...(secondsBetweenExports !== null
             ? { seconds_between_exports: secondsBetweenExports }
             : {}),
