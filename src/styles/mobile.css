@@ -1462,6 +1462,11 @@
     display: none;
   }
 
+  /* Color tab: show only the color section */
+  [data-mobile-tab="color"] .mobile-section:not(.mobile-section--color) {
+    display: none;
+  }
+
   /* ── Mobile section animations ── */
 
   .mobile-section {

@@ -253,9 +253,11 @@
       "resolveError": "Nie udało się znaleźć tego miejsca. Spróbuj innej nazwy.",
       "title": "Lokalizacja",
       "placeholder": "Wpisz miasto lub miejsce",
+      "continueWith": "Kontynuuj: <place>{{place}}</place>",
       "locating": "Lokalizowanie...",
       "getMyLocation": "Moja lokalizacja",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Nie pokazuj ponownie"
     },
     "dropdown": {
       "searching": "Szukanie...",
@@ -287,6 +289,7 @@
     "sections": {
       "location": "Lokalizacja",
       "theme": "Motyw",
+      "color": "Kolor",
       "layout": "Układ",
       "layers": "Warstwy",
       "markers": "Znaczniki",
@@ -368,7 +371,8 @@
       "lineThickness": "Grubość linii",
       "titleSize": "Rozmiar tytułu",
       "subtitleSize": "Rozmiar podtytułu",
-      "textOffset": "W górę / w dół",
+      "textOffsetUp": "W górę",
+      "textOffsetDown": "W dół",
       "divider": "Linia podziału",
       "dividerStyle": "Styl linii",
       "dividerStyles": {
@@ -379,6 +383,20 @@
       "dividerThickness": "Grubość linii",
       "resetStyle": "Resetuj wszystkie ustawienia stylu",
       "resetText": "Resetuj wszystkie ustawienia tekstu"
+    },
+    "color": {
+      "title": "Kolor",
+      "reset": "Resetuj ustawienia koloru",
+      "hint": "Dostosuj wszystkie kolory motywu naraz.",
+      "brightness": "Jasność",
+      "contrast": "Kontrast",
+      "saturation": "Nasycenie",
+      "hue": "Odcień",
+      "warmth": "Ciepło",
+      "invert": "Odwróć kolory",
+      "grayscale": "Skala szarości",
+      "before": "Przed",
+      "after": "Po"
     }
   },
   "theme": {
@@ -392,10 +410,13 @@
       "deleteSavedAria": "Usuń zapisany motyw {{name}}",
       "builtInThemes": "Wbudowane",
       "themeOptionsAria": "Opcje motywu",
-      "savedThemeDescription": "Zapisany motyw"
+      "savedThemeDescription": "Zapisany motyw",
+      "favorites": "Ulubione"
     },
     "card": {
-      "deleteAria": "Usuń: {{name}}"
+      "deleteAria": "Usuń: {{name}}",
+      "favoriteAdd": "Dodaj {{name}} do ulubionych",
+      "favoriteRemove": "Usuń {{name}} z ulubionych"
     },
     "editor": {
       "title": "Edytor kolorów",
@@ -495,12 +516,28 @@
       "pastel_dream": "Miękkie pastele z przygaszonym błękitem i fioletem — senny, artystyczny styl",
       "coral": "Miękka kość słoniowa z ciepłymi koralowymi drogami",
       "copper": "Utleniony krem i miedź z ciepłymi metalicznymi akcentami",
-      "old_navy": "Głęboki granat map ze złotymi napisami i drogami",
+      "old_navy": "Jasny królewski granat ze lśniącymi złotymi drogami.",
       "gradient_roads": "Płynny gradient od ciemnego centrum do jasnych brzegów",
       "monochrome_blue": "Jedna rodzina błękitu o zmiennym nasyceniu — czysto i spójnie",
       "sunset": "Ciepłe pomarańcze i róże na miękkiej brzoskwini — złota godzina",
-      "autumn": "Palona pomarańcza, głęboka czerwień, złoty żółty — jesienne ciepło",
-      "warm_beige": "Ziemiste ciepłe neutrale w sepii — styl vintage"
+      "autumn": "Pszenica i rdza, oliwkowo-złote parki i szałwiowa woda.",
+      "warm_beige": "Ziemiste ciepłe neutrale w sepii — styl vintage",
+      "amber": "Palona pomarańcza, głęboka czerwień, złoty żółty — jesienne ciepło",
+      "mono_blue": "Jeden odcień błękitu w wielu tonach, od granatowych dróg po lodowobłękitny ląd.",
+      "desert": "Złoty piasek, ciepłobrązowe drogi i stonowana szałwiowa woda.",
+      "cyber": "Ciemna noc z purpurowymi autostradami i świecącymi cyjanowymi ulicami."
+    },
+    "categories": {
+      "label": "Kategorie motywów",
+      "all": "Wszystkie",
+      "neutral": "Neutralne",
+      "sand": "Piasek",
+      "warm": "Ciepłe",
+      "water": "Woda",
+      "green": "Zielone",
+      "light": "Jasne",
+      "dark": "Ciemne",
+      "electric": "Elektryczne"
     }
   },
   "export": {
@@ -518,7 +555,10 @@
       "close": "Zamknij",
       "headline": "✨ Twój plakat jest gotowy!",
       "text": "Obserwuj Terraink na Instagramie, by poznać nowe pomysły na mapy, wskazówki projektowe i najnowsze funkcje — i pochwal się swoimi plakatami.",
-      "followUs": "Obserwuj nas"
+      "followUs": "Obserwuj nas",
+      "videoText": "Chcesz wycisnąć więcej z Terraink? Obejrzyj 6-minutowy przewodnik po wszystkich menu.",
+      "videoWatch": "Obejrzyj na YouTube",
+      "videoAlt": "Wideoporadnik Terraink"
     },
     "errors": {
       "mapNotReady": "Mapa nie jest gotowa.",
@@ -535,6 +575,8 @@
     "section": {
       "title": "Ustawienia",
       "language": "Język",
+      "startupWindow": "Okno miejsca",
+      "startupWindowHint": "Pytaj o miejsce przy każdym otwarciu aplikacji.",
       "note": "To wartości używane po uruchomieniu aplikacji. Dotknij <strong>Zapisz ustawienia</strong>, aby zapisać bieżącą konfigurację plakatu (motyw, układ, czcionkę) jako domyślną. Zapisane lokalnie na tym urządzeniu.",
       "defaultFont": "Domyślna (Space Grotesk)",
       "savedThemeLabel": "{{name}} (zapisany)",
@@ -638,6 +680,7 @@
     "nav": {
       "location": "Lokalizacja",
       "theme": "Motyw",
+      "color": "Kolor",
       "layout": "Układ",
       "style": "Styl",
       "text": "Tekst",
@@ -645,6 +688,7 @@
       "markers": "Znaczniki",
       "routes": "Trasy",
       "settings": "Ustawienia",
+      "news": "Nowości",
       "mobileNav": "Nawigacja",
       "sections": "Sekcje",
       "hideLocation": "Ukryj lokalizację",

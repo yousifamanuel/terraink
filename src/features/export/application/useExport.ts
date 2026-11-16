@@ -19,15 +19,23 @@ import {
   triggerDownloadBlob,
 } from "@/core/services";
 import {
+  APP_VERSION,
   CM_PER_INCH,
   DEFAULT_POSTER_WIDTH_CM,
   DEFAULT_POSTER_HEIGHT_CM,
 } from "@/core/config";
-import { trackEvent, setUserProperty } from "@/core/services";
+import {
+  trackEvent,
+  setUserProperty,
+  loadAllTimeDownloadCount,
+  saveAllTimeDownloadCount,
+} from "@/core/services";
+import { shouldOfferVideoGuide } from "./videoGuidePrompt";
+import { getDisplayMode } from "./useSessionAnalytics";
 
 const EXPORT_COUNT_STORAGE_KEY = "terraink.poster.count";
 
-export type SupportPromptVariant = "follow";
+export type SupportPromptVariant = "follow" | "videoGuide";
 
 export interface SupportPromptState {
   posterNumber: number;
@@ -86,6 +94,14 @@ function writePosterExportCount(nextCount: number): void {
 }
 
 /**
+ * Downloads across all app versions. The first time, it starts from the
+ * count of the current version (the only one known so far).
+ */
+function readAllTimeExportCount(): number {
+  return loadAllTimeDownloadCount() ?? readPosterExportCount();
+}
+
+/**
  * Provides handlers for exporting the live poster preview as PNG or PDF.
  *
  * Flow:
@@ -108,23 +124,30 @@ export function useExport() {
   );
   const hasVisibleOverlays = hasVisibleMarkers || visibleRoutes.length > 0;
 
-  const registerSuccessfulExport = useCallback((nextCount: number) => {
-    writePosterExportCount(nextCount);
+  const registerSuccessfulExport = useCallback(
+    (nextCount: number, nextVersionCount: number) => {
+      writePosterExportCount(nextVersionCount);
+      saveAllTimeDownloadCount(nextCount);
 
-    // Prompt cadence: follow on the first download and every 5th after → 1, 6, 11, …
-    // Donate lives in the header; ad interstitials are handled by Google's
-    // vignette/Offerwall, not a custom modal.
-    let variant: SupportPromptVariant | null = null;
-    if ((nextCount - 1) % 5 === 0) variant = "follow";
+      // Prompt cadence: the first download and every 3rd after →
+      // 1, 4, 7, … The video guide shows until it is opened (or closed three
+      // times), then the follow prompt. Donate lives in the header; ad
+      // interstitials are handled by Google's vignette/Offerwall.
+      let variant: SupportPromptVariant | null = null;
+      if ((nextCount - 1) % 3 === 0) {
+        variant = shouldOfferVideoGuide() ? "videoGuide" : "follow";
+      }
 
-    if (variant) {
-      window.dispatchEvent(
-        new CustomEvent(SUPPORT_PROMPT_EVENT, {
-          detail: { posterNumber: nextCount, variant },
-        }),
-      );
-    }
-  }, []);
+      if (variant) {
+        window.dispatchEvent(
+          new CustomEvent(SUPPORT_PROMPT_EVENT, {
+            detail: { posterNumber: nextCount, variant },
+          }),
+        );
+      }
+    },
+    [],
+  );
 
   const exportPoster = useCallback(
     async (format: ExportFormat) => {
@@ -150,7 +173,9 @@ export function useExport() {
 
         // Aggregate, non-personal export data. Use only the structured city /
         // country — never raw input (form.location) or coordinates.
-        const nextCount = readPosterExportCount() + 1;
+        // All-time count (survives updates) and the count for this version.
+        const nextCount = readAllTimeExportCount() + 1;
+        const nextVersionCount = readPosterExportCount() + 1;
         const secondsBetweenExports =
           lastExportAt !== null
             ? Math.round((Date.now() - lastExportAt) / 1000)
@@ -165,6 +190,9 @@ export function useExport() {
           has_markers: hasVisibleMarkers,
           has_routes: visibleRoutes.length > 0,
           export_number: nextCount,
+          version_export_number: nextVersionCount,
+          app_release: APP_VERSION,
+          display_mode: getDisplayMode(),
           ...(secondsBetweenExports !== null
             ? { seconds_between_exports: secondsBetweenExports }
             : {}),
@@ -221,7 +249,7 @@ export function useExport() {
           );
           await triggerDownloadBlob(svgBlob, svgFilename);
           reportExportSuccess(nextCount, exportParams);
-          registerSuccessfulExport(nextCount);
+          registerSuccessfulExport(nextCount, nextVersionCount);
           dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
           return;
         }
@@ -279,11 +307,11 @@ export function useExport() {
         }
 
         reportExportSuccess(nextCount, exportParams);
-        registerSuccessfulExport(nextCount);
+        registerSuccessfulExport(nextCount, nextVersionCount);
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
       } catch (err) {
         const message = err instanceof Error ? err.message : i18n.t("export.errors.exportFailed");
-        trackEvent("export_failed", { format, reason: message });
+        trackEvent("export_failed", { format, reason: message, app_release: APP_VERSION });
         dispatch({ type: "SET_EXPORT_STATUS", exporting: false, error: message });
       }
     },

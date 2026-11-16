@@ -250,9 +250,11 @@
       "resolveError": "无法识别该位置，请换个名称试试。",
       "title": "选择位置",
       "placeholder": "输入城市或地点",
+      "continueWith": "继续使用 <place>{{place}}</place>",
       "locating": "定位中...",
       "getMyLocation": "获取我的位置",
-      "ok": "确定"
+      "ok": "确定",
+      "dontShowAgain": "不再显示"
     },
     "dropdown": {
       "searching": "搜索中...",
@@ -284,6 +286,7 @@
     "sections": {
       "location": "位置",
       "theme": "主题",
+      "color": "颜色",
       "layout": "布局",
       "layers": "图层",
       "markers": "标记",
@@ -362,7 +365,8 @@
       "lineThickness": "线条粗细",
       "titleSize": "标题大小",
       "subtitleSize": "副标题大小",
-      "textOffset": "上下移动",
+      "textOffsetUp": "上移",
+      "textOffsetDown": "下移",
       "divider": "分隔线",
       "dividerStyle": "线型",
       "dividerStyles": {
@@ -373,6 +377,20 @@
       "dividerThickness": "线条粗细",
       "resetStyle": "重置所有样式设置",
       "resetText": "重置所有文字设置"
+    },
+    "color": {
+      "title": "颜色",
+      "reset": "重置颜色调整",
+      "hint": "一次调整主题的所有颜色。",
+      "brightness": "亮度",
+      "contrast": "对比度",
+      "saturation": "饱和度",
+      "hue": "色相",
+      "warmth": "冷暖",
+      "invert": "反转颜色",
+      "grayscale": "灰度",
+      "before": "调整前",
+      "after": "调整后"
     }
   },
   "theme": {
@@ -386,10 +404,13 @@
       "deleteSavedAria": "删除已保存的主题{{name}}",
       "builtInThemes": "内置主题",
       "themeOptionsAria": "主题选项",
-      "savedThemeDescription": "已保存的主题"
+      "savedThemeDescription": "已保存的主题",
+      "favorites": "收藏"
     },
     "card": {
-      "deleteAria": "删除{{name}}"
+      "deleteAria": "删除{{name}}",
+      "favoriteAdd": "将 {{name}} 加入收藏",
+      "favoriteRemove": "将 {{name}} 移出收藏"
     },
     "editor": {
       "title": "颜色编辑器",
@@ -489,12 +510,28 @@
       "pastel_dream": "柔和的淡雅粉彩，灰蓝与淡紫，梦幻艺术风格",
       "coral": "柔和的象牙白底色，暖珊瑚色道路，淡粉蓝细节",
       "copper": "氧化奶油色与铜色，暖金属质感的道路点缀",
-      "old_navy": "深海军蓝地图底色，金色点缀的文字与道路",
+      "old_navy": "明亮的皇家海军蓝配闪亮的金色道路。",
       "gradient_roads": "从深色中心到浅色边缘的平滑渐变，细节含蓄",
       "monochrome_blue": "单一蓝色系，饱和度深浅变化，简洁统一",
       "sunset": "柔和蜜桃色上的暖橙与粉色，梦幻的黄金时刻风格",
-      "autumn": "焦橙、深红、金黄，季节的暖意",
-      "warm_beige": "泥土般的暖中性色与棕褐色调，复古地图风格"
+      "autumn": "麦色与锈色，橄榄金色公园与鼠尾草色水域。",
+      "warm_beige": "泥土般的暖中性色与棕褐色调，复古地图风格",
+      "amber": "焦橙、深红、金黄，季节的暖意",
+      "mono_blue": "同一种蓝的多种深浅，从海军蓝道路到冰蓝陆地。",
+      "desert": "金色沙地配暖棕色道路和柔和的鼠尾草色水域。",
+      "cyber": "深夜底色配洋红色高速公路和发光的青色街道。"
+    },
+    "categories": {
+      "label": "主题分类",
+      "all": "全部",
+      "neutral": "中性",
+      "sand": "沙色",
+      "warm": "暖色",
+      "water": "水域",
+      "green": "绿色",
+      "light": "浅色",
+      "dark": "深色",
+      "electric": "电光"
     }
   },
   "export": {
@@ -512,7 +549,10 @@
       "close": "关闭",
       "headline": "✨ 你的海报已就绪！",
       "text": "在 Instagram 上关注 Terraink，获取新鲜的地图创意、设计技巧和最新功能，也欢迎展示你制作的海报。",
-      "followUs": "关注我们"
+      "followUs": "关注我们",
+      "videoText": "想更好地使用 Terraink？观看 6 分钟的全菜单使用指南。",
+      "videoWatch": "在 YouTube 上观看",
+      "videoAlt": "Terraink 视频指南"
     },
     "errors": {
       "mapNotReady": "地图尚未就绪。",
@@ -529,6 +569,8 @@
     "section": {
       "title": "设置",
       "language": "语言",
+      "startupWindow": "地点窗口",
+      "startupWindowHint": "每次打开应用时询问地点。",
       "note": "这些是应用启动时使用的值。点按<strong>保存设置</strong>，即可将当前海报设置（主题、布局、字体）保存为默认值。仅保存在此设备本地。",
       "defaultFont": "默认 (Space Grotesk)",
       "savedThemeLabel": "{{name}}（已保存）",
@@ -632,6 +674,7 @@
     "nav": {
       "location": "位置",
       "theme": "主题",
+      "color": "颜色",
       "layout": "布局",
       "style": "样式",
       "text": "文字",
@@ -639,6 +682,7 @@
       "markers": "标记",
       "routes": "路线",
       "settings": "设置",
+      "news": "新功能",
       "mobileNav": "移动端导航",
       "sections": "设置分区",
       "hideLocation": "隐藏位置栏",

@@ -251,9 +251,11 @@
       "resolveError": "Could not resolve that location. Try another name.",
       "title": "Choose Location",
       "placeholder": "Type a city or place",
+      "continueWith": "Continue with <place>{{place}}</place>",
       "locating": "Locating...",
       "getMyLocation": "Get my location",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Don't show again"
     },
     "dropdown": {
       "searching": "Searching...",
@@ -285,6 +287,7 @@
     "sections": {
       "location": "Location",
       "theme": "Theme",
+      "color": "Color",
       "layout": "Layout",
       "layers": "Layers",
       "markers": "Markers",
@@ -364,7 +367,8 @@
       "lineThickness": "Line thickness",
       "titleSize": "Title size",
       "subtitleSize": "Subtitle size",
-      "textOffset": "Move up / down",
+      "textOffsetUp": "Move up",
+      "textOffsetDown": "Move down",
       "divider": "Divider line",
       "dividerStyle": "Divider style",
       "dividerStyles": {
@@ -375,6 +379,20 @@
       "dividerThickness": "Divider thickness",
       "resetStyle": "Reset all style settings",
       "resetText": "Reset all text settings"
+    },
+    "color": {
+      "title": "Color",
+      "reset": "Reset color adjustments",
+      "hint": "Adjust all theme colors at once.",
+      "brightness": "Brightness",
+      "contrast": "Contrast",
+      "saturation": "Saturation",
+      "hue": "Hue",
+      "warmth": "Warmth",
+      "invert": "Invert colors",
+      "grayscale": "Grayscale",
+      "before": "Before",
+      "after": "After"
     }
   },
   "theme": {
@@ -388,10 +406,13 @@
       "deleteSavedAria": "Delete saved theme {{name}}",
       "builtInThemes": "Built-in Themes",
       "themeOptionsAria": "Theme options",
-      "savedThemeDescription": "Saved theme"
+      "savedThemeDescription": "Saved theme",
+      "favorites": "Favorites"
     },
     "card": {
-      "deleteAria": "Delete {{name}}"
+      "deleteAria": "Delete {{name}}",
+      "favoriteAdd": "Add {{name}} to favorites",
+      "favoriteRemove": "Remove {{name}} from favorites"
     },
     "editor": {
       "title": "Color Editor",
@@ -491,12 +512,28 @@
       "pastel_dream": "Soft muted pastels with dusty blues and mauves - dreamy artistic aesthetic",
       "coral": "Soft ivory base with warm coral roads and muted pink-blue features.",
       "copper": "Oxidized cream and copper tones with warm metallic road accents.",
-      "old_navy": "Deep navy map fields with gold-accented typography and roads.",
+      "old_navy": "Bright royal navy with shining gold roads.",
       "gradient_roads": "Smooth gradient from dark center to light edges with subtle features",
       "monochrome_blue": "Single blue color family with varying saturation - clean and cohesive",
       "sunset": "Warm oranges and pinks on soft peach - dreamy golden hour aesthetic",
-      "autumn": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
-      "warm_beige": "Earthy warm neutrals with sepia tones - vintage map aesthetic"
+      "autumn": "Wheat and rust with olive-gold parks and sage water.",
+      "warm_beige": "Earthy warm neutrals with sepia tones - vintage map aesthetic",
+      "amber": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
+      "mono_blue": "One blue hue in many shades, from navy roads to ice-blue land.",
+      "desert": "Golden sand with warm brown roads and muted sage water.",
+      "cyber": "Dark night with magenta motorways and glowing cyan streets."
+    },
+    "categories": {
+      "label": "Theme categories",
+      "all": "All",
+      "neutral": "Neutral",
+      "sand": "Sand",
+      "warm": "Warm",
+      "water": "Water",
+      "green": "Green",
+      "light": "Light",
+      "dark": "Dark",
+      "electric": "Electric"
     }
   },
   "export": {
@@ -514,7 +551,10 @@
       "close": "Close",
       "headline": "✨ Your poster is ready!",
       "text": "Follow Terraink on Instagram for fresh map ideas, design tips, and the latest features — and show off the posters you make.",
-      "followUs": "Follow us"
+      "followUs": "Follow us",
+      "videoText": "Want to get more out of Terraink? Watch the 6-minute guide to every menu.",
+      "videoWatch": "Watch on YouTube",
+      "videoAlt": "Terraink video guide"
     },
     "errors": {
       "mapNotReady": "Map is not ready.",
@@ -531,6 +571,8 @@
     "section": {
       "title": "Settings",
       "language": "Language",
+      "startupWindow": "Location window",
+      "startupWindowHint": "Ask for a place each time the app opens.",
       "note": "These are the values used when the app loads. Tap <strong>Save Settings</strong> to capture your current poster setup (theme, layout, font) as your defaults. Saved locally on this device.",
       "defaultFont": "Default (Space Grotesk)",
       "savedThemeLabel": "{{name}} (saved)",
@@ -634,6 +676,7 @@
     "nav": {
       "location": "Location",
       "theme": "Theme",
+      "color": "Color",
       "layout": "Layout",
       "style": "Style",
       "text": "Text",
@@ -641,6 +684,7 @@
       "markers": "Markers",
       "routes": "Routes",
       "settings": "Settings",
+      "news": "News",
       "mobileNav": "Mobile navigation",
       "sections": "Settings sections",
       "hideLocation": "Hide location row",

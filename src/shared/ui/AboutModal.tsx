@@ -1,13 +1,15 @@
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import InfoPanel from "./InfoPanel";
-import { CloseIcon } from "./Icons";
+import { CloseIcon, NewsIcon } from "./Icons";
 
 interface AboutModalProps {
   onClose: () => void;
+  /** Opens the release notes; the row only shows on mobile. */
+  onNewsOpen?: () => void;
 }
 
-export default function AboutModal({ onClose }: AboutModalProps) {
+export default function AboutModal({ onClose, onNewsOpen }: AboutModalProps) {
   const { t } = useTranslation();
   return createPortal(
     <div
@@ -30,6 +32,12 @@ export default function AboutModal({ onClose }: AboutModalProps) {
         >
           <CloseIcon />
         </button>
+        {onNewsOpen ? (
+          <button type="button" className="about-news-row" onClick={onNewsOpen}>
+            <NewsIcon aria-hidden="true" />
+            <span>{t("shell.nav.news")}</span>
+          </button>
+        ) : null}
         <InfoPanel />
       </div>
     </div>,

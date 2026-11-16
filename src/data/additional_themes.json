@@ -1,107 +1,5 @@
 {
   "themes": {
-    "coral": {
-      "name": "Coral",
-      "description": "Soft ivory base with warm coral roads and muted pink-blue features.",
-      "ui": {
-        "bg": "#F3E1DA",
-        "text": "#6E2F28"
-      },
-      "map": {
-        "land": "#F3E1DA",
-        "landcover": "#EFD8D0",
-        "water": "#DFC0B5",
-        "waterway": "#DFC0B5",
-        "parks": "#EACFC6",
-        "buildings": "#E39B89",
-        "aeroway": "#EACFC6",
-        "rail": "#6e2f28",
-        "roads": {
-          "major": "#B9473A",
-          "path": "#E8C4B8",
-          "outline": "#EDD2C8",
-          "minor_high": "#C86050",
-          "minor_mid": "#E09888",
-          "minor_low": "#DDAA9A"
-        }
-      }
-    },
-    "copper": {
-      "name": "Copper",
-      "description": "Oxidized cream and copper tones with warm metallic road accents.",
-      "ui": {
-        "bg": "#E1D2C6",
-        "text": "#4E2F22"
-      },
-      "map": {
-        "land": "#E1D2C6",
-        "landcover": "#DCCCBE",
-        "water": "#CBB5A1",
-        "waterway": "#CBB5A1",
-        "parks": "#D8C6B5",
-        "buildings": "#C88B72",
-        "aeroway": "#D8C6B5",
-        "rail": "#4e2f22",
-        "roads": {
-          "major": "#7C452E",
-          "path": "#CEBAA6",
-          "outline": "#D4C2AE",
-          "minor_high": "#9E5A3C",
-          "minor_mid": "#C49078",
-          "minor_low": "#C8A890"
-        }
-      }
-    },
-    "old_navy": {
-      "name": "Old Navy",
-      "description": "Deep navy map fields with gold-accented typography and roads.",
-      "ui": {
-        "bg": "#061327",
-        "text": "#E2B85C"
-      },
-      "map": {
-        "land": "#061327",
-        "water": "#0B1E3B",
-        "waterway": "#0B1E3B",
-        "parks": "#0F2240",
-        "buildings": "#2A3F5C",
-        "aeroway": "#0F2240",
-        "rail": "#c9983a",
-        "roads": {
-          "major": "#D4A030",
-          "path": "#414035",
-          "outline": "#514b39",
-          "minor_high": "#8A6020",
-          "minor_mid": "#323432",
-          "minor_low": "#252a2e"
-        }
-      }
-    },
-    "gradient_roads": {
-      "name": "Gradient Roads",
-      "description": "Smooth gradient from dark center to light edges with subtle features",
-      "ui": {
-        "bg": "#FFFFFF",
-        "text": "#000000"
-      },
-      "map": {
-        "land": "#FFFFFF",
-        "water": "#D0D0D0",
-        "waterway": "#D0D0D0",
-        "parks": "#F0F0F0",
-        "buildings": "#505050",
-        "aeroway": "#F0F0F0",
-        "rail": "#111111",
-        "roads": {
-          "major": "#111111",
-          "path": "#C8C8C8",
-          "outline": "#D8D8D8",
-          "minor_high": "#444444",
-          "minor_mid": "#909090",
-          "minor_low": "#B4B4B4"
-        }
-      }
-    },
     "monochrome_blue": {
       "name": "Monochrome Blue",
       "description": "Single blue color family with varying saturation - clean and cohesive",
@@ -152,31 +50,6 @@
         }
       }
     },
-    "autumn": {
-      "name": "Autumn",
-      "description": "Burnt oranges, deep reds, golden yellows - seasonal warmth",
-      "ui": {
-        "bg": "#FBF7F0",
-        "text": "#8B4513"
-      },
-      "map": {
-        "land": "#FBF7F0",
-        "water": "#D4C8B4",
-        "waterway": "#D4C8B4",
-        "parks": "#EDE6D8",
-        "buildings": "#C8943C",
-        "aeroway": "#EDE6D8",
-        "rail": "#8b2500",
-        "roads": {
-          "major": "#8B2500",
-          "path": "#E8CC98",
-          "outline": "#ECD8AA",
-          "minor_high": "#B85820",
-          "minor_mid": "#D99050",
-          "minor_low": "#DEBA80"
-        }
-      }
-    },
     "warm_beige": {
       "name": "Warm Beige",
       "description": "Earthy warm neutrals with sepia tones - vintage map aesthetic",
@@ -199,6 +72,58 @@
           "minor_high": "#9A7050",
           "minor_mid": "#C09878",
           "minor_low": "#C8A888"
+        }
+      }
+    },
+    "pastel": {
+      "name": "Pastel",
+      "description": "Beige and soft gold with pastel green parks and pale blue water.",
+      "ui": {
+        "bg": "#F7F0E1",
+        "text": "#6E5530"
+      },
+      "map": {
+        "land": "#F7F0E1",
+        "landcover": "#E6EED8",
+        "water": "#DCEBF5",
+        "waterway": "#CFE3F1",
+        "parks": "#DDE9CF",
+        "buildings": "#E8D7B2",
+        "aeroway": "#EFE6D2",
+        "rail": "#A88B55",
+        "roads": {
+          "major": "#B8924A",
+          "path": "#EADDBF",
+          "outline": "#EFE4CC",
+          "minor_high": "#C9A867",
+          "minor_mid": "#D8C08E",
+          "minor_low": "#E3D2AE"
+        }
+      }
+    },
+    "autumn_light": {
+      "name": "Autumn Light",
+      "description": "Warm fall browns and amber with lighter olive greens and black text.",
+      "ui": {
+        "bg": "#F4E7D3",
+        "text": "#1C1410"
+      },
+      "map": {
+        "land": "#F4E7D3",
+        "landcover": "#E2D9BC",
+        "water": "#C9B08C",
+        "waterway": "#BB9A6E",
+        "parks": "#B7AE84",
+        "buildings": "#CF9F78",
+        "aeroway": "#E3C9A6",
+        "rail": "#4A3324",
+        "roads": {
+          "major": "#9A3412",
+          "path": "#D5BC98",
+          "outline": "#DFC9A8",
+          "minor_high": "#6B4A35",
+          "minor_mid": "#8C6A50",
+          "minor_low": "#AE9078"
         }
       }
     }

@@ -251,9 +251,11 @@
       "resolveError": "Bu konum bulunamadı. Başka bir ad deneyin.",
       "title": "Konum seç",
       "placeholder": "Bir şehir veya yer yazın",
+      "continueWith": "<place>{{place}}</place> ile devam et",
       "locating": "Konum bulunuyor...",
       "getMyLocation": "Konumumu al",
-      "ok": "Tamam"
+      "ok": "Tamam",
+      "dontShowAgain": "Bir daha gösterme"
     },
     "dropdown": {
       "searching": "Aranıyor...",
@@ -285,6 +287,7 @@
     "sections": {
       "location": "Konum",
       "theme": "Tema",
+      "color": "Renk",
       "layout": "Düzen",
       "layers": "Katmanlar",
       "markers": "İşaretçiler",
@@ -364,7 +367,8 @@
       "lineThickness": "Çizgi kalınlığı",
       "titleSize": "Başlık boyutu",
       "subtitleSize": "Alt başlık boyutu",
-      "textOffset": "Yukarı / aşağı",
+      "textOffsetUp": "Yukarı taşı",
+      "textOffsetDown": "Aşağı taşı",
       "divider": "Ayırıcı çizgi",
       "dividerStyle": "Çizgi stili",
       "dividerStyles": {
@@ -375,6 +379,20 @@
       "dividerThickness": "Çizgi kalınlığı",
       "resetStyle": "Tüm stil ayarlarını sıfırla",
       "resetText": "Tüm metin ayarlarını sıfırla"
+    },
+    "color": {
+      "title": "Renk",
+      "reset": "Renk ayarlarını sıfırla",
+      "hint": "Tüm tema renklerini tek seferde ayarlayın.",
+      "brightness": "Parlaklık",
+      "contrast": "Kontrast",
+      "saturation": "Doygunluk",
+      "hue": "Ton",
+      "warmth": "Sıcaklık",
+      "invert": "Renkleri ters çevir",
+      "grayscale": "Gri tonlama",
+      "before": "Önce",
+      "after": "Sonra"
     }
   },
   "theme": {
@@ -388,10 +406,13 @@
       "deleteSavedAria": "{{name}} kayıtlı temasını sil",
       "builtInThemes": "Yerleşik",
       "themeOptionsAria": "Tema seçenekleri",
-      "savedThemeDescription": "Kayıtlı tema"
+      "savedThemeDescription": "Kayıtlı tema",
+      "favorites": "Favoriler"
     },
     "card": {
-      "deleteAria": "{{name}} öğesini sil"
+      "deleteAria": "{{name}} öğesini sil",
+      "favoriteAdd": "{{name}} favorilere ekle",
+      "favoriteRemove": "{{name}} favorilerden çıkar"
     },
     "editor": {
       "title": "Renkler",
@@ -491,12 +512,28 @@
       "pastel_dream": "Yumuşak pastel renkler, solgun mavi ve eflatun - düşsel sanatsal hava",
       "coral": "Yumuşak fildişi zemin, sıcak mercan yollar, sönük pembe-mavi ayrıntılar.",
       "copper": "Oksitlenmiş krem ve bakır tonları, sıcak metalik yol vurguları.",
-      "old_navy": "Koyu lacivert harita zemini, altın vurgulu yazılar ve yollar.",
+      "old_navy": "Parlak kraliyet laciverti ve ışıl ışıl altın yollar.",
       "gradient_roads": "Koyu merkezden açık kenarlara yumuşak geçiş, ince ayrıntılar",
       "monochrome_blue": "Tek mavi renk ailesi, değişen doygunluk - sade ve uyumlu",
       "sunset": "Yumuşak şeftali üzerinde sıcak turuncu ve pembeler - altın saat havası",
-      "autumn": "Yanık turuncu, koyu kırmızı, altın sarısı - mevsimlik sıcaklık",
-      "warm_beige": "Toprak tonlu sıcak nötrler, sepya renkleri - nostaljik harita havası"
+      "autumn": "Buğday ve pas tonları, zeytin altını parklar ve adaçayı rengi su.",
+      "warm_beige": "Toprak tonlu sıcak nötrler, sepya renkleri - nostaljik harita havası",
+      "amber": "Yanık turuncu, koyu kırmızı, altın sarısı - mevsimlik sıcaklık",
+      "mono_blue": "Lacivert yollardan buz mavisi karaya, tek mavinin birçok tonu.",
+      "desert": "Altın kum, sıcak kahverengi yollar ve yumuşak adaçayı rengi su.",
+      "cyber": "Macenta otoyollar ve parlayan camgöbeği sokaklarla karanlık gece."
+    },
+    "categories": {
+      "label": "Tema kategorileri",
+      "all": "Tümü",
+      "neutral": "Nötr",
+      "sand": "Kum",
+      "warm": "Sıcak",
+      "water": "Su",
+      "green": "Yeşil",
+      "light": "Açık",
+      "dark": "Koyu",
+      "electric": "Elektrik"
     }
   },
   "export": {
@@ -514,7 +551,10 @@
       "close": "Kapat",
       "headline": "✨ Posteriniz hazır!",
       "text": "Yeni harita fikirleri, tasarım ipuçları ve en son özellikler için Terraink'i Instagram'da takip edin — yaptığınız posterleri de bizimle paylaşın.",
-      "followUs": "Bizi takip edin"
+      "followUs": "Bizi takip edin",
+      "videoText": "Terraink'ten daha fazlasını mı istiyorsunuz? Tüm menüleri anlatan 6 dakikalık rehberi izleyin.",
+      "videoWatch": "YouTube'da izle",
+      "videoAlt": "Terraink video rehberi"
     },
     "errors": {
       "mapNotReady": "Harita hazır değil.",
@@ -531,6 +571,8 @@
     "section": {
       "title": "Ayarlar",
       "language": "Dil",
+      "startupWindow": "Konum penceresi",
+      "startupWindowHint": "Uygulama her açıldığında bir yer sor.",
       "note": "Bunlar uygulama açılırken kullanılan değerlerdir. Mevcut poster düzeninizi (tema, düzen, yazı tipi) varsayılan olarak almak için <strong>Ayarları kaydet</strong> düğmesine dokunun. Bu cihazda yerel olarak saklanır.",
       "defaultFont": "Varsayılan (Space Grotesk)",
       "savedThemeLabel": "{{name}} (kayıtlı)",
@@ -634,6 +676,7 @@
     "nav": {
       "location": "Konum",
       "theme": "Tema",
+      "color": "Renk",
       "layout": "Düzen",
       "style": "Stil",
       "text": "Metin",
@@ -641,6 +684,7 @@
       "markers": "İşaretçiler",
       "routes": "Rotalar",
       "settings": "Ayarlar",
+      "news": "Yenilikler",
       "mobileNav": "Mobil gezinme",
       "sections": "Ayar bölümleri",
       "hideLocation": "Konumu gizle",

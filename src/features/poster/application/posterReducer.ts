@@ -45,6 +45,14 @@ export interface PosterForm {
   displayContinent: string;
   /** Title / subtitle the user typed; used while displayNameOverrides is set. */
   posterTitle: string;
+  /** Whole-theme color adjustments (Color tab); "0" = unchanged. */
+  colorBrightness: string;
+  colorContrast: string;
+  colorSaturation: string;
+  colorHue: string;
+  colorWarmth: string;
+  colorInvert: boolean;
+  colorGrayscale: boolean;
   posterSubtitle: string;
   fontFamily: string;
   /** Title block at the top or bottom of the poster. */

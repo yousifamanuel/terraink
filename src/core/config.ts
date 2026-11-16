@@ -66,6 +66,12 @@ export const SOCIAL_THREADS = import.meta.env.VITE_SOCIAL_THREADS ?? "";
 export const SOCIAL_YOUTUBE = import.meta.env.VITE_SOCIAL_YOUTUBE ?? "";
 export const KOFI_URL = import.meta.env.VITE_KOFI_URL ?? "";
 
+/** The complete video guide, offered after downloads. Replace to change the video. */
+export const VIDEO_GUIDE_URL =
+  import.meta.env.VITE_VIDEO_GUIDE_URL ?? "https://youtu.be/Eitp-_LAqlc";
+/** Self-hosted thumbnail (no request to YouTube until the user clicks). */
+export const VIDEO_GUIDE_THUMBNAIL = "/assets/video-guide.jpg";
+
 export interface DonationLink {
   name: string;
   url: string;

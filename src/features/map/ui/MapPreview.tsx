@@ -110,6 +110,8 @@ export default function MapPreview({
   const isSyncing = useRef(false);
   const hasMountedStyleRef = useRef(false);
   const prevStyleRef = useRef<StyleSpecification | null>(null);
+  // True once the first style has loaded; "load" never fires again after that.
+  const hasLoadedRef = useRef(false);
   const onMoveEndRef = useRef(onMoveEnd);
   const onMoveRef = useRef(onMove);
   onMoveEndRef.current = onMoveEnd;
@@ -134,6 +136,9 @@ export default function MapPreview({
     });
 
     mapRef.current = map;
+    map.once("load", () => {
+      hasLoadedRef.current = true;
+    });
 
     map.on("moveend", () => {
       if (isSyncing.current) return;
@@ -216,8 +221,10 @@ export default function MapPreview({
       return;
     }
 
-    // If the map hasn't finished loading the initial style yet, queue a full setStyle.
-    if (!map.isStyleLoaded()) {
+    // Only before the very first load: queue a full setStyle. Later, the map
+    // may be busy loading tiles (isStyleLoaded() is false then), but paint
+    // changes still apply; waiting for "load" would drop them.
+    if (!hasLoadedRef.current && !map.isStyleLoaded()) {
       const applyWhenReady = () => {
         map.setStyle(style);
         prevStyleRef.current = style;

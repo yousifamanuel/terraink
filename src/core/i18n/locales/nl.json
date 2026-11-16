@@ -251,9 +251,11 @@
       "resolveError": "Locatie niet gevonden. Probeer een andere naam.",
       "title": "Kies locatie",
       "placeholder": "Stad of plaats",
+      "continueWith": "Verder met <place>{{place}}</place>",
       "locating": "Zoeken...",
       "getMyLocation": "Mijn locatie",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Niet meer tonen"
     },
     "dropdown": {
       "searching": "Zoeken...",
@@ -285,6 +287,7 @@
     "sections": {
       "location": "Locatie",
       "theme": "Thema",
+      "color": "Kleur",
       "layout": "Lay-out",
       "layers": "Lagen",
       "markers": "Markers",
@@ -364,7 +367,8 @@
       "lineThickness": "Lijndikte",
       "titleSize": "Titelgrootte",
       "subtitleSize": "Ondertitelgrootte",
-      "textOffset": "Omhoog / omlaag",
+      "textOffsetUp": "Omhoog",
+      "textOffsetDown": "Omlaag",
       "divider": "Scheidingslijn",
       "dividerStyle": "Lijnstijl",
       "dividerStyles": {
@@ -375,6 +379,20 @@
       "dividerThickness": "Lijndikte",
       "resetStyle": "Alle stijlinstellingen herstellen",
       "resetText": "Alle tekstinstellingen herstellen"
+    },
+    "color": {
+      "title": "Kleur",
+      "reset": "Kleuraanpassingen herstellen",
+      "hint": "Pas alle themakleuren in één keer aan.",
+      "brightness": "Helderheid",
+      "contrast": "Contrast",
+      "saturation": "Verzadiging",
+      "hue": "Tint",
+      "warmth": "Warmte",
+      "invert": "Kleuren omkeren",
+      "grayscale": "Grijstinten",
+      "before": "Voor",
+      "after": "Na"
     }
   },
   "theme": {
@@ -388,10 +406,13 @@
       "deleteSavedAria": "Thema {{name}} wissen",
       "builtInThemes": "Ingebouwd",
       "themeOptionsAria": "Themaopties",
-      "savedThemeDescription": "Opgeslagen thema"
+      "savedThemeDescription": "Opgeslagen thema",
+      "favorites": "Favorieten"
     },
     "card": {
-      "deleteAria": "{{name}} wissen"
+      "deleteAria": "{{name}} wissen",
+      "favoriteAdd": "{{name}} aan favorieten toevoegen",
+      "favoriteRemove": "{{name}} uit favorieten verwijderen"
     },
     "editor": {
       "title": "Kleureditor",
@@ -491,12 +512,28 @@
       "pastel_dream": "Zachte pasteltinten met stoffig blauw en mauve, dromerige kunststijl",
       "coral": "Zachte ivoren basis met warmkoralen wegen en gedempt roze en blauw",
       "copper": "Geoxideerd crème en koper met warme metaalkleurige wegaccenten",
-      "old_navy": "Diepblauwe kaartvlakken met gouden letters en wegen",
+      "old_navy": "Helder koningsblauw met glanzende gouden wegen.",
       "gradient_roads": "Zachte kleurverloop van donker midden naar lichte randen met subtiele details",
       "monochrome_blue": "Eén blauwe kleurfamilie met wisselende verzadiging, strak en samenhangend",
       "sunset": "Warm oranje en roze op zacht perzik, dromerige gouden uurstijl",
-      "autumn": "Gebrand oranje, dieprood en goudgeel: seizoenswarmte",
-      "warm_beige": "Aardse warme neutrale tinten met sepia, vintage kaartstijl"
+      "autumn": "Tarwe en roest met olijfgouden parken en saliegroen water.",
+      "warm_beige": "Aardse warme neutrale tinten met sepia, vintage kaartstijl",
+      "amber": "Gebrand oranje, dieprood en goudgeel: seizoenswarmte",
+      "mono_blue": "Eén blauwe tint in vele schakeringen, van marineblauwe wegen tot ijsblauw land.",
+      "desert": "Goudkleurig zand met warmbruine wegen en gedempt saliegroen water.",
+      "cyber": "Donkere nacht met magenta snelwegen en gloeiende cyaan straten."
+    },
+    "categories": {
+      "label": "Themacategorieën",
+      "all": "Alle",
+      "neutral": "Neutraal",
+      "sand": "Zand",
+      "warm": "Warm",
+      "water": "Water",
+      "green": "Groen",
+      "light": "Licht",
+      "dark": "Donker",
+      "electric": "Elektrisch"
     }
   },
   "export": {
@@ -514,7 +551,10 @@
       "close": "Sluiten",
       "headline": "✨ Je poster is klaar!",
       "text": "Volg Terraink op Instagram voor frisse kaartideeën, ontwerptips en de nieuwste functies — en laat de posters zien die je maakt.",
-      "followUs": "Volg ons"
+      "followUs": "Volg ons",
+      "videoText": "Meer uit Terraink halen? Bekijk de gids van 6 minuten over alle menu's.",
+      "videoWatch": "Bekijk op YouTube",
+      "videoAlt": "Terraink-videogids"
     },
     "errors": {
       "mapNotReady": "De kaart is nog niet klaar.",
@@ -531,6 +571,8 @@
     "section": {
       "title": "Instellingen",
       "language": "Taal",
+      "startupWindow": "Locatievenster",
+      "startupWindowHint": "Vraag om een plaats bij elke start van de app.",
       "note": "Dit zijn de waarden die bij het laden van de app worden gebruikt. Tik op <strong>Instellingen opslaan</strong> om je huidige posteropzet (thema, lay-out, lettertype) als standaard vast te leggen. Lokaal opgeslagen op dit apparaat.",
       "defaultFont": "Standaard (Space Grotesk)",
       "savedThemeLabel": "{{name}} (opgeslagen)",
@@ -634,6 +676,7 @@
     "nav": {
       "location": "Locatie",
       "theme": "Thema",
+      "color": "Kleur",
       "layout": "Lay-out",
       "style": "Stijl",
       "text": "Tekst",
@@ -641,6 +684,7 @@
       "markers": "Markers",
       "routes": "Routes",
       "settings": "Instellingen",
+      "news": "Nieuws",
       "mobileNav": "Mobiele navigatie",
       "sections": "Secties",
       "hideLocation": "Locatie verbergen",

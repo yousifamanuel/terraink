@@ -4166,3 +4166,277 @@ button.font-picker-option:focus-visible {
 button.font-picker-option.is-selected {
   border-color: currentColor;
 }
+
+/* Download modal: video guide card (thumbnail + YouTube button). */
+.support-modal__video {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  width: 100%;
+  margin-top: 4px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.support-modal__video-thumb {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(151, 183, 207, 0.28);
+  transition: border-color 0.15s ease;
+}
+
+.support-modal__video-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 90, 90, 0.5);
+  background: rgba(170, 30, 30, 0.92);
+  color: #fff1f1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.support-modal__video-cta svg {
+  width: 18px;
+  height: 18px;
+}
+
+.support-modal__video:hover .support-modal__video-thumb,
+.support-modal__video:focus-visible .support-modal__video-thumb {
+  border-color: rgba(255, 120, 120, 0.7);
+}
+
+.support-modal__video:hover .support-modal__video-cta,
+.support-modal__video:focus-visible .support-modal__video-cta {
+  border-color: rgba(255, 140, 140, 0.8);
+  background: rgba(195, 40, 40, 0.96);
+}
+
+/* Shared checkbox: a dark blue box, the accent blue with a check when ticked. */
+input.app-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 1px solid rgba(146, 176, 200, 0.4);
+  border-radius: 6px;
+  background: rgba(20, 41, 57, 0.95);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+input.app-checkbox::after {
+  content: "";
+  width: 11px;
+  height: 6px;
+  margin-top: -3px;
+  border-left: 2px solid #f4fbff;
+  border-bottom: 2px solid #f4fbff;
+  transform: rotate(-45deg) scale(0);
+  transition: transform 0.12s ease;
+}
+
+input.app-checkbox:checked {
+  background: linear-gradient(135deg, #1a6f8c, #2f8eaf);
+  border-color: #2f8eaf;
+}
+
+input.app-checkbox:checked::after {
+  transform: rotate(-45deg) scale(1);
+}
+
+input.app-checkbox:hover,
+input.app-checkbox:focus-visible {
+  border-color: rgba(146, 176, 200, 0.75);
+}
+
+/* Settings row with a switch: name and short description left, switch right. */
+.settings-default-row.settings-toggle-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.settings-toggle-text {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.settings-toggle-hint {
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: #9bb3c5;
+}
+
+/* Theme card star (favorite), top right; the saved-theme trash sits left of it. */
+button.theme-card-favorite {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(151, 183, 207, 0.35);
+  border-radius: 999px;
+  background: rgba(9, 18, 27, 0.78);
+  color: #c7d8e6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+button.theme-card-favorite svg {
+  width: 13px;
+  height: 13px;
+}
+
+button.theme-card-favorite:hover,
+button.theme-card-favorite:focus-visible {
+  border-color: rgba(255, 205, 0, 0.7);
+  color: #ffd84d;
+  transform: scale(1.06);
+}
+
+button.theme-card-favorite.is-active {
+  border-color: rgba(255, 205, 0, 0.75);
+  color: #ffcd00;
+}
+
+.theme-card-favorite ~ button.theme-card-delete {
+  right: 42px;
+}
+
+/* Category tabs above the built-in themes. */
+.theme-category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 10px;
+}
+
+button.theme-category-tab {
+  margin: 0;
+  padding: 5px 10px;
+  border: 1px solid rgba(151, 183, 207, 0.28);
+  border-radius: 999px;
+  background: rgba(11, 21, 30, 0.86);
+  color: #b9cfdf;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.theme-category-tab:hover,
+button.theme-category-tab:focus-visible {
+  border-color: rgba(143, 215, 175, 0.6);
+}
+
+button.theme-category-tab.is-active {
+  border-color: rgba(143, 215, 175, 0.8);
+  background: rgba(28, 64, 50, 0.9);
+  color: #d6f3e2;
+}
+
+button.theme-category-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.theme-category-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(231, 242, 251, 0.35);
+}
+
+/* Short explanation under the Color tab title. */
+.color-section-hint {
+  margin: 0 0 12px;
+}
+
+/* Slider with a colored track (Color tab): the gradient shows the effect. */
+.distance-slider.has-track::-webkit-slider-runnable-track {
+  height: 6px;
+  background: var(--slider-track-bg);
+}
+
+.distance-slider.has-track::-webkit-slider-thumb {
+  margin-top: -5px;
+}
+
+.distance-slider.has-track::-moz-range-track {
+  height: 6px;
+  background: var(--slider-track-bg);
+}
+
+.distance-slider.has-track::-moz-range-progress {
+  background: transparent;
+}
+
+/* Before / after strip of the theme's main colors. */
+.color-preview {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0 0 14px;
+}
+
+.color-preview-label {
+  font-size: 0.68rem;
+  color: #9bb3c5;
+}
+
+.color-preview-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  height: 18px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(151, 183, 207, 0.25);
+}
+
+/* Color tab header: Save left of the reset button. */
+.color-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.color-section-actions button.section-reset-btn {
+  margin-bottom: 0;
+}
+
+.color-section-actions button.theme-save-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

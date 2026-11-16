@@ -316,3 +316,80 @@
     max-height: 92vh;
   }
 }
+
+/* ── News: the gold dot marks unread release notes ── */
+
+.news-icon-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.news-dot {
+  position: absolute;
+  top: -3px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffc83d;
+  box-shadow: 0 0 0 2px rgba(10, 20, 30, 0.9), 0 0 8px rgba(255, 200, 61, 0.7);
+}
+
+.mobile-news-btn {
+  position: fixed;
+  right: 86px; /* next to the 60px Download button */
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  z-index: 101;
+  height: 44px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 200, 61, 0.45);
+  border-radius: 14px;
+  background: rgba(13, 31, 46, 0.94);
+  color: #f3f6f9;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.mobile-news-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.about-news-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Leaves room for the window's close button on the right. */
+  width: calc(100% - 44px);
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(165, 198, 221, 0.22);
+  border-radius: 12px;
+  background: rgba(94, 174, 212, 0.08);
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.about-news-row svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Wide release picture at the top of the first News page. */
+.updates-cover-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(142, 177, 204, 0.2);
+}

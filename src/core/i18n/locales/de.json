@@ -251,9 +251,11 @@
       "resolveError": "Dieser Ort wurde nicht gefunden. Versuche einen anderen Namen.",
       "title": "Ort wählen",
       "placeholder": "Stadt oder Ort eingeben",
+      "continueWith": "Weiter mit <place>{{place}}</place>",
       "locating": "Standort wird ermittelt...",
       "getMyLocation": "Mein Standort",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Nicht mehr anzeigen"
     },
     "dropdown": {
       "searching": "Suche läuft...",
@@ -285,6 +287,7 @@
     "sections": {
       "location": "Ort",
       "theme": "Design",
+      "color": "Farbe",
       "layout": "Layout",
       "layers": "Ebenen",
       "markers": "Marker",
@@ -364,7 +367,8 @@
       "lineThickness": "Linienstärke",
       "titleSize": "Titelgröße",
       "subtitleSize": "Untertitelgröße",
-      "textOffset": "Nach oben / unten",
+      "textOffsetUp": "Nach oben",
+      "textOffsetDown": "Nach unten",
       "divider": "Trennlinie",
       "dividerStyle": "Linienart",
       "dividerStyles": {
@@ -375,6 +379,20 @@
       "dividerThickness": "Linienstärke",
       "resetStyle": "Alle Stil-Einstellungen zurücksetzen",
       "resetText": "Alle Text-Einstellungen zurücksetzen"
+    },
+    "color": {
+      "title": "Farbe",
+      "reset": "Farbanpassungen zurücksetzen",
+      "hint": "Alle Theme-Farben auf einmal anpassen.",
+      "brightness": "Helligkeit",
+      "contrast": "Kontrast",
+      "saturation": "Sättigung",
+      "hue": "Farbton",
+      "warmth": "Wärme",
+      "invert": "Farben umkehren",
+      "grayscale": "Graustufen",
+      "before": "Vorher",
+      "after": "Nachher"
     }
   },
   "theme": {
@@ -388,10 +406,13 @@
       "deleteSavedAria": "Gespeichertes Design {{name}} löschen",
       "builtInThemes": "Integriert",
       "themeOptionsAria": "Designoptionen",
-      "savedThemeDescription": "Gespeichertes Design"
+      "savedThemeDescription": "Gespeichertes Design",
+      "favorites": "Favoriten"
     },
     "card": {
-      "deleteAria": "{{name}} löschen"
+      "deleteAria": "{{name}} löschen",
+      "favoriteAdd": "{{name}} zu Favoriten",
+      "favoriteRemove": "{{name}} aus Favoriten entfernen"
     },
     "editor": {
       "title": "Farbeditor",
@@ -491,12 +512,28 @@
       "pastel_dream": "Sanfte Pastelltöne mit Staubblau und Mauve – verträumter, künstlerischer Look",
       "coral": "Sanftes Elfenbein mit warmen Korallstraßen und gedämpften Rosa-Blau-Akzenten.",
       "copper": "Oxidiertes Creme und Kupfertöne mit warmen metallischen Straßenakzenten.",
-      "old_navy": "Tiefes Marineblau mit goldenen Schriften und Straßen.",
+      "old_navy": "Helles Königsblau mit leuchtend goldenen Straßen.",
       "gradient_roads": "Sanfter Verlauf von dunkler Mitte zu hellen Rändern mit dezenten Details",
       "monochrome_blue": "Eine Blaufamilie in variierender Sättigung – klar und stimmig",
       "sunset": "Warmes Orange und Rosa auf zartem Pfirsich – verträumter Golden-Hour-Look",
-      "autumn": "Gebranntes Orange, tiefes Rot, goldenes Gelb – herbstliche Wärme",
-      "warm_beige": "Erdige warme Neutraltöne mit Sepia – Vintage-Karten-Look"
+      "autumn": "Weizen und Rost mit olivgoldenen Parks und salbeigrünem Wasser.",
+      "warm_beige": "Erdige warme Neutraltöne mit Sepia – Vintage-Karten-Look",
+      "amber": "Gebranntes Orange, tiefes Rot, goldenes Gelb – herbstliche Wärme",
+      "mono_blue": "Ein Blauton in vielen Abstufungen, von marineblauen Straßen bis eisblauem Land.",
+      "desert": "Goldener Sand mit warmbraunen Straßen und gedecktem salbeigrünem Wasser.",
+      "cyber": "Dunkle Nacht mit magentafarbenen Autobahnen und leuchtend cyanfarbenen Straßen."
+    },
+    "categories": {
+      "label": "Theme-Kategorien",
+      "all": "Alle",
+      "neutral": "Neutral",
+      "sand": "Sand",
+      "warm": "Warm",
+      "water": "Wasser",
+      "green": "Grün",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "electric": "Elektrisch"
     }
   },
   "export": {
@@ -514,7 +551,10 @@
       "close": "Schließen",
       "headline": "✨ Dein Poster ist fertig!",
       "text": "Folge Terraink auf Instagram für frische Kartenideen, Designtipps und die neuesten Funktionen – und zeig uns deine Poster.",
-      "followUs": "Folge uns"
+      "followUs": "Folge uns",
+      "videoText": "Mehr aus Terraink herausholen? Sieh dir die 6-Minuten-Anleitung zu allen Menüs an.",
+      "videoWatch": "Auf YouTube ansehen",
+      "videoAlt": "Terraink-Videoanleitung"
     },
     "errors": {
       "mapNotReady": "Die Karte ist noch nicht bereit.",
@@ -531,6 +571,8 @@
     "section": {
       "title": "Optionen",
       "language": "Sprache",
+      "startupWindow": "Ortsfenster",
+      "startupWindowHint": "Beim Öffnen der App nach einem Ort fragen.",
       "note": "Diese Werte werden beim Start der App verwendet. Tippe auf <strong>Speichern</strong>, um dein aktuelles Poster-Setup (Design, Layout, Schriftart) als Standard zu übernehmen. Wird lokal auf diesem Gerät gespeichert.",
       "defaultFont": "Standard (Space Grotesk)",
       "savedThemeLabel": "{{name}} (gespeichert)",
@@ -634,6 +676,7 @@
     "nav": {
       "location": "Ort",
       "theme": "Design",
+      "color": "Farbe",
       "layout": "Layout",
       "style": "Stil",
       "text": "Text",
@@ -641,6 +684,7 @@
       "markers": "Marker",
       "routes": "Routen",
       "settings": "Optionen",
+      "news": "Neues",
       "mobileNav": "Mobile Navigation",
       "sections": "Bereiche",
       "hideLocation": "Ortszeile ausblenden",

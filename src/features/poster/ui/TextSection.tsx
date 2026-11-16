@@ -173,9 +173,13 @@ export default function TextSection({
               onChange={(value) => setField("subtitleSize", String(value))}
             />
             <SliderField
-              label={t("poster.typography.textOffset")}
+              label={t(
+                form.textPosition === "top"
+                  ? "poster.typography.textOffsetDown"
+                  : "poster.typography.textOffsetUp",
+              )}
               value={Number(form.textOffset)}
-              min={-TEXT_OFFSET_MAX}
+              min={0}
               max={TEXT_OFFSET_MAX}
               step={0.5}
               unit="%"

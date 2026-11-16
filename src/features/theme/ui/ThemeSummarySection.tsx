@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import { useState, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import ThemeCard from "./ThemeCard";
@@ -9,6 +9,12 @@ import {
   type ThemeOption,
 } from "../domain/types";
 import { getThemeColorByPath } from "../domain/colorPaths";
+import {
+  THEME_CATEGORIES,
+  themesInCategory,
+  type ThemeCategoryId,
+} from "../domain/themeCategories";
+import { useFavoriteThemes } from "../application/useFavoriteThemes";
 
 interface ThemeSummarySectionProps {
   listRef?: RefObject<HTMLDivElement>;
@@ -46,6 +52,39 @@ export default function ThemeSummarySection({
   onDeleteSavedTheme,
 }: ThemeSummarySectionProps) {
   const { t } = useTranslation();
+  const { favoriteIds, toggleFavorite } = useFavoriteThemes();
+  const [category, setCategory] = useState<ThemeCategoryId | "all">("all");
+
+  const savedOptions = savedThemes.map(savedThemeToOption);
+  const savedIds = new Set(savedThemes.map((saved) => saved.id));
+  // Favorites in the order they were marked (newest first); missing ones skipped.
+  const favoriteOptions = favoriteIds
+    .map(
+      (id) =>
+        themeOptions.find((option) => option.id === id) ??
+        savedOptions.find((option) => option.id === id),
+    )
+    .filter((option): option is ThemeOption => Boolean(option));
+
+  const selectTheme = (id: string) =>
+    savedIds.has(id) ? onApplySavedTheme(id) : onThemeSelect(id);
+
+  const renderCard = (option: ThemeOption, extra?: { onDelete?: () => void; deleteAriaLabel?: string }) => (
+    <ThemeCard
+      key={option.id}
+      themeOption={option}
+      isSelected={option.id === selectedThemeId}
+      onClick={() => selectTheme(option.id)}
+      isFavorite={favoriteIds.includes(option.id)}
+      onToggleFavorite={() => toggleFavorite(option.id)}
+      {...extra}
+    />
+  );
+
+  // "All" lists every theme once; a category lists all its themes (a theme
+  // can be in several).
+  const visibleThemes =
+    category === "all" ? themeOptions : themesInCategory(themeOptions, category);
   const description =
     getThemeDescription(selectedThemeOption) || t("theme.summary.noDescription");
 
@@ -70,6 +109,19 @@ export default function ThemeSummarySection({
         </button>
       </div>
 
+      {favoriteOptions.length > 0 ? (
+        <section className="theme-section theme-section--favorites">
+          <h3 className="theme-section-heading">{t("theme.summary.favorites")}</h3>
+          <div
+            className="theme-card-list card-scroll-list"
+            role="list"
+            aria-label={t("theme.summary.favorites")}
+          >
+            {favoriteOptions.map((option) => renderCard(option))}
+          </div>
+        </section>
+      ) : null}
+
       <section className="theme-section theme-section--saved">
         <h3 className="theme-section-heading">{t("theme.summary.savedThemes")}</h3>
         {savedThemes.length === 0 ? (
@@ -84,36 +136,46 @@ export default function ThemeSummarySection({
             role="list"
             aria-label={t("theme.summary.savedThemesAria")}
           >
-            {savedThemes.map((saved) => (
-              <ThemeCard
-                key={saved.id}
-                themeOption={savedThemeToOption(saved)}
-                isSelected={saved.id === selectedThemeId}
-                onClick={() => onApplySavedTheme(saved.id)}
-                onDelete={() => onDeleteSavedTheme(saved.id)}
-                deleteAriaLabel={t("theme.summary.deleteSavedAria", { name: saved.name })}
-              />
-            ))}
+            {savedThemes.map((saved) =>
+              renderCard(savedThemeToOption(saved), {
+                onDelete: () => onDeleteSavedTheme(saved.id),
+                deleteAriaLabel: t("theme.summary.deleteSavedAria", { name: saved.name }),
+              }),
+            )}
           </div>
         )}
       </section>
 
       <section className="theme-section theme-section--builtin">
         <h3 className="theme-section-heading">{t("theme.summary.builtInThemes")}</h3>
+        <div className="theme-category-tabs" role="tablist" aria-label={t("theme.categories.label")}>
+          {[{ id: "all" as const, color: "" }, ...THEME_CATEGORIES].map(({ id, color }) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={category === id}
+              className={`theme-category-tab${category === id ? " is-active" : ""}`}
+              onClick={() => setCategory(id)}
+            >
+              {color ? (
+                <span
+                  className="theme-category-dot"
+                  style={{ backgroundColor: color }}
+                  aria-hidden="true"
+                />
+              ) : null}
+              {t(`theme.categories.${id}`)}
+            </button>
+          ))}
+        </div>
         <div
           className="theme-card-list card-scroll-list"
           role="list"
           aria-label={t("theme.summary.themeOptionsAria")}
           ref={listRef}
         >
-          {themeOptions.map((themeOption) => (
-            <ThemeCard
-              key={themeOption.id}
-              themeOption={themeOption}
-              isSelected={themeOption.id === selectedThemeId}
-              onClick={() => onThemeSelect(themeOption.id)}
-            />
-          ))}
+          {visibleThemes.map((option) => renderCard(option))}
         </div>
       </section>
     </div>

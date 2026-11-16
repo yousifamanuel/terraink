@@ -50,10 +50,33 @@ export { createPdfBlobFromCanvas } from "@/features/export/infrastructure/pdfExp
 export { createPosterFilename } from "@/features/export/infrastructure/filenameGenerator";
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
+export {
+  loadFavoriteThemeIds,
+  saveFavoriteThemeIds,
+} from "@/features/theme/infrastructure/favoriteThemesStorage";
+export {
+  loadStartupWindowHidden,
+  saveStartupWindowHidden,
+} from "@/features/location/infrastructure/startupWindowStorage";
+export {
+  loadAllTimeDownloadCount,
+  saveAllTimeDownloadCount,
+} from "@/features/export/infrastructure/downloadCountStorage";
+export {
+  loadVideoGuideState,
+  saveVideoGuideState,
+} from "@/features/export/infrastructure/videoGuideStorage";
+export {
+  fetchUpdateReleases,
+  resolveUpdateImage,
+  loadNewsSeenVersion,
+  saveNewsSeenVersion,
+} from "@/features/updates/infrastructure/updatesFeed";
 
 /* ── Analytics ── */
 
 export { trackEvent, setUserProperty } from "@/core/analytics/gtagAnalytics";
+export { loadAds } from "@/core/ads/adsenseLoader";
 
 /* ── Legal docs ── */
 

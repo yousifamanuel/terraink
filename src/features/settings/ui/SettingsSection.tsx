@@ -11,6 +11,7 @@ import ConfirmModal from "@/shared/ui/ConfirmModal";
 import i18n, { changeLanguage } from "@/core/i18n";
 import { Trans, useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES } from "@/core/i18n/languages";
+import { useStartupWindowPref } from "@/features/location/application/useStartupWindowPref";
 
 function findFontLabel(fontFamily: string | undefined): string {
   if (!fontFamily) return i18n.t("settings.section.defaultFont");
@@ -25,6 +26,8 @@ export default function SettingsSection() {
     useFormHandlers();
 
   const [confirmOpen, setConfirmOpen] = useState<"save" | "reset" | null>(null);
+  const { hidden: startupWindowHidden, setHidden: setStartupWindowHidden } =
+    useStartupWindowPref();
 
   const { userDefaults, savedThemes, form } = state;
 
@@ -112,6 +115,24 @@ export default function SettingsSection() {
               </option>
             ))}
           </select>
+        </label>
+        <label className="settings-default-row settings-toggle-row">
+          <span className="settings-toggle-text">
+            <span className="settings-default-label">
+              {t("settings.section.startupWindow")}
+            </span>
+            <span className="settings-toggle-hint">
+              {t("settings.section.startupWindowHint")}
+            </span>
+          </span>
+          <span className="theme-switch">
+            <input
+              type="checkbox"
+              checked={!startupWindowHidden}
+              onChange={(event) => setStartupWindowHidden(!event.target.checked)}
+            />
+            <span className="theme-switch-track" aria-hidden="true" />
+          </span>
         </label>
         <div className="settings-default-row">
           <span className="settings-default-label">{t("settings.section.defaultTheme")}</span>

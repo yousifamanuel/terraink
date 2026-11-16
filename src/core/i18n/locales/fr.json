@@ -252,9 +252,11 @@
       "resolveError": "Impossible de trouver ce lieu. Essayez un autre nom.",
       "title": "Choisir un lieu",
       "placeholder": "Saisissez une ville ou un lieu",
+      "continueWith": "Continuer avec <place>{{place}}</place>",
       "locating": "Localisation…",
       "getMyLocation": "Ma position",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "Ne plus afficher"
     },
     "dropdown": {
       "searching": "Recherche…",
@@ -286,6 +288,7 @@
     "sections": {
       "location": "Lieu",
       "theme": "Thème",
+      "color": "Couleur",
       "layout": "Format",
       "layers": "Calques",
       "markers": "Repères",
@@ -366,7 +369,8 @@
       "lineThickness": "Épaisseur du trait",
       "titleSize": "Taille du titre",
       "subtitleSize": "Taille du sous-titre",
-      "textOffset": "Monter / descendre",
+      "textOffsetUp": "Monter",
+      "textOffsetDown": "Descendre",
       "divider": "Ligne de séparation",
       "dividerStyle": "Style du trait",
       "dividerStyles": {
@@ -377,6 +381,20 @@
       "dividerThickness": "Épaisseur du trait",
       "resetStyle": "Réinitialiser tout le style",
       "resetText": "Réinitialiser tout le texte"
+    },
+    "color": {
+      "title": "Couleur",
+      "reset": "Réinitialiser les réglages de couleur",
+      "hint": "Ajustez toutes les couleurs du thème à la fois.",
+      "brightness": "Luminosité",
+      "contrast": "Contraste",
+      "saturation": "Saturation",
+      "hue": "Teinte",
+      "warmth": "Chaleur",
+      "invert": "Inverser les couleurs",
+      "grayscale": "Niveaux de gris",
+      "before": "Avant",
+      "after": "Après"
     }
   },
   "theme": {
@@ -390,10 +408,13 @@
       "deleteSavedAria": "Supprimer le thème enregistré {{name}}",
       "builtInThemes": "Intégrés",
       "themeOptionsAria": "Options de thème",
-      "savedThemeDescription": "Thème enregistré"
+      "savedThemeDescription": "Thème enregistré",
+      "favorites": "Favoris"
     },
     "card": {
-      "deleteAria": "Supprimer {{name}}"
+      "deleteAria": "Supprimer {{name}}",
+      "favoriteAdd": "Ajouter {{name}} aux favoris",
+      "favoriteRemove": "Retirer {{name}} des favoris"
     },
     "editor": {
       "title": "Couleurs",
@@ -493,12 +514,28 @@
       "pastel_dream": "Pastels doux, bleus poudrés et mauves : ambiance artistique et rêveuse",
       "coral": "Fond ivoire doux, routes corail, touches rose-bleu",
       "copper": "Crème oxydée et cuivre, routes aux reflets métalliques",
-      "old_navy": "Fond bleu marine profond, typographie et routes dorées",
+      "old_navy": "Bleu marine royal lumineux et routes dorées éclatantes.",
       "gradient_roads": "Dégradé doux du centre sombre aux bords clairs",
       "monochrome_blue": "Une seule famille de bleus, nuancée, nette et harmonieuse",
       "sunset": "Orange et rose chauds sur pêche doux : heure dorée rêveuse",
-      "autumn": "Orange brûlé, rouge profond, jaune doré : chaleur d'automne",
-      "warm_beige": "Neutres chauds et tons sépia, esprit carte ancienne"
+      "autumn": "Blé et rouille, parcs vert olive doré et eau vert sauge.",
+      "warm_beige": "Neutres chauds et tons sépia, esprit carte ancienne",
+      "amber": "Orange brûlé, rouge profond, jaune doré : chaleur d'automne",
+      "mono_blue": "Un seul bleu en de nombreuses nuances, des routes marine à la terre bleu glacier.",
+      "desert": "Sable doré, routes brun chaud et eau vert sauge douce.",
+      "cyber": "Nuit sombre, autoroutes magenta et rues cyan lumineuses."
+    },
+    "categories": {
+      "label": "Catégories de thèmes",
+      "all": "Tous",
+      "neutral": "Neutres",
+      "sand": "Sable",
+      "warm": "Chauds",
+      "water": "Eau",
+      "green": "Verts",
+      "light": "Clairs",
+      "dark": "Sombres",
+      "electric": "Électriques"
     }
   },
   "export": {
@@ -516,7 +553,10 @@
       "close": "Fermer",
       "headline": "✨ Votre affiche est prête !",
       "text": "Suivez Terraink sur Instagram pour des idées de cartes, des conseils de design et les dernières nouveautés — et montrez les affiches que vous créez.",
-      "followUs": "Suivez-nous"
+      "followUs": "Suivez-nous",
+      "videoText": "Envie d'en faire plus avec Terraink ? Regardez le guide de 6 minutes sur tous les menus.",
+      "videoWatch": "Voir sur YouTube",
+      "videoAlt": "Guide vidéo de Terraink"
     },
     "errors": {
       "mapNotReady": "La carte n’est pas prête.",
@@ -533,6 +573,8 @@
     "section": {
       "title": "Réglages",
       "language": "Langue",
+      "startupWindow": "Fenêtre de lieu",
+      "startupWindowHint": "Demander un lieu à chaque ouverture de l'app.",
       "note": "Ces valeurs sont utilisées au chargement de l’app. Touchez <strong>Enregistrer les réglages</strong> pour définir votre affiche actuelle (thème, format, police) comme valeurs par défaut. Enregistré localement sur cet appareil.",
       "defaultFont": "Par défaut (Space Grotesk)",
       "savedThemeLabel": "{{name}} (enregistré)",
@@ -636,6 +678,7 @@
     "nav": {
       "location": "Lieu",
       "theme": "Thème",
+      "color": "Couleur",
       "layout": "Format",
       "style": "Style",
       "text": "Texte",
@@ -643,6 +686,7 @@
       "markers": "Repères",
       "routes": "Trajets",
       "settings": "Réglages",
+      "news": "Nouveautés",
       "mobileNav": "Navigation mobile",
       "sections": "Sections des réglages",
       "hideLocation": "Masquer la ligne du lieu",

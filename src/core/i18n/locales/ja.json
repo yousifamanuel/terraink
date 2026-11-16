@@ -250,9 +250,11 @@
       "resolveError": "その場所を特定できませんでした。別の名前をお試しください。",
       "title": "場所を選択",
       "placeholder": "都市や場所を入力",
+      "continueWith": "<place>{{place}}</place> で続ける",
       "locating": "取得中...",
       "getMyLocation": "現在地を取得",
-      "ok": "OK"
+      "ok": "OK",
+      "dontShowAgain": "今後表示しない"
     },
     "dropdown": {
       "searching": "検索中...",
@@ -284,6 +286,7 @@
     "sections": {
       "location": "場所",
       "theme": "テーマ",
+      "color": "色",
       "layout": "レイアウト",
       "layers": "レイヤー",
       "markers": "マーカー",
@@ -362,7 +365,8 @@
       "lineThickness": "線の太さ",
       "titleSize": "タイトルの大きさ",
       "subtitleSize": "サブタイトルの大きさ",
-      "textOffset": "上下の位置",
+      "textOffsetUp": "上へ移動",
+      "textOffsetDown": "下へ移動",
       "divider": "区切り線",
       "dividerStyle": "線の種類",
       "dividerStyles": {
@@ -373,6 +377,20 @@
       "dividerThickness": "線の太さ",
       "resetStyle": "スタイル設定をすべてリセット",
       "resetText": "文字設定をすべてリセット"
+    },
+    "color": {
+      "title": "色",
+      "reset": "色の調整をリセット",
+      "hint": "テーマの全色を一度に調整します。",
+      "brightness": "明るさ",
+      "contrast": "コントラスト",
+      "saturation": "彩度",
+      "hue": "色相",
+      "warmth": "暖かさ",
+      "invert": "色を反転",
+      "grayscale": "グレースケール",
+      "before": "前",
+      "after": "後"
     }
   },
   "theme": {
@@ -386,10 +404,13 @@
       "deleteSavedAria": "保存したテーマ{{name}}を削除",
       "builtInThemes": "標準テーマ",
       "themeOptionsAria": "テーマのオプション",
-      "savedThemeDescription": "保存したテーマ"
+      "savedThemeDescription": "保存したテーマ",
+      "favorites": "お気に入り"
     },
     "card": {
-      "deleteAria": "{{name}}を削除"
+      "deleteAria": "{{name}}を削除",
+      "favoriteAdd": "{{name}} をお気に入りに追加",
+      "favoriteRemove": "{{name}} をお気に入りから削除"
     },
     "editor": {
       "title": "カラーエディタ",
@@ -489,12 +510,28 @@
       "pastel_dream": "くすんだブルーとモーブの淡いパステル、夢のようなアート風",
       "coral": "やわらかなアイボリーに温かなコーラルの道、くすんだピンクとブルー",
       "copper": "酸化したクリームと銅の色合い、温かな金属調の道",
-      "old_navy": "深いネイビーの地図に、金色の文字と道",
+      "old_navy": "明るいロイヤルネイビーに輝く金色の道路。",
       "gradient_roads": "濃い中心から淡い外側へなめらかなグラデーション、控えめな表現",
       "monochrome_blue": "彩度を変えた単一の青系統、すっきりまとまった印象",
       "sunset": "やわらかなピーチに暖かなオレンジとピンク、夢のようなゴールデンアワー",
-      "autumn": "焦げたオレンジ、深い赤、黄金色、季節の温もり",
-      "warm_beige": "土っぽい暖色のニュートラルとセピア、ヴィンテージ地図風"
+      "autumn": "小麦色とさび色に、オリーブゴールドの公園とセージ色の水。",
+      "warm_beige": "土っぽい暖色のニュートラルとセピア、ヴィンテージ地図風",
+      "amber": "焦げたオレンジ、深い赤、黄金色、季節の温もり",
+      "mono_blue": "ひとつの青を多彩な濃淡で。ネイビーの道路からアイスブルーの陸地まで。",
+      "desert": "金色の砂に温かみのある茶色の道路と落ち着いたセージ色の水。",
+      "cyber": "暗い夜にマゼンタの高速道路と輝くシアンの街路。"
+    },
+    "categories": {
+      "label": "テーマの分類",
+      "all": "すべて",
+      "neutral": "ニュートラル",
+      "sand": "砂",
+      "warm": "暖色",
+      "water": "水",
+      "green": "緑",
+      "light": "明るい",
+      "dark": "暗い",
+      "electric": "エレクトリック"
     }
   },
   "export": {
@@ -512,7 +549,10 @@
       "close": "閉じる",
       "headline": "✨ ポスターができました！",
       "text": "InstagramでTerrainkをフォローして、マップのアイデアやデザインのコツ、最新機能をチェックしましょう。作ったポスターもぜひ見せてください。",
-      "followUs": "フォローする"
+      "followUs": "フォローする",
+      "videoText": "Terraink をもっと活用したい方へ。全メニューを 6 分で紹介するガイドをご覧ください。",
+      "videoWatch": "YouTube で見る",
+      "videoAlt": "Terraink 動画ガイド"
     },
     "errors": {
       "mapNotReady": "マップの準備ができていません。",
@@ -529,6 +569,8 @@
     "section": {
       "title": "設定",
       "language": "言語",
+      "startupWindow": "場所ウィンドウ",
+      "startupWindowHint": "アプリを開くたびに場所を尋ねます。",
       "note": "アプリの起動時に使われる値です。<strong>設定を保存</strong>をタップすると、現在のポスター設定（テーマ、レイアウト、フォント）が標準として保存されます。この端末内に保存されます。",
       "defaultFont": "標準（Space Grotesk）",
       "savedThemeLabel": "{{name}}（保存済み）",
@@ -632,6 +674,7 @@
     "nav": {
       "location": "場所",
       "theme": "テーマ",
+      "color": "色",
       "layout": "レイアウト",
       "style": "スタイル",
       "text": "文字",
@@ -639,6 +682,7 @@
       "markers": "マーカー",
       "routes": "ルート",
       "settings": "設定",
+      "news": "お知らせ",
       "mobileNav": "モバイルナビゲーション",
       "sections": "設定セクション",
       "hideLocation": "場所の行を隠す",

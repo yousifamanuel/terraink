@@ -17,6 +17,7 @@ import {
 import InstallPrompt from "@/features/install/ui/InstallPrompt";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
+import { loadAds } from "@/core/services";
 import { CheckIcon } from "@/shared/ui/Icons";
 import SupportModal from "@/features/export/ui/SupportModal";
 import {
@@ -24,6 +25,8 @@ import {
   type SupportPromptState,
 } from "@/features/export/application/useExport";
 import { useSessionAnalytics } from "@/features/export/application/useSessionAnalytics";
+import { useNews, type NewsOpenSource } from "@/features/updates/application/useNews";
+import MobileNewsButton from "@/features/updates/ui/MobileNewsButton";
 import {
   LEGAL_DOC_EVENT,
   type LegalDocDetail,
@@ -33,9 +36,7 @@ import {
 const AboutModal = lazy(() => import("@/shared/ui/AboutModal"));
 const LegalModal = lazy(() => import("@/features/legal/ui/LegalModal"));
 const SettingsPanel = lazy(() => import("@/features/poster/ui/SettingsPanel"));
-const AnnouncementModal = lazy(
-  () => import("@/features/updates/ui/AnnouncementModal"),
-);
+const NewsModal = lazy(() => import("@/features/updates/ui/NewsModal"));
 const ExportFab = lazy(() => import("@/features/export/ui/ExportFab"));
 const DesktopLocationBar = lazy(() => import("@/shared/ui/DesktopLocationBar"));
 
@@ -105,6 +106,12 @@ export default function AppShell() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(null);
   const [legalDoc, setLegalDoc] = useState<LegalDocType | null>(null);
+  const news = useNews();
+  const [newsOpen, setNewsOpen] = useState(false);
+  const openNews = async (source: NewsOpenSource) => {
+    setAboutOpen(false);
+    if (await news.open(source)) setNewsOpen(true);
+  };
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -138,7 +145,6 @@ export default function AppShell() {
       void import("@/features/poster/ui/SettingsPanel");
       void import("@/shared/ui/DesktopLocationBar");
       void import("@/features/export/ui/ExportFab");
-      void import("@/features/updates/ui/AnnouncementModal");
     };
 
     if ("requestIdleCallback" in window) {
@@ -236,7 +242,7 @@ export default function AppShell() {
     >
       <GeneralHeader onAboutOpen={() => setAboutOpen(true)} />
       <InstallPrompt />
-      <StartupLocationModal />
+      <StartupLocationModal onComplete={loadAds} />
 
       <DesktopNavBar
         activeTab={desktopTab}
@@ -246,6 +252,8 @@ export default function AppShell() {
         onLocationToggle={() =>
           setDesktopLocationRowVisible((isVisible) => !isVisible)
         }
+        hasUnreadNews={news.hasUnread}
+        onNewsOpen={() => void openNews("nav")}
       />
 
       <div
@@ -332,19 +340,28 @@ export default function AppShell() {
       <Suspense fallback={null}>
         <ExportFab isMobile={isMobileViewport} />
       </Suspense>
+      {isMobileViewport && news.hasUnread ? (
+        <MobileNewsButton onOpen={() => void openNews("mobile_button")} />
+      ) : null}
 
       <FooterNote />
-      <Suspense fallback={null}>
-        <AnnouncementModal />
-      </Suspense>
+      {newsOpen && news.release ? (
+        <Suspense fallback={null}>
+          <NewsModal release={news.release} onClose={() => setNewsOpen(false)} />
+        </Suspense>
+      ) : null}
       {aboutOpen ? (
         <Suspense fallback={null}>
-          <AboutModal onClose={() => setAboutOpen(false)} />
+          <AboutModal
+            onClose={() => setAboutOpen(false)}
+            onNewsOpen={() => void openNews("about")}
+          />
         </Suspense>
       ) : null}
       {supportPrompt ? (
         <SupportModal
           posterNumber={supportPrompt.posterNumber}
+          variant={supportPrompt.variant}
           onClose={() => setSupportPrompt(null)}
         />
       ) : null}

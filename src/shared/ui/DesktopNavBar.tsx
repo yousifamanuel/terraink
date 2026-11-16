@@ -8,6 +8,8 @@ import {
   RouteIcon,
   StyleIcon,
   TextIcon,
+  ColorIcon,
+  NewsIcon,
   SettingsIcon,
 } from "./Icons";
 import type { MobileTab } from "./MobileNavBar";
@@ -21,6 +23,7 @@ const tabs: {
   { id: "layout", labelKey: "shell.nav.layout", Icon: LayoutIcon },
   { id: "text", labelKey: "shell.nav.text", Icon: TextIcon },
   { id: "style", labelKey: "shell.nav.style", Icon: StyleIcon },
+  { id: "color", labelKey: "shell.nav.color", Icon: ColorIcon },
   { id: "layers", labelKey: "shell.nav.layers", Icon: LayersIcon },
   { id: "markers", labelKey: "shell.nav.markers", Icon: MarkersIcon },
   { id: "routes", labelKey: "shell.nav.routes", Icon: RouteIcon },
@@ -32,6 +35,9 @@ interface DesktopNavBarProps {
   onTabChange: (tab: MobileTab) => void;
   isLocationVisible: boolean;
   onLocationToggle: () => void;
+  /** The dot marks release notes not yet opened. */
+  hasUnreadNews: boolean;
+  onNewsOpen: () => void;
 }
 
 export default function DesktopNavBar({
@@ -40,6 +46,8 @@ export default function DesktopNavBar({
   onTabChange,
   isLocationVisible,
   onLocationToggle,
+  hasUnreadNews,
+  onNewsOpen,
 }: DesktopNavBarProps) {
   const { t } = useTranslation();
   const locationToggleLabel = isLocationVisible
@@ -73,6 +81,20 @@ export default function DesktopNavBar({
           <span className="desktop-nav-label">{t(labelKey)}</span>
         </button>
       ))}
+
+      <button
+          type="button"
+          className="desktop-nav-tab desktop-nav-tab--news"
+          title={t("shell.nav.news")}
+          aria-label={t("shell.nav.news")}
+          onClick={onNewsOpen}
+        >
+          <span className="news-icon-wrap">
+            <NewsIcon className="desktop-nav-icon" />
+            {hasUnreadNews ? <span className="news-dot" aria-hidden="true" /> : null}
+          </span>
+          <span className="desktop-nav-label">{t("shell.nav.news")}</span>
+        </button>
 
       <button
         type="button"
