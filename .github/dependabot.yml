@@ -1,0 +1,9 @@
+version: 2
+updates:
+  # Bun manages this project (bun.lock). Only security updates are wanted,
+  # so regular version updates are turned off with a limit of 0.
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
