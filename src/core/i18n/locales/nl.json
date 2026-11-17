@@ -384,6 +384,7 @@
       "title": "Kleur",
       "reset": "Kleuraanpassingen herstellen",
       "hint": "Pas alle themakleuren in één keer aan.",
+      "keepAcrossThemes": "Behouden voor alle thema's",
       "brightness": "Helderheid",
       "contrast": "Contrast",
       "saturation": "Verzadiging",

@@ -382,6 +382,7 @@
       "title": "颜色",
       "reset": "重置颜色调整",
       "hint": "一次调整主题的所有颜色。",
+      "keepAcrossThemes": "所有主题保持不变",
       "brightness": "亮度",
       "contrast": "对比度",
       "saturation": "饱和度",

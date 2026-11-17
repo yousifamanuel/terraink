@@ -386,6 +386,7 @@
       "title": "Couleur",
       "reset": "Réinitialiser les réglages de couleur",
       "hint": "Ajustez toutes les couleurs du thème à la fois.",
+      "keepAcrossThemes": "Garder pour tous les thèmes",
       "brightness": "Luminosité",
       "contrast": "Contraste",
       "saturation": "Saturation",

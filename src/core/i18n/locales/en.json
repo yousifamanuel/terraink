@@ -384,6 +384,7 @@
       "title": "Color",
       "reset": "Reset color adjustments",
       "hint": "Adjust all theme colors at once.",
+      "keepAcrossThemes": "Keep for all themes",
       "brightness": "Brightness",
       "contrast": "Contrast",
       "saturation": "Saturation",

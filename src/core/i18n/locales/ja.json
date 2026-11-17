@@ -382,6 +382,7 @@
       "title": "色",
       "reset": "色の調整をリセット",
       "hint": "テーマの全色を一度に調整します。",
+      "keepAcrossThemes": "すべてのテーマで保持",
       "brightness": "明るさ",
       "contrast": "コントラスト",
       "saturation": "彩度",

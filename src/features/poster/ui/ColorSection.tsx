@@ -89,7 +89,6 @@ export default function ColorSection() {
     warmth: "linear-gradient(to right, #4f8fe6, #c9c9c9, #f2a43a)",
   };
 
-
   return (
     <section className="panel-block">
       <div className="section-summary-head">
@@ -141,6 +140,24 @@ export default function ColorSection() {
           ))}
         </span>
       </div>
+
+      <label className="toggle-field">
+        <span>{t("poster.color.keepAcrossThemes")}</span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            checked={Boolean(form.colorKeepAcrossThemes)}
+            onChange={(event) =>
+              dispatch({
+                type: "SET_FIELD",
+                name: "colorKeepAcrossThemes",
+                value: event.target.checked,
+              })
+            }
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
 
       {SLIDERS.map((slider) => (
         <SliderField

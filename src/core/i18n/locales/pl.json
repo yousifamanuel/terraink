@@ -388,6 +388,7 @@
       "title": "Kolor",
       "reset": "Resetuj ustawienia koloru",
       "hint": "Dostosuj wszystkie kolory motywu naraz.",
+      "keepAcrossThemes": "Zachowaj dla wszystkich motywów",
       "brightness": "Jasność",
       "contrast": "Kontrast",
       "saturation": "Nasycenie",

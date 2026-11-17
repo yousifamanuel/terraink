@@ -85,6 +85,7 @@ export const DEFAULT_FORM: PosterForm = {
   colorWarmth: "0",
   colorInvert: false,
   colorGrayscale: false,
+  colorKeepAcrossThemes: false,
   posterSubtitle: "",
   fontFamily: "",
   textPosition: DEFAULT_POSTER_LAYOUT.textPosition,

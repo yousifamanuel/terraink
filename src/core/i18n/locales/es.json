@@ -386,6 +386,7 @@
       "title": "Color",
       "reset": "Restablecer ajustes de color",
       "hint": "Ajusta todos los colores del tema a la vez.",
+      "keepAcrossThemes": "Mantener en todos los temas",
       "brightness": "Brillo",
       "contrast": "Contraste",
       "saturation": "Saturación",

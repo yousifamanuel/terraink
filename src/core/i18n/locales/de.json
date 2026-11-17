@@ -384,6 +384,7 @@
       "title": "Farbe",
       "reset": "Farbanpassungen zurücksetzen",
       "hint": "Alle Theme-Farben auf einmal anpassen.",
+      "keepAcrossThemes": "Für alle Themes behalten",
       "brightness": "Helligkeit",
       "contrast": "Kontrast",
       "saturation": "Sättigung",

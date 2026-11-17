@@ -384,6 +384,7 @@
       "title": "Renk",
       "reset": "Renk ayarlarını sıfırla",
       "hint": "Tüm tema renklerini tek seferde ayarlayın.",
+      "keepAcrossThemes": "Tüm temalarda koru",
       "brightness": "Parlaklık",
       "contrast": "Kontrast",
       "saturation": "Doygunluk",
