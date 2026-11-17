@@ -1,8 +1,6 @@
 import i18n from "@/core/i18n";
-import maplibregl, {
-  type Map as MaplibreMap,
-  type StyleSpecification,
-} from "maplibre-gl";
+import { maplibregl } from "@/shared/geo/maplibre";
+import type { Map as MaplibreMap, StyleSpecification } from "maplibre-gl";
 import type { MarkerProjectionInput } from "@/features/markers/domain/types";
 import { MAP_OVERZOOM_SCALE } from "@/features/map/infrastructure/constants";
 

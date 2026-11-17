@@ -1,5 +1,5 @@
 import i18n from "@/core/i18n";
-import maplibregl from "maplibre-gl";
+import { maplibregl } from "@/shared/geo/maplibre";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type {
   MarkerIconDefinition,
@@ -142,11 +142,12 @@ export async function createLayeredSvgBlobFromMap({
 
     const exportStyle = exportMap.getStyle();
     const layerIds = (exportStyle.layers ?? []).map((layer) => layer.id);
-    const originalVisibility = new Map<string, string>();
+    const originalVisibility = new Map<string, "visible" | "none">();
     const visibleLayerIds = layerIds.filter((layerId) => {
-      const visibility = String(
-        exportMap.getLayoutProperty(layerId, "visibility") ?? "visible",
-      );
+      const visibility =
+        exportMap.getLayoutProperty(layerId, "visibility") === "none"
+          ? "none"
+          : "visible";
       originalVisibility.set(layerId, visibility);
       return visibility !== "none";
     });

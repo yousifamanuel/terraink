@@ -1,5 +1,5 @@
 import i18n from "@/core/i18n";
-import maplibregl from "maplibre-gl";
+import { maplibregl } from "@/shared/geo/maplibre";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type { MarkerProjectionInput } from "@/features/markers/domain/types";
 import {
