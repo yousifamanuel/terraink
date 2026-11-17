@@ -91,6 +91,22 @@
 .updates-modal-content {
   overflow-y: auto;
   padding: 10px 28px 16px;
+  /* Thin blue scrollbar that matches the window. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(121, 188, 255, 0.55) transparent;
+}
+
+.updates-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.updates-modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.updates-modal-content::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(121, 188, 255, 0.55);
 }
 
 .updates-modal-content h3 {
