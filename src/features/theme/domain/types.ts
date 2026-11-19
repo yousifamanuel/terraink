@@ -77,6 +77,8 @@ export interface ThemeOption {
   id: string;
   name: string;
   description: string;
+  /** Translated descriptions by language code (themes loaded at runtime). */
+  descriptions?: Record<string, string>;
   palette: string[];
 }
 
