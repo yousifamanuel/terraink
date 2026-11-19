@@ -204,7 +204,8 @@
   text-transform: uppercase;
   line-height: 1.1;
   transform: translateY(-50%);
-  white-space: pre-wrap;
+  /* One line: the size is fitted to the box instead (PosterTextOverlay). */
+  white-space: pre;
   z-index: 2;
 }
 

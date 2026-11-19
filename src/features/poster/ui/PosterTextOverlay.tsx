@@ -1,4 +1,6 @@
+import { useEffect, useMemo, useState } from "react";
 import { posterTitleWeight } from "@/core/fonts";
+import { measureTextWidthPerPx } from "@/shared/utils/textFit";
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import { APP_CREDIT_URL } from "@/core/config";
 import { withAlpha } from "@/shared/utils/color";
@@ -16,6 +18,9 @@ import {
   DOUBLE_LINE_GAP,
   type PosterStyleTemplate,
 } from "@/features/poster/domain/posterStyleTemplates";
+
+/** Share of the text box the title may fill, so letters never touch its edge. */
+const TITLE_FIT = 0.98;
 
 interface PosterTextOverlayProps {
   city: string;
@@ -66,11 +71,31 @@ export default function PosterTextOverlay({
     : '"IBM Plex Mono", monospace';
 
   const cityLabel = formatCityLabel(city, text.letterSpacedCity);
-  const cityFontSize = `${
-    toCqMin(CITY_FONT_BASE_PX) *
-    computeCityFontScale(city) *
-    text.cityScale
-  }cqmin`;
+  const titleWeight = posterTitleWeight(fontFamily);
+  // Re-measure once the title font has loaded (it may arrive after render).
+  const [fontsReady, setFontsReady] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    void document.fonts
+      ?.load(`${titleWeight} 40px ${titleFont}`, cityLabel)
+      .then(() => {
+        if (alive) setFontsReady((count) => count + 1);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [titleFont, titleWeight, cityLabel]);
+  const widthPerPx = useMemo(
+    () => measureTextWidthPerPx(cityLabel.toUpperCase(), titleWeight, titleFont),
+    [cityLabel, titleWeight, titleFont, fontsReady],
+  );
+  // The title stays on one line: it never grows wider than the text box.
+  const wantedCityCqmin =
+    toCqMin(CITY_FONT_BASE_PX) * computeCityFontScale(city) * text.cityScale;
+  const cityFontSize =
+    widthPerPx > 0
+      ? `min(${wantedCityCqmin}cqmin, ${(text.width * 100 * TITLE_FIT) / widthPerPx}cqw)`
+      : `${wantedCityCqmin}cqmin`;
   const countryFontSize = `${
     toCqMin(COUNTRY_FONT_BASE_PX) * text.countryScale
   }cqmin`;

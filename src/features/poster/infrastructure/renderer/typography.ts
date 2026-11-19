@@ -92,8 +92,16 @@ export function drawPosterText(
     ctx.fillStyle = textColor;
     ctx.textAlign = text.align;
     ctx.textBaseline = "middle";
-    ctx.font = `${posterTitleWeight(fontFamily)} ${cityFontSize}px ${titleFontFamily}`;
-    ctx.fillText(cityLabel, anchorX, cityY, maxTextWidth);
+    // One line, never wider than the text box: shrink instead of squeezing.
+    const titleWeight = posterTitleWeight(fontFamily);
+    ctx.font = `${titleWeight} ${cityFontSize}px ${titleFontFamily}`;
+    const titleWidth = ctx.measureText(cityLabel).width;
+    const titleLimit = maxTextWidth * 0.98;
+    if (titleWidth > titleLimit) {
+      const fittedSize = (cityFontSize * titleLimit) / titleWidth;
+      ctx.font = `${titleWeight} ${fittedSize}px ${titleFontFamily}`;
+    }
+    ctx.fillText(cityLabel, anchorX, cityY);
 
     if (text.showDivider) {
       const dividerWidth = 3 * dimScale * (text.dividerScale ?? 1);
