@@ -65,6 +65,21 @@ const FONT_LOADERS: Record<string, () => Promise<unknown>> = {
       import("@fontsource/merriweather/700.css"),
     ]),
   "bebas neue": () => import("@fontsource/bebas-neue/400.css"),
+  // Display faces offered by campaigns (see features/campaigns). Most ship a
+  // single weight; the browser fakes bold where a layout asks for it.
+  bungee: () => import("@fontsource/bungee/400.css"),
+  "bungee inline": () => import("@fontsource/bungee-inline/400.css"),
+  "faster one": () => import("@fontsource/faster-one/400.css"),
+  lobster: () => import("@fontsource/lobster/400.css"),
+  monoton: () => import("@fontsource/monoton/400.css"),
+  orbitron: () =>
+    Promise.all([
+      import("@fontsource/orbitron/400.css"),
+      import("@fontsource/orbitron/700.css"),
+    ]),
+  pacifico: () => import("@fontsource/pacifico/400.css"),
+  righteous: () => import("@fontsource/righteous/400.css"),
+  yellowtail: () => import("@fontsource/yellowtail/400.css"),
 };
 
 export const localFontsAdapter: IFontLoader = {
