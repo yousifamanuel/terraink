@@ -11,6 +11,7 @@
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: rgba(150, 185, 210, 0.5);
+  color: hsl(from rgba(150, 185, 210, 0.5) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-align: center;
 }
 
@@ -35,9 +36,11 @@
 .ad-unit-slot.sidebar-ad-slot {
   padding: 12px;
   background: rgba(10, 20, 31, 0.72);
+  background: hsl(from rgba(10, 20, 31, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(146, 176, 200, 0.2);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
   border-radius: inherit;
 }

@@ -40,6 +40,7 @@ import { getLastRecentLocation } from "@/features/location/application/useRecent
 import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
 import { applyCampaignStart } from "@/features/campaigns/application/activeCampaign";
 import { useCampaignThemeText } from "@/features/campaigns/application/useCampaignThemeText";
+import { useAppThemeSync } from "@/features/appTheme/application/useAppTheme";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -234,8 +235,10 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const hasLoadedSavedThemesRef = useRef(false);
   const initialUserDefaultsRef = useRef(state.userDefaults);
 
-  // A campaign's themes bring its font and text sizes.
+  // A campaign's themes bring its font and text sizes; the app's look
+  // follows the poster theme only when the visitor turned that on.
   useCampaignThemeText(state.form, dispatch);
+  useAppThemeSync(state.form.theme);
 
   // The map opens on the DEFAULT_FORM coordinates. Reading the visitor's
   // position here would raise a permission prompt nobody asked for, so

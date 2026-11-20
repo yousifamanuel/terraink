@@ -17,6 +17,7 @@
   letter-spacing: 0.1em;
   font-size: 0.76rem;
   color: #88b7d5;
+  color: hsl(from #88b7d5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 label {
@@ -25,6 +26,7 @@ label {
   font-size: 0.84rem;
   font-weight: 600;
   color: #d9e7f2;
+  color: hsl(from #d9e7f2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .field-grid {
@@ -66,6 +68,7 @@ label {
   font-family: "Spline Sans Mono", monospace;
   letter-spacing: 0.02em;
   color: #dff0fb;
+  color: hsl(from #dff0fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .distance-slider-input {
@@ -107,6 +110,14 @@ label {
   --slider-blue: #3d9cc4;
 }
 
+/* Newer browsers: let the app theme shift these blues too (see --app-hue-shift). */
+@supports (color: hsl(from red h s l)) {
+  .distance-slider {
+    --slider-track: hsl(from rgba(146, 176, 200, 0.22) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    --slider-blue: hsl(from #3d9cc4 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+  }
+}
+
 .distance-slider::-webkit-slider-runnable-track {
   height: 4px;
   border-radius: 999px;
@@ -126,7 +137,9 @@ label {
   margin-top: -6px;
   border-radius: 999px;
   border: 3px solid #8fd3ee;
+  border: 3px solid hsl(from #8fd3ee var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: #1f6f8f;
+  background: hsl(from #1f6f8f calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
   cursor: grab;
@@ -149,7 +162,9 @@ label {
   height: 16px;
   border-radius: 999px;
   border: 3px solid #8fd3ee;
+  border: 3px solid hsl(from #8fd3ee var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: #1f6f8f;
+  background: hsl(from #1f6f8f calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
 }
@@ -165,6 +180,7 @@ label {
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.66rem;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .distance-slider-meta-mark {
@@ -194,12 +210,14 @@ label {
   letter-spacing: 0.08em;
   font-size: 0.72rem;
   color: #88b7d5;
+  color: hsl(from #88b7d5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .map-details-card {
   border: none;
   border-radius: 12px;
   background: rgba(9, 18, 27, 0.8);
+  background: hsl(from rgba(9, 18, 27, 0.8) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   padding: 0;
   display: grid;
   gap: 10px;
@@ -247,6 +265,7 @@ label {
   height: 34px;
   border-radius: 999px;
   background: rgba(93, 121, 142, 0.55);
+  background: hsl(from rgba(93, 121, 142, 0.55) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   transition: background-color 0.16s ease;
 }
 
@@ -259,12 +278,14 @@ label {
   height: 26px;
   border-radius: 999px;
   background: #eaf5fd;
+  background: hsl(from #eaf5fd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   transition: transform 0.16s ease;
 }
 
 .theme-switch input:checked + .theme-switch-track {
   background: #5eaed4;
+  background: hsl(from #5eaed4 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .theme-switch input:checked + .theme-switch-track::after {
@@ -273,6 +294,7 @@ label {
 
 .theme-switch input:focus-visible + .theme-switch-track {
   box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.3);
+  box-shadow: 0 0 0 3px hsl(from rgba(75, 149, 186, 0.3) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .credits-toggle-field {
@@ -284,6 +306,7 @@ label {
   font-size: 0.74rem;
   line-height: 1.45;
   color: #7da8c4;
+  color: hsl(from #7da8c4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   opacity: 0.85;
   font-weight: 400;
 }
@@ -297,7 +320,9 @@ label {
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(2, 8, 16, 0.6);
+  box-shadow: 0 10px 30px hsl(from rgba(2, 8, 16, 0.6) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border: 1px solid rgba(94, 174, 212, 0.08);
+  border: 1px solid hsl(from rgba(94, 174, 212, 0.08) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .support-modal__close {
@@ -308,9 +333,11 @@ label {
   height: 28px;
   padding: 0;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   background: var(--item-bg);
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -327,6 +354,7 @@ label {
   transform: none;
   filter: none;
   background: rgba(47, 79, 102, 0.95);
+  background: hsl(from rgba(47, 79, 102, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .support-modal__body {
@@ -334,6 +362,7 @@ label {
   display: grid;
   gap: 14px;
   background: linear-gradient(180deg, rgba(255, 131, 114, 0.07), #0a1824);
+  background: linear-gradient(180deg, rgba(255, 131, 114, 0.07), hsl(from #0a1824 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
@@ -343,6 +372,7 @@ label {
   font-size: 1.05rem;
   font-weight: 700;
   color: #e4f2fc;
+  color: hsl(from #e4f2fc var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
@@ -352,10 +382,12 @@ label {
   font-size: 1rem;
   line-height: 1.6;
   color: #b8cedd;
+  color: hsl(from #b8cedd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .support-modal__text strong {
   color: #e4f2fc;
+  color: hsl(from #e4f2fc var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-weight: 700;
 }
 
@@ -375,18 +407,26 @@ label {
   padding: 13px 44px;
   border-radius: 999px;
   border: 1px solid rgba(94, 174, 212, 0.55);
+  border: 1px solid hsl(from rgba(94, 174, 212, 0.55) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: linear-gradient(
     135deg,
     rgba(38, 112, 158, 0.95) 0%,
     rgba(25, 78, 115, 0.95) 100%
   );
+  background: linear-gradient(
+    135deg,
+    hsl(from rgba(38, 112, 158, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 0%,
+    hsl(from rgba(25, 78, 115, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 100%
+  );
   color: #dff3ff;
+  color: hsl(from #dff3ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow:
-    0 0 14px rgba(94, 174, 212, 0.28),
+  box-shadow: 0 0 14px rgba(94, 174, 212, 0.28),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 14px hsl(from rgba(94, 174, 212, 0.28) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
     0 2px 6px rgba(0, 0, 0, 0.35);
   transition:
     border-color 0.15s ease,
@@ -400,15 +440,23 @@ label {
   transform: none;
   filter: none;
   border-color: rgba(130, 200, 240, 0.85);
+  border-color: hsl(from rgba(130, 200, 240, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: linear-gradient(
     135deg,
     rgba(50, 138, 190, 0.98) 0%,
     rgba(35, 100, 148, 0.98) 100%
   );
-  box-shadow:
-    0 0 22px rgba(94, 174, 212, 0.45),
+  background: linear-gradient(
+    135deg,
+    hsl(from rgba(50, 138, 190, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 0%,
+    hsl(from rgba(35, 100, 148, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 100%
+  );
+  box-shadow: 0 0 22px rgba(94, 174, 212, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 22px hsl(from rgba(94, 174, 212, 0.45) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
     0 2px 8px rgba(0, 0, 0, 0.4);
   color: #f0faff;
+  color: hsl(from #f0faff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .support-modal__instagram {
@@ -465,6 +513,7 @@ label {
   border: none;
   background: transparent;
   color: #4e6c7e;
+  color: hsl(from #4e6c7e calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
@@ -476,6 +525,7 @@ label {
   transform: none;
   filter: none;
   color: #7ea5bc;
+  color: hsl(from #7ea5bc calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 input,
@@ -489,10 +539,13 @@ select {
   width: 100%;
   margin-top: 4px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(9, 18, 27, 0.84);
+  background: hsl(from rgba(9, 18, 27, 0.84) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   padding: 9px 10px;
   color: #ebf3fa;
+  color: hsl(from #ebf3fa var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   outline: none;
   transition:
     border-color 0.16s ease,
@@ -501,12 +554,15 @@ select {
 
 input::placeholder {
   color: #8ca8bc;
+  color: hsl(from #8ca8bc var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 input:not([type="checkbox"]):not([type="radio"]):focus,
 select:focus {
   border-color: rgba(102, 174, 209, 0.82);
+  border-color: hsl(from rgba(102, 174, 209, 0.82) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 0 0 3px rgba(75, 149, 186, 0.24);
+  box-shadow: 0 0 0 3px hsl(from rgba(75, 149, 186, 0.24) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 /* Sliders draw their own track: no text-field box around them. */
@@ -553,6 +609,7 @@ button.location-current-btn {
   border-radius: 10px;
   background: var(--item-bg);
   color: #d9e7f2;
+  color: hsl(from #d9e7f2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.72rem;
   font-weight: 700;
   display: inline-flex;
@@ -571,7 +628,9 @@ button.location-current-btn:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(47, 79, 102, 0.95);
+  background: hsl(from rgba(47, 79, 102, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .location-permission-message {
@@ -590,8 +649,10 @@ button.location-current-btn:focus-visible {
   padding: 6px;
   list-style: none;
   border: 1px solid rgba(151, 183, 207, 0.36);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.36) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(9, 18, 27, 0.98);
+  background: hsl(from rgba(9, 18, 27, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 16px 28px rgba(0, 0, 0, 0.44);
   max-height: 220px;
   overflow-y: auto;
@@ -603,6 +664,7 @@ button.location-current-btn:focus-visible {
   border: none;
   background: transparent;
   color: #dfebf6;
+  color: hsl(from #dfebf6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   text-align: left;
   padding: 8px 10px;
@@ -613,6 +675,7 @@ button.location-current-btn:focus-visible {
 .location-suggestion:hover,
 .location-suggestion:focus-visible {
   background: rgba(69, 133, 169, 0.2);
+  background: hsl(from rgba(69, 133, 169, 0.2) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .location-suggestion:not(:disabled):hover {
@@ -624,6 +687,7 @@ button.location-current-btn:focus-visible {
   padding: 8px 10px;
   font-size: 0.78rem;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Recent-locations history rows inside the suggestions dropdown */
@@ -645,6 +709,7 @@ button.location-current-btn:focus-visible {
   flex-shrink: 0;
   font-size: 0.85rem;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .location-recent-label {
@@ -665,12 +730,15 @@ button.location-recent-remove {
   border-radius: 8px;
   background: transparent;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.location-recent-remove:not(:disabled):hover,
 button.location-recent-remove:focus-visible {
   background: rgba(69, 133, 169, 0.2);
+  background: hsl(from rgba(69, 133, 169, 0.2) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #dfebf6;
+  color: hsl(from #dfebf6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   transform: none;
   filter: none;
 }
@@ -680,6 +748,7 @@ button.location-recent-remove:focus-visible {
   border: none;
   background: transparent;
   color: #9fc1da;
+  color: hsl(from #9fc1da var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   text-align: left;
   padding: 8px 10px;
@@ -690,6 +759,7 @@ button.location-recent-remove:focus-visible {
 .location-suggestions-action:not(:disabled):hover,
 .location-suggestions-action:focus-visible {
   background: rgba(69, 133, 169, 0.2);
+  background: hsl(from rgba(69, 133, 169, 0.2) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   transform: none;
   filter: none;
 }
@@ -703,6 +773,7 @@ button.location-recent-remove:focus-visible {
   font-size: 0.8rem;
   opacity: 0.74;
   color: #a8bfd1;
+  color: hsl(from #a8bfd1 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .theme-active-label {
@@ -710,6 +781,7 @@ button.location-recent-remove:focus-visible {
   font-size: 0.84rem;
   font-weight: 600;
   color: #d9e7f2;
+  color: hsl(from #d9e7f2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .theme-section {
@@ -717,6 +789,7 @@ button.location-recent-remove:focus-visible {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: rgba(9, 18, 27, 0.8);
+  background: hsl(from rgba(9, 18, 27, 0.8) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   padding: 10px;
 }
 
@@ -764,6 +837,7 @@ button.location-recent-remove:focus-visible {
   font-weight: 700;
   letter-spacing: 0.03em;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
 }
 
@@ -772,6 +846,7 @@ button.location-recent-remove:focus-visible {
   font-size: 1rem;
   font-weight: 700;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
 }
 
@@ -829,10 +904,12 @@ button.location-recent-remove:focus-visible {
   align-items: center;
   justify-content: center;
   color: rgba(216, 232, 244, 0.35);
+  color: hsl(from rgba(216, 232, 244, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 1.15rem;
   font-weight: 700;
   pointer-events: none;
   background: linear-gradient(90deg, rgba(9, 18, 27, 0.86), rgba(9, 18, 27, 0));
+  background: linear-gradient(90deg, hsl(from rgba(9, 18, 27, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from rgba(9, 18, 27, 0) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
 }
 
 .theme-slider-chevron--left {
@@ -845,6 +922,11 @@ button.location-recent-remove:focus-visible {
     270deg,
     rgba(9, 18, 27, 0.86),
     rgba(9, 18, 27, 0)
+  );
+  background: linear-gradient(
+    270deg,
+    hsl(from rgba(9, 18, 27, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    hsl(from rgba(9, 18, 27, 0) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha)
   );
 }
 
@@ -875,9 +957,11 @@ button.theme-customize-btn {
   margin: 0;
   padding: 0;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: var(--item-bg);
   color: #d9e7f2;
+  color: hsl(from #d9e7f2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.72rem;
   font-weight: 700;
   line-height: 1;
@@ -896,7 +980,9 @@ button.theme-customize-btn:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(47, 79, 102, 0.95);
+  background: hsl(from rgba(47, 79, 102, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-add-btn {
@@ -925,9 +1011,12 @@ button.theme-edit-done-btn {
   margin: 0;
   padding: 5px 10px;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(24, 49, 64, 0.95);
+  background: hsl(from rgba(24, 49, 64, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e8f3fb;
+  color: hsl(from #e8f3fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.72rem;
   font-weight: 700;
 }
@@ -938,6 +1027,7 @@ button.theme-edit-done-btn:focus-visible {
   filter: none;
   border-color: var(--focus-ring);
   background: rgba(44, 78, 102, 0.98);
+  background: hsl(from rgba(44, 78, 102, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.theme-reset-all-btn {
@@ -984,8 +1074,10 @@ button.color-editor-target {
   width: 100%;
   padding: 6px;
   border: 1px solid rgba(151, 183, 207, 0.28);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 9px;
   background: rgba(11, 21, 30, 0.86);
+  background: hsl(from rgba(11, 21, 30, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   display: grid;
   gap: 4px;
   justify-items: center;
@@ -994,6 +1086,7 @@ button.color-editor-target {
 button.color-editor-target.is-active {
   border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.24);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.24) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.color-editor-target:not(:disabled):hover,
@@ -1009,12 +1102,14 @@ button.color-editor-target:focus-visible {
   height: 34px;
   border-radius: 6px;
   border: 1px solid rgba(214, 233, 247, 0.2);
+  border: 1px solid hsl(from rgba(214, 233, 247, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .color-editor-target-name {
   font-size: 0.66rem;
   line-height: 1.2;
   color: #a8bfd1;
+  color: hsl(from #a8bfd1 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-align: center;
 }
 
@@ -1023,6 +1118,7 @@ button.color-editor-target:focus-visible {
   font-size: 0.84rem;
   font-weight: 600;
   color: #d9e7f2;
+  color: hsl(from #d9e7f2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .layout-summary-head {
@@ -1044,6 +1140,7 @@ button.color-editor-target:focus-visible {
   font-weight: 700;
   letter-spacing: 0.03em;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
 }
 
@@ -1056,6 +1153,7 @@ button.color-editor-target:focus-visible {
   font-size: 0.78rem;
   line-height: 1.42;
   color: #b9cfde;
+  color: hsl(from #b9cfde var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .section-summary-label {
@@ -1064,6 +1162,7 @@ button.color-editor-target:focus-visible {
   font-weight: 700;
   letter-spacing: 0.03em;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
 }
 
@@ -1087,6 +1186,7 @@ button.color-editor-target:focus-visible {
   font-weight: 700;
   letter-spacing: 0.06em;
   color: #a8bfd1;
+  color: hsl(from #a8bfd1 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
 }
 
@@ -1116,6 +1216,7 @@ button.color-editor-target:focus-visible {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: rgba(9, 18, 27, 0.86);
+  background: hsl(from rgba(9, 18, 27, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
@@ -1125,7 +1226,9 @@ button.color-editor-target:focus-visible {
 
 .theme-card.is-selected {
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .theme-card:hover,
@@ -1133,8 +1236,11 @@ button.color-editor-target:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: rgba(9, 18, 27, 0.86);
+  background: hsl(from rgba(9, 18, 27, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .theme-card-name {
@@ -1148,6 +1254,7 @@ button.color-editor-target:focus-visible {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   z-index: 2;
 }
 
@@ -1177,6 +1284,7 @@ button.color-editor-target:focus-visible {
   height: 100%;
   min-height: 108px;
   border-right: 1px solid rgba(214, 233, 247, 0.16);
+  border-right: 1px solid hsl(from rgba(214, 233, 247, 0.16) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: none;
 }
 
@@ -1197,6 +1305,13 @@ button.color-editor-target:focus-visible {
     rgba(4, 8, 12, 0.44) 80%,
     rgba(6, 11, 16, 0) 100%
   );
+  background: linear-gradient(
+    to top,
+    hsl(from rgba(4, 8, 12, 1) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 0%,
+    hsl(from rgba(4, 8, 12, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 50%,
+    hsl(from rgba(4, 8, 12, 0.44) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 80%,
+    hsl(from rgba(6, 11, 16, 0) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 100%
+  );
   pointer-events: none;
   z-index: 1;
 }
@@ -1206,6 +1321,7 @@ button.color-editor-target:focus-visible {
   font-size: 0.78rem;
   line-height: 1.42;
   color: #b9cfde;
+  color: hsl(from #b9cfde var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   flex: 1 1 auto;
   min-width: 0;
 }
@@ -1227,12 +1343,15 @@ button.color-editor-target:focus-visible {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: rgba(9, 18, 27, 0.86);
+  background: hsl(from rgba(9, 18, 27, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   overflow: hidden;
 }
 
 .layout-card.is-selected {
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: var(--item-bg);
 }
 
@@ -1241,7 +1360,9 @@ button.color-editor-target:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(151, 183, 207, 0.5);
+  border-color: hsl(from rgba(151, 183, 207, 0.5) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(13, 25, 36, 0.9);
+  background: hsl(from rgba(13, 25, 36, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .layout-card-copy {
@@ -1259,6 +1380,7 @@ button.color-editor-target:focus-visible {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .layout-card-meta {
@@ -1267,6 +1389,7 @@ button.color-editor-target:focus-visible {
   font-size: 0.64rem;
   letter-spacing: 0.03em;
   color: #9fbcd0;
+  color: hsl(from #9fbcd0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
 }
 
@@ -1286,6 +1409,7 @@ button.color-editor-target:focus-visible {
   font-size: 0.78rem;
   line-height: 1.42;
   color: #b9cfde;
+  color: hsl(from #b9cfde var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .picker-modal-backdrop {
@@ -1297,6 +1421,7 @@ button.color-editor-target:focus-visible {
   align-items: center;
   padding: 14px;
   background: rgba(2, 8, 14, 0.74);
+  background: hsl(from rgba(2, 8, 14, 0.74) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   backdrop-filter: blur(3px);
 }
 
@@ -1306,9 +1431,11 @@ button.color-editor-target:focus-visible {
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 14px;
   padding: 12px;
   background: rgba(8, 16, 24, 0.98);
+  background: hsl(from rgba(8, 16, 24, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 28px 52px rgba(0, 0, 0, 0.55);
 }
 
@@ -1327,6 +1454,7 @@ button.color-editor-target:focus-visible {
   letter-spacing: 0.08em;
   font-size: 0.76rem;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.picker-modal-close {
@@ -1335,9 +1463,11 @@ button.picker-modal-close {
   margin: 0;
   padding: 0;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   background: var(--item-bg);
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.8rem;
   line-height: 1;
   display: inline-flex;
@@ -1350,6 +1480,7 @@ button.picker-modal-close:focus-visible {
   transform: none;
   filter: none;
   background: rgba(47, 79, 102, 0.95);
+  background: hsl(from rgba(47, 79, 102, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .picker-modal-body {
@@ -1380,6 +1511,7 @@ button.picker-modal-close:focus-visible {
   letter-spacing: 0.08em;
   font-size: 0.9rem;
   color: #87adc4;
+  color: hsl(from #87adc4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .layout-picker-group .picker-option-list {
@@ -1396,8 +1528,10 @@ button.picker-modal-close:focus-visible {
 
 button.picker-modal-done {
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: var(--item-bg);
   color: #e6f2fb;
+  color: hsl(from #e6f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   padding: 8px 12px;
 }
 
@@ -1406,6 +1540,7 @@ button.picker-modal-done:focus-visible {
   transform: none;
   filter: none;
   background: rgba(47, 79, 102, 0.95);
+  background: hsl(from rgba(47, 79, 102, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .palette-editor-grid {
@@ -1424,14 +1559,18 @@ button.palette-color-item {
   margin: 0;
   padding: 5px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(9, 18, 27, 0.84);
+  background: hsl(from rgba(9, 18, 27, 0.84) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   cursor: pointer;
 }
 
 button.palette-color-item.is-active {
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.palette-color-item:not(:disabled):hover,
@@ -1439,6 +1578,7 @@ button.palette-color-item:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.78);
+  border-color: hsl(from rgba(112, 184, 222, 0.78) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: var(--item-bg);
 }
 
@@ -1448,6 +1588,7 @@ button.palette-color-item:focus-visible {
   height: 44px;
   border-radius: 5px;
   border: 1px solid rgba(214, 233, 247, 0.15);
+  border: 1px solid hsl(from rgba(214, 233, 247, 0.15) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .palette-color-name {
@@ -1455,6 +1596,7 @@ button.palette-color-item:focus-visible {
   font-size: 0.7rem;
   font-weight: 500;
   color: #a8bfd1;
+  color: hsl(from #a8bfd1 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   line-height: 1.2;
   word-break: break-word;
   text-align: center;
@@ -1463,12 +1605,15 @@ button.palette-color-item:focus-visible {
 .color-picker-popup {
   position: relative;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 12px;
   background: rgba(21, 40, 55, 0.96);
+  background: hsl(from rgba(21, 40, 55, 0.96) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   padding: 15px;
   max-width: 500px;
   margin: 0 auto;
   box-shadow: inset 0 0 0 1px rgba(31, 57, 77, 0.78);
+  box-shadow: inset 0 0 0 1px hsl(from rgba(31, 57, 77, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .color-preset-grid {
@@ -1507,6 +1652,7 @@ button.color-preset-cell:focus-visible {
   transform: scale(1.08);
   filter: none;
   border-color: rgba(214, 233, 247, 0.8);
+  border-color: hsl(from rgba(214, 233, 247, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.color-grid-action {
@@ -1514,9 +1660,12 @@ button.color-grid-action {
   min-height: 44px;
   padding: 0 8px;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 9px;
   background: rgba(22, 43, 58, 0.95);
+  background: hsl(from rgba(22, 43, 58, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d5e5f0;
+  color: hsl(from #d5e5f0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1.05;
@@ -1530,6 +1679,7 @@ button.color-grid-action {
 button.color-grid-action.is-active {
   border-color: var(--focus-ring);
   background: rgba(45, 78, 102, 0.98);
+  background: hsl(from rgba(45, 78, 102, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.color-grid-action:not(:disabled):hover,
@@ -1538,6 +1688,7 @@ button.color-grid-action:focus-visible {
   filter: none;
   border-color: var(--focus-ring);
   background: rgba(45, 78, 102, 0.98);
+  background: hsl(from rgba(45, 78, 102, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.color-grid-reset {
@@ -1551,7 +1702,9 @@ button.color-grid-reset {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: rgba(13, 25, 35, 0.86);
+  background: hsl(from rgba(13, 25, 35, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: inset 0 0 0 1px rgba(31, 57, 77, 0.62);
+  box-shadow: inset 0 0 0 1px hsl(from rgba(31, 57, 77, 0.62) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .color-custom-panel {
@@ -1564,6 +1717,7 @@ button.color-grid-reset {
   border-radius: 12px;
   padding: 10px;
   background: rgba(15, 28, 38, 0.96);
+  background: hsl(from rgba(15, 28, 38, 0.96) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .color-picker-frame .react-colorful {
@@ -1590,9 +1744,10 @@ button.color-grid-reset {
   width: 20px;
   height: 20px;
   border-width: 2px;
-  box-shadow:
-    0 0 0 1px rgba(6, 14, 20, 0.84),
+  box-shadow: 0 0 0 1px rgba(6, 14, 20, 0.84),
     0 0 0 4px rgba(6, 14, 20, 0.18);
+  box-shadow: 0 0 0 1px hsl(from rgba(6, 14, 20, 0.84) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    0 0 0 4px hsl(from rgba(6, 14, 20, 0.18) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 label.color-field-label {
@@ -1603,6 +1758,7 @@ label.color-field-label {
   font-size: 0.68rem;
   font-weight: 600;
   color: #8ab0c6;
+  color: hsl(from #8ab0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .color-hex-input {
@@ -1615,7 +1771,9 @@ label.color-field-label {
   font-family: "Spline Sans Mono", monospace;
   letter-spacing: 0.04em;
   background: rgba(26, 47, 64, 0.98);
+  background: hsl(from rgba(26, 47, 64, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: rgba(151, 183, 207, 0.5);
+  border-color: hsl(from rgba(151, 183, 207, 0.5) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .markers-summary-card {
@@ -1628,6 +1786,7 @@ label.color-field-label {
   font-size: 0.78rem;
   line-height: 1.45;
   color: #9fbcd0;
+  color: hsl(from #9fbcd0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .markers-summary-preview {
@@ -1645,9 +1804,12 @@ label.color-field-label {
   height: 28px;
   padding: 0 8px;
   border: 1px solid rgba(151, 183, 207, 0.28);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   background: rgba(12, 23, 34, 0.9);
+  background: hsl(from rgba(12, 23, 34, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #b8cedd;
+  color: hsl(from #b8cedd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.68rem;
 }
@@ -1659,6 +1821,7 @@ label.color-field-label {
   font-size: 0.78rem;
   line-height: 1.45;
   color: #9fbcd0;
+  color: hsl(from #9fbcd0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .markers-section__content {
@@ -1694,9 +1857,12 @@ button.marker-info-btn {
   width: 24px;
   height: 24px;
   border: 1px solid rgba(151, 183, 207, 0.32);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.32) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   background: rgba(15, 28, 40, 0.9);
+  background: hsl(from rgba(15, 28, 40, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #b6cfe0;
+  color: hsl(from #b6cfe0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.marker-info-btn:not(:disabled):hover,
@@ -1704,7 +1870,9 @@ button.marker-info-btn:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.72);
+  border-color: hsl(from rgba(112, 184, 222, 0.72) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(36, 62, 80, 0.94);
+  background: hsl(from rgba(36, 62, 80, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-info-btn svg {
@@ -1722,7 +1890,9 @@ button.marker-info-btn:focus-visible {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: rgba(7, 14, 21, 0.97);
+  background: hsl(from rgba(7, 14, 21, 0.97) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #c2d8e7;
+  color: hsl(from #c2d8e7 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.72rem;
   line-height: 1.45;
   opacity: 0;
@@ -1773,13 +1943,16 @@ button.marker-info-btn:focus-visible {
   min-width: clamp(90px, 30%, 116px);
   scroll-snap-align: start;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(10, 20, 31, 0.78);
+  background: hsl(from rgba(10, 20, 31, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-mobile-card.is-selected {
   border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.2);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.2) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.marker-mobile-card__select {
@@ -1791,6 +1964,7 @@ button.marker-mobile-card__select {
   border-radius: 10px;
   background: transparent;
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: grid;
   justify-items: center;
   align-content: center;
@@ -1802,6 +1976,7 @@ button.marker-mobile-card__select:focus-visible {
   transform: none;
   filter: none;
   background: rgba(20, 39, 54, 0.94);
+  background: hsl(from rgba(20, 39, 54, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-mobile-card__label {
@@ -1811,6 +1986,7 @@ button.marker-mobile-card__select:focus-visible {
   font-weight: 700;
   text-align: center;
   color: #d9e8f4;
+  color: hsl(from #d9e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   white-space: normal;
   word-break: break-word;
 }
@@ -1892,6 +2068,7 @@ button.marker-delete-all-btn:focus-visible {
   display: grid;
   gap: 12px;
   background: linear-gradient(180deg, rgba(255, 124, 107, 0.1), #0a1824);
+  background: linear-gradient(180deg, rgba(255, 124, 107, 0.1), hsl(from #0a1824 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
 }
 
 .marker-delete-modal__headline {
@@ -1899,12 +2076,14 @@ button.marker-delete-all-btn:focus-visible {
   font-size: 1rem;
   font-weight: 700;
   color: #e4f2fc;
+  color: hsl(from #e4f2fc var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-delete-modal__text {
   margin: 0;
   font-size: 0.9rem;
   color: #b8cedd;
+  color: hsl(from #b8cedd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-delete-modal__actions {
@@ -1919,9 +2098,11 @@ button.marker-delete-modal__cancel {
   margin: 0;
   padding: 8px 12px;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 9px;
   background: var(--item-bg);
   color: #e8f3fb;
+  color: hsl(from #e8f3fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.marker-delete-modal__cancel:not(:disabled):hover,
@@ -1930,6 +2111,7 @@ button.marker-delete-modal__cancel:focus-visible {
   filter: none;
   border-color: var(--focus-ring);
   background: rgba(44, 78, 102, 0.98);
+  background: hsl(from rgba(44, 78, 102, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.marker-delete-modal__confirm {
@@ -1959,8 +2141,10 @@ button.marker-delete-modal__confirm:focus-visible {
   gap: 10px;
   padding: 12px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 12px;
   background: rgba(10, 20, 31, 0.78);
+  background: hsl(from rgba(10, 20, 31, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-editor-card.is-disabled {
@@ -1981,6 +2165,7 @@ button.marker-delete-modal__confirm:focus-visible {
   letter-spacing: 0.08em;
   font-size: 0.72rem;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.marker-settings-card__reset-btn {
@@ -2020,6 +2205,7 @@ button.marker-settings-card__reset-btn {
   font-size: 0.84rem;
   font-weight: 600;
   color: #d9e7f2;
+  color: hsl(from #d9e7f2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-header-action-btn {
@@ -2035,6 +2221,7 @@ button.marker-settings-card__reset-btn {
 .marker-header-action-btn.is-active {
   border-color: var(--focus-ring);
   background: rgba(42, 72, 93, 0.95);
+  background: hsl(from rgba(42, 72, 93, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-settings-toggle-hint {
@@ -2043,6 +2230,7 @@ button.marker-settings-card__reset-btn {
   font-size: 0.72rem;
   line-height: 1.35;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-settings-card__theme-note {
@@ -2050,6 +2238,7 @@ button.marker-settings-card__reset-btn {
   font-size: 0.74rem;
   line-height: 1.45;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-row {
@@ -2070,6 +2259,7 @@ button.marker-settings-card__reset-btn {
   font-size: 0.84rem;
   font-weight: 700;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-row__actions {
@@ -2086,8 +2276,10 @@ button.marker-row__icon-btn {
   padding: 0 12px;
   border-radius: 10px;
   background: rgba(18, 37, 52, 0.94);
+  background: hsl(from rgba(18, 37, 52, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: var(--border);
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2116,6 +2308,7 @@ button.marker-row__icon-btn--danger {
 .marker-editor-card__details {
   padding-top: 10px;
   border-top: 1px solid rgba(151, 183, 207, 0.18);
+  border-top: 1px solid hsl(from rgba(151, 183, 207, 0.18) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: grid;
   gap: 10px;
 }
@@ -2157,6 +2350,11 @@ button.marker-row__icon-btn--danger {
     rgba(28, 51, 69, 0.95),
     rgba(17, 34, 47, 0.95)
   );
+  background: linear-gradient(
+    180deg,
+    hsl(from rgba(28, 51, 69, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    hsl(from rgba(17, 34, 47, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha)
+  );
   box-sizing: border-box;
 }
 
@@ -2168,9 +2366,12 @@ button.marker-row__icon-btn--danger {
   margin-top: -6px;
   border-radius: 999px;
   border: 2px solid #e8f3fb;
+  border: 2px solid hsl(from #e8f3fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
-  box-shadow:
-    0 0 0 2px rgba(5, 13, 20, 0.45),
+  background: radial-gradient(circle at 35% 35%, hsl(from #4ca9cd calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from #2a7fa0 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 70%);
+  box-shadow: 0 0 0 2px rgba(5, 13, 20, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 2px hsl(from rgba(5, 13, 20, 0.45) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
     0 2px 6px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
 }
@@ -2184,6 +2385,11 @@ button.marker-row__icon-btn--danger {
     rgba(28, 51, 69, 0.95),
     rgba(17, 34, 47, 0.95)
   );
+  background: linear-gradient(
+    180deg,
+    hsl(from rgba(28, 51, 69, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    hsl(from rgba(17, 34, 47, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha)
+  );
   box-sizing: border-box;
 }
 
@@ -2192,9 +2398,12 @@ button.marker-row__icon-btn--danger {
   height: 22px;
   border-radius: 999px;
   border: 2px solid #e8f3fb;
+  border: 2px solid hsl(from #e8f3fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: radial-gradient(circle at 35% 35%, #4ca9cd, #2a7fa0 70%);
-  box-shadow:
-    0 0 0 2px rgba(5, 13, 20, 0.45),
+  background: radial-gradient(circle at 35% 35%, hsl(from #4ca9cd calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from #2a7fa0 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 70%);
+  box-shadow: 0 0 0 2px rgba(5, 13, 20, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 2px hsl(from rgba(5, 13, 20, 0.45) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
     0 2px 6px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
 }
@@ -2206,6 +2415,11 @@ button.marker-row__icon-btn--danger {
     180deg,
     rgba(43, 95, 126, 0.95),
     rgba(35, 84, 112, 0.95)
+  );
+  background: linear-gradient(
+    180deg,
+    hsl(from rgba(43, 95, 126, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    hsl(from rgba(35, 84, 112, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha)
   );
 }
 
@@ -2232,6 +2446,7 @@ button.marker-row__icon-btn--danger {
   min-width: 48px;
   min-height: 48px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: #000000;
 }
@@ -2268,7 +2483,9 @@ button.marker-color-edit-btn {
   border-radius: 8px;
   border: 1px solid var(--border);
   background: rgba(19, 38, 53, 0.94);
+  background: hsl(from rgba(19, 38, 53, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.72rem;
   font-weight: 700;
 }
@@ -2279,6 +2496,7 @@ button.marker-color-edit-btn:focus-visible {
   filter: none;
   border-color: var(--focus-ring);
   background: rgba(42, 72, 93, 0.95);
+  background: hsl(from rgba(42, 72, 93, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-editor-card__color-value {
@@ -2287,9 +2505,12 @@ button.marker-color-edit-btn:focus-visible {
   min-height: 48px;
   padding: 0 12px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(9, 18, 27, 0.84);
+  background: hsl(from rgba(9, 18, 27, 0.84) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #ebf3fa;
+  color: hsl(from #ebf3fa var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.8rem;
   letter-spacing: 0.04em;
@@ -2312,12 +2533,14 @@ button.marker-color-edit-btn:focus-visible {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-picker__divider {
   width: 100%;
   height: 1px;
   background: rgba(151, 183, 207, 0.22);
+  background: hsl(from rgba(151, 183, 207, 0.22) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-picker__divider--actions {
@@ -2337,8 +2560,10 @@ button.marker-picker__option {
   margin: 0;
   padding: 8px 6px;
   border: 1px solid rgba(151, 183, 207, 0.28);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(12, 23, 34, 0.9);
+  background: hsl(from rgba(12, 23, 34, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.marker-picker__option--uploaded {
@@ -2348,18 +2573,22 @@ button.marker-picker__option--uploaded {
 button.marker-picker__option--upload-tile {
   border-style: dashed;
   border-color: rgba(112, 184, 222, 0.52);
+  border-color: hsl(from rgba(112, 184, 222, 0.52) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(16, 31, 44, 0.9);
+  background: hsl(from rgba(16, 31, 44, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.marker-picker__option--toggle {
   border-style: dashed;
   border-color: var(--border);
   background: rgba(14, 27, 39, 0.92);
+  background: hsl(from rgba(14, 27, 39, 0.92) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.marker-picker__option.is-selected {
   border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.marker-picker__option:not(:disabled):hover,
@@ -2367,19 +2596,23 @@ button.marker-picker__option:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(22, 42, 58, 0.96);
+  background: hsl(from rgba(22, 42, 58, 0.96) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .marker-picker__label {
   font-size: 0.68rem;
   line-height: 1.2;
   color: #b8cedd;
+  color: hsl(from #b8cedd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-picker__uploaded-empty {
   margin: 0;
   font-size: 0.74rem;
   color: #8fb0c6;
+  color: hsl(from #8fb0c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .marker-picker__upload-plus {
@@ -2390,7 +2623,9 @@ button.marker-picker__option:focus-visible {
   height: 30px;
   border-radius: 8px;
   border: 1px solid rgba(112, 184, 222, 0.52);
+  border: 1px solid hsl(from rgba(112, 184, 222, 0.52) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   color: #cfe6f5;
+  color: hsl(from #cfe6f5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 1rem;
   font-weight: 700;
 }
@@ -2403,6 +2638,7 @@ button.marker-picker__option:focus-visible {
   height: 30px;
   border-radius: 8px;
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
@@ -2444,8 +2680,10 @@ button.marker-picker__upload {
   padding: 7px 10px;
   border-radius: 9px;
   background: rgba(19, 38, 53, 0.94);
+  background: hsl(from rgba(19, 38, 53, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: var(--border);
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.74rem;
   display: inline-flex;
   align-items: center;
@@ -2480,11 +2718,15 @@ button.marker-picker__clear-uploaded {
 .marker-settings-screen .marker-visual {
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.82))
     drop-shadow(0 0 3px rgba(5, 13, 20, 0.72));
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.82))
+    drop-shadow(0 0 3px hsl(from rgba(5, 13, 20, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
 }
 
 .markers-summary-preview .marker-visual {
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.82))
     drop-shadow(0 0 3px rgba(5, 13, 20, 0.72));
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.82))
+    drop-shadow(0 0 3px hsl(from rgba(5, 13, 20, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
 }
 
 .marker-visual__icon,
@@ -2538,6 +2780,7 @@ button.marker-picker__clear-uploaded {
   letter-spacing: 0.09em;
   font-size: 0.72rem;
   color: #7de4a6;
+  color: hsl(from #7de4a6 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .action-row > button {
@@ -2564,21 +2807,34 @@ button.download-format-btn {
 
 button.export-map-btn {
   border: 1px solid rgba(120, 221, 161, 0.56);
+  border: 1px solid hsl(from rgba(120, 221, 161, 0.56) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: linear-gradient(
     135deg,
     rgba(42, 126, 79, 0.96),
     rgba(29, 103, 64, 0.96)
   );
+  background: linear-gradient(
+    135deg,
+    hsl(from rgba(42, 126, 79, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
+    hsl(from rgba(29, 103, 64, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha)
+  );
   color: #effff5;
+  color: hsl(from #effff5 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 button.export-map-btn:not(:disabled):hover,
 button.export-map-btn:focus-visible {
   border-color: rgba(147, 235, 183, 0.88);
+  border-color: hsl(from rgba(147, 235, 183, 0.88) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: linear-gradient(
     135deg,
     rgba(50, 141, 89, 0.98),
     rgba(34, 117, 73, 0.98)
+  );
+  background: linear-gradient(
+    135deg,
+    hsl(from rgba(50, 141, 89, 0.98) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
+    hsl(from rgba(34, 117, 73, 0.98) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha)
   );
 }
 
@@ -2660,7 +2916,9 @@ button:disabled {
 
 button[type="submit"] {
   background: linear-gradient(135deg, #1a6f8c, #2f8eaf);
+  background: linear-gradient(135deg, hsl(from #1a6f8c calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from #2f8eaf calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
   color: #f4fbff;
+  color: hsl(from #f4fbff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.location-clear-btn {
@@ -2676,7 +2934,9 @@ button.location-clear-btn {
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(30, 53, 71, 0.9);
+  background: hsl(from rgba(30, 53, 71, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d2e3ef;
+  color: hsl(from #d2e3ef var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 1;
@@ -2690,6 +2950,7 @@ button.location-clear-btn:focus-visible {
   transform: translateY(-50%);
   filter: none;
   background: rgba(47, 79, 102, 0.95);
+  background: hsl(from rgba(47, 79, 102, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .ghost {
@@ -2956,6 +3217,7 @@ button.location-clear-btn:focus-visible {
   padding: 12px;
   font-size: 0.85rem;
   color: rgba(231, 242, 251, 0.65);
+  color: hsl(from rgba(231, 242, 251, 0.65) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(255, 255, 255, 0.03);
   border: 1px dashed rgba(255, 255, 255, 0.12);
   border-radius: 8px;
@@ -3004,6 +3266,7 @@ button.route-card__summary {
   border-radius: 8px;
   background: transparent;
   color: #d8e8f4;
+  color: hsl(from #d8e8f4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3054,6 +3317,7 @@ button.route-card__summary:focus-visible {
   font-size: 0.8rem;
   font-weight: 600;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3067,6 +3331,7 @@ button.route-card__summary:focus-visible {
 .route-card__distance {
   font-size: 0.72rem;
   color: rgba(231, 242, 251, 0.6);
+  color: hsl(from rgba(231, 242, 251, 0.6) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-variant-numeric: tabular-nums;
 }
 
@@ -3127,6 +3392,7 @@ button.route-card__delete:focus-visible {
   align-items: center;
   font-size: 0.8rem;
   color: rgba(231, 242, 251, 0.8);
+  color: hsl(from rgba(231, 242, 251, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -3138,6 +3404,7 @@ button.route-card__delete:focus-visible {
 .route-card__value {
   font-size: 0.8rem;
   color: rgba(231, 242, 251, 0.6);
+  color: hsl(from rgba(231, 242, 251, 0.6) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-variant-numeric: tabular-nums;
 }
 
@@ -3181,6 +3448,7 @@ button.route-card__delete:focus-visible {
   border-radius: 4px;
   background: transparent;
   color: rgba(231, 242, 251, 0.7);
+  color: hsl(from rgba(231, 242, 251, 0.7) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border: none;
   cursor: pointer;
   transition:
@@ -3190,6 +3458,7 @@ button.route-card__delete:focus-visible {
 
 .route-card__style-btn:hover {
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .route-card__style-preview {
@@ -3200,6 +3469,7 @@ button.route-card__delete:focus-visible {
 .route-card__style-btn.is-active {
   background: rgba(255, 255, 255, 0.12);
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.route-card__done {
@@ -3214,8 +3484,11 @@ button.route-card__done {
   margin: 0;
   border-radius: 999px;
   border: 1px solid rgba(143, 215, 176, 0.45);
+  border: 1px solid hsl(from rgba(143, 215, 176, 0.45) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(33, 66, 50, 0.92);
+  background: hsl(from rgba(33, 66, 50, 0.92) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #d7f3e3;
+  color: hsl(from #d7f3e3 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3232,7 +3505,9 @@ button.route-card__done:focus-visible {
   transform: translate(35%, -35%);
   filter: none;
   border-color: rgba(143, 215, 176, 0.8);
+  border-color: hsl(from rgba(143, 215, 176, 0.8) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(46, 84, 66, 0.96);
+  background: hsl(from rgba(46, 84, 66, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .route-card__endpoint-rows {
@@ -3250,6 +3525,7 @@ button.route-card__endpoint-row {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -3364,6 +3640,7 @@ button.route-card__endpoint-option.is-selected {
   font-size: 0.72rem;
   font-weight: 700;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 button.theme-save-btn {
@@ -3371,9 +3648,12 @@ button.theme-save-btn {
   margin: 0;
   padding: 5px 10px;
   border: 1px solid rgba(143, 215, 175, 0.55);
+  border: 1px solid hsl(from rgba(143, 215, 175, 0.55) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   border-radius: 8px;
   background: rgba(28, 64, 50, 0.88);
+  background: hsl(from rgba(28, 64, 50, 0.88) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #d6f3e2;
+  color: hsl(from #d6f3e2 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   font-size: 0.72rem;
   font-weight: 700;
 }
@@ -3383,7 +3663,9 @@ button.theme-save-btn:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(143, 215, 175, 0.85);
+  border-color: hsl(from rgba(143, 215, 175, 0.85) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(38, 80, 62, 0.96);
+  background: hsl(from rgba(38, 80, 62, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .theme-card-wrap {
@@ -3435,8 +3717,10 @@ button.theme-card-delete:focus-visible {
   margin: 12px 0;
   padding: 24px 14px;
   border: 1px dashed rgba(151, 183, 207, 0.32);
+  border: 1px dashed hsl(from rgba(151, 183, 207, 0.32) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 12px;
   background: rgba(9, 18, 27, 0.56);
+  background: hsl(from rgba(9, 18, 27, 0.56) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   text-align: center;
 }
 
@@ -3444,6 +3728,7 @@ button.theme-card-delete:focus-visible {
   margin: 0;
   font-size: 0.86rem;
   color: #9fb6c6;
+  color: hsl(from #9fb6c6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   line-height: 1.5;
 }
 
@@ -3469,6 +3754,7 @@ button.theme-card-delete:focus-visible {
   letter-spacing: 0.08em;
   font-size: 0.72rem;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .save-theme-modal input[type="text"] {
@@ -3479,6 +3765,7 @@ button.theme-card-delete:focus-visible {
   margin: 0;
   font-size: 0.78rem;
   color: #8fa8b9;
+  color: hsl(from #8fa8b9 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   line-height: 1.4;
 }
 
@@ -3502,9 +3789,12 @@ button.save-theme-cancel {
   margin: 0;
   padding: 7px 14px;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(24, 49, 64, 0.95);
+  background: hsl(from rgba(24, 49, 64, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e8f3fb;
+  color: hsl(from #e8f3fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.78rem;
   font-weight: 600;
 }
@@ -3515,6 +3805,7 @@ button.save-theme-cancel:focus-visible {
   filter: none;
   border-color: var(--focus-ring);
   background: rgba(44, 78, 102, 0.98);
+  background: hsl(from rgba(44, 78, 102, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.save-theme-confirm {
@@ -3522,9 +3813,12 @@ button.save-theme-confirm {
   margin: 0;
   padding: 7px 16px;
   border: 1px solid rgba(143, 215, 175, 0.6);
+  border: 1px solid hsl(from rgba(143, 215, 175, 0.6) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   border-radius: 8px;
   background: rgba(28, 64, 50, 0.95);
+  background: hsl(from rgba(28, 64, 50, 0.95) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #d6f3e2;
+  color: hsl(from #d6f3e2 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -3534,7 +3828,9 @@ button.save-theme-confirm:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(143, 215, 175, 0.95);
+  border-color: hsl(from rgba(143, 215, 175, 0.95) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(40, 88, 68, 1);
+  background: hsl(from rgba(40, 88, 68, 1) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 button.save-theme-confirm:disabled {
@@ -3548,9 +3844,12 @@ button.save-theme-confirm:disabled {
   min-height: 64px;
   padding: 8px 10px;
   border: 1px solid rgba(151, 183, 207, 0.42);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(11, 21, 30, 0.86);
+  background: hsl(from rgba(11, 21, 30, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e8f3fb;
+  color: hsl(from #e8f3fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font: inherit;
   font-size: 0.86rem;
   line-height: 1.4;
@@ -3572,10 +3871,12 @@ button.save-theme-confirm:disabled {
   font-size: 0.92rem;
   line-height: 1.5;
   color: #c8dbe8;
+  color: hsl(from #c8dbe8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .save-choice-message strong {
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-weight: 700;
 }
 
@@ -3599,6 +3900,7 @@ button.save-theme-confirm:disabled {
   font-size: 0.92rem;
   line-height: 1.5;
   color: #c8dbe8;
+  color: hsl(from #c8dbe8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   white-space: pre-wrap;
 }
 
@@ -3642,6 +3944,7 @@ button.confirm-modal-destructive:focus-visible {
   margin: 0;
   font-size: 0.78rem;
   color: #8fa8b9;
+  color: hsl(from #8fa8b9 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   line-height: 1.4;
 }
 
@@ -3650,9 +3953,11 @@ button.confirm-modal-destructive:focus-visible {
   flex-direction: column;
   gap: 1px;
   border: 1px solid rgba(151, 183, 207, 0.28);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 12px;
   overflow: hidden;
   background: rgba(151, 183, 207, 0.18);
+  background: hsl(from rgba(151, 183, 207, 0.18) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .settings-default-row {
@@ -3662,6 +3967,7 @@ button.confirm-modal-destructive:focus-visible {
   gap: 4px;
   padding: 11px 14px;
   background: rgba(11, 21, 30, 0.92);
+  background: hsl(from rgba(11, 21, 30, 0.92) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .settings-default-row.is-disabled {
@@ -3674,11 +3980,13 @@ button.confirm-modal-destructive:focus-visible {
   letter-spacing: 0.06em;
   font-size: 0.7rem;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .settings-default-value {
   font-size: 0.92rem;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   word-break: break-word;
   display: flex;
   align-items: center;
@@ -3691,9 +3999,12 @@ select.settings-language-select {
   margin: 0;
   padding: 8px 10px;
   border: 1px solid rgba(151, 183, 207, 0.32);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.32) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(11, 21, 30, 0.7);
+  background: hsl(from rgba(11, 21, 30, 0.7) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.92rem;
 }
 
@@ -3702,13 +4013,16 @@ select.settings-language-select {
   align-items: center;
   padding: 2px 7px;
   border: 1px solid rgba(151, 183, 207, 0.32);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.32) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(11, 21, 30, 0.7);
+  background: hsl(from rgba(11, 21, 30, 0.7) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .settings-actions {
@@ -3723,9 +4037,12 @@ button.settings-save-btn {
   margin: 0;
   padding: 10px 16px;
   border: 1px solid rgba(143, 215, 175, 0.6);
+  border: 1px solid hsl(from rgba(143, 215, 175, 0.6) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   border-radius: 10px;
   background: rgba(28, 64, 50, 0.95);
+  background: hsl(from rgba(28, 64, 50, 0.95) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #d6f3e2;
+  color: hsl(from #d6f3e2 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   font-size: 0.86rem;
   font-weight: 700;
 }
@@ -3735,7 +4052,9 @@ button.settings-save-btn:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(143, 215, 175, 0.95);
+  border-color: hsl(from rgba(143, 215, 175, 0.95) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(40, 88, 68, 1);
+  background: hsl(from rgba(40, 88, 68, 1) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 button.settings-reset-btn {
@@ -3797,6 +4116,7 @@ button.settings-reset-btn:disabled {
 .separator-picker-label {
   font-size: 0.8rem;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .separator-picker-grid {
@@ -3810,9 +4130,12 @@ button.separator-picker-btn,
   min-height: 36px;
   margin: 0;
   border: 1px solid rgba(146, 176, 200, 0.25);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.25) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(10, 20, 31, 0.78);
+  background: hsl(from rgba(10, 20, 31, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.95rem;
   text-align: center;
@@ -3831,12 +4154,15 @@ button.separator-picker-btn {
 button.separator-picker-btn:hover,
 button.separator-picker-btn:focus-visible {
   border-color: rgba(94, 174, 212, 0.55);
+  border-color: hsl(from rgba(94, 174, 212, 0.55) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.separator-picker-btn.is-active,
 .separator-picker-custom.is-active {
   border-color: rgba(143, 215, 175, 0.8);
+  border-color: hsl(from rgba(143, 215, 175, 0.8) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(28, 64, 50, 0.9);
+  background: hsl(from rgba(28, 64, 50, 0.9) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 /* Segmented control (one choice in a row of buttons), e.g. text position. */
@@ -3848,6 +4174,7 @@ button.separator-picker-btn.is-active,
 .segmented-control-label {
   font-size: 0.8rem;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .segmented-control-buttons {
@@ -3860,9 +4187,12 @@ button.segmented-control-btn {
   margin: 0;
   padding: 0 8px;
   border: 1px solid rgba(146, 176, 200, 0.25);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.25) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(10, 20, 31, 0.78);
+  background: hsl(from rgba(10, 20, 31, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.85rem;
   cursor: pointer;
 }
@@ -3870,11 +4200,14 @@ button.segmented-control-btn {
 button.segmented-control-btn:hover,
 button.segmented-control-btn:focus-visible {
   border-color: rgba(94, 174, 212, 0.55);
+  border-color: hsl(from rgba(94, 174, 212, 0.55) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.segmented-control-btn.is-active {
   border-color: rgba(143, 215, 175, 0.8);
+  border-color: hsl(from rgba(143, 215, 175, 0.8) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(28, 64, 50, 0.9);
+  background: hsl(from rgba(28, 64, 50, 0.9) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 /* Labelled slider with its value (e.g. border width). */
@@ -3889,12 +4222,14 @@ button.segmented-control-btn.is-active {
   align-items: baseline;
   font-size: 0.8rem;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .slider-field-value {
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.75rem;
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .slider-field-input {
@@ -3939,9 +4274,11 @@ button.slider-field-reset {
   margin: 0;
   padding: 0;
   border: 1px solid rgba(146, 176, 200, 0.25);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.25) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 7px;
   background: transparent;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3974,7 +4311,9 @@ button.slider-field-reset:hover,
 button.section-reset-btn:focus-visible,
 button.slider-field-reset:focus-visible {
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-color: rgba(94, 174, 212, 0.55);
+  border-color: hsl(from rgba(94, 174, 212, 0.55) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 /* Slider with its reset button on the right. */
@@ -4031,6 +4370,7 @@ button.subsettings-link {
   border: none;
   background: transparent;
   color: #7cc4e2;
+  color: hsl(from #7cc4e2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.78rem;
   cursor: pointer;
 }
@@ -4058,6 +4398,7 @@ button.subsettings-link:focus-visible {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #8fb4cc;
+  color: hsl(from #8fb4cc var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Its layer is off: clearly faded, with an "Off" tag on the swatch. */
@@ -4080,7 +4421,9 @@ button.color-editor-target.is-off:focus-visible {
   padding: 1px 5px;
   border-radius: 4px;
   background: rgba(5, 12, 18, 0.85);
+  background: hsl(from rgba(5, 12, 18, 0.85) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -4097,6 +4440,7 @@ button.color-editor-target.is-off:focus-visible {
 .font-picker-label {
   font-size: 0.8rem;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .font-picker {
@@ -4113,6 +4457,7 @@ button.font-picker-trigger {
   gap: 8px;
   padding: 9px 12px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 400;
@@ -4123,6 +4468,7 @@ button.font-picker-trigger {
 button.font-picker-trigger:hover,
 button.font-picker-trigger:focus-visible {
   border-color: rgba(102, 174, 209, 0.82);
+  border-color: hsl(from rgba(102, 174, 209, 0.82) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .font-picker-chevron {
@@ -4141,6 +4487,7 @@ button.font-picker-trigger:focus-visible {
   display: grid;
   padding: 4px;
   border: 1px solid rgba(151, 183, 207, 0.26);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
 }
 
@@ -4187,6 +4534,7 @@ button.font-picker-option.is-selected {
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid rgba(151, 183, 207, 0.28);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   transition: border-color 0.15s ease;
 }
 
@@ -4232,8 +4580,10 @@ input.app-checkbox {
   height: 22px;
   margin: 0;
   border: 1px solid rgba(146, 176, 200, 0.4);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.4) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 6px;
   background: rgba(20, 41, 57, 0.95);
+  background: hsl(from rgba(20, 41, 57, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   display: inline-grid;
   place-content: center;
   cursor: pointer;
@@ -4248,14 +4598,18 @@ input.app-checkbox::after {
   height: 6px;
   margin-top: -3px;
   border-left: 2px solid #f4fbff;
+  border-left: 2px solid hsl(from #f4fbff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-bottom: 2px solid #f4fbff;
+  border-bottom: 2px solid hsl(from #f4fbff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   transform: rotate(-45deg) scale(0);
   transition: transform 0.12s ease;
 }
 
 input.app-checkbox:checked {
   background: linear-gradient(135deg, #1a6f8c, #2f8eaf);
+  background: linear-gradient(135deg, hsl(from #1a6f8c calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from #2f8eaf calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
   border-color: #2f8eaf;
+  border-color: hsl(from #2f8eaf calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 input.app-checkbox:checked::after {
@@ -4265,6 +4619,7 @@ input.app-checkbox:checked::after {
 input.app-checkbox:hover,
 input.app-checkbox:focus-visible {
   border-color: rgba(146, 176, 200, 0.75);
+  border-color: hsl(from rgba(146, 176, 200, 0.75) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Settings row with a switch: name and short description left, switch right. */
@@ -4286,6 +4641,7 @@ input.app-checkbox:focus-visible {
   font-size: 0.74rem;
   line-height: 1.35;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Theme card star (favorite), top right; the saved-theme trash sits left of it. */
@@ -4298,9 +4654,12 @@ button.theme-card-favorite {
   margin: 0;
   padding: 0;
   border: 1px solid rgba(151, 183, 207, 0.35);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   background: rgba(9, 18, 27, 0.78);
+  background: hsl(from rgba(9, 18, 27, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #c7d8e6;
+  color: hsl(from #c7d8e6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4345,9 +4704,12 @@ button.theme-category-tab {
   margin: 0;
   padding: 5px 10px;
   border: 1px solid rgba(151, 183, 207, 0.28);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 999px;
   background: rgba(11, 21, 30, 0.86);
+  background: hsl(from rgba(11, 21, 30, 0.86) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #b9cfdf;
+  color: hsl(from #b9cfdf var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.72rem;
   font-weight: 600;
   cursor: pointer;
@@ -4356,12 +4718,16 @@ button.theme-category-tab {
 button.theme-category-tab:hover,
 button.theme-category-tab:focus-visible {
   border-color: rgba(143, 215, 175, 0.6);
+  border-color: hsl(from rgba(143, 215, 175, 0.6) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 button.theme-category-tab.is-active {
   border-color: rgba(143, 215, 175, 0.8);
+  border-color: hsl(from rgba(143, 215, 175, 0.8) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(28, 64, 50, 0.9);
+  background: hsl(from rgba(28, 64, 50, 0.9) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #d6f3e2;
+  color: hsl(from #d6f3e2 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 button.theme-category-tab {
@@ -4375,6 +4741,7 @@ button.theme-category-tab {
   height: 9px;
   border-radius: 999px;
   border: 1px solid rgba(231, 242, 251, 0.35);
+  border: 1px solid hsl(from rgba(231, 242, 251, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Short explanation under the Color tab title. */
@@ -4413,6 +4780,7 @@ button.theme-category-tab {
 .color-preview-label {
   font-size: 0.68rem;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .color-preview-row {
@@ -4422,6 +4790,7 @@ button.theme-category-tab {
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid rgba(151, 183, 207, 0.25);
+  border: 1px solid hsl(from rgba(151, 183, 207, 0.25) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Color tab header: Save left of the reset button. */

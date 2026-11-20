@@ -396,6 +396,9 @@
       "after": "Na"
     }
   },
+  "appTheme": {
+    "follow": "App-kleuren volgen het thema"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink viert {{name}}",

@@ -400,6 +400,9 @@
       "after": "Po"
     }
   },
+  "appTheme": {
+    "follow": "Kolory aplikacji według motywu"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink świętuje {{name}}",

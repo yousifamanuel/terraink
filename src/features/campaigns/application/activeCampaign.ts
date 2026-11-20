@@ -6,6 +6,7 @@ import {
   registerThemes,
 } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
+import { setStartAppTheme } from "@/features/appTheme/application/useAppTheme";
 import {
   isCampaignLive,
   parseCampaignManifest,
@@ -63,6 +64,8 @@ function pickCampaign(): Campaign | null {
 }
 
 const campaign = pickCampaign();
+// The app starts in the main theme's look (if it offers one).
+if (campaign) setStartAppTheme(campaign.defaultThemeId);
 
 /** The running campaign, or null when none is bundled. */
 export function getCampaign(): Campaign | null {

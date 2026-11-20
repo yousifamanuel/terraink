@@ -424,6 +424,26 @@ export const defaultThemeName = themeNames.includes(preferredDefaultThemeName)
   ? preferredDefaultThemeName
   : (themeNames[0] ?? preferredDefaultThemeName);
 
+/**
+ * The optional "app" section of a theme: its app logo, app-name font, and
+ * accent and text colors (a color, or a path to one of the theme's colors
+ * like "map.roads.minor_high").
+ */
+export function getThemeAppSection(
+  themeName: string,
+): { logo?: string; titleFont?: string; accent?: string; text?: string } | null {
+  const app = getPathValue(themesByName[themeName] ?? {}, "app");
+  if (!isObject(app)) return null;
+  const text = (value: unknown) =>
+    typeof value === "string" && value.trim() ? value.trim() : undefined;
+  return {
+    logo: text(app.logo),
+    titleFont: text(app.titleFont),
+    accent: text(app.accent),
+    text: text(app.text),
+  };
+}
+
 export function getTheme(themeName: string): ResolvedTheme {
   if (themesByName[themeName]) {
     return normalizeTheme(themesByName[themeName]);

@@ -82,6 +82,18 @@ export {
 } from "@/features/campaigns/infrastructure/campaignPrefsStorage";
 export { getTheme, registerThemes } from "@/features/theme/infrastructure/themeRepository";
 
+/* ── App theme ── */
+
+export {
+  applyAppThemeVars,
+  loadAppThemeFollow,
+  saveAppThemeFollow,
+} from "@/features/appTheme/infrastructure/appThemeDocument";
+export {
+  defaultThemeName,
+  getThemeAppSection,
+} from "@/features/theme/infrastructure/themeRepository";
+
 /* ── Analytics ── */
 
 export { trackEvent, setUserProperty } from "@/core/analytics/gtagAnalytics";

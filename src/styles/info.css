@@ -21,6 +21,7 @@
   letter-spacing: 0.08em;
   font-size: 0.78rem;
   color: #88b7d5;
+  color: hsl(from #88b7d5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .swatch-row {
@@ -34,6 +35,7 @@
   aspect-ratio: 1 / 1;
   border-radius: 7px;
   border: 1px solid rgba(214, 233, 247, 0.3);
+  border: 1px solid hsl(from rgba(214, 233, 247, 0.3) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .inspector-copy,
@@ -44,6 +46,7 @@
   line-height: 1.45;
   opacity: 0.9;
   color: #c5d9e8;
+  color: hsl(from #c5d9e8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .inspector-card p + p,
@@ -66,7 +69,9 @@
   border-radius: 999px;
   border: 1px solid var(--border);
   background: rgba(9, 18, 27, 0.9);
+  background: hsl(from rgba(9, 18, 27, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d5e8f7;
+  color: hsl(from #d5e8f7 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: none;
   font-size: 0.78rem;
   font-weight: 600;
@@ -80,8 +85,11 @@
 .github-badge:hover,
 .github-badge:focus-visible {
   border-color: rgba(120, 179, 214, 0.75);
+  border-color: hsl(from rgba(120, 179, 214, 0.75) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(20, 39, 54, 0.95);
+  background: hsl(from rgba(20, 39, 54, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #ecf8ff;
+  color: hsl(from #ecf8ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .stars-badge {
@@ -116,7 +124,9 @@
   border-radius: 999px;
   border: 1px solid var(--border);
   background: rgba(9, 18, 27, 0.9);
+  background: hsl(from rgba(9, 18, 27, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d5e8f7;
+  color: hsl(from #d5e8f7 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: none;
   font-size: 0.78rem;
   font-weight: 600;
@@ -130,8 +140,11 @@
 .footer-link:hover,
 .footer-link:focus-visible {
   border-color: rgba(120, 179, 214, 0.75);
+  border-color: hsl(from rgba(120, 179, 214, 0.75) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(20, 39, 54, 0.95);
+  background: hsl(from rgba(20, 39, 54, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #ecf8ff;
+  color: hsl(from #ecf8ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .footer-links-note {
@@ -139,6 +152,7 @@
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.76rem;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   opacity: 0.8;
 }
 
@@ -149,6 +163,7 @@
   font-size: 0.82rem;
   line-height: 1.5;
   color: #b8cedd;
+  color: hsl(from #b8cedd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .hug-rows {
@@ -169,6 +184,7 @@
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: #6a90a8;
+  color: hsl(from #6a90a8 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .hug-row-content {
@@ -184,6 +200,7 @@
   gap: 7px;
   font-size: 0.8rem;
   color: #8ecf9e;
+  color: hsl(from #8ecf9e var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   font-weight: 500;
 }
 
@@ -192,6 +209,7 @@
   width: 12px;
   height: 12px;
   color: #6bc77e;
+  color: hsl(from #6bc77e var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 /* ── Built with (service credits) ── */
@@ -214,6 +232,7 @@
 
 .built-with-link {
   color: #c5d9e8;
+  color: hsl(from #c5d9e8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-weight: 600;
   text-decoration: none;
 }
@@ -221,6 +240,7 @@
 .built-with-link:hover,
 .built-with-link:focus-visible {
   color: #ecf8ff;
+  color: hsl(from #ecf8ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: underline;
 }
 
@@ -228,6 +248,7 @@
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.7rem;
   color: #6a90a8;
+  color: hsl(from #6a90a8 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   text-align: right;
 }
 
@@ -250,7 +271,9 @@
   border-radius: 10px;
   border: 1px solid var(--border);
   background: rgba(9, 18, 27, 0.9);
+  background: hsl(from rgba(9, 18, 27, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #c8dff0;
+  color: hsl(from #c8dff0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: none;
   flex: 0 0 auto;
   transition:
@@ -263,8 +286,11 @@
 a.social-badge:hover,
 a.social-badge:focus-visible {
   border-color: rgba(120, 179, 214, 0.75);
+  border-color: hsl(from rgba(120, 179, 214, 0.75) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(20, 39, 54, 0.95);
+  background: hsl(from rgba(20, 39, 54, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #ecf8ff;
+  color: hsl(from #ecf8ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   transform: translateY(-1px);
 }
 

@@ -7,6 +7,7 @@
   justify-content: center;
   padding: 20px;
   background: rgba(7, 13, 20, 0.72);
+  background: hsl(from rgba(7, 13, 20, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   backdrop-filter: blur(6px);
 }
 
@@ -16,9 +17,10 @@
   max-height: min(90vh, 820px);
   display: flex;
   flex-direction: column;
-  background:
-    linear-gradient(156deg, rgba(17, 29, 41, 0.98), rgba(9, 18, 29, 0.98));
+  background: linear-gradient(156deg, rgba(17, 29, 41, 0.98), rgba(9, 18, 29, 0.98));
+  background: linear-gradient(156deg, hsl(from rgba(17, 29, 41, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from rgba(9, 18, 29, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
   border: 1px solid rgba(142, 177, 204, 0.3);
+  border: 1px solid hsl(from rgba(142, 177, 204, 0.3) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 18px;
   overflow: hidden;
   box-shadow:
@@ -30,11 +32,13 @@
   height: 8px;
   width: 100%;
   background: rgba(116, 148, 176, 0.24);
+  background: hsl(from rgba(116, 148, 176, 0.24) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .updates-modal-progress-bar {
   height: 100%;
   background: linear-gradient(90deg, #56f8b3 0%, #7de3ff 100%);
+  background: linear-gradient(90deg, hsl(from #56f8b3 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha) 0%, hsl(from #7de3ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) 100%);
   transition: width 220ms ease;
 }
 
@@ -46,7 +50,9 @@
   height: 36px;
   border-radius: 999px;
   border: 1px solid rgba(163, 194, 218, 0.45);
+  border: 1px solid hsl(from rgba(163, 194, 218, 0.45) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(18, 33, 47, 0.9);
+  background: hsl(from rgba(18, 33, 47, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: var(--ink);
   display: grid;
   place-items: center;
@@ -67,8 +73,11 @@
   padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid rgba(129, 238, 190, 0.42);
+  border: 1px solid hsl(from rgba(129, 238, 190, 0.42) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   background: rgba(76, 193, 144, 0.16);
+  background: hsl(from rgba(76, 193, 144, 0.16) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #b8fbe0;
+  color: hsl(from #b8fbe0 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   font-weight: 700;
   font-size: 0.8rem;
   letter-spacing: 0.04em;
@@ -86,6 +95,7 @@
 .updates-released-on {
   margin: 0;
   color: rgba(206, 220, 233, 0.85);
+  color: hsl(from rgba(206, 220, 233, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-modal-content {
@@ -94,6 +104,7 @@
   /* Thin blue scrollbar that matches the window. */
   scrollbar-width: thin;
   scrollbar-color: rgba(121, 188, 255, 0.55) transparent;
+  scrollbar-color: hsl(from rgba(121, 188, 255, 0.55) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) transparent;
 }
 
 .updates-modal-content::-webkit-scrollbar {
@@ -107,6 +118,7 @@
 .updates-modal-content::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: rgba(121, 188, 255, 0.55);
+  background: hsl(from rgba(121, 188, 255, 0.55) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-modal-content h3 {
@@ -118,8 +130,10 @@
   width: 100%;
   border-radius: 12px;
   border: 1px solid rgba(146, 176, 200, 0.35);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   margin-top: 16px;
   background: rgba(10, 18, 26, 0.7);
+  background: hsl(from rgba(10, 18, 26, 0.7) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   object-fit: cover;
 }
 
@@ -139,7 +153,9 @@
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid rgba(136, 167, 193, 0.24);
+  border: 1px solid hsl(from rgba(136, 167, 193, 0.24) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(14, 27, 39, 0.62);
+  background: hsl(from rgba(14, 27, 39, 0.62) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .updates-point-icon {
@@ -152,6 +168,7 @@
   flex-direction: column;
   gap: 2px;
   color: rgba(227, 239, 249, 0.95);
+  color: hsl(from rgba(227, 239, 249, 0.95) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point-label {
@@ -163,34 +180,42 @@
 
 .updates-point--new {
   border-color: rgba(103, 228, 162, 0.44);
+  border-color: hsl(from rgba(103, 228, 162, 0.44) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .updates-point--new .updates-point-label {
   color: #7ff2be;
+  color: hsl(from #7ff2be var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .updates-point--fixed {
   border-color: rgba(121, 188, 255, 0.44);
+  border-color: hsl(from rgba(121, 188, 255, 0.44) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--fixed .updates-point-label {
   color: #8fc9ff;
+  color: hsl(from #8fc9ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--improved {
   border-color: rgba(186, 156, 255, 0.42);
+  border-color: hsl(from rgba(186, 156, 255, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--improved .updates-point-label {
   color: #c8aeff;
+  color: hsl(from #c8aeff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--info {
   border-color: rgba(143, 204, 255, 0.42);
+  border-color: hsl(from rgba(143, 204, 255, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--info .updates-point-label {
   color: #b4dcff;
+  color: hsl(from #b4dcff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--community {
@@ -203,18 +228,22 @@
 
 .updates-point--docs {
   border-color: rgba(156, 214, 255, 0.42);
+  border-color: hsl(from rgba(156, 214, 255, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--docs .updates-point-label {
   color: #b7dcff;
+  color: hsl(from #b7dcff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--roadmap {
   border-color: rgba(149, 255, 196, 0.42);
+  border-color: hsl(from rgba(149, 255, 196, 0.42) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .updates-point--roadmap .updates-point-label {
   color: #a9ffd7;
+  color: hsl(from #a9ffd7 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .updates-point--removed {
@@ -251,6 +280,7 @@
 
 .updates-point--perf {
   border-color: rgba(173, 240, 131, 0.5);
+  border-color: hsl(from rgba(173, 240, 131, 0.5) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .updates-point--perf .updates-point-label {
@@ -259,10 +289,12 @@
 
 .updates-point--core {
   border-color: rgba(135, 224, 236, 0.5);
+  border-color: hsl(from rgba(135, 224, 236, 0.5) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-point--core .updates-point-label {
   color: #98eaf7;
+  color: hsl(from #98eaf7 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .updates-modal-footer {
@@ -286,6 +318,7 @@
 
 .updates-skip-row input {
   accent-color: #78f5c2;
+  accent-color: hsl(from #78f5c2 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   width: 18px;
   height: 18px;
 }
@@ -298,8 +331,10 @@
 .updates-actions button {
   min-width: 90px;
   border: 1px solid rgba(147, 177, 201, 0.42);
+  border: 1px solid hsl(from rgba(147, 177, 201, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(24, 43, 58, 0.92);
+  background: hsl(from rgba(24, 43, 58, 0.92) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: var(--ink);
   padding: 9px 14px;
   cursor: pointer;
@@ -312,12 +347,16 @@
 
 .updates-next-button {
   border-color: rgba(95, 232, 177, 0.52) !important;
+  border-color: hsl(from rgba(95, 232, 177, 0.52) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha) !important;
   background: rgba(59, 177, 131, 0.22) !important;
+  background: hsl(from rgba(59, 177, 131, 0.22) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha) !important;
 }
 
 .updates-okay-button {
   border-color: rgba(121, 188, 255, 0.52) !important;
+  border-color: hsl(from rgba(121, 188, 255, 0.52) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) !important;
   background: rgba(70, 137, 189, 0.22) !important;
+  background: hsl(from rgba(70, 137, 189, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) !important;
 }
 
 @media (max-width: 720px) {
@@ -349,6 +388,7 @@
   border-radius: 50%;
   background: #ffc83d;
   box-shadow: 0 0 0 2px rgba(10, 20, 30, 0.9), 0 0 8px rgba(255, 200, 61, 0.7);
+  box-shadow: 0 0 0 2px hsl(from rgba(10, 20, 30, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), 0 0 8px rgba(255, 200, 61, 0.7);
 }
 
 .mobile-news-btn {
@@ -364,7 +404,9 @@
   border: 1px solid rgba(255, 200, 61, 0.45);
   border-radius: 14px;
   background: rgba(13, 31, 46, 0.94);
+  background: hsl(from rgba(13, 31, 46, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #f3f6f9;
+  color: hsl(from #f3f6f9 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.85rem;
   font-weight: 600;
   box-shadow:
@@ -386,8 +428,10 @@
   margin-bottom: 12px;
   padding: 12px 14px;
   border: 1px solid rgba(165, 198, 221, 0.22);
+  border: 1px solid hsl(from rgba(165, 198, 221, 0.22) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 12px;
   background: rgba(94, 174, 212, 0.08);
+  background: hsl(from rgba(94, 174, 212, 0.08) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: inherit;
   font-size: 0.9rem;
   font-weight: 600;
@@ -408,4 +452,5 @@
   object-fit: cover;
   flex-shrink: 0;
   border-bottom: 1px solid rgba(142, 177, 204, 0.2);
+  border-bottom: 1px solid hsl(from rgba(142, 177, 204, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }

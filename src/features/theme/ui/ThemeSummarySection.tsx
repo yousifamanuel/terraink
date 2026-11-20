@@ -15,6 +15,7 @@ import {
   type ThemeCategoryId,
 } from "../domain/themeCategories";
 import { useFavoriteThemes } from "../application/useFavoriteThemes";
+import AppThemeFollowSwitch from "@/features/appTheme/ui/AppThemeFollowSwitch";
 
 /** An extra filter group (e.g. a campaign's themes), selected first. */
 export interface ThemeFilterGroup {
@@ -108,6 +109,7 @@ export default function ThemeSummarySection({
 
   return (
     <div className="theme-summary-view">
+      <AppThemeFollowSwitch />
       <div className="theme-summary-head">
         <div className="theme-summary-copy">
           <p className="theme-summary-label">

@@ -20,6 +20,7 @@
   overflow-y: auto;
   background: var(--sheet-bg);
   border: 1px solid rgba(146, 176, 200, 0.18);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.18) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 16px;
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
   padding: 22px;
@@ -34,9 +35,11 @@ button.donate-modal-close {
   margin: 0;
   padding: 0;
   border: 1px solid rgba(146, 176, 200, 0.2);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: transparent;
   color: rgba(195, 220, 240, 0.86);
+  color: hsl(from rgba(195, 220, 240, 0.86) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +52,7 @@ button.donate-modal-close {
   font-size: 1.4rem;
   letter-spacing: 0.03em;
   color: #ecf5ff;
+  color: hsl(from #ecf5ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .donate-modal-intro {
@@ -56,6 +60,7 @@ button.donate-modal-close {
   font-size: 0.8rem;
   line-height: 1.5;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .donate-modal-list {
@@ -74,9 +79,12 @@ button.donate-modal-close {
   gap: 12px;
   padding: 10px 12px;
   border: 1px solid rgba(146, 176, 200, 0.2);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(10, 20, 31, 0.78);
+  background: hsl(from rgba(10, 20, 31, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: none;
   transition:
     background 0.15s,
@@ -86,7 +94,9 @@ button.donate-modal-close {
 .donate-modal-link:hover,
 .donate-modal-link:focus-visible {
   background: rgba(94, 174, 212, 0.1);
+  background: hsl(from rgba(94, 174, 212, 0.1) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: rgba(94, 174, 212, 0.5);
+  border-color: hsl(from rgba(94, 174, 212, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .donate-modal-link-text {
@@ -105,6 +115,7 @@ button.donate-modal-close {
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.68rem;
   color: #8fa8b9;
+  color: hsl(from #8fa8b9 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -115,4 +126,5 @@ button.donate-modal-close {
   width: 14px;
   height: 14px;
   color: #8cb6d0;
+  color: hsl(from #8cb6d0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }

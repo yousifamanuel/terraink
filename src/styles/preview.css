@@ -3,14 +3,20 @@
   min-height: 850px;
   border-radius: 14px;
   border: 1px solid var(--strong-line);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%),
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%),
     radial-gradient(
       circle at 82% 16%,
       rgba(77, 161, 201, 0.28),
       transparent 32%
     ),
     linear-gradient(145deg, rgba(14, 33, 46, 0.96), rgba(11, 26, 38, 0.9));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%),
+    radial-gradient(
+      circle at 82% 16%,
+      hsl(from rgba(77, 161, 201, 0.28) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+      transparent 32%
+    ),
+    linear-gradient(145deg, hsl(from rgba(14, 33, 46, 0.96) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from rgba(11, 26, 38, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -21,9 +27,10 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(130, 170, 197, 0.1) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(130, 170, 197, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(130, 170, 197, 0.1) 1px, transparent 1px);
+  background-image: linear-gradient(hsl(from rgba(130, 170, 197, 0.1) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(from rgba(130, 170, 197, 0.1) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) 1px, transparent 1px);
   background-size: 26px 26px;
 }
 
@@ -39,6 +46,7 @@
   overflow: hidden;
   border-radius: 4px;
   border: 1px solid rgba(179, 210, 230, 0.28);
+  border: 1px solid hsl(from rgba(179, 210, 230, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow:
     0 24px 34px rgba(0, 0, 0, 0.5),
     0 8px 14px rgba(0, 0, 0, 0.42);
@@ -163,8 +171,10 @@
 
 .poster-marker.is-selected .marker-visual {
   border: 2px solid var(--marker-highlight-color, rgba(94, 206, 255, 0.9));
+  border: 2px solid var(--marker-highlight-color, hsl(from rgba(94, 206, 255, 0.9) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha));
   border-radius: 999px;
   box-shadow: 0 0 0 1px rgba(7, 16, 24, 0.68);
+  box-shadow: 0 0 0 1px hsl(from rgba(7, 16, 24, 0.68) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .poster-template-frame {
@@ -314,8 +324,15 @@
     rgba(69, 140, 184, 0.75),
     rgba(55, 171, 203, 0.95)
   );
+  background: linear-gradient(
+    90deg,
+    hsl(from rgba(69, 140, 184, 0.75) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    hsl(from rgba(55, 171, 203, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha)
+  );
   border: 1px solid rgba(137, 176, 200, 0.35);
+  border: 1px solid hsl(from rgba(137, 176, 200, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: inset 0 0 0 1px rgba(8, 18, 28, 0.28);
+  box-shadow: inset 0 0 0 1px hsl(from rgba(8, 18, 28, 0.28) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .map-control-slider::-webkit-slider-thumb {
@@ -324,9 +341,12 @@
   height: 16px;
   border-radius: 50%;
   border: 1px solid rgba(206, 233, 250, 0.85);
+  border: 1px solid hsl(from rgba(206, 233, 250, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: #d5e7f5;
-  box-shadow:
-    0 0 0 2px rgba(11, 26, 38, 0.5),
+  background: hsl(from #d5e7f5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+  box-shadow: 0 0 0 2px rgba(11, 26, 38, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 2px hsl(from rgba(11, 26, 38, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
     0 2px 6px rgba(0, 0, 0, 0.35);
   cursor: pointer;
 }
@@ -336,9 +356,12 @@
   height: 16px;
   border-radius: 50%;
   border: 1px solid rgba(206, 233, 250, 0.85);
+  border: 1px solid hsl(from rgba(206, 233, 250, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: #d5e7f5;
-  box-shadow:
-    0 0 0 2px rgba(11, 26, 38, 0.5),
+  background: hsl(from #d5e7f5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+  box-shadow: 0 0 0 2px rgba(11, 26, 38, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 2px hsl(from rgba(11, 26, 38, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
     0 2px 6px rgba(0, 0, 0, 0.35);
   cursor: pointer;
 }
@@ -351,7 +374,13 @@
     rgba(69, 140, 184, 0.75),
     rgba(55, 171, 203, 0.95)
   );
+  background: linear-gradient(
+    90deg,
+    hsl(from rgba(69, 140, 184, 0.75) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+    hsl(from rgba(55, 171, 203, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha)
+  );
   border: 1px solid rgba(137, 176, 200, 0.35);
+  border: 1px solid hsl(from rgba(137, 176, 200, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .map-control-btn {
@@ -360,9 +389,12 @@
   gap: 5px;
   padding: 6px 12px;
   border: 1px solid rgba(137, 176, 200, 0.32);
+  border: 1px solid hsl(from rgba(137, 176, 200, 0.32) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 8px;
   background: rgba(14, 33, 46, 0.85);
+  background: hsl(from rgba(14, 33, 46, 0.85) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d5e7f5;
+  color: hsl(from #d5e7f5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.78rem;
   cursor: pointer;
@@ -373,7 +405,9 @@
 
 .map-control-btn:hover:not(:disabled) {
   background: rgba(37, 75, 105, 0.7);
+  background: hsl(from rgba(37, 75, 105, 0.7) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: rgba(137, 176, 200, 0.55);
+  border-color: hsl(from rgba(137, 176, 200, 0.55) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .map-control-btn:disabled {
@@ -383,11 +417,14 @@
 
 .map-control-btn--primary {
   background: rgba(55, 171, 203, 0.22);
+  background: hsl(from rgba(55, 171, 203, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: rgba(55, 171, 203, 0.55);
+  border-color: hsl(from rgba(55, 171, 203, 0.55) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .map-control-btn--primary:hover:not(:disabled) {
   background: rgba(55, 171, 203, 0.38);
+  background: hsl(from rgba(55, 171, 203, 0.38) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .map-control-btn--mode {
@@ -402,7 +439,9 @@
 
 .map-control-btn.is-active {
   background: rgba(55, 171, 203, 0.34);
+  background: hsl(from rgba(55, 171, 203, 0.34) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: rgba(55, 171, 203, 0.8);
+  border-color: hsl(from rgba(55, 171, 203, 0.8) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .map-control-btn--marker-reset {
@@ -435,9 +474,11 @@
   padding: 4px 8px;
   border-radius: 7px;
   background: rgba(8, 18, 28, 0.42);
+  background: hsl(from rgba(8, 18, 28, 0.42) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.7rem;
   color: rgba(156, 195, 218, 0.7);
+  color: hsl(from rgba(156, 195, 218, 0.7) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-align: center;
   white-space: pre-line;
 }
@@ -451,9 +492,12 @@
   margin: 10px;
   padding: 12px;
   border: 1px solid rgba(137, 176, 200, 0.3);
+  border: 1px solid hsl(from rgba(137, 176, 200, 0.3) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
   background: rgba(10, 24, 35, 0.72);
+  background: hsl(from rgba(10, 24, 35, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #d5e7f5;
+  color: hsl(from #d5e7f5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .settings-info-title {
@@ -463,6 +507,7 @@
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: rgba(188, 219, 238, 0.9);
+  color: hsl(from rgba(188, 219, 238, 0.9) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .settings-info-list {
@@ -485,12 +530,14 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: rgba(156, 195, 218, 0.72);
+  color: hsl(from rgba(156, 195, 218, 0.72) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .settings-info-row dd {
   margin: 0;
   font-size: 0.86rem;
   color: #e1eff9;
+  color: hsl(from #e1eff9 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 @media (max-width: 700px) {

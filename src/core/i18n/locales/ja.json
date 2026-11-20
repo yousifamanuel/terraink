@@ -394,6 +394,9 @@
       "after": "後"
     }
   },
+  "appTheme": {
+    "follow": "アプリの色をテーマに合わせる"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink で {{name}} を楽しもう",

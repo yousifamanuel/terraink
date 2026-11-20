@@ -396,6 +396,9 @@
       "after": "After"
     }
   },
+  "appTheme": {
+    "follow": "App colors follow theme"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink is celebrating {{name}}",

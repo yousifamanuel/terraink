@@ -396,6 +396,9 @@
       "after": "Sonra"
     }
   },
+  "appTheme": {
+    "follow": "Uygulama renkleri temayı izler"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink {{name}} kutluyor",

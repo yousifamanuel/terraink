@@ -404,6 +404,9 @@
       "after": "بعد"
     }
   },
+  "appTheme": {
+    "follow": "ألوان التطبيق تتبع السمة"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink تحتفل بـ {{name}}",

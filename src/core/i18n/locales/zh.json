@@ -394,6 +394,9 @@
       "after": "调整后"
     }
   },
+  "appTheme": {
+    "follow": "应用颜色跟随主题"
+  },
   "campaigns": {
     "intro": {
       "title": "Terraink 正在庆祝 {{name}}",

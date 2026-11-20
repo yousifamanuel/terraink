@@ -30,6 +30,7 @@ import LocationSuggestionsDropdown from "./LocationSuggestionsDropdown";
 import CampaignIntro from "@/features/campaigns/ui/CampaignIntro";
 import { getCampaign } from "@/features/campaigns/application/activeCampaign";
 import { isCampaignSeen, markCampaignSeen } from "@/core/services";
+import { useAppTheme } from "@/features/appTheme/application/useAppTheme";
 import type { SearchResult } from "@/features/location/domain/types";
 
 const CLOSE_ANIMATION_MS = 220;
@@ -68,6 +69,7 @@ export default function StartupLocationModal({
   // Turned off, nothing to announce: open straight on the last place.
   const [skipWindow] = useState(windowHidden && !campaignOnly);
   const [isOpen, setIsOpen] = useState(!skipWindow);
+  const { logo } = useAppTheme();
   const [isClosing, setIsClosing] = useState(false);
   const [locationInput, setLocationInput] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -282,7 +284,7 @@ export default function StartupLocationModal({
         aria-label={campaign.name}
       >
         <div className="startup-location-logo-wrap" aria-hidden="true">
-          <img className="startup-location-logo" src="/assets/logo.svg" alt="" />
+          <img className="startup-location-logo" src={logo} alt="" />
           <p className="startup-location-app-name">Terraink</p>
         </div>
         <div className="startup-location-card is-visible">
@@ -307,7 +309,7 @@ export default function StartupLocationModal({
       aria-labelledby="startup-location-title"
     >
       <div className="startup-location-logo-wrap" aria-hidden="true">
-        <img className="startup-location-logo" src="/assets/logo.svg" alt="" />
+        <img className="startup-location-logo" src={logo} alt="" />
         <p className="startup-location-app-name">Terraink</p>
       </div>
 

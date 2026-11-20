@@ -84,6 +84,7 @@
     padding: 0 20px;
     background: var(--overlay-bg);
     border-bottom: 1px solid rgba(146, 176, 200, 0.12);
+    border-bottom: 1px solid hsl(from rgba(146, 176, 200, 0.12) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
     z-index: 50;
     gap: 14px;
@@ -111,11 +112,13 @@
 
   .desktop-brand-title {
     margin: 0;
-    font-family: "Bebas Neue", sans-serif;
+    font-family: var(--app-title-font, "Bebas Neue", sans-serif);
+    font-weight: var(--app-title-weight, bold);
     font-size: 1.62rem;
     line-height: 1;
     letter-spacing: 0.03em;
     color: #ecf5ff;
+    color: hsl(from #ecf5ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .desktop-brand-kicker {
@@ -125,6 +128,7 @@
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: rgba(184, 212, 232, 0.5);
+    color: hsl(from rgba(184, 212, 232, 0.5) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .general-header-actions {
@@ -145,9 +149,12 @@
     width: 34px;
     height: 34px;
     border: 1px solid rgba(146, 176, 200, 0.2);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 9px;
     background: rgba(10, 20, 31, 0.78);
+    background: hsl(from rgba(10, 20, 31, 0.78) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: rgba(195, 220, 240, 0.86);
+    color: hsl(from rgba(195, 220, 240, 0.86) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -166,8 +173,11 @@
   .general-header-social-btn:hover,
   .general-header-social-btn:focus-visible {
     background: rgba(94, 174, 212, 0.1);
+    background: hsl(from rgba(94, 174, 212, 0.1) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-color: rgba(94, 174, 212, 0.5);
+    border-color: hsl(from rgba(94, 174, 212, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #c8e8f8;
+    color: hsl(from #c8e8f8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .general-header-social-btn--github {
@@ -225,8 +235,10 @@
     padding: 4px;
     list-style: none;
     border: 1px solid rgba(146, 176, 200, 0.24);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.24) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 10px;
     background: #0a141f;
+    background: hsl(from #0a141f calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
   }
 
@@ -238,6 +250,7 @@
     border-radius: 7px;
     background: transparent;
     color: rgba(195, 220, 240, 0.86);
+    color: hsl(from rgba(195, 220, 240, 0.86) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -250,17 +263,21 @@
   .language-menu-option:hover,
   .language-menu-option:focus-visible {
     background: rgba(94, 174, 212, 0.12);
+    background: hsl(from rgba(94, 174, 212, 0.12) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #c8e8f8;
+    color: hsl(from #c8e8f8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .language-menu-option.is-active {
     color: #e7f2fb;
+    color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .language-menu-option svg {
     width: 12px;
     height: 12px;
     color: #8fd7af;
+    color: hsl(from #8fd7af var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   }
 
   .general-header-text-btn {
@@ -274,8 +291,11 @@
     transform: none;
     filter: none;
     background: rgba(94, 174, 212, 0.1);
+    background: hsl(from rgba(94, 174, 212, 0.1) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-color: rgba(94, 174, 212, 0.5);
+    border-color: hsl(from rgba(94, 174, 212, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #c8e8f8;
+    color: hsl(from #c8e8f8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .general-header-btn-label {
@@ -296,7 +316,9 @@
     padding: 8px 0;
     gap: 2px;
     background: rgba(10, 20, 31, 0.98);
+    background: hsl(from rgba(10, 20, 31, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-right: 1px solid rgba(146, 176, 200, 0.1);
+    border-right: 1px solid hsl(from rgba(146, 176, 200, 0.1) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     overflow-y: auto;
     scrollbar-width: none;
     z-index: 40;
@@ -320,6 +342,7 @@
     border-radius: 10px;
     background: transparent;
     color: rgba(180, 205, 225, 0.42);
+    color: hsl(from rgba(180, 205, 225, 0.42) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 0.5rem;
     font-weight: 600;
     font-family: "Spline Sans Mono", monospace;
@@ -336,12 +359,16 @@
     transform: none;
     filter: none;
     background: rgba(94, 174, 212, 0.1);
+    background: hsl(from rgba(94, 174, 212, 0.1) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: rgba(180, 205, 225, 0.72);
+    color: hsl(from rgba(180, 205, 225, 0.72) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .desktop-nav-tab.is-active {
     background: rgba(55, 171, 203, 0.16);
+    background: hsl(from rgba(55, 171, 203, 0.16) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #7dd8f0;
+    color: hsl(from #7dd8f0 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .desktop-nav-icon {
@@ -421,9 +448,11 @@
     align-items: center;
     gap: 6px;
     background: rgba(20, 36, 52, 0.97);
+    background: hsl(from rgba(20, 36, 52, 0.97) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(171, 201, 224, 0.34);
+    border: 1px solid hsl(from rgba(171, 201, 224, 0.34) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 12px;
     width: 100%;
     padding: 1px 6px;
@@ -462,6 +491,7 @@
     border: none;
     border-radius: 0;
     color: #e8f4ff;
+    color: hsl(from #e8f4ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-family: "Spline Sans Mono", monospace;
     font-size: 0.82rem;
     box-shadow: none;
@@ -480,6 +510,7 @@
     border-radius: 0;
     background: transparent;
     color: rgba(198, 221, 237, 0.72);
+    color: hsl(from rgba(198, 221, 237, 0.72) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 1.2rem;
     line-height: 1;
   }
@@ -489,6 +520,7 @@
     transform: translateY(-50%);
     background: transparent;
     color: #e6f4ff;
+    color: hsl(from #e6f4ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .dsk-loc-bar .location-input-wrap input:focus {
@@ -505,6 +537,7 @@
     align-items: center;
     justify-content: center;
     color: rgba(183, 215, 235, 0.52);
+    color: hsl(from rgba(183, 215, 235, 0.52) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 0.9rem;
     pointer-events: none;
   }
@@ -516,9 +549,12 @@
     height: 30px;
     padding: 0;
     border: 1px solid rgba(157, 189, 214, 0.26);
+    border: 1px solid hsl(from rgba(157, 189, 214, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 9px;
     background: rgba(31, 56, 75, 0.62);
+    background: hsl(from rgba(31, 56, 75, 0.62) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: rgba(210, 231, 245, 0.85);
+    color: hsl(from rgba(210, 231, 245, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 1.05rem;
     display: flex;
     align-items: center;
@@ -539,14 +575,20 @@
     transform: none;
     filter: none;
     background: rgba(68, 122, 153, 0.38);
+    background: hsl(from rgba(68, 122, 153, 0.38) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-color: rgba(126, 190, 225, 0.58);
+    border-color: hsl(from rgba(126, 190, 225, 0.58) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     color: #e5f5ff;
+    color: hsl(from #e5f5ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .dsk-loc-bar button.location-row-icon-btn.is-active {
     background: rgba(31, 56, 75, 0.62);
+    background: hsl(from rgba(31, 56, 75, 0.62) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-color: rgba(157, 189, 214, 0.26);
+    border-color: hsl(from rgba(157, 189, 214, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     color: rgba(210, 231, 245, 0.85);
+    color: hsl(from rgba(210, 231, 245, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .dsk-loc-bar button.location-row-icon-btn:disabled {
@@ -580,6 +622,7 @@
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(146, 176, 200, 0.18);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.18) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     max-height: 240px;
@@ -593,6 +636,7 @@
     font-family: "Spline Sans Mono", monospace;
     font-size: 0.76rem;
     color: rgba(200, 228, 248, 0.85);
+    color: hsl(from rgba(200, 228, 248, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     text-align: left;
   }
 
@@ -600,7 +644,9 @@
     transform: none;
     filter: none;
     background: rgba(94, 174, 212, 0.12);
+    background: hsl(from rgba(94, 174, 212, 0.12) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #ddeeff;
+    color: hsl(from #ddeeff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .dsk-loc-bar .location-suggestion-status {
@@ -608,6 +654,7 @@
     font-family: "Spline Sans Mono", monospace;
     font-size: 0.72rem;
     color: rgba(156, 195, 218, 0.5);
+    color: hsl(from rgba(156, 195, 218, 0.5) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   /* Lat/Lon coordinate fields — hidden by default, shown when .show-coords */
@@ -621,9 +668,11 @@
     gap: 8px;
     margin-top: 6px;
     background: rgba(16, 29, 42, 0.94);
+    background: hsl(from rgba(16, 29, 42, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(157, 189, 214, 0.24);
+    border: 1px solid hsl(from rgba(157, 189, 214, 0.24) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 10px;
     padding: 8px 9px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.38);
@@ -633,6 +682,7 @@
     margin-bottom: 0;
     font-size: 0.72rem;
     color: rgba(188, 219, 238, 0.78);
+    color: hsl(from rgba(188, 219, 238, 0.78) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .dsk-loc-bar .dsk-loc-coords input {
@@ -640,15 +690,19 @@
     min-height: 36px;
     padding: 6px 10px;
     background: rgba(31, 56, 75, 0.46);
+    background: hsl(from rgba(31, 56, 75, 0.46) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-color: rgba(157, 189, 214, 0.3);
+    border-color: hsl(from rgba(157, 189, 214, 0.3) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 9px;
     font-family: "Spline Sans Mono", monospace;
     font-size: 0.76rem;
     color: #def2ff;
+    color: hsl(from #def2ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .dsk-loc-bar .dsk-loc-coords input:focus {
     border-color: rgba(94, 174, 212, 0.5);
+    border-color: hsl(from rgba(94, 174, 212, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     box-shadow: none;
   }
 
@@ -657,6 +711,7 @@
     margin-top: 4px;
     padding: 8px 30px 8px 10px;
     background: rgba(9, 16, 24, 0.94);
+    background: hsl(from rgba(9, 16, 24, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border: 1px solid rgba(255, 152, 129, 0.3);
     border-radius: 8px;
     font-family: "Spline Sans Mono", monospace;
@@ -678,6 +733,7 @@
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(146, 176, 200, 0.14);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.14) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 14px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
     overscroll-behavior: contain;
@@ -725,6 +781,7 @@
 
   .desktop-settings-slide .accordion-item {
     border-bottom: 1px solid rgba(146, 176, 200, 0.1);
+    border-bottom: 1px solid hsl(from rgba(146, 176, 200, 0.1) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     background: transparent;
   }
 
@@ -855,6 +912,7 @@
   /* Strip the solid bg so ghost map shows through */
   .app-shell > .preview-panel .poster-viewport {
     background: #080f18;
+    background: hsl(from #080f18 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   }
 
   /* Map controls: floating pill at bottom center of map area */
@@ -912,9 +970,11 @@
     width: auto;
     margin: 0;
     background: rgba(10, 20, 31, 0.72);
+    background: hsl(from rgba(10, 20, 31, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(146, 176, 200, 0.2);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
   }
 
@@ -934,12 +994,15 @@
     padding: 4px 10px;
     border-radius: 8px;
     background: rgba(9, 16, 24, 0.72);
+    background: hsl(from rgba(9, 16, 24, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(146, 176, 200, 0.16);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.16) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-family: "Spline Sans Mono", monospace;
     font-size: 0.66rem;
     color: rgba(195, 220, 240, 0.65);
+    color: hsl(from rgba(195, 220, 240, 0.65) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     pointer-events: none;
@@ -979,6 +1042,7 @@
     margin: 0;
     padding: 8px 18px 8px 82px;
     border-top: 1px solid rgba(146, 176, 200, 0.12);
+    border-top: 1px solid hsl(from rgba(146, 176, 200, 0.12) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     background: var(--overlay-bg);
     box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.28);
     white-space: nowrap;
@@ -1028,9 +1092,12 @@
     padding: 0;
     margin: 0;
     border: 1px solid rgba(146, 176, 200, 0.2);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 999px;
     background: rgba(15, 30, 43, 0.9);
+    background: hsl(from rgba(15, 30, 43, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: rgba(200, 228, 248, 0.78);
+    color: hsl(from rgba(200, 228, 248, 0.78) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1053,7 +1120,9 @@
 
   .desktop-footer-info-btn[aria-expanded="true"] {
     border-color: rgba(94, 174, 212, 0.5);
+    border-color: hsl(from rgba(94, 174, 212, 0.5) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #c8e8f8;
+    color: hsl(from #c8e8f8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   /* Attribution modal box (reuses .about-modal-backdrop for the overlay). */
@@ -1062,6 +1131,7 @@
     width: min(420px, 90vw);
     background: var(--sheet-bg);
     border: 1px solid rgba(146, 176, 200, 0.18);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.18) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 16px;
     box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
     padding: 24px;
@@ -1074,6 +1144,7 @@
     font-size: 1.4rem;
     letter-spacing: 0.03em;
     color: #ecf5ff;
+    color: hsl(from #ecf5ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .attribution-modal-line {
@@ -1081,6 +1152,7 @@
     font-size: 0.8rem;
     line-height: 1.5;
     color: #9bb3c5;
+    color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .attribution-modal-line:last-child {
@@ -1124,6 +1196,7 @@
     overflow-y: auto;
     background: var(--sheet-bg);
     border: 1px solid rgba(146, 176, 200, 0.18);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.18) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 20px;
     box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
     padding: 32px;
@@ -1152,9 +1225,11 @@
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(146, 176, 200, 0.22);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.22) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 8px;
     background: transparent;
     color: rgba(180, 205, 225, 0.6);
+    color: hsl(from rgba(180, 205, 225, 0.6) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 1rem;
     cursor: pointer;
     padding: 0;
@@ -1168,8 +1243,11 @@
     transform: none;
     filter: none;
     background: rgba(94, 174, 212, 0.1);
+    background: hsl(from rgba(94, 174, 212, 0.1) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     color: #c8e8f8;
+    color: hsl(from #c8e8f8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-color: rgba(94, 174, 212, 0.4);
+    border-color: hsl(from rgba(94, 174, 212, 0.4) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   }
 
   /* Strip info panel chrome inside the modal */
@@ -1197,9 +1275,11 @@
     gap: 8px;
     padding: 7px 10px 7px 12px;
     background: rgba(9, 16, 24, 0.94);
+    background: hsl(from rgba(9, 16, 24, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(94, 174, 212, 0.3);
+    border: 1px solid hsl(from rgba(94, 174, 212, 0.3) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.42);
     animation: badge-slide-in 0.3s cubic-bezier(0.32, 0.72, 0, 1);
@@ -1225,6 +1305,7 @@
     border: none;
     background: transparent;
     color: #b0cfe5;
+    color: hsl(from #b0cfe5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 0.76rem;
     font-weight: 600;
     font-family: "Spline Sans Mono", monospace;
@@ -1237,6 +1318,7 @@
     transform: none;
     filter: none;
     color: #dff3ff;
+    color: hsl(from #dff3ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 
   .desktop-install-badge-icon {
@@ -1254,9 +1336,11 @@
     height: 20px;
     flex-shrink: 0;
     border: 1px solid rgba(146, 176, 200, 0.2);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 6px;
     background: transparent;
     color: rgba(180, 205, 225, 0.48);
+    color: hsl(from rgba(180, 205, 225, 0.48) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     font-size: 0.75rem;
     cursor: pointer;
     padding: 0;
@@ -1343,16 +1427,22 @@
   /* Primary = PNG/Download — white/light, like browser-default generate-btn */
   .desktop-export-btn--primary {
     background: rgba(232, 242, 251, 0.96);
+    background: hsl(from rgba(232, 242, 251, 0.96) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-color: rgba(180, 210, 235, 0.55);
+    border-color: hsl(from rgba(180, 210, 235, 0.55) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     color: #0d1f2e;
+    color: hsl(from #0d1f2e calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   }
 
   .desktop-export-btn--primary:hover:not(:disabled) {
     transform: none;
     filter: none;
     background: rgba(220, 236, 250, 1);
+    background: hsl(from rgba(220, 236, 250, 1) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-color: rgba(140, 185, 220, 0.8);
+    border-color: hsl(from rgba(140, 185, 220, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     color: #091826;
+    color: hsl(from #091826 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   }
 
   /* PDF — dark warm/brown, like mobile .ghost but darker */
@@ -1377,8 +1467,15 @@
       rgba(42, 126, 79, 0.96),
       rgba(29, 103, 64, 0.96)
     );
+    background: linear-gradient(
+      135deg,
+      hsl(from rgba(42, 126, 79, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
+      hsl(from rgba(29, 103, 64, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha)
+    );
     border-color: rgba(120, 221, 161, 0.56);
+    border-color: hsl(from rgba(120, 221, 161, 0.56) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
     color: #effff5;
+    color: hsl(from #effff5 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   }
 
   .desktop-export-btn--svg:hover:not(:disabled) {
@@ -1389,8 +1486,15 @@
       rgba(50, 141, 89, 0.98),
       rgba(34, 117, 73, 0.98)
     );
+    background: linear-gradient(
+      135deg,
+      hsl(from rgba(50, 141, 89, 0.98) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
+      hsl(from rgba(34, 117, 73, 0.98) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha)
+    );
     border-color: rgba(147, 235, 183, 0.88);
+    border-color: hsl(from rgba(147, 235, 183, 0.88) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
     color: #f0fff6;
+    color: hsl(from #f0fff6 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   }
 
   /* Label swap: "Download" by default, "PNG" on FAB hover */
@@ -1448,8 +1552,10 @@
     width: 34px;
     height: 34px;
     border: 1px solid rgba(146, 176, 200, 0.14);
+    border: 1px solid hsl(from rgba(146, 176, 200, 0.14) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     border-radius: 10px;
     background: rgba(9, 16, 24, 0.72);
+    background: hsl(from rgba(9, 16, 24, 0.72) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     pointer-events: none;
@@ -1460,6 +1566,7 @@
     width: 16px;
     height: 16px;
     color: rgba(156, 195, 218, 0.3);
+    color: hsl(from rgba(156, 195, 218, 0.3) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   }
 }
 
