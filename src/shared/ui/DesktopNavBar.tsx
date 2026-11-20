@@ -13,6 +13,7 @@ import {
   SettingsIcon,
 } from "./Icons";
 import type { MobileTab } from "./MobileNavBar";
+import NavTab from "./NavTab";
 
 const tabs: {
   id: MobileTab;
@@ -38,6 +39,8 @@ interface DesktopNavBarProps {
   /** The dot marks release notes not yet opened. */
   hasUnreadNews: boolean;
   onNewsOpen: () => void;
+  /** New features per tab (tab id → count), shown as dots. */
+  tabDots?: Record<string, number>;
 }
 
 export default function DesktopNavBar({
@@ -48,6 +51,7 @@ export default function DesktopNavBar({
   onLocationToggle,
   hasUnreadNews,
   onNewsOpen,
+  tabDots = {},
 }: DesktopNavBarProps) {
   const { t } = useTranslation();
   const locationToggleLabel = isLocationVisible
@@ -55,62 +59,52 @@ export default function DesktopNavBar({
     : t("shell.nav.showLocation");
   return (
     <nav className="desktop-nav-bar" aria-label={t("shell.nav.sections")}>
-      <button
-        type="button"
-        className={`desktop-nav-tab${isLocationVisible ? " is-active" : ""}`}
+      <NavTab
+        variant="desktop"
+        label={t("shell.nav.location")}
+        actionLabel={locationToggleLabel}
+        Icon={LocationIcon}
+        isActive={isLocationVisible}
+        ariaPressed={isLocationVisible}
+        dot={tabDots.location}
         onClick={onLocationToggle}
-        title={locationToggleLabel}
-        aria-label={locationToggleLabel}
-        aria-pressed={isLocationVisible}
-      >
-        <LocationIcon className="desktop-nav-icon" />
-        <span className="desktop-nav-label">{t("shell.nav.location")}</span>
-      </button>
+      />
 
-      {tabs.map(({ id, labelKey, Icon }) => (
-        <button
-          key={id}
-          type="button"
-          className={`desktop-nav-tab${panelOpen && activeTab === id ? " is-active" : ""}`}
-          onClick={() => onTabChange(id)}
-          title={t(labelKey)}
-          aria-label={t(labelKey)}
-          aria-current={panelOpen && activeTab === id ? "page" : undefined}
-        >
-          <Icon className="desktop-nav-icon" />
-          <span className="desktop-nav-label">{t(labelKey)}</span>
-        </button>
-      ))}
+      {tabs.map(({ id, labelKey, Icon }) => {
+        const isActive = panelOpen && activeTab === id;
+        return (
+          <NavTab
+            key={id}
+            variant="desktop"
+            label={t(labelKey)}
+            Icon={Icon}
+            isActive={isActive}
+            ariaCurrent={isActive ? "page" : undefined}
+            dot={tabDots[id]}
+            onClick={() => onTabChange(id)}
+          />
+        );
+      })}
 
-      <button
-          type="button"
-          className="desktop-nav-tab desktop-nav-tab--news"
-          title={t("shell.nav.news")}
-          aria-label={t("shell.nav.news")}
-          onClick={onNewsOpen}
-        >
-          <span className="news-icon-wrap">
-            <NewsIcon className="desktop-nav-icon" />
-            {hasUnreadNews ? <span className="news-dot" aria-hidden="true" /> : null}
-          </span>
-          <span className="desktop-nav-label">{t("shell.nav.news")}</span>
-        </button>
+      <NavTab
+        variant="desktop"
+        className="desktop-nav-tab--news"
+        label={t("shell.nav.news")}
+        Icon={NewsIcon}
+        dot={hasUnreadNews}
+        onClick={onNewsOpen}
+      />
 
-      <button
-        type="button"
-        className={`desktop-nav-tab desktop-nav-tab--settings${
-          panelOpen && activeTab === "settings" ? " is-active" : ""
-        }`}
-        title={t("shell.nav.settings")}
-        aria-label={t("shell.nav.settings")}
-        aria-current={
-          panelOpen && activeTab === "settings" ? "page" : undefined
-        }
+      <NavTab
+        variant="desktop"
+        className="desktop-nav-tab--settings"
+        label={t("shell.nav.settings")}
+        Icon={SettingsIcon}
+        isActive={panelOpen && activeTab === "settings"}
+        ariaCurrent={panelOpen && activeTab === "settings" ? "page" : undefined}
+        dot={tabDots.settings}
         onClick={() => onTabChange("settings")}
-      >
-        <SettingsIcon className="desktop-nav-icon" />
-        <span className="desktop-nav-label">{t("shell.nav.settings")}</span>
-      </button>
+      />
     </nav>
   );
 }

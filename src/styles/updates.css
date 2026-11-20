@@ -374,12 +374,13 @@
 
 /* ── News: the gold dot marks unread release notes ── */
 
-.news-icon-wrap {
+/* Nav icon with an optional dot for something new (News, new features). */
+.nav-icon-wrap {
   position: relative;
   display: inline-flex;
 }
 
-.news-dot {
+.nav-dot {
   position: absolute;
   top: -3px;
   right: -4px;
@@ -389,6 +390,23 @@
   background: #ffc83d;
   box-shadow: 0 0 0 2px rgba(10, 20, 30, 0.9), 0 0 8px rgba(255, 200, 61, 0.7);
   box-shadow: 0 0 0 2px hsl(from rgba(10, 20, 30, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), 0 0 8px rgba(255, 200, 61, 0.7);
+}
+
+/* With a number: a small pill, dark text on the yellow. */
+.nav-dot--count {
+  top: -6px;
+  right: -9px;
+  width: auto;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 7px;
+  color: #1a1405;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.56rem;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
 }
 
 .mobile-news-btn {

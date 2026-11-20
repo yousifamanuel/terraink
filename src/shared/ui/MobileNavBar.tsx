@@ -11,6 +11,7 @@ import {
   ColorIcon,
   SettingsIcon,
 } from "./Icons";
+import NavTab from "./NavTab";
 
 export type MobileTab =
   | "location"
@@ -45,6 +46,8 @@ interface MobileNavBarProps {
   drawerOpen: boolean;
   isLocationVisible: boolean;
   onTabChange: (tab: MobileTab) => void;
+  /** New features per tab (tab id → count), shown as dots. */
+  tabDots?: Record<string, number>;
 }
 
 export default function MobileNavBar({
@@ -52,6 +55,7 @@ export default function MobileNavBar({
   drawerOpen,
   isLocationVisible,
   onTabChange,
+  tabDots = {},
 }: MobileNavBarProps) {
   const { t } = useTranslation();
   return (
@@ -65,17 +69,17 @@ export default function MobileNavBar({
                 ? isLocationVisible
                 : drawerOpen && activeTab === id;
               return (
-                <button
+                <NavTab
                   key={id}
-                  type="button"
-                  className={`mobile-nav-tab${isActive ? " is-active" : ""}`}
+                  variant="mobile"
+                  label={t(labelKey)}
+                  Icon={Icon}
+                  isActive={isActive}
+                  ariaCurrent={!isLocationTab && activeTab === id ? "page" : undefined}
+                  ariaPressed={isLocationTab ? isLocationVisible : undefined}
+                  dot={tabDots[id]}
                   onClick={() => onTabChange(id)}
-                  aria-current={!isLocationTab && activeTab === id ? "page" : undefined}
-                  aria-pressed={isLocationTab ? isLocationVisible : undefined}
-                >
-                  <Icon className="mobile-nav-icon" />
-                  <span className="mobile-nav-label">{t(labelKey)}</span>
-                </button>
+                />
               );
             })}
           </div>
