@@ -1,3 +1,4 @@
+import { posterTitleWeight } from "@/core/fonts";
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import { APP_CREDIT_URL } from "@/core/config";
 import { withAlpha } from "@/shared/utils/color";
@@ -169,6 +170,7 @@ export default function PosterTextOverlay({
             className="poster-city"
             style={{
               fontFamily: titleFont,
+              fontWeight: posterTitleWeight(fontFamily),
               top: `${text.cityY * 100}%`,
               fontSize: cityFontSize,
               ...textBoxStyle,

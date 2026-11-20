@@ -1,3 +1,4 @@
+import { posterTitleWeight } from "@/core/fonts";
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import type { Coordinate } from "@/shared/geo/types";
 import { APP_CREDIT_URL } from "@/core/config";
@@ -91,7 +92,7 @@ export function drawPosterText(
     ctx.fillStyle = textColor;
     ctx.textAlign = text.align;
     ctx.textBaseline = "middle";
-    ctx.font = `700 ${cityFontSize}px ${titleFontFamily}`;
+    ctx.font = `${posterTitleWeight(fontFamily)} ${cityFontSize}px ${titleFontFamily}`;
     ctx.fillText(cityLabel, anchorX, cityY, maxTextWidth);
 
     if (text.showDivider) {
