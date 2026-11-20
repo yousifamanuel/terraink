@@ -454,13 +454,14 @@
     z-index: 101;
     width: 60px;
     height: 44px;
-    border: 1px solid rgba(165, 198, 221, 0.34);
-    border: 1px solid hsl(from rgba(165, 198, 221, 0.34) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    border: 1px solid rgba(143, 215, 175, 0.8);
+    border: 1px solid hsl(from rgba(143, 215, 175, 0.8) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
     border-radius: 14px;
-    background: rgba(231, 242, 250, 0.96);
-    background: hsl(from rgba(231, 242, 250, 0.96) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
-    color: #0d1f2e;
-    color: hsl(from #0d1f2e calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+    /* The accent green of the selected buttons; an app theme turns it to its accent. */
+    background: rgba(28, 64, 50, 0.96);
+    background: hsl(from rgba(28, 64, 50, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
+    color: #e7f2fb;
+    color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
     display: inline-flex;
     align-items: center;
     justify-content: center;

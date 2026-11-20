@@ -212,6 +212,8 @@
 
 /* ── Desktop trigger button ── */
 
+/* The main Download button: the accent green of the selected buttons (e.g.
+   text position); an app theme turns it to its accent. */
 .export-fab-trigger-desktop {
   position: fixed;
   right: 18px;
@@ -219,13 +221,13 @@
   z-index: 101;
   height: 44px;
   padding: 0 16px;
-  border: 1px solid rgba(165, 198, 221, 0.34);
-  border: 1px solid hsl(from rgba(165, 198, 221, 0.34) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+  border: 1px solid rgba(143, 215, 175, 0.8);
+  border: 1px solid hsl(from rgba(143, 215, 175, 0.8) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   border-radius: 14px;
-  background: rgba(231, 242, 250, 0.96);
-  background: hsl(from rgba(231, 242, 250, 0.96) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
-  color: #0d1f2e;
-  color: hsl(from #0d1f2e calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+  background: rgba(28, 64, 50, 0.96);
+  background: hsl(from rgba(28, 64, 50, 0.96) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
+  color: #e7f2fb;
+  color: hsl(from #e7f2fb var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: none;
   align-items: center;
   justify-content: center;
@@ -243,8 +245,7 @@
 }
 
 .export-fab-trigger-desktop:hover {
-  background: rgba(241, 248, 253, 1);
-  background: hsl(from rgba(241, 248, 253, 1) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+  filter: brightness(1.2);
   box-shadow:
     0 10px 24px rgba(0, 0, 0, 0.45),
     0 3px 10px rgba(0, 0, 0, 0.3);
