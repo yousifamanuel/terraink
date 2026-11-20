@@ -80,7 +80,11 @@ export {
   isCampaignSeen,
   markCampaignSeen,
 } from "@/features/campaigns/infrastructure/campaignPrefsStorage";
-export { getTheme, registerThemes } from "@/features/theme/infrastructure/themeRepository";
+export {
+  getTheme,
+  registerThemes,
+  themeOptions,
+} from "@/features/theme/infrastructure/themeRepository";
 
 /* ── App theme ── */
 

@@ -11,6 +11,7 @@ import { compositeExport } from "@/features/poster/infrastructure/renderer";
 import { resolveCanvasSize } from "@/features/poster/infrastructure/renderer/canvas";
 import { getAllMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
 import { ensureFont } from "@/core/services";
+import { slugify } from "@/shared/utils/string";
 import {
   createPngBlob,
   createPdfBlobFromCanvas,
@@ -114,6 +115,9 @@ function readAllTimeExportCount(): number {
 export function useExport() {
   const { state, dispatch, effectiveTheme, mapRef } = usePosterContext();
   const { form } = state;
+  // File names use a saved theme's name ("miami_night_2"), not its id.
+  const savedTheme = state.savedThemes.find((theme) => theme.id === form.theme);
+  const fileThemeName = savedTheme ? slugify(savedTheme.name) : form.theme;
   const hasVisibleMarkers = form.showMarkers && state.markers.length > 0;
   const visibleRoutes = useMemo(
     () =>
@@ -244,7 +248,7 @@ export function useExport() {
           });
           const svgFilename = createPosterFilename(
             form.displayCity || form.location,
-            form.theme,
+            fileThemeName,
             "svg",
           );
           await triggerDownloadBlob(svgBlob, svgFilename);
@@ -291,7 +295,7 @@ export function useExport() {
         // 3. Download
         const filename = createPosterFilename(
           form.displayCity || form.location,
-          form.theme,
+          fileThemeName,
           format,
         );
 
@@ -328,6 +332,7 @@ export function useExport() {
       state.customMarkerIcons,
       state.displayNameOverrides,
       state.mapZoom,
+      fileThemeName,
     ],
   );
 
