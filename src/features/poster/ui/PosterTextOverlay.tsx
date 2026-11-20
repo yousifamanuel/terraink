@@ -10,6 +10,7 @@ import {
   COUNTRY_FONT_BASE_PX,
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
+  ATTRIBUTION_FONT_FAMILY,
   formatCityLabel,
   computeCityFontScale,
   computeAttributionColor,
@@ -106,7 +107,7 @@ export default function PosterTextOverlay({
   const margin = template.attribution.margin * 100;
   const marginY = (template.attribution.marginY ?? template.attribution.margin) * 100;
   const attributionBaseStyle = {
-    fontFamily: bodyFont,
+    fontFamily: ATTRIBUTION_FONT_FAMILY,
     color: attributionColor,
     opacity: attributionOpacity,
     fontSize: attributionFontSize,

@@ -10,6 +10,7 @@ import {
   COUNTRY_FONT_BASE_PX,
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
+  ATTRIBUTION_FONT_FAMILY,
   formatCityLabel,
   computeCityFontScale,
   computeAttributionColor,
@@ -138,7 +139,7 @@ export function drawPosterText(
   ctx.fillStyle = attributionColor;
   ctx.globalAlpha = attributionAlpha;
   ctx.textBaseline = "bottom";
-  ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
+  ctx.font = `300 ${attributionFontSize}px ${ATTRIBUTION_FONT_FAMILY}`;
 
   if (template.attribution.side === "stacked-left") {
     ctx.textAlign = "left";

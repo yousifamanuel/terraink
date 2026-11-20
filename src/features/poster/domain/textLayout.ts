@@ -21,6 +21,8 @@ export const CITY_FONT_MIN_PX = 110;
 export const COUNTRY_FONT_BASE_PX = 92;
 export const COORDS_FONT_BASE_PX = 58;
 export const ATTRIBUTION_FONT_BASE_PX = 50;
+/** Credits keep the default face, so they stay readable with any poster font. */
+export const ATTRIBUTION_FONT_FAMILY = '"IBM Plex Mono", monospace';
 
 export function isLatinScript(text: string | undefined | null): boolean {
   if (!text) {
