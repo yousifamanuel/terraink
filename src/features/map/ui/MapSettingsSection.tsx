@@ -453,14 +453,24 @@ export default function MapSettingsSection({
       return;
     }
     const frameId = window.requestAnimationFrame(() => {
-      const selectedThemeCard = themeListRef.current?.querySelector<HTMLElement>(
-        ".theme-card.is-selected",
-      );
-      selectedThemeCard?.scrollIntoView({
-        behavior: "auto",
-        block: "nearest",
-        inline: "start",
-      });
+      const list = themeListRef.current;
+      if (!list) return;
+      // Favorites and saved themes lead the row: start there so they're seen.
+      if (list.querySelector(".theme-list-group")) {
+        list.scrollLeft = 0;
+        return;
+      }
+      // A favorite or saved theme can be in the list twice; take the one shown.
+      const selectedThemeCard = Array.from(
+        list.querySelectorAll<HTMLElement>(".theme-card.is-selected"),
+      ).find((card) => card.offsetParent !== null);
+      if (!selectedThemeCard) return;
+      // Scroll only the card row, never the drawer (its top stays in view),
+      // and only when the selected card isn't visible from the row's start.
+      const cardRight =
+        selectedThemeCard.getBoundingClientRect().right - list.getBoundingClientRect().left + list.scrollLeft;
+      const cardLeft = cardRight - selectedThemeCard.getBoundingClientRect().width;
+      list.scrollLeft = cardRight <= list.clientWidth ? 0 : cardLeft;
     });
     return () => window.cancelAnimationFrame(frameId);
   }, [activeMobileTab]);
