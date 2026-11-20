@@ -781,7 +781,7 @@
 
   /* Theme opens taller, so its name, filters and card row show at once. */
   .mobile-drawer-sheet[data-mobile-tab="theme"] {
-    height: min(64vh, 560px);
+    height: min(60vh, 470px);
   }
 
   .mobile-drawer-sheet.is-expanded {

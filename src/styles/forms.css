@@ -2979,6 +2979,11 @@ button.location-clear-btn:focus-visible {
     display: none;
   }
 
+  /* The row carries vertical labels instead of the section title. */
+  .theme-section--builtin > .theme-section-heading {
+    display: none;
+  }
+
   .theme-card-list .theme-list-group {
     display: contents;
   }
