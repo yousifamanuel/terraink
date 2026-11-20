@@ -751,5 +751,8 @@
   "meta": {
     "title": "Terraink: gratis maker van kaartposters en wallpapers",
     "description": "Gratis online generator voor kaartposters en wallpapers. Ontwerp eigen, drukklare kaartkunst van elke stad of locatie en exporteer als PNG, PDF of SVG. Geen account nodig."
+  },
+  "hints": {
+    "new": "Nieuw"
   }
 }

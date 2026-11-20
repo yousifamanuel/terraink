@@ -753,5 +753,8 @@
   "meta": {
     "title": "Terraink: Creatore Gratuito di Poster e Sfondi con Mappe",
     "description": "Generatore online gratuito di poster e sfondi con mappe. Crea mappe personalizzate pronte per la stampa di qualsiasi città o luogo ed esportale in PNG, PDF o SVG. Nessuna registrazione."
+  },
+  "hints": {
+    "new": "Nuovo"
   }
 }

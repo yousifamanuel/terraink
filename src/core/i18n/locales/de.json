@@ -751,5 +751,8 @@
   "meta": {
     "title": "Terraink: Kostenloser Kartenposter- & Wallpaper-Generator",
     "description": "Kostenloser Online-Generator für Kartenposter und Wallpaper. Gestalte individuelle, druckfertige Kartenkunst für jede Stadt oder jeden Ort – Export als PNG, PDF oder SVG. Ohne Anmeldung."
+  },
+  "hints": {
+    "new": "Neu"
   }
 }

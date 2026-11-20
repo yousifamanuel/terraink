@@ -46,7 +46,7 @@ interface MobileNavBarProps {
   drawerOpen: boolean;
   isLocationVisible: boolean;
   onTabChange: (tab: MobileTab) => void;
-  /** New features per tab (tab id → count), shown as dots. */
+  /** New features per tab (tab id → count), shown as a dot with the number. */
   tabDots?: Record<string, number>;
 }
 

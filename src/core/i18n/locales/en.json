@@ -751,5 +751,8 @@
   "meta": {
     "title": "Terraink: Free Map Poster & Wallpaper Creator",
     "description": "Free online map poster and wallpaper generator. Design custom, print-ready map art for any city or location — export as PNG, PDF, or SVG. No sign-up required."
+  },
+  "hints": {
+    "new": "New"
   }
 }

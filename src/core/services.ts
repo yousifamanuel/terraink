@@ -94,6 +94,14 @@ export {
   getThemeAppSection,
 } from "@/features/theme/infrastructure/themeRepository";
 
+/* ── Feature hints ── */
+
+export { loadBundledHints } from "@/features/hints/infrastructure/hintsBundle";
+export {
+  loadSeenHints,
+  saveSeenHints,
+} from "@/features/hints/infrastructure/hintsSeenStorage";
+
 /* ── Analytics ── */
 
 export { trackEvent, setUserProperty } from "@/core/analytics/gtagAnalytics";

@@ -39,7 +39,7 @@ interface DesktopNavBarProps {
   /** The dot marks release notes not yet opened. */
   hasUnreadNews: boolean;
   onNewsOpen: () => void;
-  /** New features per tab (tab id → count), shown as dots. */
+  /** New features per tab (tab id → count), shown as a dot with the number. */
   tabDots?: Record<string, number>;
 }
 

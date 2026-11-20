@@ -755,5 +755,8 @@
   "meta": {
     "title": "Terraink: darmowy kreator plakatów i tapet z map",
     "description": "Darmowy generator plakatów i tapet z map online. Projektuj własne mapy gotowe do druku dla dowolnego miasta lub miejsca i eksportuj je jako PNG, PDF lub SVG. Bez rejestracji."
+  },
+  "hints": {
+    "new": "Nowe"
   }
 }

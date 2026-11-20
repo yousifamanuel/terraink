@@ -17,6 +17,7 @@ import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
 import { DEFAULT_FORM, usePosterContext } from "./PosterContext";
 import { ResetIcon } from "@/shared/ui/Icons";
+import NewLabel from "@/features/hints/ui/NewLabel";
 
 /** Settings the Style reset puts back to default. */
 const STYLE_KEYS = [
@@ -68,7 +69,10 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
         </button>
       </div>
       <label className="toggle-field">
-        <span>{t("poster.typography.border")}</span>
+        <span>
+          {t("poster.typography.border")}
+          <NewLabel feature="poster-border" />
+        </span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -143,7 +147,10 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
       </label>
 
       <label className="toggle-field">
-        <span>{t("poster.typography.textGlow")}</span>
+        <span>
+          {t("poster.typography.textGlow")}
+          <NewLabel feature="title-glow" />
+        </span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -170,7 +177,10 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
       ) : null}
 
       <label className="toggle-field">
-        <span>{t("poster.typography.roadGlow")}</span>
+        <span>
+          {t("poster.typography.roadGlow")}
+          <NewLabel feature="road-glow" />
+        </span>
         <span className="theme-switch">
           <input
             type="checkbox"

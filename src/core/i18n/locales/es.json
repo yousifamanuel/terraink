@@ -753,5 +753,8 @@
   "meta": {
     "title": "Terraink: Creador de pósters y fondos de mapas",
     "description": "Generador online gratis de pósters y fondos de pantalla de mapas. Diseña arte de mapas personalizado y listo para imprimir de cualquier ciudad o lugar, y expórtalo en PNG, PDF o SVG. Sin registro."
+  },
+  "hints": {
+    "new": "Nuevo"
   }
 }

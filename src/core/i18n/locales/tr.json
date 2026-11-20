@@ -751,5 +751,8 @@
   "meta": {
     "title": "Terraink: Ücretsiz Harita Posteri ve Duvar Kâğıdı Oluşturucu",
     "description": "Ücretsiz çevrimiçi harita posteri ve duvar kâğıdı oluşturucu. Her şehir veya konum için baskıya hazır özel harita sanatı tasarlayın — PNG, PDF veya SVG olarak dışa aktarın. Kayıt gerekmez."
+  },
+  "hints": {
+    "new": "Yeni"
   }
 }

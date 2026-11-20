@@ -382,19 +382,18 @@
 
 .nav-dot {
   position: absolute;
-  top: -3px;
-  right: -4px;
-  width: 8px;
-  height: 8px;
+  top: -6px;
+  right: -8px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #ffc83d;
   box-shadow: 0 0 0 2px rgba(10, 20, 30, 0.9), 0 0 8px rgba(255, 200, 61, 0.7);
   box-shadow: 0 0 0 2px hsl(from rgba(10, 20, 30, 0.9) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), 0 0 8px rgba(255, 200, 61, 0.7);
 }
 
-/* With a number: a small pill, dark text on the yellow. */
+/* With a number: same size, dark number on the yellow (wider for 10+). */
 .nav-dot--count {
-  top: -6px;
   right: -9px;
   width: auto;
   min-width: 14px;
@@ -407,6 +406,22 @@
   font-weight: 700;
   line-height: 14px;
   text-align: center;
+}
+
+/* "New" tag next to a feature a hint marks as new. */
+.new-label {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #ffc83d;
+  color: #1a1405;
+  font-family: "Spline Sans Mono", monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
 .mobile-news-btn {

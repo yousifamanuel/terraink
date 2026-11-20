@@ -753,5 +753,8 @@
   "meta": {
     "title": "Terraink : créateur gratuit d'affiches et de fonds d'écran cartographiques",
     "description": "Générateur gratuit d'affiches et de fonds d'écran cartographiques. Créez une carte personnalisée, prête à imprimer, de n'importe quelle ville ou lieu — export en PNG, PDF ou SVG. Sans inscription."
+  },
+  "hints": {
+    "new": "Nouveau"
   }
 }

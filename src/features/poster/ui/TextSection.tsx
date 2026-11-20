@@ -21,6 +21,7 @@ import {
 } from "@/features/poster/domain/posterStyleTemplates";
 import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
+import NewLabel from "@/features/hints/ui/NewLabel";
 import { DEFAULT_FORM, usePosterContext } from "./PosterContext";
 import { ResetIcon } from "@/shared/ui/Icons";
 
@@ -100,6 +101,7 @@ export default function TextSection({
         </div>
         <SegmentedControl
           label={t("poster.typography.textPosition")}
+          labelExtra={<NewLabel feature="text-position" />}
           value={form.textPosition}
           options={POSTER_TEXT_POSITIONS.map((position) => ({
             value: position,
@@ -187,7 +189,10 @@ export default function TextSection({
               onChange={(value) => setField("textOffset", String(value))}
             />
             <label className="toggle-field">
-              <span>{t("poster.typography.divider")}</span>
+              <span>
+                {t("poster.typography.divider")}
+                <NewLabel feature="divider" />
+              </span>
               <span className="theme-switch">
                 <input
                   type="checkbox"
@@ -234,7 +239,10 @@ export default function TextSection({
           />
         </div>
         <label className="toggle-field">
-          <span>{t("poster.typography.coordinates")}</span>
+          <span>
+            {t("poster.typography.coordinates")}
+            <NewLabel feature="coordinate-format" />
+          </span>
           <span className="theme-switch">
             <input
               type="checkbox"

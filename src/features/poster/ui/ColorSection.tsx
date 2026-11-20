@@ -12,6 +12,7 @@ import { COLOR_ADJUST_DEFAULTS } from "@/features/poster/application/colorAdjust
 import { applyThemeColorOverrides } from "@/features/theme/domain/colorPaths";
 import SliderField from "@/shared/ui/SliderField";
 import { ResetIcon } from "@/shared/ui/Icons";
+import NewLabel from "@/features/hints/ui/NewLabel";
 import { usePosterContext } from "./PosterContext";
 
 const NO_CHANGE: ColorAdjustments = {
@@ -92,7 +93,10 @@ export default function ColorSection() {
   return (
     <section className="panel-block">
       <div className="section-summary-head">
-        <p className="section-summary-label">{t("poster.color.title")}</p>
+        <p className="section-summary-label">
+          {t("poster.color.title")}
+          <NewLabel feature="color-tab" />
+        </p>
         {/* Same Save as in the theme editor; enabled once something changed. */}
         <div className="color-section-actions">
           <SaveThemeButton

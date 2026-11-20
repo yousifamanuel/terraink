@@ -327,8 +327,53 @@ function campaignsPlugin() {
   };
 }
 
+/**
+ * Bundles the feature hints file (VITE_FEATURE_HINTS_URL: a local path or a
+ * URL) into the app as `virtual:feature-hints`, so the nav can mark new
+ * features without a request at runtime. Unset or unreadable = no hints.
+ */
+function featureHintsPlugin() {
+  const VIRTUAL_ID = "virtual:feature-hints";
+  const RESOLVED_ID = `\0${VIRTUAL_ID}`;
+  let resolvedConfig;
+
+  return {
+    name: "feature-hints",
+    configResolved(config) {
+      resolvedConfig = config;
+    },
+    resolveId(id) {
+      return id === VIRTUAL_ID ? RESOLVED_ID : null;
+    },
+    async load(id) {
+      if (id !== RESOLVED_ID) return null;
+      const location = String(resolvedConfig.env.VITE_FEATURE_HINTS_URL ?? "").trim();
+      let hints = [];
+      if (location) {
+        try {
+          let text;
+          if (/^https?:\/\//.test(location)) {
+            const response = await fetch(location);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            text = await response.text();
+          } else {
+            const fullPath = path.resolve(resolvedConfig.root, location);
+            this.addWatchFile(fullPath);
+            text = fs.readFileSync(fullPath, "utf8");
+          }
+          const data = JSON.parse(text);
+          hints = Array.isArray(data) ? data : (data.hints ?? []);
+        } catch (error) {
+          this.warn(`feature hints skipped: ${error.message}`);
+        }
+      }
+      return `export default ${JSON.stringify(hints)};`;
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), adsensePlugin(), legalPagesPlugin(), campaignsPlugin()],
+  plugins: [react(), adsensePlugin(), legalPagesPlugin(), campaignsPlugin(), featureHintsPlugin()],
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },
