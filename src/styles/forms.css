@@ -4853,12 +4853,19 @@ button.theme-category-tab:disabled {
   display: none;
 }
 
-.theme-category-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(231, 242, 251, 0.35);
-  border: 1px solid hsl(from rgba(231, 242, 251, 0.35) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+/* A category's color fills the chip's left end, like a cap. */
+button.theme-category-tab.has-color {
+  position: relative;
+  overflow: hidden;
+  padding-left: 22px;
+}
+
+button.theme-category-tab.has-color::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 13px;
+  background: var(--category-color);
 }
 
 /* Short explanation under the Color tab title. */

@@ -1,4 +1,10 @@
-import { useEffect, useState, type ReactNode, type RefObject } from "react";
+import {
+  useEffect,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import ThemeCard from "./ThemeCard";
@@ -196,10 +202,10 @@ export default function ThemeSummarySection({
         <h3 className="theme-section-heading">{t("theme.summary.builtInThemes")}</h3>
         <div className="theme-category-tabs" role="tablist" aria-label={t("theme.categories.label")}>
           {[
-            { id: "all", color: "", label: t("theme.categories.all") },
-            ...(extraGroup ? [extraGroup] : []),
             { id: "favorites", color: "", label: t("theme.categories.favorites") },
             { id: "saved", color: "", label: t("theme.categories.saved") },
+            { id: "all", color: "", label: t("theme.categories.all") },
+            ...(extraGroup ? [extraGroup] : []),
             ...THEME_CATEGORIES.map(({ id, color }) => ({
               id,
               color,
@@ -211,17 +217,11 @@ export default function ThemeSummarySection({
               type="button"
               role="tab"
               aria-selected={category === id}
-              className={`theme-category-tab${category === id ? " is-active" : ""}`}
+              className={`theme-category-tab${category === id ? " is-active" : ""}${color ? " has-color" : ""}`}
+              style={color ? ({ "--category-color": color } as CSSProperties) : undefined}
               disabled={isEmptyFilter(id)}
               onClick={() => setCategory(id)}
             >
-              {color ? (
-                <span
-                  className="theme-category-dot"
-                  style={{ backgroundColor: color }}
-                  aria-hidden="true"
-                />
-              ) : null}
               {label}
             </button>
           ))}
