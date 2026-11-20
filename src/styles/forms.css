@@ -4512,11 +4512,86 @@ button.font-picker-trigger:focus-visible {
 
 /* Open state: every font at once, no scrolling. */
 .font-picker-list {
+  position: relative;
   display: grid;
+  max-height: 264px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
   padding: 4px;
   border: 1px solid rgba(151, 183, 207, 0.26);
   border: 1px solid hsl(from rgba(151, 183, 207, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 10px;
+}
+
+.font-picker-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* No scrollbar: while more fonts are above or below, that end of the list
+   fades (inside its border); clicking the faded area scrolls that way. */
+.font-picker-list-wrap {
+  position: relative;
+}
+
+button.font-picker-more {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 64px;
+  margin: 0;
+  padding: 0 0 6px;
+  border: 0;
+  border-radius: 0 0 9px 9px;
+  background: linear-gradient(to bottom, transparent, var(--font-list-bg, #0b151e) 70%);
+  color: inherit;
+  cursor: pointer;
+}
+
+button.font-picker-more--up {
+  top: 1px;
+  bottom: auto;
+  align-items: flex-start;
+  padding: 6px 0 0;
+  border-radius: 9px 9px 0 0;
+  background: linear-gradient(to top, transparent, var(--font-list-bg, #0b151e) 70%);
+}
+
+button.font-picker-more--up .font-picker-more-arrow svg {
+  transform: rotate(180deg);
+}
+
+.font-picker-more-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: var(--font-list-bg, #0b151e);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  animation: font-picker-more-bob 1.6s ease-in-out infinite;
+}
+
+.font-picker-more-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes font-picker-more-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .font-picker-more-arrow {
+    animation: none;
+  }
 }
 
 button.font-picker-option {

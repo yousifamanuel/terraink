@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 import { ensureFont } from "@/core/services";
+import { posterTitleWeight } from "@/core/fonts";
 import type { FontOption } from "@/core/config";
 import { ChevronDownIcon } from "@/shared/ui/Icons";
 
@@ -14,6 +15,10 @@ interface FontPickerProps {
 }
 
 const DEFAULT_FAMILY = "Space Grotesk";
+
+// Single-weight display faces stay regular; a faked bold fills them in.
+const fontWeight = (family: string) =>
+  posterTitleWeight(family) === 400 ? 400 : undefined;
 
 const fontStack = (family: string) =>
   `"${family || DEFAULT_FAMILY}", "${DEFAULT_FAMILY}", sans-serif`;
@@ -33,6 +38,37 @@ export default function FontPicker({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  // The list scrolls inside a fixed height; a fade marks that more follows.
+  const [hasMoreBelow, setHasMoreBelow] = useState(false);
+  const [hasMoreAbove, setHasMoreAbove] = useState(false);
+  const updateHasMore = () => {
+    const list = listRef.current;
+    if (!list) return;
+    setHasMoreBelow(list.scrollTop + list.clientHeight < list.scrollHeight - 2);
+    setHasMoreAbove(list.scrollTop > 2);
+  };
+  const scrollList = (direction: 1 | -1) =>
+    listRef.current?.scrollBy({
+      top: direction * listRef.current.clientHeight * 0.7,
+      behavior: "smooth",
+    });
+  useEffect(() => {
+    if (!isOpen) return;
+    // Once laid out: show the current font, then check what's below.
+    const frameId = window.requestAnimationFrame(() => {
+      const list = listRef.current;
+      const selected = list?.querySelector<HTMLElement>(
+        ".font-picker-option.is-selected",
+      );
+      if (list && selected)
+        list.scrollTop = selected.offsetTop - list.clientHeight / 2;
+      updateHasMore();
+      // Bring the whole open list into view inside the panel.
+      list?.scrollIntoView({ block: "nearest" });
+    });
+    return () => window.cancelAnimationFrame(frameId);
+  }, [isOpen]);
   const fontsRequested = useRef(false);
 
   const labelFor = (family: string) =>
@@ -77,7 +113,12 @@ export default function FontPicker({
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label={`${t("poster.typography.font")}: ${labelFor(current)}`}
-        style={{ backgroundColor, color: textColor, fontFamily: fontStack(current) }}
+        style={{
+          backgroundColor,
+          color: textColor,
+          fontFamily: fontStack(current),
+          fontWeight: fontWeight(current),
+        }}
         onClick={() => setIsOpen((open) => !open)}
       >
         <span>{labelFor(current)}</span>
@@ -88,31 +129,74 @@ export default function FontPicker({
       </button>
       {isOpen ? (
         <div
-          className="font-picker-list"
-          role="listbox"
-          aria-label={t("poster.typography.font")}
-          style={{ backgroundColor, color: textColor }}
+          className="font-picker-list-wrap"
+          style={
+            {
+              color: textColor,
+              "--font-list-bg": backgroundColor,
+            } as CSSProperties
+          }
         >
-          {options.map((option) => {
-            const family = String(option.value || "").trim();
-            const isSelected = family === current;
-            return (
-              <button
-                key={family || "default"}
-                type="button"
-                role="option"
-                aria-selected={isSelected}
-                className={`font-picker-option${isSelected ? " is-selected" : ""}`}
-                style={{ fontFamily: fontStack(family) }}
-                onClick={() => {
-                  onSelect(family);
-                  setIsOpen(false);
-                }}
-              >
-                {labelFor(family)}
-              </button>
-            );
-          })}
+          <div
+            ref={listRef}
+            className="font-picker-list"
+            onScroll={updateHasMore}
+            role="listbox"
+            aria-label={t("poster.typography.font")}
+            style={{ backgroundColor, color: textColor }}
+          >
+            {options.map((option) => {
+              const family = String(option.value || "").trim();
+              const isSelected = family === current;
+              return (
+                <button
+                  key={family || "default"}
+                  type="button"
+                  role="option"
+                  aria-selected={isSelected}
+                  className={`font-picker-option${isSelected ? " is-selected" : ""}`}
+                  style={{
+                    fontFamily: fontStack(family),
+                    fontWeight: fontWeight(family),
+                  }}
+                  onClick={() => {
+                    onSelect(family);
+                    setIsOpen(false);
+                  }}
+                >
+                  {labelFor(family)}
+                </button>
+              );
+            })}
+          </div>
+          {/* The faded ends of the list scroll it on when clicked; wheel,
+              touch and keys work as well. */}
+          {hasMoreAbove ? (
+            <button
+              type="button"
+              className="font-picker-more font-picker-more--up"
+              tabIndex={-1}
+              aria-hidden="true"
+              onClick={() => scrollList(-1)}
+            >
+              <span className="font-picker-more-arrow">
+                <ChevronDownIcon />
+              </span>
+            </button>
+          ) : null}
+          {hasMoreBelow ? (
+            <button
+              type="button"
+              className="font-picker-more"
+              tabIndex={-1}
+              aria-hidden="true"
+              onClick={() => scrollList(1)}
+            >
+              <span className="font-picker-more-arrow">
+                <ChevronDownIcon />
+              </span>
+            </button>
+          ) : null}
         </div>
       ) : null}
     </div>
