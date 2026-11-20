@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import SaveChoiceModal from "./SaveChoiceModal";
 import SaveThemeModal from "./SaveThemeModal";
 import type { SavedTheme, ThemeColors } from "../domain/types";
+import { suggestSavedThemeName } from "../application/suggestThemeName";
 
 export interface SaveThemeFlowOptions {
   /** Name and description of the theme being changed (for suggestions). */
@@ -25,15 +26,6 @@ function snapshot(colors: ThemeColors): ThemeColors {
     ui: { ...colors.ui },
     map: { ...colors.map, roads: { ...colors.map.roads } },
   };
-}
-
-function suggestName(baseName: string): string {
-  const now = new Date();
-  const pad = (n: number) => String(n).padStart(2, "0");
-  const stamp =
-    `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}` +
-    `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
-  return `${baseName}-${stamp}`;
 }
 
 /**
@@ -95,8 +87,9 @@ export function useSaveThemeFlow(options: SaveThemeFlowOptions): {
       ) : null}
       {isNameOpen ? (
         <SaveThemeModal
-          suggestedName={suggestName(
+          suggestedName={suggestSavedThemeName(
             options.themeName.trim() || t("map.settings.themeFallbackName"),
+            options.savedThemes.map((theme) => theme.name),
           )}
           suggestedDescription={options.themeDescription}
           existingNames={options.savedThemes.map((theme) => theme.name)}
