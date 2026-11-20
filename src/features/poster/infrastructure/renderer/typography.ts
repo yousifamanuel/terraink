@@ -1,3 +1,4 @@
+import { posterTitleWeight } from "@/core/fonts";
 import { formatCoordinates } from "@/shared/geo/posterBounds";
 import type { Coordinate } from "@/shared/geo/types";
 import { APP_CREDIT_URL } from "@/core/config";
@@ -9,6 +10,8 @@ import {
   COUNTRY_FONT_BASE_PX,
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
+  ATTRIBUTION_FONT_FAMILY,
+  TEXT_GLOW_BLURS,
   formatCityLabel,
   computeCityFontScale,
   computeAttributionColor,
@@ -17,6 +20,28 @@ import {
   buildPosterLayout,
   type PosterStyleTemplate,
 } from "@/features/poster/domain/posterStyleTemplates";
+
+/**
+ * Draws only the glow of what `draw` paints: a copy far off the canvas casts
+ * its shadow back into place, so the text itself is drawn once, as without
+ * glow. `draw` gets the x offset to paint at.
+ */
+function drawGlow(
+  ctx: CanvasRenderingContext2D,
+  color: string,
+  blurs: number[],
+  draw: (dx: number) => void,
+): void {
+  const offset = ctx.canvas.width + 10000;
+  ctx.save();
+  ctx.shadowColor = color;
+  ctx.shadowOffsetX = offset;
+  for (const blur of blurs) {
+    ctx.shadowBlur = blur;
+    draw(-offset);
+  }
+  ctx.restore();
+}
 
 export function drawPosterText(
   ctx: CanvasRenderingContext2D,
@@ -91,8 +116,22 @@ export function drawPosterText(
     ctx.fillStyle = textColor;
     ctx.textAlign = text.align;
     ctx.textBaseline = "middle";
-    ctx.font = `700 ${cityFontSize}px ${titleFontFamily}`;
-    ctx.fillText(cityLabel, anchorX, cityY, maxTextWidth);
+    // One line, never wider than the text box: shrink instead of squeezing.
+    const titleWeight = posterTitleWeight(fontFamily);
+    ctx.font = `${titleWeight} ${cityFontSize}px ${titleFontFamily}`;
+    const titleWidth = ctx.measureText(cityLabel).width;
+    const titleLimit = maxTextWidth * 0.98;
+    let titleSize = cityFontSize;
+    if (titleWidth > titleLimit) {
+      titleSize = (cityFontSize * titleLimit) / titleWidth;
+      ctx.font = `${titleWeight} ${titleSize}px ${titleFontFamily}`;
+    }
+    const glow = text.glow ?? 0;
+    if (glow) {
+      const blurs = TEXT_GLOW_BLURS.map((blur) => blur * titleSize * glow);
+      drawGlow(ctx, textColor, blurs, (dx) => ctx.fillText(cityLabel, anchorX + dx, cityY));
+    }
+    ctx.fillText(cityLabel, anchorX, cityY);
 
     if (text.showDivider) {
       const dividerWidth = 3 * dimScale * (text.dividerScale ?? 1);
@@ -129,7 +168,7 @@ export function drawPosterText(
   ctx.fillStyle = attributionColor;
   ctx.globalAlpha = attributionAlpha;
   ctx.textBaseline = "bottom";
-  ctx.font = `300 ${attributionFontSize}px ${bodyFontFamily}`;
+  ctx.font = `300 ${attributionFontSize}px ${ATTRIBUTION_FONT_FAMILY}`;
 
   if (template.attribution.side === "stacked-left") {
     ctx.textAlign = "left";

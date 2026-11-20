@@ -13,10 +13,12 @@
   font-family: "Spline Sans Mono", monospace;
   opacity: 0.74;
   color: #9bb3c5;
+  color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .source-link {
   color: #cbe8ff;
+  color: hsl(from #cbe8ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: underline;
   text-underline-offset: 2px;
   background: none;
@@ -29,6 +31,7 @@
 .source-link:hover,
 .source-link:focus-visible {
   color: #ecf8ff;
+  color: hsl(from #ecf8ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .made-note {
@@ -36,6 +39,7 @@
   text-align: center;
   font-size: 0.82rem;
   color: #b8cedd;
+  color: hsl(from #b8cedd var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .heart {

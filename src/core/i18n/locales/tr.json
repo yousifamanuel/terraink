@@ -378,12 +378,16 @@
       },
       "dividerThickness": "Çizgi kalınlığı",
       "resetStyle": "Tüm stil ayarlarını sıfırla",
-      "resetText": "Tüm metin ayarlarını sıfırla"
+      "resetText": "Tüm metin ayarlarını sıfırla",
+      "textGlow": "Başlık parıltısı",
+      "glowStrength": "Parıltı gücü",
+      "roadGlow": "Yol parıltısı"
     },
     "color": {
       "title": "Renk",
       "reset": "Renk ayarlarını sıfırla",
       "hint": "Tüm tema renklerini tek seferde ayarlayın.",
+      "keepAcrossThemes": "Tüm temalarda koru",
       "brightness": "Parlaklık",
       "contrast": "Kontrast",
       "saturation": "Doygunluk",
@@ -393,6 +397,15 @@
       "grayscale": "Gri tonlama",
       "before": "Önce",
       "after": "Sonra"
+    }
+  },
+  "appTheme": {
+    "follow": "Uygulama renkleri temayı izler"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink {{name}} kutluyor",
+      "hint": "Yeni temaları dene."
     }
   },
   "theme": {
@@ -533,7 +546,9 @@
       "green": "Yeşil",
       "light": "Açık",
       "dark": "Koyu",
-      "electric": "Elektrik"
+      "electric": "Elektrik",
+      "favorites": "Favoriler",
+      "saved": "Kayıtlı"
     }
   },
   "export": {
@@ -738,5 +753,8 @@
   "meta": {
     "title": "Terraink: Ücretsiz Harita Posteri ve Duvar Kâğıdı Oluşturucu",
     "description": "Ücretsiz çevrimiçi harita posteri ve duvar kâğıdı oluşturucu. Her şehir veya konum için baskıya hazır özel harita sanatı tasarlayın — PNG, PDF veya SVG olarak dışa aktarın. Kayıt gerekmez."
+  },
+  "hints": {
+    "new": "Yeni"
   }
 }

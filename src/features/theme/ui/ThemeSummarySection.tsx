@@ -1,4 +1,10 @@
-import { useState, type RefObject } from "react";
+import {
+  useEffect,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import ThemeCard from "./ThemeCard";
@@ -15,6 +21,16 @@ import {
   type ThemeCategoryId,
 } from "../domain/themeCategories";
 import { useFavoriteThemes } from "../application/useFavoriteThemes";
+import AppThemeFollowSwitch from "@/features/appTheme/ui/AppThemeFollowSwitch";
+
+/** An extra filter group (e.g. a campaign's themes), selected first. */
+export interface ThemeFilterGroup {
+  id: string;
+  /** Shown as is; not translated. */
+  label: string;
+  color: string;
+  themeIds: string[];
+}
 
 interface ThemeSummarySectionProps {
   listRef?: RefObject<HTMLDivElement>;
@@ -26,6 +42,7 @@ interface ThemeSummarySectionProps {
   savedThemes: SavedTheme[];
   onApplySavedTheme: (themeId: string) => void;
   onDeleteSavedTheme: (themeId: string) => void;
+  extraGroup?: ThemeFilterGroup | null;
 }
 
 function savedThemeToOption(saved: SavedTheme): ThemeOption {
@@ -50,10 +67,13 @@ export default function ThemeSummarySection({
   savedThemes,
   onApplySavedTheme,
   onDeleteSavedTheme,
+  extraGroup = null,
 }: ThemeSummarySectionProps) {
   const { t } = useTranslation();
   const { favoriteIds, toggleFavorite } = useFavoriteThemes();
-  const [category, setCategory] = useState<ThemeCategoryId | "all">("all");
+  // The extra group, when given, is selected first; else "All".
+  const startCategory = extraGroup?.id ?? "all";
+  const [category, setCategory] = useState<string>(startCategory);
 
   const savedOptions = savedThemes.map(savedThemeToOption);
   const savedIds = new Set(savedThemes.map((saved) => saved.id));
@@ -65,6 +85,18 @@ export default function ThemeSummarySection({
         savedOptions.find((option) => option.id === id),
     )
     .filter((option): option is ThemeOption => Boolean(option));
+
+  // Favorites and Saved are filters too; they can't be picked while empty,
+  // and the list falls back once the last one is removed.
+  const filterCounts: Record<string, number> = {
+    favorites: favoriteOptions.length,
+    saved: savedThemes.length,
+  };
+  const isEmptyFilter = (id: string) => id in filterCounts && filterCounts[id] === 0;
+  useEffect(() => {
+    if (isEmptyFilter(category)) setCategory(startCategory);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, favoriteOptions.length, savedThemes.length]);
 
   const selectTheme = (id: string) =>
     savedIds.has(id) ? onApplySavedTheme(id) : onThemeSelect(id);
@@ -81,15 +113,40 @@ export default function ThemeSummarySection({
     />
   );
 
+  const savedCards = () =>
+    savedThemes.map((saved) =>
+      renderCard(savedThemeToOption(saved), {
+        onDelete: () => onDeleteSavedTheme(saved.id),
+        deleteAriaLabel: t("theme.summary.deleteSavedAria", { name: saved.name }),
+      }),
+    );
+
+  // On mobile, favorites and saved themes lead the one card row, each behind a
+  // vertical label (desktop shows them in their own sections instead).
+  const leadingGroup = (key: string, label: string, cards: ReactNode[]) =>
+    cards.length > 0 ? (
+      <div className="theme-list-group" key={key}>
+        <span className="theme-list-group-label">{label}</span>
+        {cards}
+      </div>
+    ) : null;
+
   // "All" lists every theme once; a category lists all its themes (a theme
   // can be in several).
   const visibleThemes =
-    category === "all" ? themeOptions : themesInCategory(themeOptions, category);
+    category === "all"
+      ? themeOptions
+      : category === extraGroup?.id
+        ? extraGroup.themeIds
+            .map((id) => themeOptions.find((option) => option.id === id))
+            .filter((option): option is ThemeOption => Boolean(option))
+        : themesInCategory(themeOptions, category as ThemeCategoryId);
   const description =
     getThemeDescription(selectedThemeOption) || t("theme.summary.noDescription");
 
   return (
     <div className="theme-summary-view">
+      <AppThemeFollowSwitch />
       <div className="theme-summary-head">
         <div className="theme-summary-copy">
           <p className="theme-summary-label">
@@ -136,12 +193,7 @@ export default function ThemeSummarySection({
             role="list"
             aria-label={t("theme.summary.savedThemesAria")}
           >
-            {savedThemes.map((saved) =>
-              renderCard(savedThemeToOption(saved), {
-                onDelete: () => onDeleteSavedTheme(saved.id),
-                deleteAriaLabel: t("theme.summary.deleteSavedAria", { name: saved.name }),
-              }),
-            )}
+            {savedCards()}
           </div>
         )}
       </section>
@@ -149,23 +201,28 @@ export default function ThemeSummarySection({
       <section className="theme-section theme-section--builtin">
         <h3 className="theme-section-heading">{t("theme.summary.builtInThemes")}</h3>
         <div className="theme-category-tabs" role="tablist" aria-label={t("theme.categories.label")}>
-          {[{ id: "all" as const, color: "" }, ...THEME_CATEGORIES].map(({ id, color }) => (
+          {[
+            { id: "favorites", color: "", label: t("theme.categories.favorites") },
+            { id: "saved", color: "", label: t("theme.categories.saved") },
+            { id: "all", color: "", label: t("theme.categories.all") },
+            ...(extraGroup ? [extraGroup] : []),
+            ...THEME_CATEGORIES.map(({ id, color }) => ({
+              id,
+              color,
+              label: t(`theme.categories.${id}`),
+            })),
+          ].map(({ id, color, label }) => (
             <button
               key={id}
               type="button"
               role="tab"
               aria-selected={category === id}
-              className={`theme-category-tab${category === id ? " is-active" : ""}`}
+              className={`theme-category-tab${category === id ? " is-active" : ""}${color ? " has-color" : ""}`}
+              style={color ? ({ "--category-color": color } as CSSProperties) : undefined}
+              disabled={isEmptyFilter(id)}
               onClick={() => setCategory(id)}
             >
-              {color ? (
-                <span
-                  className="theme-category-dot"
-                  style={{ backgroundColor: color }}
-                  aria-hidden="true"
-                />
-              ) : null}
-              {t(`theme.categories.${id}`)}
+              {label}
             </button>
           ))}
         </div>
@@ -175,7 +232,15 @@ export default function ThemeSummarySection({
           aria-label={t("theme.summary.themeOptionsAria")}
           ref={listRef}
         >
-          {visibleThemes.map((option) => renderCard(option))}
+          {category === "favorites"
+            ? favoriteOptions.map((option) => renderCard(option))
+            : category === "saved"
+              ? savedCards()
+              : [
+                  leadingGroup("favorites", t("theme.categories.favorites"), favoriteOptions.map((option) => renderCard(option))),
+                  leadingGroup("saved", t("theme.categories.saved"), savedCards()),
+                  ...visibleThemes.map((option) => renderCard(option)),
+                ]}
         </div>
       </section>
     </div>

@@ -20,6 +20,7 @@ import {
   MIN_ROUTE_STROKE_WIDTH,
 } from "@/features/routes/domain/constants";
 import type { SavedTheme } from "@/features/theme/domain/types";
+import { COLOR_ADJUST_DEFAULTS } from "./colorAdjustFields";
 import type { UserDefaults } from "@/features/settings/domain/types";
 import type {
   BorderDash,
@@ -53,6 +54,8 @@ export interface PosterForm {
   colorWarmth: string;
   colorInvert: boolean;
   colorGrayscale: boolean;
+  /** Keep the Color tab settings when switching themes. */
+  colorKeepAcrossThemes: boolean;
   posterSubtitle: string;
   fontFamily: string;
   /** Title block at the top or bottom of the poster. */
@@ -73,6 +76,12 @@ export interface PosterForm {
   dividerStyle: DividerStyle;
   /** Divider thickness in % of the default line. */
   dividerThickness: string;
+  /** Outer glow around the poster text, and its strength in % of default. */
+  textGlow: boolean;
+  textGlowStrength: string;
+  /** Glow under main roads and railways, and its strength in % of default. */
+  roadGlow: boolean;
+  roadGlowStrength: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;
@@ -231,7 +240,12 @@ export function posterReducer(
     case "SET_THEME":
       return {
         ...state,
-        form: { ...state.form, theme: action.themeId },
+        form: {
+          ...state.form,
+          // Color adjustments belong to the theme unless the user keeps them.
+          ...(state.form.colorKeepAcrossThemes ? {} : COLOR_ADJUST_DEFAULTS),
+          theme: action.themeId,
+        },
         customColors: {},
       };
 

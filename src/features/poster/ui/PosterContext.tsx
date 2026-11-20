@@ -37,7 +37,15 @@ import {
 } from "@/features/settings/infrastructure/userDefaultsStorage";
 import type { UserDefaults } from "@/features/settings/domain/types";
 import { getLastRecentLocation } from "@/features/location/application/useRecentLocations";
-import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
+import {
+  DEFAULT_POSTER_LAYOUT,
+  ROAD_GLOW_DEFAULT,
+  ROAD_GLOW_MAX,
+  ROAD_GLOW_MIN,
+} from "@/features/poster/domain/posterStyleTemplates";
+import { applyCampaignStart } from "@/features/campaigns/application/activeCampaign";
+import { useCampaignThemeText } from "@/features/campaigns/application/useCampaignThemeText";
+import { useAppThemeSync } from "@/features/appTheme/application/useAppTheme";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -85,6 +93,7 @@ export const DEFAULT_FORM: PosterForm = {
   colorWarmth: "0",
   colorInvert: false,
   colorGrayscale: false,
+  colorKeepAcrossThemes: false,
   posterSubtitle: "",
   fontFamily: "",
   textPosition: DEFAULT_POSTER_LAYOUT.textPosition,
@@ -100,6 +109,10 @@ export const DEFAULT_FORM: PosterForm = {
   showDivider: DEFAULT_POSTER_LAYOUT.showDivider,
   dividerStyle: DEFAULT_POSTER_LAYOUT.dividerStyle,
   dividerThickness: String(DEFAULT_POSTER_LAYOUT.dividerThickness),
+  textGlow: DEFAULT_POSTER_LAYOUT.textGlow,
+  textGlowStrength: String(DEFAULT_POSTER_LAYOUT.textGlowStrength),
+  roadGlow: false,
+  roadGlowStrength: String(ROAD_GLOW_DEFAULT),
   showPosterText: true,
   coordinateFormat: "nsew",
   showCoordinates: true,
@@ -161,7 +174,12 @@ function applyLastPlaceToForm(form: PosterForm): PosterForm {
 function buildInitialState(): PosterState {
   const userDefaults = loadUserDefaults();
   return {
-    form: applyLastPlaceToForm(applyUserDefaultsToForm(DEFAULT_FORM, userDefaults)),
+    // A running campaign opens on its main theme, unless one was saved.
+    form: applyCampaignStart(
+      applyLastPlaceToForm(applyUserDefaultsToForm(DEFAULT_FORM, userDefaults)),
+      Boolean(userDefaults.theme),
+      userDefaults.fontFamily !== undefined,
+    ),
     customColors: {},
     savedThemes: [],
     userDefaults,
@@ -225,6 +243,11 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const hasLoadedCustomIconsRef = useRef(false);
   const hasLoadedSavedThemesRef = useRef(false);
   const initialUserDefaultsRef = useRef(state.userDefaults);
+
+  // A campaign's themes bring its font and text sizes; the app's look
+  // follows the poster theme only when the visitor turned that on.
+  useCampaignThemeText(state.form, dispatch);
+  useAppThemeSync(state.form.theme);
 
   // The map opens on the DEFAULT_FORM coordinates. Reading the visitor's
   // position here would raise a permission prompt nobody asked for, so
@@ -374,6 +397,12 @@ export function PosterProvider({ children }: { children: ReactNode }) {
         includeRoadOutline: state.form.includeRoadOutline,
         includeBorders: state.form.includeBorders,
         distanceMeters: Number(state.form.distance),
+        roadGlow: state.form.roadGlow
+          ? Math.min(
+              ROAD_GLOW_MAX,
+              Math.max(ROAD_GLOW_MIN, Number(state.form.roadGlowStrength) || ROAD_GLOW_DEFAULT),
+            ) / 100
+          : 0,
       }),
     [
       effectiveTheme,
@@ -389,6 +418,8 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       state.form.includeRoadOutline,
       state.form.includeBorders,
       state.form.distance,
+      state.form.roadGlow,
+      state.form.roadGlowStrength,
     ],
   );
 

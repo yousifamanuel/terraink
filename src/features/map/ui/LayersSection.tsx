@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import NewLabel from "@/features/hints/ui/NewLabel";
 import MapDimensionFields from "./MapDimensionFields";
 
 interface LayerForm {
@@ -122,7 +123,10 @@ export default function LayersSection({
         </span>
       </label>
       <label className="toggle-field">
-        <span>{t("map.layers.showBorders")}</span>
+        <span>
+          {t("map.layers.showBorders")}
+          <NewLabel feature="country-borders" />
+        </span>
         <span className="theme-switch">
           <input
             type="checkbox"

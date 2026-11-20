@@ -21,12 +21,14 @@ button.legal-modal__close {
   border-radius: 8px;
   background: transparent;
   color: rgba(190, 214, 232, 0.85);
+  color: hsl(from rgba(190, 214, 232, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   cursor: pointer;
 }
 
 button.legal-modal__close:hover,
 button.legal-modal__close:focus-visible {
   background: rgba(151, 183, 207, 0.16);
+  background: hsl(from rgba(151, 183, 207, 0.16) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   color: #fff;
 }
 
@@ -41,16 +43,19 @@ button.legal-modal__close:focus-visible {
   margin: 24px 0;
   text-align: center;
   color: rgba(170, 198, 220, 0.75);
+  color: hsl(from rgba(170, 198, 220, 0.75) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .legal-modal__status a {
   color: #7fb4e6;
+  color: hsl(from #7fb4e6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* ── Markdown content typography ── */
 
 .legal-modal__content {
   color: rgba(214, 228, 240, 0.92);
+  color: hsl(from rgba(214, 228, 240, 0.92) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.92rem;
   line-height: 1.6;
 }
@@ -96,6 +101,7 @@ button.legal-modal__close:focus-visible {
 
 .legal-modal__content a {
   color: #7fb4e6;
+  color: hsl(from #7fb4e6 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   word-break: break-word;
 }
 
@@ -106,11 +112,13 @@ button.legal-modal__close:focus-visible {
 .legal-modal__content hr {
   border: none;
   border-top: 1px solid rgba(151, 183, 207, 0.22);
+  border-top: 1px solid hsl(from rgba(151, 183, 207, 0.22) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   margin: 1.4em 0;
 }
 
 .legal-modal__content code {
   background: rgba(151, 183, 207, 0.14);
+  background: hsl(from rgba(151, 183, 207, 0.14) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   padding: 0.1em 0.35em;
   border-radius: 4px;
   font-size: 0.85em;

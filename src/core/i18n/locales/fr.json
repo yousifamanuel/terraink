@@ -380,12 +380,16 @@
       },
       "dividerThickness": "Épaisseur du trait",
       "resetStyle": "Réinitialiser tout le style",
-      "resetText": "Réinitialiser tout le texte"
+      "resetText": "Réinitialiser tout le texte",
+      "textGlow": "Lueur du titre",
+      "glowStrength": "Intensité",
+      "roadGlow": "Lueur des routes"
     },
     "color": {
       "title": "Couleur",
       "reset": "Réinitialiser les réglages de couleur",
       "hint": "Ajustez toutes les couleurs du thème à la fois.",
+      "keepAcrossThemes": "Garder pour tous les thèmes",
       "brightness": "Luminosité",
       "contrast": "Contraste",
       "saturation": "Saturation",
@@ -395,6 +399,15 @@
       "grayscale": "Niveaux de gris",
       "before": "Avant",
       "after": "Après"
+    }
+  },
+  "appTheme": {
+    "follow": "Couleurs de l'app selon le thème"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink fête {{name}}",
+      "hint": "Essayez les nouveaux thèmes."
     }
   },
   "theme": {
@@ -535,7 +548,9 @@
       "green": "Verts",
       "light": "Clairs",
       "dark": "Sombres",
-      "electric": "Électriques"
+      "electric": "Électriques",
+      "favorites": "Favoris",
+      "saved": "Enregistrés"
     }
   },
   "export": {
@@ -740,5 +755,8 @@
   "meta": {
     "title": "Terraink : créateur gratuit d'affiches et de fonds d'écran cartographiques",
     "description": "Générateur gratuit d'affiches et de fonds d'écran cartographiques. Créez une carte personnalisée, prête à imprimer, de n'importe quelle ville ou lieu — export en PNG, PDF ou SVG. Sans inscription."
+  },
+  "hints": {
+    "new": "Nouveau"
   }
 }

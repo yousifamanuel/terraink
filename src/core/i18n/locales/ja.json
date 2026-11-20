@@ -376,12 +376,16 @@
       },
       "dividerThickness": "線の太さ",
       "resetStyle": "スタイル設定をすべてリセット",
-      "resetText": "文字設定をすべてリセット"
+      "resetText": "文字設定をすべてリセット",
+      "textGlow": "タイトルの光彩",
+      "glowStrength": "光の強さ",
+      "roadGlow": "道路の光彩"
     },
     "color": {
       "title": "色",
       "reset": "色の調整をリセット",
       "hint": "テーマの全色を一度に調整します。",
+      "keepAcrossThemes": "すべてのテーマで保持",
       "brightness": "明るさ",
       "contrast": "コントラスト",
       "saturation": "彩度",
@@ -391,6 +395,15 @@
       "grayscale": "グレースケール",
       "before": "前",
       "after": "後"
+    }
+  },
+  "appTheme": {
+    "follow": "アプリの色をテーマに合わせる"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink で {{name}} を楽しもう",
+      "hint": "新しいテーマを試してみよう。"
     }
   },
   "theme": {
@@ -531,7 +544,9 @@
       "green": "緑",
       "light": "明るい",
       "dark": "暗い",
-      "electric": "エレクトリック"
+      "electric": "エレクトリック",
+      "favorites": "お気に入り",
+      "saved": "保存済み"
     }
   },
   "export": {
@@ -736,5 +751,8 @@
   "meta": {
     "title": "Terraink: 無料の地図ポスター・壁紙作成ツール",
     "description": "無料のオンライン地図ポスター・壁紙ジェネレーター。好きな都市や場所の印刷に対応したオリジナル地図アートをデザインし、PNG、PDF、SVGで書き出せます。登録不要。"
+  },
+  "hints": {
+    "new": "新着"
   }
 }

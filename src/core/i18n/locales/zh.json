@@ -376,12 +376,16 @@
       },
       "dividerThickness": "线条粗细",
       "resetStyle": "重置所有样式设置",
-      "resetText": "重置所有文字设置"
+      "resetText": "重置所有文字设置",
+      "textGlow": "标题发光",
+      "glowStrength": "发光强度",
+      "roadGlow": "道路发光"
     },
     "color": {
       "title": "颜色",
       "reset": "重置颜色调整",
       "hint": "一次调整主题的所有颜色。",
+      "keepAcrossThemes": "所有主题保持不变",
       "brightness": "亮度",
       "contrast": "对比度",
       "saturation": "饱和度",
@@ -391,6 +395,15 @@
       "grayscale": "灰度",
       "before": "调整前",
       "after": "调整后"
+    }
+  },
+  "appTheme": {
+    "follow": "应用颜色跟随主题"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink 正在庆祝 {{name}}",
+      "hint": "试试新主题。"
     }
   },
   "theme": {
@@ -531,7 +544,9 @@
       "green": "绿色",
       "light": "浅色",
       "dark": "深色",
-      "electric": "电光"
+      "electric": "电光",
+      "favorites": "收藏",
+      "saved": "已保存"
     }
   },
   "export": {
@@ -736,5 +751,8 @@
   "meta": {
     "title": "Terraink：免费地图海报与壁纸生成器",
     "description": "免费在线地图海报和壁纸生成器。为任意城市或地点设计专属、可直接打印的地图艺术作品，支持导出 PNG、PDF 或 SVG。无需注册。"
+  },
+  "hints": {
+    "new": "新"
   }
 }

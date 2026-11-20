@@ -378,12 +378,16 @@
       },
       "dividerThickness": "Divider thickness",
       "resetStyle": "Reset all style settings",
-      "resetText": "Reset all text settings"
+      "resetText": "Reset all text settings",
+      "textGlow": "Title glow",
+      "glowStrength": "Glow strength",
+      "roadGlow": "Road glow"
     },
     "color": {
       "title": "Color",
       "reset": "Reset color adjustments",
       "hint": "Adjust all theme colors at once.",
+      "keepAcrossThemes": "Keep for all themes",
       "brightness": "Brightness",
       "contrast": "Contrast",
       "saturation": "Saturation",
@@ -393,6 +397,15 @@
       "grayscale": "Grayscale",
       "before": "Before",
       "after": "After"
+    }
+  },
+  "appTheme": {
+    "follow": "App colors follow theme"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink is celebrating {{name}}",
+      "hint": "Try the new themes."
     }
   },
   "theme": {
@@ -533,7 +546,9 @@
       "green": "Green",
       "light": "Light",
       "dark": "Dark",
-      "electric": "Electric"
+      "electric": "Electric",
+      "favorites": "Favorites",
+      "saved": "Saved"
     }
   },
   "export": {
@@ -738,5 +753,8 @@
   "meta": {
     "title": "Terraink: Free Map Poster & Wallpaper Creator",
     "description": "Free online map poster and wallpaper generator. Design custom, print-ready map art for any city or location — export as PNG, PDF, or SVG. No sign-up required."
+  },
+  "hints": {
+    "new": "New"
   }
 }

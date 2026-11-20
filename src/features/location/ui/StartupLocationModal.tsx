@@ -27,6 +27,10 @@ import {
 } from "@/features/location/application/useRecentLocations";
 import { useStartupWindowPref } from "@/features/location/application/useStartupWindowPref";
 import LocationSuggestionsDropdown from "./LocationSuggestionsDropdown";
+import CampaignIntro from "@/features/campaigns/ui/CampaignIntro";
+import { getCampaign } from "@/features/campaigns/application/activeCampaign";
+import { isCampaignSeen, markCampaignSeen } from "@/core/services";
+import { useAppTheme } from "@/features/appTheme/application/useAppTheme";
 import type { SearchResult } from "@/features/location/domain/types";
 
 const CLOSE_ANIMATION_MS = 220;
@@ -56,9 +60,16 @@ export default function StartupLocationModal({
   const { t } = useTranslation();
   const { dispatch } = usePosterDispatch();
   const { hidden: windowHidden, setHidden: setWindowHidden } = useStartupWindowPref();
-  // Turned off ("Don't show again"): open straight on the last place.
-  const [skipWindow] = useState(windowHidden);
+  // A running campaign is announced at the top. Visitors who turned the
+  // window off ("Don't show again") see only the announcement, once.
+  const campaign = getCampaign();
+  const [campaignOnly] = useState(
+    windowHidden && campaign !== null && !isCampaignSeen(campaign.id),
+  );
+  // Turned off, nothing to announce: open straight on the last place.
+  const [skipWindow] = useState(windowHidden && !campaignOnly);
   const [isOpen, setIsOpen] = useState(!skipWindow);
+  const { logo } = useAppTheme();
   const [isClosing, setIsClosing] = useState(false);
   const [locationInput, setLocationInput] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -77,6 +88,7 @@ export default function StartupLocationModal({
   const [lastPlace] = useState<SearchResult | null>(() => recent[0] ?? null);
 
   const closeModal = () => {
+    if (campaign) markCampaignSeen(campaign.id);
     setIsClosing(true);
     window.setTimeout(() => {
       setIsOpen(false);
@@ -263,6 +275,32 @@ export default function StartupLocationModal({
     return null;
   }
 
+  if (campaignOnly && campaign) {
+    return (
+      <div
+        className={`startup-location-modal${isClosing ? " is-closing" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={campaign.name}
+      >
+        <div className="startup-location-logo-wrap" aria-hidden="true">
+          <img className="startup-location-logo" src={logo} alt="" />
+          <p className="startup-location-app-name">Terraink</p>
+        </div>
+        <div className="startup-location-card is-visible">
+          <CampaignIntro campaign={campaign} />
+          <button
+            type="button"
+            className="startup-location-action startup-location-action--confirm"
+            onClick={closeModal}
+          >
+            {t("location.startup.ok")}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`startup-location-modal${isClosing ? " is-closing" : ""}`}
@@ -271,11 +309,12 @@ export default function StartupLocationModal({
       aria-labelledby="startup-location-title"
     >
       <div className="startup-location-logo-wrap" aria-hidden="true">
-        <img className="startup-location-logo" src="/assets/logo.svg" alt="" />
+        <img className="startup-location-logo" src={logo} alt="" />
         <p className="startup-location-app-name">Terraink</p>
       </div>
 
       <div className="startup-location-card is-visible">
+        {campaign ? <CampaignIntro campaign={campaign} /> : null}
         <p className="startup-location-title" id="startup-location-title">
           {t("location.startup.title")}
         </p>

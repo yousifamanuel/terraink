@@ -248,8 +248,132 @@ ${body}
   };
 }
 
+/**
+ * Bundles the campaigns named in VITE_CAMPAIGNS (comma-separated ids) into
+ * the app as `virtual:campaigns`, so nothing is fetched at runtime.
+ * VITE_CAMPAIGNS_BASE_URL is the folder holding one sub-folder per campaign
+ * (<base>/<id>/campaign.json + themes file + logos): a local path or a URL.
+ * Logos referenced by the themes are inlined as data URLs.
+ */
+function campaignsPlugin() {
+  const VIRTUAL_ID = "virtual:campaigns";
+  const RESOLVED_ID = `\0${VIRTUAL_ID}`;
+  const MIME = { svg: "image/svg+xml", png: "image/png", webp: "image/webp", jpg: "image/jpeg", jpeg: "image/jpeg" };
+
+  let resolvedConfig;
+
+  async function readFile(ctx, base, file) {
+    if (/^https?:\/\//.test(base)) {
+      const response = await fetch(`${base}/${file}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status} for ${file}`);
+      return Buffer.from(await response.arrayBuffer());
+    }
+    const fullPath = path.resolve(resolvedConfig.root, base, file);
+    ctx.addWatchFile(fullPath);
+    return fs.readFileSync(fullPath);
+  }
+
+  async function loadCampaign(ctx, base, id) {
+    const manifest = JSON.parse(String(await readFile(ctx, base, `${id}/campaign.json`)));
+    const themesFile =
+      typeof manifest.themesFile === "string" ? manifest.themesFile : "themes.json";
+    const rawThemes = JSON.parse(String(await readFile(ctx, base, `${id}/${themesFile}`)));
+    const themes = rawThemes.themes ?? rawThemes;
+
+    for (const theme of Object.values(themes)) {
+      const logo = theme?.app?.logo;
+      if (typeof logo !== "string" || !logo || /^(\/|data:|https?:)/.test(logo)) continue;
+      const mime = MIME[logo.split(".").pop().toLowerCase()];
+      if (!mime) throw new Error(`unsupported logo type: ${logo}`);
+      const data = await readFile(ctx, base, `${id}/${logo}`);
+      theme.app.logo = `data:${mime};base64,${data.toString("base64")}`;
+    }
+    return { id, manifest, themes };
+  }
+
+  return {
+    name: "campaigns",
+    configResolved(config) {
+      resolvedConfig = config;
+    },
+    resolveId(id) {
+      return id === VIRTUAL_ID ? RESOLVED_ID : null;
+    },
+    async load(id) {
+      if (id !== RESOLVED_ID) return null;
+      const env = resolvedConfig.env;
+      const ids = String(env.VITE_CAMPAIGNS ?? "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+      const base = String(env.VITE_CAMPAIGNS_BASE_URL ?? "").trim().replace(/\/+$/, "");
+      const campaigns = [];
+      for (const campaignId of base ? ids : []) {
+        if (!/^[\w-]+$/.test(campaignId)) {
+          this.warn(`campaign id "${campaignId}" is not valid; skipped`);
+          continue;
+        }
+        try {
+          campaigns.push(await loadCampaign(this, base, campaignId));
+        } catch (error) {
+          this.warn(`campaign "${campaignId}" skipped: ${error.message}`);
+        }
+      }
+      if (campaigns.length > 0) {
+        console.log(`[campaigns] bundled ${campaigns.map((item) => item.id).join(", ")}`);
+      }
+      return `export default ${JSON.stringify(campaigns)};`;
+    },
+  };
+}
+
+/**
+ * Bundles the feature hints file (VITE_FEATURE_HINTS_URL: a local path or a
+ * URL) into the app as `virtual:feature-hints`, so the nav can mark new
+ * features without a request at runtime. Unset or unreadable = no hints.
+ */
+function featureHintsPlugin() {
+  const VIRTUAL_ID = "virtual:feature-hints";
+  const RESOLVED_ID = `\0${VIRTUAL_ID}`;
+  let resolvedConfig;
+
+  return {
+    name: "feature-hints",
+    configResolved(config) {
+      resolvedConfig = config;
+    },
+    resolveId(id) {
+      return id === VIRTUAL_ID ? RESOLVED_ID : null;
+    },
+    async load(id) {
+      if (id !== RESOLVED_ID) return null;
+      const location = String(resolvedConfig.env.VITE_FEATURE_HINTS_URL ?? "").trim();
+      let hints = [];
+      if (location) {
+        try {
+          let text;
+          if (/^https?:\/\//.test(location)) {
+            const response = await fetch(location);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            text = await response.text();
+          } else {
+            const fullPath = path.resolve(resolvedConfig.root, location);
+            this.addWatchFile(fullPath);
+            text = fs.readFileSync(fullPath, "utf8");
+          }
+          const data = JSON.parse(text);
+          hints = Array.isArray(data) ? data : (data.hints ?? []);
+        } catch (error) {
+          this.warn(`feature hints skipped: ${error.message}`);
+        }
+      }
+      return `export default ${JSON.stringify(hints)};`;
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), adsensePlugin(), legalPagesPlugin()],
+  plugins: [react(), adsensePlugin(), legalPagesPlugin(), campaignsPlugin(), featureHintsPlugin()],
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },

@@ -378,12 +378,16 @@
       },
       "dividerThickness": "Linienstärke",
       "resetStyle": "Alle Stil-Einstellungen zurücksetzen",
-      "resetText": "Alle Text-Einstellungen zurücksetzen"
+      "resetText": "Alle Text-Einstellungen zurücksetzen",
+      "textGlow": "Titel-Leuchten",
+      "glowStrength": "Leuchtstärke",
+      "roadGlow": "Straßen-Leuchten"
     },
     "color": {
       "title": "Farbe",
       "reset": "Farbanpassungen zurücksetzen",
       "hint": "Alle Theme-Farben auf einmal anpassen.",
+      "keepAcrossThemes": "Für alle Themes behalten",
       "brightness": "Helligkeit",
       "contrast": "Kontrast",
       "saturation": "Sättigung",
@@ -393,6 +397,15 @@
       "grayscale": "Graustufen",
       "before": "Vorher",
       "after": "Nachher"
+    }
+  },
+  "appTheme": {
+    "follow": "App-Farben folgen dem Design"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink feiert {{name}}",
+      "hint": "Probier die neuen Designs aus."
     }
   },
   "theme": {
@@ -533,7 +546,9 @@
       "green": "Grün",
       "light": "Hell",
       "dark": "Dunkel",
-      "electric": "Elektrisch"
+      "electric": "Elektrisch",
+      "favorites": "Favoriten",
+      "saved": "Gespeichert"
     }
   },
   "export": {
@@ -738,5 +753,8 @@
   "meta": {
     "title": "Terraink: Kostenloser Kartenposter- & Wallpaper-Generator",
     "description": "Kostenloser Online-Generator für Kartenposter und Wallpaper. Gestalte individuelle, druckfertige Kartenkunst für jede Stadt oder jeden Ort – Export als PNG, PDF oder SVG. Ohne Anmeldung."
+  },
+  "hints": {
+    "new": "Neu"
   }
 }

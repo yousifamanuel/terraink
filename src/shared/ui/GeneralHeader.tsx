@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { InfoIcon } from "@/shared/ui/Icons";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
+import { useAppTheme } from "@/features/appTheme/application/useAppTheme";
 
 interface GeneralHeaderProps {
   onAboutOpen: () => void;
@@ -8,12 +9,13 @@ interface GeneralHeaderProps {
 
 export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
   const { t } = useTranslation();
+  const { logo } = useAppTheme();
   return (
     <header className="general-header">
       <div className="desktop-brand">
         <img
           className="desktop-brand-logo brand-logo"
-          src="/assets/logo.svg"
+          src={logo}
           alt={t("shell.header.logoAlt")}
         />
         <div className="desktop-brand-copy brand-copy">

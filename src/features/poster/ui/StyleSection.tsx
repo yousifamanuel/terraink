@@ -8,11 +8,16 @@ import {
   BORDER_THICKNESS_MIN,
   BORDER_WIDTH_MAX,
   BORDER_WIDTH_MIN,
+  ROAD_GLOW_MAX,
+  ROAD_GLOW_MIN,
+  TEXT_GLOW_MAX,
+  TEXT_GLOW_MIN,
 } from "@/features/poster/domain/posterStyleTemplates";
 import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
 import { DEFAULT_FORM, usePosterContext } from "./PosterContext";
 import { ResetIcon } from "@/shared/ui/Icons";
+import NewLabel from "@/features/hints/ui/NewLabel";
 
 /** Settings the Style reset puts back to default. */
 const STYLE_KEYS = [
@@ -22,6 +27,10 @@ const STYLE_KEYS = [
   "borderDash",
   "borderThickness",
   "showMarkers",
+  "textGlow",
+  "textGlowStrength",
+  "roadGlow",
+  "roadGlowStrength",
 ] as const;
 
 interface StyleSectionProps {
@@ -31,7 +40,7 @@ interface StyleSectionProps {
   ) => void;
 }
 
-/** Poster look: border and overlay. */
+/** Poster look: border, overlay, title glow and road glow. */
 export default function StyleSection({ form, onChange }: StyleSectionProps) {
   const { t } = useTranslation();
   const { dispatch } = usePosterContext();
@@ -60,7 +69,10 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
         </button>
       </div>
       <label className="toggle-field">
-        <span>{t("poster.typography.border")}</span>
+        <span>
+          {t("poster.typography.border")}
+          <NewLabel feature="poster-border" />
+        </span>
         <span className="theme-switch">
           <input
             type="checkbox"
@@ -133,6 +145,66 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
           <span className="theme-switch-track" aria-hidden="true" />
         </span>
       </label>
+
+      <label className="toggle-field">
+        <span>
+          {t("poster.typography.textGlow")}
+          <NewLabel feature="title-glow" />
+        </span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            name="textGlow"
+            checked={Boolean(form.textGlow)}
+            onChange={onChange}
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
+      {form.textGlow ? (
+        <div className="toggle-subsettings">
+          <SliderField
+            label={t("poster.typography.glowStrength")}
+            value={Number(form.textGlowStrength)}
+            min={TEXT_GLOW_MIN}
+            max={TEXT_GLOW_MAX}
+            step={5}
+            unit="%"
+            defaultValue={Number(DEFAULT_FORM.textGlowStrength)}
+            onChange={(value) => setField("textGlowStrength", String(value))}
+          />
+        </div>
+      ) : null}
+
+      <label className="toggle-field">
+        <span>
+          {t("poster.typography.roadGlow")}
+          <NewLabel feature="road-glow" />
+        </span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            name="roadGlow"
+            checked={Boolean(form.roadGlow)}
+            onChange={onChange}
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
+      {form.roadGlow ? (
+        <div className="toggle-subsettings">
+          <SliderField
+            label={t("poster.typography.glowStrength")}
+            value={Number(form.roadGlowStrength)}
+            min={ROAD_GLOW_MIN}
+            max={ROAD_GLOW_MAX}
+            step={5}
+            unit="%"
+            defaultValue={Number(DEFAULT_FORM.roadGlowStrength)}
+            onChange={(value) => setField("roadGlowStrength", String(value))}
+          />
+        </div>
+      ) : null}
     </section>
   );
 }

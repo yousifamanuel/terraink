@@ -380,12 +380,16 @@
       },
       "dividerThickness": "Grosor de línea",
       "resetStyle": "Restablecer todo el estilo",
-      "resetText": "Restablecer todo el texto"
+      "resetText": "Restablecer todo el texto",
+      "textGlow": "Brillo del título",
+      "glowStrength": "Intensidad",
+      "roadGlow": "Brillo de calles"
     },
     "color": {
       "title": "Color",
       "reset": "Restablecer ajustes de color",
       "hint": "Ajusta todos los colores del tema a la vez.",
+      "keepAcrossThemes": "Mantener en todos los temas",
       "brightness": "Brillo",
       "contrast": "Contraste",
       "saturation": "Saturación",
@@ -395,6 +399,15 @@
       "grayscale": "Escala de grises",
       "before": "Antes",
       "after": "Después"
+    }
+  },
+  "appTheme": {
+    "follow": "Colores de la app según el tema"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink celebra {{name}}",
+      "hint": "Prueba los nuevos temas."
     }
   },
   "theme": {
@@ -535,7 +548,9 @@
       "green": "Verdes",
       "light": "Claros",
       "dark": "Oscuros",
-      "electric": "Eléctricos"
+      "electric": "Eléctricos",
+      "favorites": "Favoritos",
+      "saved": "Guardados"
     }
   },
   "export": {
@@ -740,5 +755,8 @@
   "meta": {
     "title": "Terraink: Creador de pósters y fondos de mapas",
     "description": "Generador online gratis de pósters y fondos de pantalla de mapas. Diseña arte de mapas personalizado y listo para imprimir de cualquier ciudad o lugar, y expórtalo en PNG, PDF o SVG. Sin registro."
+  },
+  "hints": {
+    "new": "Nuevo"
   }
 }

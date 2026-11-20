@@ -380,12 +380,16 @@
       },
       "dividerThickness": "Espessura da linha",
       "resetStyle": "Redefinir todo o estilo",
-      "resetText": "Redefinir todo o texto"
+      "resetText": "Redefinir todo o texto",
+      "textGlow": "Brilho do título",
+      "glowStrength": "Intensidade",
+      "roadGlow": "Brilho das ruas"
     },
     "color": {
       "title": "Cor",
       "reset": "Redefinir ajustes de cor",
       "hint": "Ajuste todas as cores do tema de uma vez.",
+      "keepAcrossThemes": "Manter em todos os temas",
       "brightness": "Brilho",
       "contrast": "Contraste",
       "saturation": "Saturação",
@@ -395,6 +399,15 @@
       "grayscale": "Tons de cinza",
       "before": "Antes",
       "after": "Depois"
+    }
+  },
+  "appTheme": {
+    "follow": "Cores do app seguem o tema"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "A Terraink celebra {{name}}",
+      "hint": "Experimente os novos temas."
     }
   },
   "theme": {
@@ -535,7 +548,9 @@
       "green": "Verdes",
       "light": "Claros",
       "dark": "Escuros",
-      "electric": "Elétricos"
+      "electric": "Elétricos",
+      "favorites": "Favoritos",
+      "saved": "Salvos"
     }
   },
   "export": {
@@ -740,5 +755,8 @@
   "meta": {
     "title": "Terraink: Criador Grátis de Pôsteres e Papéis de Parede de Mapas",
     "description": "Gerador online grátis de pôsteres e papéis de parede de mapas. Crie arte de mapa personalizada, pronta para impressão, de qualquer cidade ou local — exporte em PNG, PDF ou SVG. Sem cadastro."
+  },
+  "hints": {
+    "new": "Novo"
   }
 }

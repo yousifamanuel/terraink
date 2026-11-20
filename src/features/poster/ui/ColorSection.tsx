@@ -12,6 +12,7 @@ import { COLOR_ADJUST_DEFAULTS } from "@/features/poster/application/colorAdjust
 import { applyThemeColorOverrides } from "@/features/theme/domain/colorPaths";
 import SliderField from "@/shared/ui/SliderField";
 import { ResetIcon } from "@/shared/ui/Icons";
+import NewLabel from "@/features/hints/ui/NewLabel";
 import { usePosterContext } from "./PosterContext";
 
 const NO_CHANGE: ColorAdjustments = {
@@ -89,11 +90,13 @@ export default function ColorSection() {
     warmth: "linear-gradient(to right, #4f8fe6, #c9c9c9, #f2a43a)",
   };
 
-
   return (
     <section className="panel-block">
       <div className="section-summary-head">
-        <p className="section-summary-label">{t("poster.color.title")}</p>
+        <p className="section-summary-label">
+          {t("poster.color.title")}
+          <NewLabel feature="color-tab" />
+        </p>
         {/* Same Save as in the theme editor; enabled once something changed. */}
         <div className="color-section-actions">
           <SaveThemeButton
@@ -141,6 +144,24 @@ export default function ColorSection() {
           ))}
         </span>
       </div>
+
+      <label className="toggle-field">
+        <span>{t("poster.color.keepAcrossThemes")}</span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            checked={Boolean(form.colorKeepAcrossThemes)}
+            onChange={(event) =>
+              dispatch({
+                type: "SET_FIELD",
+                name: "colorKeepAcrossThemes",
+                value: event.target.checked,
+              })
+            }
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
 
       {SLIDERS.map((slider) => (
         <SliderField

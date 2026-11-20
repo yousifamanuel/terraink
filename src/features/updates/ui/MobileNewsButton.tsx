@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { NewsIcon } from "@/shared/ui/Icons";
+import NavDot from "@/shared/ui/NavDot";
 
 interface MobileNewsButtonProps {
   onOpen: () => void;
@@ -18,9 +19,9 @@ export default function MobileNewsButton({ onOpen }: MobileNewsButtonProps) {
       onClick={onOpen}
       aria-label={t("shell.nav.news")}
     >
-      <span className="news-icon-wrap">
+      <span className="nav-icon-wrap">
         <NewsIcon aria-hidden="true" />
-        <span className="news-dot" aria-hidden="true" />
+        <NavDot count />
       </span>
       <span>{t("shell.nav.news")}</span>
     </button>

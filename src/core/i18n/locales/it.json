@@ -380,12 +380,16 @@
       },
       "dividerThickness": "Spessore linea",
       "resetStyle": "Reimposta tutto lo stile",
-      "resetText": "Reimposta tutto il testo"
+      "resetText": "Reimposta tutto il testo",
+      "textGlow": "Bagliore titolo",
+      "glowStrength": "Intensità",
+      "roadGlow": "Bagliore strade"
     },
     "color": {
       "title": "Colore",
       "reset": "Reimposta regolazioni colore",
       "hint": "Regola tutti i colori del tema insieme.",
+      "keepAcrossThemes": "Mantieni per tutti i temi",
       "brightness": "Luminosità",
       "contrast": "Contrasto",
       "saturation": "Saturazione",
@@ -395,6 +399,15 @@
       "grayscale": "Scala di grigi",
       "before": "Prima",
       "after": "Dopo"
+    }
+  },
+  "appTheme": {
+    "follow": "Colori dell'app dal tema"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink festeggia {{name}}",
+      "hint": "Prova i nuovi temi."
     }
   },
   "theme": {
@@ -535,7 +548,9 @@
       "green": "Verdi",
       "light": "Chiari",
       "dark": "Scuri",
-      "electric": "Elettrici"
+      "electric": "Elettrici",
+      "favorites": "Preferiti",
+      "saved": "Salvati"
     }
   },
   "export": {
@@ -740,5 +755,8 @@
   "meta": {
     "title": "Terraink: Creatore Gratuito di Poster e Sfondi con Mappe",
     "description": "Generatore online gratuito di poster e sfondi con mappe. Crea mappe personalizzate pronte per la stampa di qualsiasi città o luogo ed esportale in PNG, PDF o SVG. Nessuna registrazione."
+  },
+  "hints": {
+    "new": "Nuovo"
   }
 }

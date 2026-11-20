@@ -11,6 +11,10 @@ import FooterNote from "@/shared/ui/FooterNote";
 import PreviewPanel from "@/features/poster/ui/PreviewPanel";
 import MobileNavBar, { type MobileTab } from "@/shared/ui/MobileNavBar";
 import {
+  markTabHintsSeen,
+  useTabHintCounts,
+} from "@/features/hints/application/useFeatureHints";
+import {
   OPEN_PANEL_TAB_EVENT,
   type OpenPanelTabDetail,
 } from "@/shared/ui/openPanelTab";
@@ -107,6 +111,8 @@ export default function AppShell() {
   const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(null);
   const [legalDoc, setLegalDoc] = useState<LegalDocType | null>(null);
   const news = useNews();
+  // New features per nav tab; opening a tab marks them seen.
+  const tabDots = useTabHintCounts();
   const [newsOpen, setNewsOpen] = useState(false);
   const openNews = async (source: NewsOpenSource) => {
     setAboutOpen(false);
@@ -204,6 +210,7 @@ export default function AppShell() {
     } else {
       setMobileTab(tab);
       setMobileDrawerOpen(true);
+      markTabHintsSeen(tab);
     }
   };
 
@@ -213,6 +220,7 @@ export default function AppShell() {
     } else {
       setDesktopTab(tab);
       setDesktopPanelOpen(true);
+      markTabHintsSeen(tab);
     }
   };
 
@@ -254,6 +262,7 @@ export default function AppShell() {
         }
         hasUnreadNews={news.hasUnread}
         onNewsOpen={() => void openNews("nav")}
+        tabDots={tabDots}
       />
 
       <div
@@ -336,6 +345,7 @@ export default function AppShell() {
         drawerOpen={mobileDrawerOpen}
         isLocationVisible={mobileLocationRowVisible}
         onTabChange={handleMobileTabChange}
+        tabDots={tabDots}
       />
       <Suspense fallback={null}>
         <ExportFab isMobile={isMobileViewport} />

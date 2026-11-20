@@ -14,6 +14,22 @@
   --overlay-bg: rgba(9, 16, 24, 0.97);
 }
 
+/* Newer browsers: let the app theme shift these blues too (see --app-hue-shift). */
+@supports (color: hsl(from red h s l)) {
+  :root {
+    --ink: hsl(from #e6edf4 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    --panel: hsl(from rgba(10, 20, 31, 0.92) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+    --line: hsl(from rgba(146, 176, 200, 0.24) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    --border: hsl(from rgba(151, 183, 207, 0.34) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    --strong-line: hsl(from rgba(166, 199, 223, 0.45) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    --focus-ring: hsl(from rgba(112, 184, 222, 0.82) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+    --item-bg: hsl(from rgba(20, 38, 52, 0.94) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+    --sheet-bg: hsl(from rgba(11, 20, 30, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+    --overlay-bg: hsl(from rgba(9, 16, 24, 0.97) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+    --positive: hsl(from #6bd8a0 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -26,8 +42,8 @@ body {
   color: var(--ink);
   font-family: "Instrument Sans", sans-serif;
   background-color: #080f18;
-  background:
-    radial-gradient(
+  background-color: hsl(from #080f18 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
+  background: radial-gradient(
       circle at 84% 14%,
       rgba(255, 132, 79, 0.2),
       transparent 42%
@@ -44,7 +60,35 @@ body {
       transparent 1px,
       transparent 24px
     ),
-    linear-gradient(160deg, #09121c, #0d1a27 45%, #0a1824 100%);
+    linear-gradient(
+      160deg,
+      #09121c,
+      #0d1a27 45%,
+      #0a1824 100%
+    );
+  background: radial-gradient(
+      circle at 84% 14%,
+      rgba(255, 132, 79, 0.2),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 12% 86%,
+      hsl(from rgba(64, 154, 192, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+      transparent 38%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsl(from rgba(164, 195, 219, 0.05) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) 0,
+      hsl(from rgba(164, 195, 219, 0.05) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    linear-gradient(
+      160deg,
+      hsl(from #09121c calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha),
+      hsl(from #0d1a27 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 45%,
+      hsl(from #0a1824 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 100%
+    );
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -55,4 +99,5 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: #080f18;
+  background-color: hsl(from #080f18 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }

@@ -30,9 +30,11 @@
   gap: 0;
   padding: 7px 14px;
   border: 1px solid rgba(146, 176, 200, 0.28);
+  border: 1px solid hsl(from rgba(146, 176, 200, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-radius: 9px;
   background: transparent;
   color: rgba(195, 220, 240, 0.8);
+  color: hsl(from rgba(195, 220, 240, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-decoration: none;
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.76rem;
@@ -73,6 +75,7 @@
   border: 1px solid var(--line);
   border-radius: 14px;
   background: rgba(9, 18, 27, 0.98);
+  background: hsl(from rgba(9, 18, 27, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.48);
   padding: 18px 14px 14px;
 }
@@ -86,7 +89,9 @@
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(17, 33, 47, 0.7);
+  background: hsl(from rgba(17, 33, 47, 0.7) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: rgba(197, 224, 241, 0.84);
+  color: hsl(from rgba(197, 224, 241, 0.84) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -100,11 +105,13 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: rgba(214, 234, 247, 0.92);
+  color: hsl(from rgba(214, 234, 247, 0.92) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .install-help-modal-text {
   margin: 0;
   color: rgba(206, 230, 246, 0.9);
+  color: hsl(from rgba(206, 230, 246, 0.9) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.72rem;
   line-height: 1.5;
@@ -131,6 +138,7 @@ pre.install-help-modal-text {
   align-items: center;
   gap: 10px;
   color: rgba(206, 230, 246, 0.9);
+  color: hsl(from rgba(206, 230, 246, 0.9) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.72rem;
   line-height: 1.45;
@@ -142,10 +150,12 @@ pre.install-help-modal-text {
   border: 1px solid var(--line);
   border-radius: 7px;
   background: rgba(17, 33, 47, 0.7);
+  background: hsl(from rgba(17, 33, 47, 0.7) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: rgba(210, 234, 248, 0.95);
+  color: hsl(from rgba(210, 234, 248, 0.95) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .install-help-step-icon svg {
@@ -157,6 +167,7 @@ pre.install-help-modal-text {
   font-style: normal;
   font-weight: 700;
   color: #dff3ff;
+  color: hsl(from #dff3ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .brand-row {
@@ -194,6 +205,7 @@ pre.install-help-modal-text {
   line-height: 0.9;
   letter-spacing: 0.03em;
   color: #ecf5ff;
+  color: hsl(from #ecf5ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
 }
 
@@ -203,6 +215,7 @@ pre.install-help-modal-text {
   opacity: 0.86;
   font-size: 1rem;
   color: #c3d4e2;
+  color: hsl(from #c3d4e2 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .app-grid {
@@ -238,6 +251,7 @@ pre.install-help-modal-text {
 
 .accordion-item {
   border-bottom: 1px solid rgba(146, 176, 200, 0.12);
+  border-bottom: 1px solid hsl(from rgba(146, 176, 200, 0.12) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgb(10 20 31 / 92%);
 }
 
@@ -258,6 +272,7 @@ pre.install-help-modal-text {
   background: transparent;
   border: none;
   color: rgba(195, 220, 240, 0.88);
+  color: hsl(from rgba(195, 220, 240, 0.88) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.78rem;
   font-weight: 600;
@@ -273,11 +288,14 @@ pre.install-help-modal-text {
 
 .accordion-header:hover {
   color: #dff0ff;
+  color: hsl(from #dff0ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: rgba(94, 174, 212, 0.07);
+  background: hsl(from rgba(94, 174, 212, 0.07) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .accordion-header.is-open {
   color: #b8ecff;
+  color: hsl(from #b8ecff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .accordion-icon {
@@ -285,6 +303,7 @@ pre.install-help-modal-text {
   height: 18px;
   flex-shrink: 0;
   color: #88b7d5;
+  color: hsl(from #88b7d5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .accordion-label {
@@ -398,11 +417,14 @@ pre.install-help-modal-text {
   padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid rgba(94, 174, 212, 0.28);
+  border: 1px solid hsl(from rgba(94, 174, 212, 0.28) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: rgba(10, 24, 36, 0.88);
+  background: hsl(from rgba(10, 24, 36, 0.88) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-size: 0.84rem;
   color: #b8d4e8;
+  color: hsl(from #b8d4e8 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .install-prompt-text {
@@ -424,17 +446,25 @@ button.install-prompt-btn {
   padding: 7px 14px;
   border-radius: 999px;
   border: 1px solid rgba(94, 174, 212, 0.6);
+  border: 1px solid hsl(from rgba(94, 174, 212, 0.6) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: linear-gradient(
     135deg,
     rgba(38, 112, 158, 0.95) 0%,
     rgba(25, 78, 115, 0.95) 100%
   );
+  background: linear-gradient(
+    135deg,
+    hsl(from rgba(38, 112, 158, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 0%,
+    hsl(from rgba(25, 78, 115, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha) 100%
+  );
   color: #dff3ff;
+  color: hsl(from #dff3ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   box-shadow: 0 0 10px rgba(94, 174, 212, 0.22);
+  box-shadow: 0 0 10px hsl(from rgba(94, 174, 212, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
@@ -444,7 +474,9 @@ button.install-prompt-btn:hover {
   transform: none;
   filter: none;
   border-color: rgba(130, 200, 240, 0.85);
+  border-color: hsl(from rgba(130, 200, 240, 0.85) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 0 18px rgba(94, 174, 212, 0.4);
+  box-shadow: 0 0 18px hsl(from rgba(94, 174, 212, 0.4) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 button.install-prompt-dismiss {
@@ -456,8 +488,10 @@ button.install-prompt-dismiss {
   padding: 7px 14px;
   border-radius: 999px;
   border: 1px solid rgba(94, 174, 212, 0.22);
+  border: 1px solid hsl(from rgba(94, 174, 212, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: transparent;
   color: #6a9ab8;
+  color: hsl(from #6a9ab8 calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
@@ -474,8 +508,11 @@ button.install-prompt-dismiss:hover {
   transform: none;
   filter: none;
   color: #a8cfe5;
+  color: hsl(from #a8cfe5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   border-color: rgba(94, 174, 212, 0.45);
+  border-color: hsl(from rgba(94, 174, 212, 0.45) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   background: rgba(94, 174, 212, 0.025);
+  background: hsl(from rgba(94, 174, 212, 0.025) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .install-prompt-share-icon {
@@ -504,6 +541,7 @@ button.install-prompt-dismiss:hover {
   gap: 12px;
   padding: 20px;
   background: rgba(6, 12, 18, 0.42);
+  background: hsl(from rgba(6, 12, 18, 0.42) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   animation: startup-location-fadein 0.25s ease;
@@ -532,13 +570,41 @@ button.install-prompt-dismiss:hover {
 
 .startup-location-app-name {
   margin: 0;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--app-title-font, "Bebas Neue", sans-serif);
   font-size: 2rem;
   line-height: 0.92;
   letter-spacing: 0.04em;
   color: #ecf5ff;
+  color: hsl(from #ecf5ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
   transform: translateY(10px);
+}
+
+/* Campaign strip at the top of the startup window, in the campaign's colors
+   (--campaign-* are set inline from its main theme). */
+.campaign-intro {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--campaign-accent) 60%, transparent);
+  border-radius: 12px;
+  background: var(--campaign-bg);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--campaign-accent) 28%, transparent);
+  text-align: center;
+}
+
+.campaign-intro-title {
+  margin: 0;
+  color: var(--campaign-text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.campaign-intro-hint {
+  margin: 0;
+  color: color-mix(in srgb, var(--campaign-text) 70%, transparent);
+  font-size: 0.78rem;
 }
 
 .startup-location-card {
@@ -546,6 +612,7 @@ button.install-prompt-dismiss:hover {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: rgba(9, 18, 27, 0.98);
+  background: hsl(from rgba(9, 18, 27, 0.98) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.48);
   padding: 12px;
   display: grid;
@@ -569,6 +636,7 @@ button.install-prompt-dismiss:hover {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: rgba(214, 234, 247, 0.92);
+  color: hsl(from rgba(214, 234, 247, 0.92) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .startup-location-input-wrap {
@@ -586,6 +654,7 @@ button.install-prompt-dismiss:hover {
   display: flex;
   margin-top: -8px;
   color: rgba(183, 215, 235, 0.7);
+  color: hsl(from rgba(183, 215, 235, 0.7) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   pointer-events: none;
 }
 
@@ -600,7 +669,9 @@ button.install-prompt-dismiss:hover {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: rgba(23, 42, 59, 0.92);
+  background: hsl(from rgba(23, 42, 59, 0.92) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   color: #e8f4ff;
+  color: hsl(from #e8f4ff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 16px;
   padding: 0 12px;
@@ -609,7 +680,9 @@ button.install-prompt-dismiss:hover {
 
 .startup-location-input:focus {
   border-color: rgba(112, 184, 222, 0.8);
+  border-color: hsl(from rgba(112, 184, 222, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
+  box-shadow: 0 0 0 2px hsl(from rgba(75, 149, 186, 0.22) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
 }
 
 .startup-location-suggestions {
@@ -619,6 +692,7 @@ button.install-prompt-dismiss:hover {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: rgba(9, 18, 27, 0.96);
+  background: hsl(from rgba(9, 18, 27, 0.96) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   max-height: 176px;
   overflow-y: auto;
 }
@@ -627,8 +701,10 @@ button.install-prompt-dismiss:hover {
   width: 100%;
   border: none;
   border-bottom: 1px solid rgba(146, 176, 200, 0.14);
+  border-bottom: 1px solid hsl(from rgba(146, 176, 200, 0.14) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   background: transparent;
   color: rgba(220, 236, 247, 0.9);
+  color: hsl(from rgba(220, 236, 247, 0.9) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   font-family: "Spline Sans Mono", monospace;
   font-size: 0.74rem;
   line-height: 1.4;
@@ -649,6 +725,7 @@ button.install-prompt-dismiss:hover {
   padding: 10px 11px;
   font-size: 0.72rem;
   color: rgba(180, 205, 225, 0.7);
+  color: hsl(from rgba(180, 205, 225, 0.7) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .startup-location-action {
@@ -668,8 +745,11 @@ button.install-prompt-dismiss:hover {
 
 .startup-location-action--geo {
   background: rgba(20, 41, 57, 0.95);
+  background: hsl(from rgba(20, 41, 57, 0.95) calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha);
   border-color: rgba(146, 176, 200, 0.26);
+  border-color: hsl(from rgba(146, 176, 200, 0.26) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   color: rgba(214, 234, 247, 0.92);
+  color: hsl(from rgba(214, 234, 247, 0.92) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 .startup-location-action--geo svg {
@@ -679,7 +759,9 @@ button.install-prompt-dismiss:hover {
 
 .startup-location-action--confirm {
   background: linear-gradient(135deg, #1a6f8c, #2f8eaf);
+  background: linear-gradient(135deg, hsl(from #1a6f8c calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha), hsl(from #2f8eaf calc(h + var(--app-hue-shift, 0)) calc(s * var(--app-sat, 1)) l / alpha));
   color: #f4fbff;
+  color: hsl(from #f4fbff var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
 }
 
 /* Same green as the app's active / save buttons: pin, place, arrow. */
@@ -688,10 +770,14 @@ button.install-prompt-dismiss:hover {
   gap: 10px;
   padding: 0 14px;
   background: linear-gradient(135deg, rgba(24, 58, 45, 0.98), rgba(38, 86, 66, 0.98));
+  background: linear-gradient(135deg, hsl(from rgba(24, 58, 45, 0.98) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha), hsl(from rgba(38, 86, 66, 0.98) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha));
   border-color: rgba(143, 215, 175, 0.6);
+  border-color: hsl(from rgba(143, 215, 175, 0.6) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   color: #d6f3e2;
-  box-shadow:
-    inset 0 1px 0 rgba(214, 243, 226, 0.08),
+  color: hsl(from #d6f3e2 var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
+  box-shadow: inset 0 1px 0 rgba(214, 243, 226, 0.08),
+    0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 0 hsl(from rgba(214, 243, 226, 0.08) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
     0 2px 10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition:
@@ -703,10 +789,13 @@ button.install-prompt-dismiss:hover {
 .startup-location-action--continue:hover,
 .startup-location-action--continue:focus-visible {
   border-color: rgba(143, 215, 175, 0.95);
+  border-color: hsl(from rgba(143, 215, 175, 0.95) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
   transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(214, 243, 226, 0.12),
+  box-shadow: inset 0 1px 0 rgba(214, 243, 226, 0.12),
     0 0 16px rgba(143, 215, 175, 0.22),
+    0 4px 12px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 hsl(from rgba(214, 243, 226, 0.12) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
+    0 0 16px hsl(from rgba(143, 215, 175, 0.22) var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha),
     0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
@@ -724,6 +813,7 @@ button.install-prompt-dismiss:hover {
   width: 17px;
   height: 17px;
   color: #8fd7af;
+  color: hsl(from #8fd7af var(--app-accent-hue, h) var(--app-accent-s, s) l / alpha);
 }
 
 .startup-location-continue-arrow {
@@ -783,6 +873,7 @@ button.install-prompt-dismiss:hover {
   margin: 10px 0 0;
   font-size: 0.8rem;
   color: rgba(180, 205, 225, 0.8);
+  color: hsl(from rgba(180, 205, 225, 0.8) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
   cursor: pointer;
 }
 

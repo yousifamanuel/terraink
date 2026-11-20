@@ -221,13 +221,33 @@ function resolveByCandidates(theme: ThemeObject, candidates: string[]): string {
   return "";
 }
 
+/**
+ * A theme's description is plain text, or an object of translations keyed by
+ * language code ("en", "de", "pt-br", …) with English as the main text.
+ */
+function readDescriptions(theme: ThemeObject): {
+  text: string;
+  translations?: Record<string, string>;
+} {
+  const raw = getPathValue(theme, "description");
+  if (typeof raw === "string") return { text: raw.trim() };
+  if (!isObject(raw)) return { text: "" };
+  const translations: Record<string, string> = {};
+  for (const [language, value] of Object.entries(raw)) {
+    if (typeof value === "string" && value.trim()) {
+      translations[language.toLowerCase()] = value.trim();
+    }
+  }
+  const text = translations.en ?? Object.values(translations)[0] ?? "";
+  return { text, translations };
+}
+
 function normalizeTheme(themeInput: unknown): ResolvedTheme {
   const theme = isObject(themeInput) ? themeInput : {};
 
   const name = String(getPathValue(theme, "name") ?? "").trim() || fallbackTheme.name;
   const description =
-    String(getPathValue(theme, "description") ?? "").trim() ||
-    fallbackTheme.description;
+    readDescriptions(theme).text || fallbackTheme.description;
 
   const uiBg =
     resolveByCandidates(theme, themeColorLookup["ui.bg"]) || fallbackTheme.ui.bg;
@@ -364,18 +384,65 @@ export function getThemePalette(theme: unknown): string[] {
   ).filter((color) => isCssColor(color));
 }
 
-export const themeOptions: ThemeOption[] = themeNames.map((name) => ({
-  id: name,
-  name: String(getPathValue(themesByName[name], "name") ?? name),
-  description: String(getPathValue(themesByName[name], "description") ?? ""),
-  palette: getThemePalette(themesByName[name]),
-}));
+function toThemeOption(id: string): ThemeOption {
+  const theme = themesByName[id];
+  const { text, translations } = readDescriptions(theme);
+  return {
+    id,
+    name: String(getPathValue(theme, "name") ?? id),
+    description: text,
+    ...(translations ? { descriptions: translations } : {}),
+    palette: getThemePalette(theme),
+  };
+}
+
+export const themeOptions: ThemeOption[] = themeNames.map(toThemeOption);
+
+/**
+ * Adds themes that are loaded at runtime, so getTheme() can resolve them.
+ * Built-in themes win on an id clash. Returns the options in input order.
+ */
+export function registerThemes(rawThemes: Record<string, unknown>): ThemeOption[] {
+  const options: ThemeOption[] = [];
+  for (const [id, value] of Object.entries(rawThemes ?? {})) {
+    if (!id || !isObject(value)) continue;
+    if (themeNames.includes(id)) {
+      console.warn(`Theme "${id}" already exists; the built-in one is kept.`);
+      continue;
+    }
+    themesByName[id] = value;
+    options.push(toThemeOption(id));
+  }
+  // They join the normal theme list.
+  themeOptions.push(...options);
+  return options;
+}
 
 const preferredDefaultThemeName = "midnight_blue";
 
 export const defaultThemeName = themeNames.includes(preferredDefaultThemeName)
   ? preferredDefaultThemeName
   : (themeNames[0] ?? preferredDefaultThemeName);
+
+/**
+ * The optional "app" section of a theme: its app logo, app-name font, and
+ * accent and text colors (a color, or a path to one of the theme's colors
+ * like "map.roads.minor_high").
+ */
+export function getThemeAppSection(
+  themeName: string,
+): { logo?: string; titleFont?: string; accent?: string; text?: string } | null {
+  const app = getPathValue(themesByName[themeName] ?? {}, "app");
+  if (!isObject(app)) return null;
+  const text = (value: unknown) =>
+    typeof value === "string" && value.trim() ? value.trim() : undefined;
+  return {
+    logo: text(app.logo),
+    titleFont: text(app.titleFont),
+    accent: text(app.accent),
+    text: text(app.text),
+  };
+}
 
 export function getTheme(themeName: string): ResolvedTheme {
   if (themesByName[themeName]) {

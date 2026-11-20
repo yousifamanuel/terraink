@@ -378,12 +378,16 @@
       },
       "dividerThickness": "Lijndikte",
       "resetStyle": "Alle stijlinstellingen herstellen",
-      "resetText": "Alle tekstinstellingen herstellen"
+      "resetText": "Alle tekstinstellingen herstellen",
+      "textGlow": "Titelgloed",
+      "glowStrength": "Gloedsterkte",
+      "roadGlow": "Weggloed"
     },
     "color": {
       "title": "Kleur",
       "reset": "Kleuraanpassingen herstellen",
       "hint": "Pas alle themakleuren in één keer aan.",
+      "keepAcrossThemes": "Behouden voor alle thema's",
       "brightness": "Helderheid",
       "contrast": "Contrast",
       "saturation": "Verzadiging",
@@ -393,6 +397,15 @@
       "grayscale": "Grijstinten",
       "before": "Voor",
       "after": "Na"
+    }
+  },
+  "appTheme": {
+    "follow": "App-kleuren volgen het thema"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink viert {{name}}",
+      "hint": "Probeer de nieuwe thema's."
     }
   },
   "theme": {
@@ -533,7 +546,9 @@
       "green": "Groen",
       "light": "Licht",
       "dark": "Donker",
-      "electric": "Elektrisch"
+      "electric": "Elektrisch",
+      "favorites": "Favorieten",
+      "saved": "Opgeslagen"
     }
   },
   "export": {
@@ -738,5 +753,8 @@
   "meta": {
     "title": "Terraink: gratis maker van kaartposters en wallpapers",
     "description": "Gratis online generator voor kaartposters en wallpapers. Ontwerp eigen, drukklare kaartkunst van elke stad of locatie en exporteer als PNG, PDF of SVG. Geen account nodig."
+  },
+  "hints": {
+    "new": "Nieuw"
   }
 }

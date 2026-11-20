@@ -382,12 +382,16 @@
       },
       "dividerThickness": "Grubość linii",
       "resetStyle": "Resetuj wszystkie ustawienia stylu",
-      "resetText": "Resetuj wszystkie ustawienia tekstu"
+      "resetText": "Resetuj wszystkie ustawienia tekstu",
+      "textGlow": "Poświata tytułu",
+      "glowStrength": "Siła poświaty",
+      "roadGlow": "Poświata dróg"
     },
     "color": {
       "title": "Kolor",
       "reset": "Resetuj ustawienia koloru",
       "hint": "Dostosuj wszystkie kolory motywu naraz.",
+      "keepAcrossThemes": "Zachowaj dla wszystkich motywów",
       "brightness": "Jasność",
       "contrast": "Kontrast",
       "saturation": "Nasycenie",
@@ -397,6 +401,15 @@
       "grayscale": "Skala szarości",
       "before": "Przed",
       "after": "Po"
+    }
+  },
+  "appTheme": {
+    "follow": "Kolory aplikacji według motywu"
+  },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink świętuje {{name}}",
+      "hint": "Wypróbuj nowe motywy."
     }
   },
   "theme": {
@@ -537,7 +550,9 @@
       "green": "Zielone",
       "light": "Jasne",
       "dark": "Ciemne",
-      "electric": "Elektryczne"
+      "electric": "Elektryczne",
+      "favorites": "Ulubione",
+      "saved": "Zapisane"
     }
   },
   "export": {
@@ -742,5 +757,8 @@
   "meta": {
     "title": "Terraink: darmowy kreator plakatów i tapet z map",
     "description": "Darmowy generator plakatów i tapet z map online. Projektuj własne mapy gotowe do druku dla dowolnego miasta lub miejsca i eksportuj je jako PNG, PDF lub SVG. Bez rejestracji."
+  },
+  "hints": {
+    "new": "Nowe"
   }
 }
