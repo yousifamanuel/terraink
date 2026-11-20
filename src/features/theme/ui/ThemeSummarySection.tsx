@@ -1,4 +1,4 @@
-import { useState, type RefObject } from "react";
+import { useEffect, useState, type ReactNode, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { getThemeDescription } from "@/features/theme/application/themeDescription";
 import ThemeCard from "./ThemeCard";
@@ -66,7 +66,8 @@ export default function ThemeSummarySection({
   const { t } = useTranslation();
   const { favoriteIds, toggleFavorite } = useFavoriteThemes();
   // The extra group, when given, is selected first; else "All".
-  const [category, setCategory] = useState<string>(extraGroup?.id ?? "all");
+  const startCategory = extraGroup?.id ?? "all";
+  const [category, setCategory] = useState<string>(startCategory);
 
   const savedOptions = savedThemes.map(savedThemeToOption);
   const savedIds = new Set(savedThemes.map((saved) => saved.id));
@@ -78,6 +79,18 @@ export default function ThemeSummarySection({
         savedOptions.find((option) => option.id === id),
     )
     .filter((option): option is ThemeOption => Boolean(option));
+
+  // Favorites and Saved are filters too; they can't be picked while empty,
+  // and the list falls back once the last one is removed.
+  const filterCounts: Record<string, number> = {
+    favorites: favoriteOptions.length,
+    saved: savedThemes.length,
+  };
+  const isEmptyFilter = (id: string) => id in filterCounts && filterCounts[id] === 0;
+  useEffect(() => {
+    if (isEmptyFilter(category)) setCategory(startCategory);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, favoriteOptions.length, savedThemes.length]);
 
   const selectTheme = (id: string) =>
     savedIds.has(id) ? onApplySavedTheme(id) : onThemeSelect(id);
@@ -93,6 +106,24 @@ export default function ThemeSummarySection({
       {...extra}
     />
   );
+
+  const savedCards = () =>
+    savedThemes.map((saved) =>
+      renderCard(savedThemeToOption(saved), {
+        onDelete: () => onDeleteSavedTheme(saved.id),
+        deleteAriaLabel: t("theme.summary.deleteSavedAria", { name: saved.name }),
+      }),
+    );
+
+  // On mobile, favorites and saved themes lead the one card row, each behind a
+  // vertical label (desktop shows them in their own sections instead).
+  const leadingGroup = (key: string, label: string, cards: ReactNode[]) =>
+    cards.length > 0 ? (
+      <div className="theme-list-group" key={key}>
+        <span className="theme-list-group-label">{label}</span>
+        {cards}
+      </div>
+    ) : null;
 
   // "All" lists every theme once; a category lists all its themes (a theme
   // can be in several).
@@ -156,12 +187,7 @@ export default function ThemeSummarySection({
             role="list"
             aria-label={t("theme.summary.savedThemesAria")}
           >
-            {savedThemes.map((saved) =>
-              renderCard(savedThemeToOption(saved), {
-                onDelete: () => onDeleteSavedTheme(saved.id),
-                deleteAriaLabel: t("theme.summary.deleteSavedAria", { name: saved.name }),
-              }),
-            )}
+            {savedCards()}
           </div>
         )}
       </section>
@@ -172,6 +198,8 @@ export default function ThemeSummarySection({
           {[
             { id: "all", color: "", label: t("theme.categories.all") },
             ...(extraGroup ? [extraGroup] : []),
+            { id: "favorites", color: "", label: t("theme.categories.favorites") },
+            { id: "saved", color: "", label: t("theme.categories.saved") },
             ...THEME_CATEGORIES.map(({ id, color }) => ({
               id,
               color,
@@ -184,6 +212,7 @@ export default function ThemeSummarySection({
               role="tab"
               aria-selected={category === id}
               className={`theme-category-tab${category === id ? " is-active" : ""}`}
+              disabled={isEmptyFilter(id)}
               onClick={() => setCategory(id)}
             >
               {color ? (
@@ -203,7 +232,15 @@ export default function ThemeSummarySection({
           aria-label={t("theme.summary.themeOptionsAria")}
           ref={listRef}
         >
-          {visibleThemes.map((option) => renderCard(option))}
+          {category === "favorites"
+            ? favoriteOptions.map((option) => renderCard(option))
+            : category === "saved"
+              ? savedCards()
+              : [
+                  leadingGroup("favorites", t("theme.categories.favorites"), favoriteOptions.map((option) => renderCard(option))),
+                  leadingGroup("saved", t("theme.categories.saved"), savedCards()),
+                  ...visibleThemes.map((option) => renderCard(option)),
+                ]}
         </div>
       </section>
     </div>

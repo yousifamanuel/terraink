@@ -546,7 +546,9 @@
       "green": "Green",
       "light": "Light",
       "dark": "Dark",
-      "electric": "Electric"
+      "electric": "Electric",
+      "favorites": "Favorites",
+      "saved": "Saved"
     }
   },
   "export": {

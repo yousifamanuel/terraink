@@ -550,7 +550,9 @@
       "green": "Zielone",
       "light": "Jasne",
       "dark": "Ciemne",
-      "electric": "Elektryczne"
+      "electric": "Elektryczne",
+      "favorites": "Ulubione",
+      "saved": "Zapisane"
     }
   },
   "export": {

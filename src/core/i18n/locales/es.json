@@ -548,7 +548,9 @@
       "green": "Verdes",
       "light": "Claros",
       "dark": "Oscuros",
-      "electric": "Eléctricos"
+      "electric": "Eléctricos",
+      "favorites": "Favoritos",
+      "saved": "Guardados"
     }
   },
   "export": {

@@ -2974,6 +2974,34 @@ button.location-clear-btn:focus-visible {
 }
 
 @media (max-width: 760px) {
+  .theme-section--favorites,
+  .theme-section--saved {
+    display: none;
+  }
+
+  .theme-card-list .theme-list-group {
+    display: contents;
+  }
+
+  .theme-list-group-label {
+    flex: 0 0 auto;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    scroll-snap-align: start;
+    font-family: "Spline Sans Mono", monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9bb3c5;
+    color: hsl(from #9bb3c5 var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+  }
+
   .field-grid,
   .field-grid.triple {
     grid-template-columns: 1fr;
@@ -4734,6 +4762,20 @@ button.theme-category-tab {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+/* Favorites / Saved filters while there is nothing in them. */
+button.theme-category-tab:disabled {
+  opacity: 0.4;
+  cursor: default;
+  border-color: rgba(151, 183, 207, 0.28);
+  border-color: hsl(from rgba(151, 183, 207, 0.28) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+}
+
+/* Favorites and saved themes at the start of the card row: mobile only (desktop
+   shows them in their own sections). */
+.theme-list-group {
+  display: none;
 }
 
 .theme-category-dot {

@@ -544,7 +544,9 @@
       "green": "绿色",
       "light": "浅色",
       "dark": "深色",
-      "electric": "电光"
+      "electric": "电光",
+      "favorites": "收藏",
+      "saved": "已保存"
     }
   },
   "export": {

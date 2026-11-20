@@ -544,7 +544,9 @@
       "green": "緑",
       "light": "明るい",
       "dark": "暗い",
-      "electric": "エレクトリック"
+      "electric": "エレクトリック",
+      "favorites": "お気に入り",
+      "saved": "保存済み"
     }
   },
   "export": {

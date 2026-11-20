@@ -554,7 +554,9 @@
       "green": "خضراء",
       "light": "فاتحة",
       "dark": "داكنة",
-      "electric": "كهربائية"
+      "electric": "كهربائية",
+      "favorites": "المفضلة",
+      "saved": "المحفوظة"
     }
   },
   "export": {

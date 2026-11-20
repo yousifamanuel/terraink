@@ -546,7 +546,9 @@
       "green": "Yeşil",
       "light": "Açık",
       "dark": "Koyu",
-      "electric": "Elektrik"
+      "electric": "Elektrik",
+      "favorites": "Favoriler",
+      "saved": "Kayıtlı"
     }
   },
   "export": {

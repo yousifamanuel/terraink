@@ -548,7 +548,9 @@
       "green": "Verdi",
       "light": "Chiari",
       "dark": "Scuri",
-      "electric": "Elettrici"
+      "electric": "Elettrici",
+      "favorites": "Preferiti",
+      "saved": "Salvati"
     }
   },
   "export": {
