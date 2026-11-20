@@ -20,6 +20,9 @@ export interface CampaignManifest {
   /** Poster text sizes in percent (e.g. 150), applied with its themes. */
   titleSize?: number;
   subtitleSize?: number;
+  /** Turn the title glow and the road glow on with its themes. */
+  textGlow?: boolean;
+  roadGlow?: boolean;
   /** ISO dates; outside this window the campaign hides itself. */
   startsAt?: string;
   endsAt?: string;
@@ -61,6 +64,8 @@ export function parseCampaignManifest(
     defaultTheme: asOptionalString(data.defaultTheme),
     titleSize: asOptionalPercent(data.titleSize),
     subtitleSize: asOptionalPercent(data.subtitleSize),
+    textGlow: data.textGlow === true,
+    roadGlow: data.roadGlow === true,
     startsAt: asOptionalString(data.startsAt),
     endsAt: asOptionalString(data.endsAt),
     themesFile: asOptionalString(data.themesFile),

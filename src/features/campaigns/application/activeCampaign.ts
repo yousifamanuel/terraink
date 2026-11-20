@@ -22,9 +22,11 @@ export interface Campaign {
   /** Its fonts; the first is applied with its themes. */
   fonts: string[];
   defaultThemeId: string;
-  /** Poster text sizes in percent, applied with its themes. */
+  /** Poster text sizes in percent, and glow, applied with its themes. */
   titleSize?: number;
   subtitleSize?: number;
+  textGlow: boolean;
+  roadGlow: boolean;
   /** Colors of the main theme, for the announcement. */
   colors: { bg: string; text: string; accent: string };
 }
@@ -53,6 +55,8 @@ function pickCampaign(): Campaign | null {
       defaultThemeId,
       titleSize: manifest.titleSize,
       subtitleSize: manifest.subtitleSize,
+      textGlow: Boolean(manifest.textGlow),
+      roadGlow: Boolean(manifest.roadGlow),
       colors: {
         bg: mainTheme.ui.bg,
         text: mainTheme.ui.text,
@@ -104,7 +108,10 @@ export function isCampaignTheme(themeId: string): boolean {
 }
 
 /** Poster text settings the campaign's themes bring along. */
-export type CampaignText = Pick<PosterForm, "fontFamily" | "titleSize" | "subtitleSize">;
+export type CampaignText = Pick<
+  PosterForm,
+  "fontFamily" | "titleSize" | "subtitleSize" | "textGlow" | "roadGlow"
+>;
 
 /** What its themes set; unset fields are left alone. */
 export function campaignText(): Partial<CampaignText> {
@@ -113,6 +120,8 @@ export function campaignText(): Partial<CampaignText> {
     ...(campaign.fonts[0] ? { fontFamily: campaign.fonts[0] } : {}),
     ...(campaign.titleSize ? { titleSize: String(campaign.titleSize) } : {}),
     ...(campaign.subtitleSize ? { subtitleSize: String(campaign.subtitleSize) } : {}),
+    ...(campaign.textGlow ? { textGlow: true } : {}),
+    ...(campaign.roadGlow ? { roadGlow: true } : {}),
   };
 }
 
@@ -128,6 +137,8 @@ export function enterCampaignText(form: CampaignText): Partial<CampaignText> {
       fontFamily: form.fontFamily,
       titleSize: form.titleSize,
       subtitleSize: form.subtitleSize,
+      textGlow: form.textGlow,
+      roadGlow: form.roadGlow,
     },
     applied,
   };
@@ -142,11 +153,11 @@ export function leaveCampaignText(form: CampaignText): Partial<CampaignText> {
   if (!entered) return {};
   const { before, applied } = entered;
   entered = null;
-  const restore: Partial<CampaignText> = {};
+  const restore: Partial<Record<keyof CampaignText, string | boolean>> = {};
   for (const key of Object.keys(applied) as (keyof CampaignText)[]) {
     if (form[key] === applied[key]) restore[key] = before[key];
   }
-  return restore;
+  return restore as Partial<CampaignText>;
 }
 
 /**

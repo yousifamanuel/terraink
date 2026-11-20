@@ -18,8 +18,8 @@ let latestFontRequest = 0;
  * poster text is drawn on a canvas for exports and would keep the fallback.
  */
 function applyText(fields: Partial<CampaignText>, dispatch: Dispatch<PosterAction>) {
-  const { fontFamily, ...sizes } = fields;
-  if (Object.keys(sizes).length > 0) dispatch({ type: "SET_FORM_FIELDS", fields: sizes });
+  const { fontFamily, ...rest } = fields;
+  if (Object.keys(rest).length > 0) dispatch({ type: "SET_FORM_FIELDS", fields: rest });
   if (fontFamily === undefined) return;
   const request = ++latestFontRequest;
   const apply = () => {
@@ -31,8 +31,8 @@ function applyText(fields: Partial<CampaignText>, dispatch: Dispatch<PosterActio
 }
 
 /**
- * Moving from a normal theme to one of the campaign's themes applies its font
- * and text sizes; moving back puts the previous ones back.
+ * Moving from a normal theme to one of the campaign's themes applies its font,
+ * text sizes and glow; moving back puts the previous ones back.
  */
 export function useCampaignThemeText(form: PosterForm, dispatch: Dispatch<PosterAction>): void {
   const previousTheme = useRef(form.theme);
