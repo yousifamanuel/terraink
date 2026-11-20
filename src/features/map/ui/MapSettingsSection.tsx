@@ -154,6 +154,8 @@ export default function MapSettingsSection({
   const { t } = useTranslation();
   const { dispatch } = usePosterDispatch();
   const [isThemeEditing, setIsThemeEditing] = useState(false);
+  // Theme filter chosen in the list; kept while the editor is open (null = default).
+  const [themeFilter, setThemeFilter] = useState<string | null>(null);
   const [isLayoutEditing, setIsLayoutEditing] = useState(false);
   const [pendingDeleteThemeId, setPendingDeleteThemeId] = useState<
     string | null
@@ -406,6 +408,9 @@ export default function MapSettingsSection({
     onSaved: () => {
       onResetColors();
       dispatch({ type: "SET_FORM_FIELDS", fields: COLOR_ADJUST_DEFAULTS });
+      // Saved: back to the theme list, on Saved, where the new theme shows.
+      setThemeFilter("saved");
+      handleDoneThemeEditor();
     },
   });
 
@@ -596,6 +601,8 @@ export default function MapSettingsSection({
             onApplySavedTheme={handleApplySavedTheme}
             onDeleteSavedTheme={handleRequestDeleteSavedTheme}
             extraGroup={campaignThemeGroup()}
+            filter={themeFilter}
+            onFilterChange={setThemeFilter}
           />
         )}
       </div>
