@@ -31,6 +31,7 @@ import MapDimensionFields from "./MapDimensionFields";
 import ColorPicker from "@/features/theme/ui/ColorPicker";
 import ThemeColorEditor from "@/features/theme/ui/ThemeColorEditor";
 import ThemeSummarySection from "@/features/theme/ui/ThemeSummarySection";
+import { campaignThemeGroup } from "@/features/campaigns/application/activeCampaign";
 import { useSaveThemeFlow } from "@/features/theme/ui/SaveThemeButton";
 import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { COLOR_ADJUST_DEFAULTS } from "@/features/poster/application/colorAdjustFields";
@@ -584,6 +585,7 @@ export default function MapSettingsSection({
             savedThemes={savedThemes}
             onApplySavedTheme={handleApplySavedTheme}
             onDeleteSavedTheme={handleRequestDeleteSavedTheme}
+            extraGroup={campaignThemeGroup()}
           />
         )}
       </div>

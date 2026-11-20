@@ -30,6 +30,7 @@ import {
 } from "@/shared/ui/Icons";
 
 import { themeOptions } from "@/features/theme/infrastructure/themeRepository";
+import { withCampaignFonts } from "@/features/campaigns/application/activeCampaign";
 import { layoutGroups } from "@/features/layout/infrastructure/layoutRepository";
 import {
   MIN_POSTER_CM,
@@ -75,6 +76,8 @@ export default function SettingsPanel({
   const { t } = useTranslation();
   const { state, dispatch, mapRef, selectedTheme, effectiveTheme } =
     usePosterContext();
+  // A running campaign's fonts join the list.
+  const fontOptions = withCampaignFonts(FONT_OPTIONS);
   const {
     handleChange,
     handleNumericFieldBlur,
@@ -345,7 +348,7 @@ export default function SettingsPanel({
               <TextSection
                 form={state.form}
                 onChange={handleChange}
-                fontOptions={FONT_OPTIONS}
+                fontOptions={fontOptions}
               />
             ) : null}
           </div>

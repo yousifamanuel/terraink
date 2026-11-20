@@ -16,6 +16,15 @@ import {
 } from "../domain/themeCategories";
 import { useFavoriteThemes } from "../application/useFavoriteThemes";
 
+/** An extra filter group (e.g. a campaign's themes), selected first. */
+export interface ThemeFilterGroup {
+  id: string;
+  /** Shown as is; not translated. */
+  label: string;
+  color: string;
+  themeIds: string[];
+}
+
 interface ThemeSummarySectionProps {
   listRef?: RefObject<HTMLDivElement>;
   themeOptions: ThemeOption[];
@@ -26,6 +35,7 @@ interface ThemeSummarySectionProps {
   savedThemes: SavedTheme[];
   onApplySavedTheme: (themeId: string) => void;
   onDeleteSavedTheme: (themeId: string) => void;
+  extraGroup?: ThemeFilterGroup | null;
 }
 
 function savedThemeToOption(saved: SavedTheme): ThemeOption {
@@ -50,10 +60,12 @@ export default function ThemeSummarySection({
   savedThemes,
   onApplySavedTheme,
   onDeleteSavedTheme,
+  extraGroup = null,
 }: ThemeSummarySectionProps) {
   const { t } = useTranslation();
   const { favoriteIds, toggleFavorite } = useFavoriteThemes();
-  const [category, setCategory] = useState<ThemeCategoryId | "all">("all");
+  // The extra group, when given, is selected first; else "All".
+  const [category, setCategory] = useState<string>(extraGroup?.id ?? "all");
 
   const savedOptions = savedThemes.map(savedThemeToOption);
   const savedIds = new Set(savedThemes.map((saved) => saved.id));
@@ -84,7 +96,13 @@ export default function ThemeSummarySection({
   // "All" lists every theme once; a category lists all its themes (a theme
   // can be in several).
   const visibleThemes =
-    category === "all" ? themeOptions : themesInCategory(themeOptions, category);
+    category === "all"
+      ? themeOptions
+      : category === extraGroup?.id
+        ? extraGroup.themeIds
+            .map((id) => themeOptions.find((option) => option.id === id))
+            .filter((option): option is ThemeOption => Boolean(option))
+        : themesInCategory(themeOptions, category as ThemeCategoryId);
   const description =
     getThemeDescription(selectedThemeOption) || t("theme.summary.noDescription");
 
@@ -149,7 +167,15 @@ export default function ThemeSummarySection({
       <section className="theme-section theme-section--builtin">
         <h3 className="theme-section-heading">{t("theme.summary.builtInThemes")}</h3>
         <div className="theme-category-tabs" role="tablist" aria-label={t("theme.categories.label")}>
-          {[{ id: "all" as const, color: "" }, ...THEME_CATEGORIES].map(({ id, color }) => (
+          {[
+            { id: "all", color: "", label: t("theme.categories.all") },
+            ...(extraGroup ? [extraGroup] : []),
+            ...THEME_CATEGORIES.map(({ id, color }) => ({
+              id,
+              color,
+              label: t(`theme.categories.${id}`),
+            })),
+          ].map(({ id, color, label }) => (
             <button
               key={id}
               type="button"
@@ -165,7 +191,7 @@ export default function ThemeSummarySection({
                   aria-hidden="true"
                 />
               ) : null}
-              {t(`theme.categories.${id}`)}
+              {label}
             </button>
           ))}
         </div>

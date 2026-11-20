@@ -38,6 +38,8 @@ import {
 import type { UserDefaults } from "@/features/settings/domain/types";
 import { getLastRecentLocation } from "@/features/location/application/useRecentLocations";
 import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
+import { applyCampaignStart } from "@/features/campaigns/application/activeCampaign";
+import { useCampaignThemeText } from "@/features/campaigns/application/useCampaignThemeText";
 
 /* ────── Default form (moved from appConfig) ────── */
 
@@ -162,7 +164,12 @@ function applyLastPlaceToForm(form: PosterForm): PosterForm {
 function buildInitialState(): PosterState {
   const userDefaults = loadUserDefaults();
   return {
-    form: applyLastPlaceToForm(applyUserDefaultsToForm(DEFAULT_FORM, userDefaults)),
+    // A running campaign opens on its main theme, unless one was saved.
+    form: applyCampaignStart(
+      applyLastPlaceToForm(applyUserDefaultsToForm(DEFAULT_FORM, userDefaults)),
+      Boolean(userDefaults.theme),
+      userDefaults.fontFamily !== undefined,
+    ),
     customColors: {},
     savedThemes: [],
     userDefaults,
@@ -226,6 +233,9 @@ export function PosterProvider({ children }: { children: ReactNode }) {
   const hasLoadedCustomIconsRef = useRef(false);
   const hasLoadedSavedThemesRef = useRef(false);
   const initialUserDefaultsRef = useRef(state.userDefaults);
+
+  // A campaign's themes bring its font and text sizes.
+  useCampaignThemeText(state.form, dispatch);
 
   // The map opens on the DEFAULT_FORM coordinates. Reading the visitor's
   // position here would raise a permission prompt nobody asked for, so

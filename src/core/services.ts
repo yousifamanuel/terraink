@@ -73,6 +73,11 @@ export {
   saveNewsSeenVersion,
 } from "@/features/updates/infrastructure/updatesFeed";
 
+/* ── Campaigns ── */
+
+export { loadBundledCampaigns } from "@/features/campaigns/infrastructure/campaignBundle";
+export { getTheme, registerThemes } from "@/features/theme/infrastructure/themeRepository";
+
 /* ── Analytics ── */
 
 export { trackEvent, setUserProperty } from "@/core/analytics/gtagAnalytics";
