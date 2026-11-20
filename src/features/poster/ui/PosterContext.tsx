@@ -37,7 +37,12 @@ import {
 } from "@/features/settings/infrastructure/userDefaultsStorage";
 import type { UserDefaults } from "@/features/settings/domain/types";
 import { getLastRecentLocation } from "@/features/location/application/useRecentLocations";
-import { DEFAULT_POSTER_LAYOUT } from "@/features/poster/domain/posterStyleTemplates";
+import {
+  DEFAULT_POSTER_LAYOUT,
+  ROAD_GLOW_DEFAULT,
+  ROAD_GLOW_MAX,
+  ROAD_GLOW_MIN,
+} from "@/features/poster/domain/posterStyleTemplates";
 import { applyCampaignStart } from "@/features/campaigns/application/activeCampaign";
 import { useCampaignThemeText } from "@/features/campaigns/application/useCampaignThemeText";
 import { useAppThemeSync } from "@/features/appTheme/application/useAppTheme";
@@ -106,6 +111,8 @@ export const DEFAULT_FORM: PosterForm = {
   dividerThickness: String(DEFAULT_POSTER_LAYOUT.dividerThickness),
   textGlow: DEFAULT_POSTER_LAYOUT.textGlow,
   textGlowStrength: String(DEFAULT_POSTER_LAYOUT.textGlowStrength),
+  roadGlow: false,
+  roadGlowStrength: String(ROAD_GLOW_DEFAULT),
   showPosterText: true,
   coordinateFormat: "nsew",
   showCoordinates: true,
@@ -390,6 +397,12 @@ export function PosterProvider({ children }: { children: ReactNode }) {
         includeRoadOutline: state.form.includeRoadOutline,
         includeBorders: state.form.includeBorders,
         distanceMeters: Number(state.form.distance),
+        roadGlow: state.form.roadGlow
+          ? Math.min(
+              ROAD_GLOW_MAX,
+              Math.max(ROAD_GLOW_MIN, Number(state.form.roadGlowStrength) || ROAD_GLOW_DEFAULT),
+            ) / 100
+          : 0,
       }),
     [
       effectiveTheme,
@@ -405,6 +418,8 @@ export function PosterProvider({ children }: { children: ReactNode }) {
       state.form.includeRoadOutline,
       state.form.includeBorders,
       state.form.distance,
+      state.form.roadGlow,
+      state.form.roadGlowStrength,
     ],
   );
 

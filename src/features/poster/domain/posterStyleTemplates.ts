@@ -129,6 +129,10 @@ export const DIVIDER_THICKNESS_MIN = 50;
 export const DIVIDER_THICKNESS_MAX = 300;
 export const TEXT_GLOW_MIN = 25;
 export const TEXT_GLOW_MAX = 300;
+/** Road glow strength range, in % of the default. */
+export const ROAD_GLOW_MIN = 25;
+export const ROAD_GLOW_MAX = 300;
+export const ROAD_GLOW_DEFAULT = 200;
 
 export const TEXT_SIZE_MIN = 50;
 export const TEXT_SIZE_MAX = 150;

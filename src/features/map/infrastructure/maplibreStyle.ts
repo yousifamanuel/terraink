@@ -13,6 +13,13 @@ const SOURCE_ID = "openfreemap";
  */
 const SOURCE_MAX_ZOOM = 14;
 
+/**
+ * Road glow at strength 1: a blurred copy under main roads and railways,
+ * this many times as wide as the line, at this opacity.
+ */
+const GLOW_WIDTH_SCALE = 5;
+const GLOW_OPACITY = 0.5;
+
 const BUILDING_BLEND_FACTOR = 0.14;
 const BUILDING_FILL_OPACITY = 0.84;
 const MAP_BUILDING_MIN_ZOOM_DEFAULT = 8;
@@ -195,6 +202,41 @@ function lineClassFilter(classes: string[]): any {
   ];
 }
 
+/**
+ * A soft, wide, blurred copy of a line layer, drawn under it so the line
+ * seems to glow in its own color.
+ */
+function glowLayer(
+  id: string,
+  filter: any,
+  color: string,
+  widthStops: [number, number][],
+  strength: number,
+  visible: boolean,
+  minzoom?: number,
+): any {
+  const glowStops = scaledStops(widthStops, GLOW_WIDTH_SCALE * strength);
+  return {
+    id,
+    source: SOURCE_ID,
+    "source-layer": "transportation",
+    type: "line",
+    ...(minzoom !== undefined ? { minzoom } : {}),
+    filter,
+    paint: {
+      "line-color": color,
+      "line-width": widthExpr(glowStops),
+      "line-blur": widthExpr(glowStops),
+      "line-opacity": GLOW_OPACITY,
+    },
+    layout: {
+      visibility: visible ? "visible" : "none",
+      "line-cap": "round",
+      "line-join": "round",
+    },
+  };
+}
+
 export function generateMapStyle(
   theme: ResolvedTheme,
   options?: {
@@ -210,6 +252,8 @@ export function generateMapStyle(
     includeRoadOutline?: boolean;
     includeBorders?: boolean;
     distanceMeters?: number;
+    /** Glow under main roads and railways; 0 = none, 1 = default strength. */
+    roadGlow?: number;
   },
 ): StyleSpecification {
   const buildingFill =
@@ -232,6 +276,7 @@ export function generateMapStyle(
   const includeRoadOutline = options?.includeRoadOutline ?? true;
   const includeBorders = options?.includeBorders ?? false;
   const buildingMinZoom = resolveBuildingMinZoom(options?.distanceMeters);
+  const roadGlow = Math.max(0, options?.roadGlow ?? 0);
 
   const minorHighCasingStops = scaledStops(
     MAP_ROAD_MINOR_HIGH_DETAIL_WIDTH_STOPS,
@@ -399,6 +444,14 @@ export function generateMapStyle(
         },
       },
 
+      glowLayer(
+        "rail-glow",
+        lineClassFilter(MAP_RAIL_CLASSES),
+        theme.map.rail,
+        railWidthStops,
+        roadGlow,
+        includeRail && roadGlow > 0,
+      ),
       {
         id: "rail",
         source: SOURCE_ID,
@@ -519,6 +572,23 @@ export function generateMapStyle(
         },
       },
 
+      glowLayer(
+        "road-minor-high-glow",
+        lineClassFilter(MAP_ROAD_MINOR_HIGH_CLASSES),
+        roadMinorHighColor,
+        roadMinorDetailHighWidthStops,
+        roadGlow,
+        includeRoads && roadGlow > 0,
+        ROAD_MINOR_DETAIL_MIN_ZOOM,
+      ),
+      glowLayer(
+        "road-major-glow",
+        lineClassFilter(MAP_ROAD_MAJOR_CLASSES),
+        theme.map.roads.major,
+        roadMajorWidthStops,
+        roadGlow,
+        includeRoads && roadGlow > 0,
+      ),
       {
         id: "road-major-casing",
         source: SOURCE_ID,

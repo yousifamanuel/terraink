@@ -382,7 +382,8 @@
       "resetStyle": "Réinitialiser tout le style",
       "resetText": "Réinitialiser tout le texte",
       "textGlow": "Lueur du titre",
-      "glowStrength": "Intensité"
+      "glowStrength": "Intensité",
+      "roadGlow": "Lueur des routes"
     },
     "color": {
       "title": "Couleur",

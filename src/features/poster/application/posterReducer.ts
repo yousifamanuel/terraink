@@ -79,6 +79,9 @@ export interface PosterForm {
   /** Outer glow around the poster text, and its strength in % of default. */
   textGlow: boolean;
   textGlowStrength: string;
+  /** Glow under main roads and railways, and its strength in % of default. */
+  roadGlow: boolean;
+  roadGlowStrength: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

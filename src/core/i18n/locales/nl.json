@@ -380,7 +380,8 @@
       "resetStyle": "Alle stijlinstellingen herstellen",
       "resetText": "Alle tekstinstellingen herstellen",
       "textGlow": "Titelgloed",
-      "glowStrength": "Gloedsterkte"
+      "glowStrength": "Gloedsterkte",
+      "roadGlow": "Weggloed"
     },
     "color": {
       "title": "Kleur",

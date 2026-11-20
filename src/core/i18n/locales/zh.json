@@ -378,7 +378,8 @@
       "resetStyle": "重置所有样式设置",
       "resetText": "重置所有文字设置",
       "textGlow": "标题发光",
-      "glowStrength": "发光强度"
+      "glowStrength": "发光强度",
+      "roadGlow": "道路发光"
     },
     "color": {
       "title": "颜色",

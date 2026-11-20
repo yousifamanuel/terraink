@@ -380,7 +380,8 @@
       "resetStyle": "Reset all style settings",
       "resetText": "Reset all text settings",
       "textGlow": "Title glow",
-      "glowStrength": "Glow strength"
+      "glowStrength": "Glow strength",
+      "roadGlow": "Road glow"
     },
     "color": {
       "title": "Color",

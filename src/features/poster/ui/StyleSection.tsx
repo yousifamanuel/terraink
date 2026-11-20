@@ -8,6 +8,8 @@ import {
   BORDER_THICKNESS_MIN,
   BORDER_WIDTH_MAX,
   BORDER_WIDTH_MIN,
+  ROAD_GLOW_MAX,
+  ROAD_GLOW_MIN,
   TEXT_GLOW_MAX,
   TEXT_GLOW_MIN,
 } from "@/features/poster/domain/posterStyleTemplates";
@@ -26,6 +28,8 @@ const STYLE_KEYS = [
   "showMarkers",
   "textGlow",
   "textGlowStrength",
+  "roadGlow",
+  "roadGlowStrength",
 ] as const;
 
 interface StyleSectionProps {
@@ -35,7 +39,7 @@ interface StyleSectionProps {
   ) => void;
 }
 
-/** Poster look: border, overlay and text glow. */
+/** Poster look: border, overlay, title glow and road glow. */
 export default function StyleSection({ form, onChange }: StyleSectionProps) {
   const { t } = useTranslation();
   const { dispatch } = usePosterContext();
@@ -161,6 +165,33 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
             unit="%"
             defaultValue={Number(DEFAULT_FORM.textGlowStrength)}
             onChange={(value) => setField("textGlowStrength", String(value))}
+          />
+        </div>
+      ) : null}
+
+      <label className="toggle-field">
+        <span>{t("poster.typography.roadGlow")}</span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            name="roadGlow"
+            checked={Boolean(form.roadGlow)}
+            onChange={onChange}
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
+      {form.roadGlow ? (
+        <div className="toggle-subsettings">
+          <SliderField
+            label={t("poster.typography.glowStrength")}
+            value={Number(form.roadGlowStrength)}
+            min={ROAD_GLOW_MIN}
+            max={ROAD_GLOW_MAX}
+            step={5}
+            unit="%"
+            defaultValue={Number(DEFAULT_FORM.roadGlowStrength)}
+            onChange={(value) => setField("roadGlowStrength", String(value))}
           />
         </div>
       ) : null}

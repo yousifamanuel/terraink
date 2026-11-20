@@ -384,7 +384,8 @@
       "resetStyle": "Resetuj wszystkie ustawienia stylu",
       "resetText": "Resetuj wszystkie ustawienia tekstu",
       "textGlow": "Poświata tytułu",
-      "glowStrength": "Siła poświaty"
+      "glowStrength": "Siła poświaty",
+      "roadGlow": "Poświata dróg"
     },
     "color": {
       "title": "Kolor",

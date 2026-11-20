@@ -388,7 +388,8 @@
       "resetStyle": "إعادة ضبط كل إعدادات النمط",
       "resetText": "إعادة ضبط كل إعدادات النص",
       "textGlow": "توهج العنوان",
-      "glowStrength": "شدة التوهج"
+      "glowStrength": "شدة التوهج",
+      "roadGlow": "توهج الطرق"
     },
     "color": {
       "title": "اللون",

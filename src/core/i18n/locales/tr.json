@@ -380,7 +380,8 @@
       "resetStyle": "Tüm stil ayarlarını sıfırla",
       "resetText": "Tüm metin ayarlarını sıfırla",
       "textGlow": "Başlık parıltısı",
-      "glowStrength": "Parıltı gücü"
+      "glowStrength": "Parıltı gücü",
+      "roadGlow": "Yol parıltısı"
     },
     "color": {
       "title": "Renk",

@@ -380,7 +380,8 @@
       "resetStyle": "Alle Stil-Einstellungen zurücksetzen",
       "resetText": "Alle Text-Einstellungen zurücksetzen",
       "textGlow": "Titel-Leuchten",
-      "glowStrength": "Leuchtstärke"
+      "glowStrength": "Leuchtstärke",
+      "roadGlow": "Straßen-Leuchten"
     },
     "color": {
       "title": "Farbe",

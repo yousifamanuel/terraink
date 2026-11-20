@@ -382,7 +382,8 @@
       "resetStyle": "Restablecer todo el estilo",
       "resetText": "Restablecer todo el texto",
       "textGlow": "Brillo del título",
-      "glowStrength": "Intensidad"
+      "glowStrength": "Intensidad",
+      "roadGlow": "Brillo de calles"
     },
     "color": {
       "title": "Color",

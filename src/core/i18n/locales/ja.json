@@ -378,7 +378,8 @@
       "resetStyle": "スタイル設定をすべてリセット",
       "resetText": "文字設定をすべてリセット",
       "textGlow": "タイトルの光彩",
-      "glowStrength": "光の強さ"
+      "glowStrength": "光の強さ",
+      "roadGlow": "道路の光彩"
     },
     "color": {
       "title": "色",
