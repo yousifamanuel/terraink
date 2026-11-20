@@ -541,6 +541,33 @@ button.install-prompt-dismiss:hover {
   transform: translateY(10px);
 }
 
+/* Campaign strip at the top of the startup window, in the campaign's colors
+   (--campaign-* are set inline from its main theme). */
+.campaign-intro {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--campaign-accent) 60%, transparent);
+  border-radius: 12px;
+  background: var(--campaign-bg);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--campaign-accent) 28%, transparent);
+  text-align: center;
+}
+
+.campaign-intro-title {
+  margin: 0;
+  color: var(--campaign-text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.campaign-intro-hint {
+  margin: 0;
+  color: color-mix(in srgb, var(--campaign-text) 70%, transparent);
+  font-size: 0.78rem;
+}
+
 .startup-location-card {
   width: min(360px, calc(100% - 16px));
   border: 1px solid var(--line);

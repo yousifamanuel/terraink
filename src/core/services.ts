@@ -76,6 +76,10 @@ export {
 /* ── Campaigns ── */
 
 export { loadBundledCampaigns } from "@/features/campaigns/infrastructure/campaignBundle";
+export {
+  isCampaignSeen,
+  markCampaignSeen,
+} from "@/features/campaigns/infrastructure/campaignPrefsStorage";
 export { getTheme, registerThemes } from "@/features/theme/infrastructure/themeRepository";
 
 /* ── Analytics ── */

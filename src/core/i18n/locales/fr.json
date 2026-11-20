@@ -398,6 +398,12 @@
       "after": "Après"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink fête {{name}}",
+      "hint": "Essayez les nouveaux thèmes."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "Aucune description disponible.",

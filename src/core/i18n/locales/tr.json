@@ -396,6 +396,12 @@
       "after": "Sonra"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink {{name}} kutluyor",
+      "hint": "Yeni temaları dene."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "Açıklama yok.",

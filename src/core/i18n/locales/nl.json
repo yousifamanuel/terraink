@@ -396,6 +396,12 @@
       "after": "Na"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink viert {{name}}",
+      "hint": "Probeer de nieuwe thema's."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "Geen beschrijving.",

@@ -400,6 +400,12 @@
       "after": "Po"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink świętuje {{name}}",
+      "hint": "Wypróbuj nowe motywy."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "Brak opisu.",

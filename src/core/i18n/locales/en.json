@@ -396,6 +396,12 @@
       "after": "After"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink is celebrating {{name}}",
+      "hint": "Try the new themes."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "No description available.",

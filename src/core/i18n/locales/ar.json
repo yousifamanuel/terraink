@@ -404,6 +404,12 @@
       "after": "بعد"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink تحتفل بـ {{name}}",
+      "hint": "جرّب السمات الجديدة."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "لا يوجد وصف.",

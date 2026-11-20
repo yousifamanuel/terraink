@@ -394,6 +394,12 @@
       "after": "调整后"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink 正在庆祝 {{name}}",
+      "hint": "试试新主题。"
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "暂无描述。",

@@ -396,6 +396,12 @@
       "after": "Nachher"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink feiert {{name}}",
+      "hint": "Probier die neuen Designs aus."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "Keine Beschreibung verfügbar.",

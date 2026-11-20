@@ -394,6 +394,12 @@
       "after": "後"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "Terraink で {{name}} を楽しもう",
+      "hint": "新しいテーマを試してみよう。"
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "説明はありません。",

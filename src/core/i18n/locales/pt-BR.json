@@ -398,6 +398,12 @@
       "after": "Depois"
     }
   },
+  "campaigns": {
+    "intro": {
+      "title": "A Terraink celebra {{name}}",
+      "hint": "Experimente os novos temas."
+    }
+  },
   "theme": {
     "summary": {
       "noDescription": "Sem descrição.",
