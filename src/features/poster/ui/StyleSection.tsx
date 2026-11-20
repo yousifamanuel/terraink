@@ -8,6 +8,8 @@ import {
   BORDER_THICKNESS_MIN,
   BORDER_WIDTH_MAX,
   BORDER_WIDTH_MIN,
+  TEXT_GLOW_MAX,
+  TEXT_GLOW_MIN,
 } from "@/features/poster/domain/posterStyleTemplates";
 import SliderField from "@/shared/ui/SliderField";
 import SegmentedControl from "@/shared/ui/SegmentedControl";
@@ -22,6 +24,8 @@ const STYLE_KEYS = [
   "borderDash",
   "borderThickness",
   "showMarkers",
+  "textGlow",
+  "textGlowStrength",
 ] as const;
 
 interface StyleSectionProps {
@@ -31,7 +35,7 @@ interface StyleSectionProps {
   ) => void;
 }
 
-/** Poster look: border and overlay. */
+/** Poster look: border, overlay and text glow. */
 export default function StyleSection({ form, onChange }: StyleSectionProps) {
   const { t } = useTranslation();
   const { dispatch } = usePosterContext();
@@ -133,6 +137,33 @@ export default function StyleSection({ form, onChange }: StyleSectionProps) {
           <span className="theme-switch-track" aria-hidden="true" />
         </span>
       </label>
+
+      <label className="toggle-field">
+        <span>{t("poster.typography.textGlow")}</span>
+        <span className="theme-switch">
+          <input
+            type="checkbox"
+            name="textGlow"
+            checked={Boolean(form.textGlow)}
+            onChange={onChange}
+          />
+          <span className="theme-switch-track" aria-hidden="true" />
+        </span>
+      </label>
+      {form.textGlow ? (
+        <div className="toggle-subsettings">
+          <SliderField
+            label={t("poster.typography.glowStrength")}
+            value={Number(form.textGlowStrength)}
+            min={TEXT_GLOW_MIN}
+            max={TEXT_GLOW_MAX}
+            step={5}
+            unit="%"
+            defaultValue={Number(DEFAULT_FORM.textGlowStrength)}
+            onChange={(value) => setField("textGlowStrength", String(value))}
+          />
+        </div>
+      ) : null}
     </section>
   );
 }

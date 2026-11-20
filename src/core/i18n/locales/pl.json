@@ -382,7 +382,9 @@
       },
       "dividerThickness": "Grubość linii",
       "resetStyle": "Resetuj wszystkie ustawienia stylu",
-      "resetText": "Resetuj wszystkie ustawienia tekstu"
+      "resetText": "Resetuj wszystkie ustawienia tekstu",
+      "textGlow": "Poświata tytułu",
+      "glowStrength": "Siła poświaty"
     },
     "color": {
       "title": "Kolor",

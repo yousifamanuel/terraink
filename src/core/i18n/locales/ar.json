@@ -386,7 +386,9 @@
       },
       "dividerThickness": "سُمك الخط",
       "resetStyle": "إعادة ضبط كل إعدادات النمط",
-      "resetText": "إعادة ضبط كل إعدادات النص"
+      "resetText": "إعادة ضبط كل إعدادات النص",
+      "textGlow": "توهج العنوان",
+      "glowStrength": "شدة التوهج"
     },
     "color": {
       "title": "اللون",

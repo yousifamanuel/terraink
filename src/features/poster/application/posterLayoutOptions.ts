@@ -17,5 +17,7 @@ export function getPosterLayoutOptions(form: PosterForm): PosterLayoutOptions {
     showDivider: form.showDivider,
     dividerStyle: form.dividerStyle,
     dividerThickness: Number(form.dividerThickness),
+    textGlow: form.textGlow,
+    textGlowStrength: Number(form.textGlowStrength),
   };
 }

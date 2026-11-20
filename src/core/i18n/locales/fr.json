@@ -380,7 +380,9 @@
       },
       "dividerThickness": "Épaisseur du trait",
       "resetStyle": "Réinitialiser tout le style",
-      "resetText": "Réinitialiser tout le texte"
+      "resetText": "Réinitialiser tout le texte",
+      "textGlow": "Lueur du titre",
+      "glowStrength": "Intensité"
     },
     "color": {
       "title": "Couleur",

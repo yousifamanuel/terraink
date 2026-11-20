@@ -378,7 +378,9 @@
       },
       "dividerThickness": "Lijndikte",
       "resetStyle": "Alle stijlinstellingen herstellen",
-      "resetText": "Alle tekstinstellingen herstellen"
+      "resetText": "Alle tekstinstellingen herstellen",
+      "textGlow": "Titelgloed",
+      "glowStrength": "Gloedsterkte"
     },
     "color": {
       "title": "Kleur",

@@ -378,7 +378,9 @@
       },
       "dividerThickness": "Linienstärke",
       "resetStyle": "Alle Stil-Einstellungen zurücksetzen",
-      "resetText": "Alle Text-Einstellungen zurücksetzen"
+      "resetText": "Alle Text-Einstellungen zurücksetzen",
+      "textGlow": "Titel-Leuchten",
+      "glowStrength": "Leuchtstärke"
     },
     "color": {
       "title": "Farbe",

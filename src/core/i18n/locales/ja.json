@@ -376,7 +376,9 @@
       },
       "dividerThickness": "線の太さ",
       "resetStyle": "スタイル設定をすべてリセット",
-      "resetText": "文字設定をすべてリセット"
+      "resetText": "文字設定をすべてリセット",
+      "textGlow": "タイトルの光彩",
+      "glowStrength": "光の強さ"
     },
     "color": {
       "title": "色",

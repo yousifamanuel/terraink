@@ -12,6 +12,7 @@ import {
   ATTRIBUTION_FONT_BASE_PX,
   ATTRIBUTION_FONT_FAMILY,
   formatCityLabel,
+  textGlowShadow,
   computeCityFontScale,
   computeAttributionColor,
 } from "@/features/poster/domain/textLayout";
@@ -72,6 +73,8 @@ export default function PosterTextOverlay({
     : '"IBM Plex Mono", monospace';
 
   const cityLabel = formatCityLabel(city, text.letterSpacedCity);
+  // Outer glow on the title, in the text color (same sizes as the export).
+  const titleShadow = textGlowShadow(textColor, text.glow);
   const titleWeight = posterTitleWeight(fontFamily);
   // Re-measure once the title font has loaded (it may arrive after render).
   const [fontsReady, setFontsReady] = useState(0);
@@ -199,6 +202,7 @@ export default function PosterTextOverlay({
               fontWeight: posterTitleWeight(fontFamily),
               top: `${text.cityY * 100}%`,
               fontSize: cityFontSize,
+              textShadow: titleShadow,
               ...textBoxStyle,
             }}
           >

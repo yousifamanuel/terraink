@@ -378,7 +378,9 @@
       },
       "dividerThickness": "Divider thickness",
       "resetStyle": "Reset all style settings",
-      "resetText": "Reset all text settings"
+      "resetText": "Reset all text settings",
+      "textGlow": "Title glow",
+      "glowStrength": "Glow strength"
     },
     "color": {
       "title": "Color",

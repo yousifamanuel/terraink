@@ -76,6 +76,9 @@ export interface PosterForm {
   dividerStyle: DividerStyle;
   /** Divider thickness in % of the default line. */
   dividerThickness: string;
+  /** Outer glow around the poster text, and its strength in % of default. */
+  textGlow: boolean;
+  textGlowStrength: string;
   showPosterText: boolean;
   /** How the poster writes coordinates (N/S/E/W, ± numbers, degrees-minutes-seconds). */
   coordinateFormat: CoordinateFormat;

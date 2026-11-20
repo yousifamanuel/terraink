@@ -380,7 +380,9 @@
       },
       "dividerThickness": "Spessore linea",
       "resetStyle": "Reimposta tutto lo stile",
-      "resetText": "Reimposta tutto il testo"
+      "resetText": "Reimposta tutto il testo",
+      "textGlow": "Bagliore titolo",
+      "glowStrength": "Intensità"
     },
     "color": {
       "title": "Colore",

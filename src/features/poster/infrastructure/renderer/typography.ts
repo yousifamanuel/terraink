@@ -11,6 +11,7 @@ import {
   COORDS_FONT_BASE_PX,
   ATTRIBUTION_FONT_BASE_PX,
   ATTRIBUTION_FONT_FAMILY,
+  TEXT_GLOW_BLURS,
   formatCityLabel,
   computeCityFontScale,
   computeAttributionColor,
@@ -19,6 +20,28 @@ import {
   buildPosterLayout,
   type PosterStyleTemplate,
 } from "@/features/poster/domain/posterStyleTemplates";
+
+/**
+ * Draws only the glow of what `draw` paints: a copy far off the canvas casts
+ * its shadow back into place, so the text itself is drawn once, as without
+ * glow. `draw` gets the x offset to paint at.
+ */
+function drawGlow(
+  ctx: CanvasRenderingContext2D,
+  color: string,
+  blurs: number[],
+  draw: (dx: number) => void,
+): void {
+  const offset = ctx.canvas.width + 10000;
+  ctx.save();
+  ctx.shadowColor = color;
+  ctx.shadowOffsetX = offset;
+  for (const blur of blurs) {
+    ctx.shadowBlur = blur;
+    draw(-offset);
+  }
+  ctx.restore();
+}
 
 export function drawPosterText(
   ctx: CanvasRenderingContext2D,
@@ -98,9 +121,15 @@ export function drawPosterText(
     ctx.font = `${titleWeight} ${cityFontSize}px ${titleFontFamily}`;
     const titleWidth = ctx.measureText(cityLabel).width;
     const titleLimit = maxTextWidth * 0.98;
+    let titleSize = cityFontSize;
     if (titleWidth > titleLimit) {
-      const fittedSize = (cityFontSize * titleLimit) / titleWidth;
-      ctx.font = `${titleWeight} ${fittedSize}px ${titleFontFamily}`;
+      titleSize = (cityFontSize * titleLimit) / titleWidth;
+      ctx.font = `${titleWeight} ${titleSize}px ${titleFontFamily}`;
+    }
+    const glow = text.glow ?? 0;
+    if (glow) {
+      const blurs = TEXT_GLOW_BLURS.map((blur) => blur * titleSize * glow);
+      drawGlow(ctx, textColor, blurs, (dx) => ctx.fillText(cityLabel, anchorX + dx, cityY));
     }
     ctx.fillText(cityLabel, anchorX, cityY);
 

@@ -378,7 +378,9 @@
       },
       "dividerThickness": "Çizgi kalınlığı",
       "resetStyle": "Tüm stil ayarlarını sıfırla",
-      "resetText": "Tüm metin ayarlarını sıfırla"
+      "resetText": "Tüm metin ayarlarını sıfırla",
+      "textGlow": "Başlık parıltısı",
+      "glowStrength": "Parıltı gücü"
     },
     "color": {
       "title": "Renk",

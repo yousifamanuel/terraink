@@ -104,6 +104,8 @@ export const DEFAULT_FORM: PosterForm = {
   showDivider: DEFAULT_POSTER_LAYOUT.showDivider,
   dividerStyle: DEFAULT_POSTER_LAYOUT.dividerStyle,
   dividerThickness: String(DEFAULT_POSTER_LAYOUT.dividerThickness),
+  textGlow: DEFAULT_POSTER_LAYOUT.textGlow,
+  textGlowStrength: String(DEFAULT_POSTER_LAYOUT.textGlowStrength),
   showPosterText: true,
   coordinateFormat: "nsew",
   showCoordinates: true,

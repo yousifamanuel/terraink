@@ -376,7 +376,9 @@
       },
       "dividerThickness": "线条粗细",
       "resetStyle": "重置所有样式设置",
-      "resetText": "重置所有文字设置"
+      "resetText": "重置所有文字设置",
+      "textGlow": "标题发光",
+      "glowStrength": "发光强度"
     },
     "color": {
       "title": "颜色",

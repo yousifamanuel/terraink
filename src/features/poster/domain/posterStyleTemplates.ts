@@ -53,6 +53,8 @@ export interface PosterTextLayoutSpec {
   dividerStyle?: DividerStyle;
   /** Divider thickness relative to the default line (1 = default). */
   dividerScale?: number;
+  /** Outer glow around the title in its own color; 0 or unset = none, 1 = default. */
+  glow?: number;
   panel?: PosterTextPanelSpec;
 }
 
@@ -98,6 +100,10 @@ export interface PosterLayoutOptions {
   dividerStyle: DividerStyle;
   /** Divider thickness in % of the default line. */
   dividerThickness: number;
+  /** Outer glow around the text in its own color. */
+  textGlow: boolean;
+  /** Glow strength in % of the default. */
+  textGlowStrength: number;
 }
 
 export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
@@ -114,11 +120,15 @@ export const DEFAULT_POSTER_LAYOUT: PosterLayoutOptions = {
   showDivider: true,
   dividerStyle: "solid",
   dividerThickness: 100,
+  textGlow: false,
+  textGlowStrength: 200,
 };
 
 export const DIVIDER_STYLES: DividerStyle[] = ["solid", "dashed", "dotted"];
 export const DIVIDER_THICKNESS_MIN = 50;
 export const DIVIDER_THICKNESS_MAX = 300;
+export const TEXT_GLOW_MIN = 25;
+export const TEXT_GLOW_MAX = 300;
 
 export const TEXT_SIZE_MIN = 50;
 export const TEXT_SIZE_MAX = 150;
@@ -273,6 +283,8 @@ export function buildPosterLayout(
     showDivider,
     dividerStyle,
     dividerThickness,
+    textGlow,
+    textGlowStrength,
   } = {
     ...DEFAULT_POSTER_LAYOUT,
     ...options,
@@ -345,6 +357,7 @@ export function buildPosterLayout(
       dividerStyle,
       dividerScale:
         clampRange(dividerThickness, DIVIDER_THICKNESS_MIN, DIVIDER_THICKNESS_MAX, 100) / 100,
+      glow: textGlow ? clampRange(textGlowStrength, TEXT_GLOW_MIN, TEXT_GLOW_MAX, DEFAULT_POSTER_LAYOUT.textGlowStrength) / 100 : 0,
     },
     attribution: { margin: marginX, marginY, side: "split" },
   };
