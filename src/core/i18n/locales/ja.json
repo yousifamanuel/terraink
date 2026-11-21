@@ -739,7 +739,7 @@
     "next": "次へ",
     "finish": "完了",
     "showAll": "詳細をすべて表示",
-    "okay": "わかりました"
+    "closeButton": "閉じる"
   },
   "legal": {
     "privacy": "プライバシーポリシー",

@@ -250,7 +250,7 @@ export default function NewsModal({ releases, onClose }: NewsModalProps) {
                     </button>
                   ) : null}
                   <button type="button" className="updates-okay-button" onClick={onClose}>
-                    {t("updates.okay")}
+                    {t("updates.closeButton")}
                   </button>
                 </>
               )}
