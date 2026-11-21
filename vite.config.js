@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import fs from "fs";
@@ -372,8 +372,53 @@ function featureHintsPlugin() {
   };
 }
 
+/**
+ * Dev only: when VITE_UPDATES_URL is a file on disk (e.g. a local meta
+ * checkout), the dev server serves its folder, so News reads the file
+ * directly and its images load next to it. URLs are left as they are.
+ */
+function localUpdatesPlugin() {
+  const BASE = "/__local-updates/";
+  let folder = null;
+
+  return {
+    name: "local-updates",
+    apply: "serve",
+    config(_config, { mode }) {
+      const location = String(loadEnv(mode, process.cwd(), "VITE_").VITE_UPDATES_URL ?? "").trim();
+      if (!location || /^https?:\/\//.test(location)) return null;
+      const fullPath = path.resolve(location);
+      if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) return null;
+      folder = path.dirname(fullPath);
+      return {
+        define: {
+          "import.meta.env.VITE_UPDATES_URL": JSON.stringify(BASE + path.basename(fullPath)),
+        },
+      };
+    },
+    configureServer(server) {
+      if (!folder) return;
+      server.middlewares.use(BASE, (req, res, next) => {
+        const file = path.join(folder, decodeURIComponent((req.url ?? "").split("?")[0]));
+        if (!file.startsWith(folder + path.sep) || !fs.existsSync(file)) return next();
+        const types = { ".json": "application/json", ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg" };
+        res.setHeader("Content-Type", types[path.extname(file)] ?? "application/octet-stream");
+        res.setHeader("Cache-Control", "no-store");
+        fs.createReadStream(file).pipe(res);
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), adsensePlugin(), legalPagesPlugin(), campaignsPlugin(), featureHintsPlugin()],
+  plugins: [
+    react(),
+    adsensePlugin(),
+    legalPagesPlugin(),
+    campaignsPlugin(),
+    featureHintsPlugin(),
+    localUpdatesPlugin(),
+  ],
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },
