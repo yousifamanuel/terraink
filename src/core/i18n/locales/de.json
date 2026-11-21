@@ -741,7 +741,7 @@
     "next": "Weiter",
     "finish": "Fertig",
     "showAll": "Alle Details",
-    "okay": "OK"
+    "closeButton": "Schließen"
   },
   "legal": {
     "privacy": "Datenschutzerklärung",

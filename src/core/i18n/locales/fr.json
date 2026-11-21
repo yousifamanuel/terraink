@@ -743,7 +743,7 @@
     "next": "Suivant",
     "finish": "Terminer",
     "showAll": "Tout afficher",
-    "okay": "OK, compris"
+    "closeButton": "Fermer"
   },
   "legal": {
     "privacy": "Politique de confidentialité",

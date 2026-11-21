@@ -99,23 +99,28 @@
 }
 
 .updates-modal-content {
-  overflow-y: auto;
   padding: 10px 28px 16px;
+}
+
+.updates-modal-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   /* Thin blue scrollbar that matches the window. */
   scrollbar-width: thin;
   scrollbar-color: rgba(121, 188, 255, 0.55) transparent;
   scrollbar-color: hsl(from rgba(121, 188, 255, 0.55) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha) transparent;
 }
 
-.updates-modal-content::-webkit-scrollbar {
+.updates-modal-body::-webkit-scrollbar {
   width: 8px;
 }
 
-.updates-modal-content::-webkit-scrollbar-track {
+.updates-modal-body::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.updates-modal-content::-webkit-scrollbar-thumb {
+.updates-modal-body::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: rgba(121, 188, 255, 0.55);
   background: hsl(from rgba(121, 188, 255, 0.55) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
@@ -486,4 +491,35 @@
   flex-shrink: 0;
   border-bottom: 1px solid rgba(142, 177, 204, 0.2);
   border-bottom: 1px solid hsl(from rgba(142, 177, 204, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+}
+
+/* Older releases below the newest one, reached by scrolling down. */
+.updates-older-release {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(142, 177, 204, 0.2);
+  border-top: 1px solid hsl(from rgba(142, 177, 204, 0.2) var(--app-text-hue, calc(h + var(--app-hue-shift, 0))) var(--app-text-s, calc(s * var(--app-sat, 1))) l / alpha);
+}
+
+.updates-older-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+  margin-bottom: 18px;
+  border-radius: 12px;
+}
+
+.updates-modal-content .updates-older-title {
+  margin: 12px 0 6px;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.03em;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 0.95;
+}
+
+.updates-older-heading {
+  margin: 18px 0 14px;
+  font-size: 1.2rem;
 }

@@ -355,9 +355,9 @@ export default function AppShell() {
       ) : null}
 
       <FooterNote />
-      {newsOpen && news.release ? (
+      {newsOpen && news.releases.length > 0 ? (
         <Suspense fallback={null}>
-          <NewsModal release={news.release} onClose={() => setNewsOpen(false)} />
+          <NewsModal releases={news.releases} onClose={() => setNewsOpen(false)} />
         </Suspense>
       ) : null}
       {aboutOpen ? (

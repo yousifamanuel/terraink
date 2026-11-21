@@ -8,7 +8,7 @@ import {
 } from "@/core/services";
 import {
   isNewsUnread,
-  pickCurrentRelease,
+  pickVisibleReleases,
   type UpdateRelease,
 } from "../domain/types";
 
@@ -31,12 +31,12 @@ function markSeen(version: string) {
 }
 
 // Loaded once, on the first open; nothing is fetched before that.
-let releasePromise: Promise<UpdateRelease | null> | null = null;
-function loadRelease(): Promise<UpdateRelease | null> {
-  releasePromise ??= fetchUpdateReleases(UPDATES_URL).then((releases) =>
-    pickCurrentRelease(releases, APP_VERSION),
+let releasesPromise: Promise<UpdateRelease[]> | null = null;
+function loadReleases(): Promise<UpdateRelease[]> {
+  releasesPromise ??= fetchUpdateReleases(UPDATES_URL).then((releases) =>
+    pickVisibleReleases(releases, APP_VERSION),
   );
-  return releasePromise;
+  return releasesPromise;
 }
 
 /**
@@ -45,21 +45,21 @@ function loadRelease(): Promise<UpdateRelease | null> {
  */
 export function useNews() {
   const seen = useSyncExternalStore(subscribe, () => seenVersion);
-  const [release, setRelease] = useState<UpdateRelease | null>(null);
+  const [releases, setReleases] = useState<UpdateRelease[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const open = async (source: NewsOpenSource): Promise<UpdateRelease | null> => {
+  const open = async (source: NewsOpenSource): Promise<boolean> => {
     trackEvent("news_open", { source, app_release: APP_VERSION });
     markSeen(APP_VERSION);
     setIsLoading(true);
-    const loaded = await loadRelease();
+    const loaded = await loadReleases();
     setIsLoading(false);
-    setRelease(loaded);
-    return loaded;
+    setReleases(loaded);
+    return loaded.length > 0;
   };
 
   return {
-    release,
+    releases,
     isLoading,
     hasUnread: isNewsUnread(APP_VERSION, seen),
     open,
