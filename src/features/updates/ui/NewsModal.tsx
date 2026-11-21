@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { IoClose } from "react-icons/io5";
 import { UPDATES_URL } from "@/core/config";
 import { resolveUpdateImage } from "@/core/services";
-import type { UpdateCategory, UpdateRelease } from "../domain/types";
+import type { UpdateCategory, UpdatePoint, UpdateRelease } from "../domain/types";
 
 interface CategoryMeta {
   icon: string;
@@ -55,14 +55,68 @@ function renderPointText(text: string) {
   );
 }
 
+/** A release's summary points; the first step points when it has none. */
+function summaryPointsOf(release: UpdateRelease): UpdatePoint[] {
+  if (Array.isArray(release.summary?.points) && release.summary.points.length > 0) {
+    return release.summary.points;
+  }
+  return release.steps.flatMap((step) => step.points).slice(0, 4);
+}
+
+function PointList({ points }: { points: UpdatePoint[] }) {
+  const { t } = useTranslation();
+  return (
+    <ul className="updates-points">
+      {points.map((point, index) => {
+        const category = categoryConfig[point.type] ?? categoryConfig.improved;
+        return (
+          <li key={`${point.type}-${index}`} className={`updates-point updates-point--${point.type}`}>
+            <span className="updates-point-icon" aria-hidden="true">
+              {category.icon}
+            </span>
+            <div className="updates-point-text">
+              <span className="updates-point-label">{t(category.labelKey)}</span>
+              {renderPointText(point.text)}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** An older release below the newest one, shown by scrolling down. */
+function OlderRelease({ release }: { release: UpdateRelease }) {
+  const { t } = useTranslation();
+  const image = resolveUpdateImage(release.image ?? null, UPDATES_URL);
+  return (
+    <section className="updates-older-release">
+      {image ? <img className="updates-older-cover" src={image} alt="" width={1500} height={500} /> : null}
+      <span className="updates-version-badge">{t("updates.version", { version: release.version })}</span>
+      <h3 className="updates-older-title">
+        {release.labels?.summaryTitle?.trim() || t("updates.whatIsNew")}
+      </h3>
+      <p className="updates-released-on">
+        {t("updates.releasedOn", { date: toDisplayDate(release.date) })}
+      </p>
+      <h4 className="updates-older-heading">
+        {release.summary?.title?.trim() || t("updates.quickHighlights")}
+      </h4>
+      <PointList points={summaryPointsOf(release)} />
+    </section>
+  );
+}
+
 interface NewsModalProps {
-  release: UpdateRelease;
+  /** Newest first; the first one leads, older ones follow below. */
+  releases: UpdateRelease[];
   onClose: () => void;
 }
 
 /** The release notes, opened from News: a summary, then step by step. */
-export default function NewsModal({ release, onClose }: NewsModalProps) {
+export default function NewsModal({ releases, onClose }: NewsModalProps) {
   const { t } = useTranslation();
+  const [release, ...olderReleases] = releases;
   const [viewMode, setViewMode] = useState<"summary" | "details">("summary");
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -81,12 +135,7 @@ export default function NewsModal({ release, onClose }: NewsModalProps) {
     ? Math.round(((currentStep + 1) / totalSteps) * 100)
     : 0;
   const activeStep = release.steps[currentStep] ?? null;
-  const summaryPoints = useMemo(() => {
-    if (Array.isArray(release.summary?.points) && release.summary.points.length > 0) {
-      return release.summary.points;
-    }
-    return release.steps.flatMap((step) => step.points).slice(0, 4);
-  }, [release]);
+  const summaryPoints = useMemo(() => summaryPointsOf(release), [release]);
   const summaryTitle = release.summary?.title?.trim() || t("updates.quickHighlights");
   const summaryHeaderTitle = release.labels?.summaryTitle?.trim() || t("updates.whatIsNew");
   const detailsHeaderTitle =
@@ -135,57 +184,42 @@ export default function NewsModal({ release, onClose }: NewsModalProps) {
           <IoClose className="updates-modal-close-icon" />
         </button>
 
-        {!isDetailsMode && coverImage ? (
-          <img
-            className="updates-cover-image"
-            src={coverImage}
-            alt=""
-            width={1500}
-            height={500}
-          />
-        ) : null}
-
-        <header className="updates-modal-header">
-          <span className="updates-version-badge">{t("updates.version", { version: release.version })}</span>
-          <h2 id="updates-modal-title">
-            {isDetailsMode ? detailsHeaderTitle : summaryHeaderTitle}
-          </h2>
-          <p className="updates-released-on">
-            {t("updates.releasedOn", { date: toDisplayDate(release.date) })}
-          </p>
-        </header>
-
-        <div className="updates-modal-content">
-          <h3>{isDetailsMode ? activeStep?.title : summaryTitle}</h3>
-          <ul className="updates-points">
-            {(isDetailsMode && activeStep ? activeStep.points : summaryPoints).map(
-              (point, index) => {
-                const category = categoryConfig[point.type] ?? categoryConfig.improved;
-
-                return (
-                  <li
-                    key={`${point.type}-${index}`}
-                    className={`updates-point updates-point--${point.type}`}
-                  >
-                    <span className="updates-point-icon" aria-hidden="true">
-                      {category.icon}
-                    </span>
-                    <div className="updates-point-text">
-                      <span className="updates-point-label">{t(category.labelKey)}</span>
-                      {renderPointText(point.text)}
-                    </div>
-                  </li>
-                );
-              },
-            )}
-          </ul>
-          {isDetailsMode && resolvedImagePath ? (
+        {/* Picture, title and notes scroll together, so older releases read in turn. */}
+        <div className="updates-modal-body">
+          {!isDetailsMode && coverImage ? (
             <img
-              className="updates-step-image"
-              src={resolvedImagePath}
-              alt={t("updates.previewAlt", { title: activeStep?.title ?? "" })}
+              className="updates-cover-image"
+              src={coverImage}
+              alt=""
+              width={1500}
+              height={500}
             />
           ) : null}
+
+          <header className="updates-modal-header">
+            <span className="updates-version-badge">{t("updates.version", { version: release.version })}</span>
+            <h2 id="updates-modal-title">
+              {isDetailsMode ? detailsHeaderTitle : summaryHeaderTitle}
+            </h2>
+            <p className="updates-released-on">
+              {t("updates.releasedOn", { date: toDisplayDate(release.date) })}
+            </p>
+          </header>
+
+          <div className="updates-modal-content">
+            <h3>{isDetailsMode ? activeStep?.title : summaryTitle}</h3>
+            <PointList points={isDetailsMode && activeStep ? activeStep.points : summaryPoints} />
+            {isDetailsMode && resolvedImagePath ? (
+              <img
+                className="updates-step-image"
+                src={resolvedImagePath}
+                alt={t("updates.previewAlt", { title: activeStep?.title ?? "" })}
+              />
+            ) : null}
+            {!isDetailsMode
+              ? olderReleases.map((older) => <OlderRelease key={older.version} release={older} />)
+              : null}
+          </div>
         </div>
 
         <footer className="updates-modal-footer">

@@ -9,3 +9,18 @@ export function compareVersions(a: string, b: string): number {
   }
   return 0;
 }
+
+/**
+ * True while `version` is not past `limit`. An "x" in the limit matches any
+ * number there, so "0.5.x" covers every 0.5 version.
+ */
+export function isVersionWithin(version: string, limit: string): boolean {
+  const parts = version.split(".").map((part) => Number.parseInt(part, 10) || 0);
+  const limits = limit.split(".");
+  for (let index = 0; index < limits.length; index += 1) {
+    if (limits[index].trim().toLowerCase() === "x") return true;
+    const diff = (parts[index] ?? 0) - (Number.parseInt(limits[index], 10) || 0);
+    if (diff !== 0) return diff < 0;
+  }
+  return parts.slice(limits.length).every((part) => part === 0);
+}
